@@ -11,6 +11,7 @@
 		7B1581892C6A476200599E7C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581882C6A476200599E7C /* ContentView.swift */; };
 		7B15818B2C6A476300599E7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818A2C6A476300599E7C /* Assets.xcassets */; };
 		7B15818E2C6A476300599E7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818D2C6A476300599E7C /* Preview Assets.xcassets */; };
+		7B1581952C6A4D7D00599E7C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B1581942C6A4D7D00599E7C /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		7B1581882C6A476200599E7C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7B15818A2C6A476300599E7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B15818D2C6A476300599E7C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7B1581942C6A4D7D00599E7C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 		7B15817A2C6A476200599E7C = {
 			isa = PBXGroup;
 			children = (
+				7B1581942C6A4D7D00599E7C /* .gitignore */,
 				7B1581852C6A476200599E7C /* GuideU */,
 				7B1581842C6A476200599E7C /* Products */,
 			);
@@ -126,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B15818E2C6A476300599E7C /* Preview Assets.xcassets in Resources */,
+				7B1581952C6A4D7D00599E7C /* .gitignore in Resources */,
 				7B15818B2C6A476300599E7C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
