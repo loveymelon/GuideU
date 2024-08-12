@@ -7,6 +7,8 @@
 Secret
 Secret/
 
+# Xcode workspace user state
+GuideU.xcodeproj/project.xcworkspace/xcuserdata/
 ### Swift ###
 # Xcode
 #
