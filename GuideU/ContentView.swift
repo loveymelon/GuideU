@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var tabSelected = TabCase.home
+    
+    @Environment(\.colorScheme) var scheme
+    
+    /// Splash -> 처음 유저인지 UserDefaults Trigger -> 온보딩뷰 or TabView
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        Text("임시")
     }
 }
 
