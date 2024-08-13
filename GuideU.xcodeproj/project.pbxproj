@@ -26,6 +26,11 @@
 		7B1581B62C6A560800599E7C /* GuideUTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581B52C6A560800599E7C /* GuideUTabView.swift */; };
 		7B1581B92C6A56EC00599E7C /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581B82C6A56EC00599E7C /* SplashView.swift */; };
 		7B1581BD2C6A58B700599E7C /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581BC2C6A58B700599E7C /* Const.swift */; };
+		7B1581C22C6BBB8C00599E7C /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1581C12C6BBB8C00599E7C /* ComposableArchitecture */; };
+		7B1581C52C6BBD1C00599E7C /* TCACoordinators in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1581C42C6BBD1C00599E7C /* TCACoordinators */; };
+		7B1581C82C6BBD3F00599E7C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1581C72C6BBD3F00599E7C /* Alamofire */; };
+		7B1581CB2C6BBD4F00599E7C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1581CA2C6BBD4F00599E7C /* Kingfisher */; };
+		7B1581CE2C6BBD6800599E7C /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1581CD2C6BBD6800599E7C /* PopupView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +62,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B1581CB2C6BBD4F00599E7C /* Kingfisher in Frameworks */,
+				7B1581C82C6BBD3F00599E7C /* Alamofire in Frameworks */,
+				7B1581CE2C6BBD6800599E7C /* PopupView in Frameworks */,
+				7B1581C52C6BBD1C00599E7C /* TCACoordinators in Frameworks */,
+				7B1581C22C6BBB8C00599E7C /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +212,13 @@
 			dependencies = (
 			);
 			name = GuideU;
+			packageProductDependencies = (
+				7B1581C12C6BBB8C00599E7C /* ComposableArchitecture */,
+				7B1581C42C6BBD1C00599E7C /* TCACoordinators */,
+				7B1581C72C6BBD3F00599E7C /* Alamofire */,
+				7B1581CA2C6BBD4F00599E7C /* Kingfisher */,
+				7B1581CD2C6BBD6800599E7C /* PopupView */,
+			);
 			productName = GuideU;
 			productReference = 7B1581832C6A476200599E7C /* GuideU.app */;
 			productType = "com.apple.product-type.application";
@@ -230,6 +247,13 @@
 				Base,
 			);
 			mainGroup = 7B15817A2C6A476200599E7C;
+			packageReferences = (
+				7B1581C02C6BBB8C00599E7C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				7B1581C32C6BBD1C00599E7C /* XCRemoteSwiftPackageReference "TCACoordinators" */,
+				7B1581C62C6BBD3F00599E7C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				7B1581C92C6BBD4F00599E7C /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				7B1581CC2C6BBD6800599E7C /* XCRemoteSwiftPackageReference "PopupView" */,
+			);
 			productRefGroup = 7B1581842C6A476200599E7C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -490,6 +514,77 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7B1581C02C6BBB8C00599E7C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.12.1;
+			};
+		};
+		7B1581C32C6BBD1C00599E7C /* XCRemoteSwiftPackageReference "TCACoordinators" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/johnpatrickmorgan/TCACoordinators.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.1;
+			};
+		};
+		7B1581C62C6BBD3F00599E7C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		7B1581C92C6BBD4F00599E7C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+		7B1581CC2C6BBD6800599E7C /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7B1581C12C6BBB8C00599E7C /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B1581C02C6BBB8C00599E7C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		7B1581C42C6BBD1C00599E7C /* TCACoordinators */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B1581C32C6BBD1C00599E7C /* XCRemoteSwiftPackageReference "TCACoordinators" */;
+			productName = TCACoordinators;
+		};
+		7B1581C72C6BBD3F00599E7C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B1581C62C6BBD3F00599E7C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		7B1581CA2C6BBD4F00599E7C /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B1581C92C6BBD4F00599E7C /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		7B1581CD2C6BBD6800599E7C /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B1581CC2C6BBD6800599E7C /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7B15817B2C6A476200599E7C /* Project object */;
 }
