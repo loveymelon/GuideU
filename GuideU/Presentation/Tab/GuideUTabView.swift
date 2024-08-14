@@ -16,40 +16,42 @@ struct GuideUTabView: View {
     @Environment(\.colorScheme) var scheme
     
     var body: some View {
-        TabView(selection: $store.currentTab.sending(\.임시)) {
-            Group {
-                Text("as")
-                    .tabItem {
-                        tabItemView(tabItem: .home)
-                    }
-                    .tag(TabCase.home)
-                    
-                Text("ass")
-                    .tabItem {
-                        tabItemView(tabItem: .meme)
-                    }
-                    .tag(TabCase.meme)
-                   
-                Text("asss")
-                    .tabItem {
-                        tabItemView(tabItem: .timeLine)
-                    }
-                    .tag(TabCase.timeLine)
-                Text("assss")
-                    .tabItem {
-                        tabItemView(tabItem: .setting)
-                    }
-                    .tag(TabCase.setting)
+        WithPerceptionTracking {
+            TabView(selection: $store.currentTab.sending(\.임시)) {
+                Group {
+                    Text("as")
+                        .tabItem {
+                            tabItemView(tabItem: .home)
+                        }
+                        .tag(TabCase.home)
+                        
+                    Text("ass")
+                        .tabItem {
+                            tabItemView(tabItem: .meme)
+                        }
+                        .tag(TabCase.meme)
+                       
+                    Text("asss")
+                        .tabItem {
+                            tabItemView(tabItem: .timeLine)
+                        }
+                        .tag(TabCase.timeLine)
+                    Text("assss")
+                        .tabItem {
+                            tabItemView(tabItem: .setting)
+                        }
+                        .tag(TabCase.setting)
+                }
             }
-        }
-        .onAppear {
-            switch scheme {
-            case .light:
-                UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.light.color
-            case .dark:
-                UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.dark.color
-            @unknown default:
-                break
+            .onAppear {
+                switch scheme {
+                case .light:
+                    UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.light.color
+                case .dark:
+                    UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.dark.color
+                @unknown default:
+                    break
+                }
             }
         }
     }
