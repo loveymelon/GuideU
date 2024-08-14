@@ -6,10 +6,19 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct SplashView: View {
+    
+    @Perception.Bindable var store: StoreOf<SplashFeature>
+    
     var body: some View {
-        contentView()
+        WithPerceptionTracking {
+            contentView()
+                .onAppear {
+                    store.send(.onAppear)
+                }
+        }
     }
 }
 
@@ -40,6 +49,8 @@ extension SplashView {
 
 #if DEBUG
 #Preview {
-    SplashView()
+    SplashView(store: Store(initialState: SplashFeature.State(), reducer: {
+        SplashFeature()
+    }))
 }
 #endif

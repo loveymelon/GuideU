@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
+import TCACoordinators
 
 struct GuideUTabView: View {
     
-    @State var tabSelected = TabCase.home
+    @Perception.Bindable var store: StoreOf<TabCoordinator>
     
     @Environment(\.colorScheme) var scheme
     
     var body: some View {
-        TabView(selection: $tabSelected) {
+        TabView(selection: $store.currentTab.sending(\.임시)) {
             Group {
                 Text("as")
                     .tabItem {
@@ -62,20 +64,21 @@ extension GuideUTabView {
             Group {
                 switch tabItem {
                 case .home:
-                    tabSelected == .home ? Image.TabbarImage.selected.homeTab : Image.TabbarImage.noneTab.homeTab
+                    
+                    store.currentTab == .home ? Image.TabbarImage.selected.homeTab : Image.TabbarImage.noneTab.homeTab
                         .renderingMode(.template)
                         .resizable()
                     
                 case .meme:
-                    tabSelected == .meme ? Image.TabbarImage.selected.memeTab : Image.TabbarImage.noneTab.memeTab
+                    store.currentTab == .meme ? Image.TabbarImage.selected.memeTab : Image.TabbarImage.noneTab.memeTab
                         .renderingMode(.template)
                         .resizable()
                 case .timeLine:
-                    tabSelected == .timeLine ? Image.TabbarImage.selected.historyTab : Image.TabbarImage.noneTab.historyTab
+                    store.currentTab == .timeLine ? Image.TabbarImage.selected.historyTab : Image.TabbarImage.noneTab.historyTab
                         .renderingMode(.template)
                         .resizable()
                 case .setting:
-                    tabSelected == .setting ? Image.TabbarImage.selected.settingTab : Image.TabbarImage.noneTab.settingTab
+                    store.currentTab == .setting ? Image.TabbarImage.selected.settingTab : Image.TabbarImage.noneTab.settingTab
                         .renderingMode(.template)
                         .resizable()
                 }
@@ -88,6 +91,8 @@ extension GuideUTabView {
 
 #if DEBUG
 #Preview {
-    GuideUTabView()
+    GuideUTabView(store: Store(initialState: TabCoordinator.State(), reducer: {
+        TabCoordinator()
+    }))
 }
 #endif
