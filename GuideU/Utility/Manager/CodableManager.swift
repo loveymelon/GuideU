@@ -28,6 +28,17 @@ extension CodableManager {
     func jsonDecoding<T:Decodable>(model: T.Type, from data: Data) throws -> T {
         return try decoder.decode(T.self, from: data)
     }
+    
+    func toJSONSerialization(data: Data?) -> Any? {
+        do {
+            guard let data else {
+                return nil
+            }
+            return try JSONSerialization.jsonObject(with: data, options: [])
+        } catch {
+            return nil
+        }
+    }
 }
 
 
