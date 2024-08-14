@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581862C6A476200599E7C /* GuideUApp.swift */; };
-		7B1581892C6A476200599E7C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581882C6A476200599E7C /* ContentView.swift */; };
 		7B15818B2C6A476300599E7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818A2C6A476300599E7C /* Assets.xcassets */; };
 		7B15818E2C6A476300599E7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818D2C6A476300599E7C /* Preview Assets.xcassets */; };
 		7B1581952C6A4D7D00599E7C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B1581942C6A4D7D00599E7C /* .gitignore */; };
@@ -47,7 +46,6 @@
 /* Begin PBXFileReference section */
 		7B1581832C6A476200599E7C /* GuideU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B1581862C6A476200599E7C /* GuideUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUApp.swift; sourceTree = "<group>"; };
-		7B1581882C6A476200599E7C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7B15818A2C6A476300599E7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B15818D2C6A476300599E7C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7B1581942C6A4D7D00599E7C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 				7B1581982C6A50A700599E7C /* Resource */,
 				7B1581962C6A500200599E7C /* Utility */,
 				7B1581862C6A476200599E7C /* GuideUApp.swift */,
-				7B1581882C6A476200599E7C /* ContentView.swift */,
 				7B15818A2C6A476300599E7C /* Assets.xcassets */,
 				7B15818C2C6A476300599E7C /* Preview Content */,
 			);
@@ -358,7 +355,6 @@
 				7B1581B92C6A56EC00599E7C /* SplashView.swift in Sources */,
 				7B1581DD2C6CB34900599E7C /* RootCoordinatorView.swift in Sources */,
 				7B1581D82C6C823900599E7C /* UserDefaultsManager.swift in Sources */,
-				7B1581892C6A476200599E7C /* ContentView.swift in Sources */,
 				7B1581D32C6C811100599E7C /* UserDefaultsWrapper.swift in Sources */,
 				7B1581DB2C6CB28A00599E7C /* RootCoordinator.swift in Sources */,
 				7B1581AA2C6A518200599E7C /* ExFont.swift in Sources */,
