@@ -42,13 +42,13 @@
 		7B1581EA2C6CBEDF00599E7C /* ButtonWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581E92C6CBEDF00599E7C /* ButtonWrapper.swift */; };
 		7B1581EE2C6CC41900599E7C /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581ED2C6CC41900599E7C /* TabCoordinator.swift */; };
 		7B1581F42C6CEBC200599E7C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581F32C6CEBC200599E7C /* Router.swift */; };
-		7B1581F72C6CEC6600599E7C /* GuideUURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581F62C6CEC6600599E7C /* GuideUURL.swift */; };
 		7B1581F92C6CEF1200599E7C /* EncodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581F82C6CEF1200599E7C /* EncodingType.swift */; };
 		7B1581FD2C6CF2AF00599E7C /* MemeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581FC2C6CF2AF00599E7C /* MemeDTO.swift */; };
 		7B1581FF2C6CF2C400599E7C /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581FE2C6CF2C400599E7C /* DTO.swift */; };
 		7B1582012C6CF30000599E7C /* DuplicateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582002C6CF30000599E7C /* DuplicateDTO.swift */; };
 		7B1582032C6CF33400599E7C /* RelatedVideoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582022C6CF33400599E7C /* RelatedVideoDTO.swift */; };
 		7B1582052C6CF3DA00599E7C /* DTOList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582042C6CF3DA00599E7C /* DTOList.swift */; };
+		DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,13 +84,13 @@
 		7B1581E92C6CBEDF00599E7C /* ButtonWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWrapper.swift; sourceTree = "<group>"; };
 		7B1581ED2C6CC41900599E7C /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
 		7B1581F32C6CEBC200599E7C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		7B1581F62C6CEC6600599E7C /* GuideUURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUURL.swift; sourceTree = "<group>"; };
 		7B1581F82C6CEF1200599E7C /* EncodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingType.swift; sourceTree = "<group>"; };
 		7B1581FC2C6CF2AF00599E7C /* MemeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeDTO.swift; sourceTree = "<group>"; };
 		7B1581FE2C6CF2C400599E7C /* DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTO.swift; sourceTree = "<group>"; };
 		7B1582002C6CF30000599E7C /* DuplicateDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateDTO.swift; sourceTree = "<group>"; };
 		7B1582022C6CF33400599E7C /* RelatedVideoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedVideoDTO.swift; sourceTree = "<group>"; };
 		7B1582042C6CF3DA00599E7C /* DTOList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOList.swift; sourceTree = "<group>"; };
+		DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +129,6 @@
 		7B1581852C6A476200599E7C /* GuideU */ = {
 			isa = PBXGroup;
 			children = (
-				7B1581F52C6CEC5A00599E7C /* Secret */,
 				7B1581A82C6A513300599E7C /* Info.plist */,
 				7B1581B32C6A557A00599E7C /* Presentation */,
 				7B1581982C6A50A700599E7C /* Resource */,
@@ -209,6 +208,7 @@
 			children = (
 				7B1581B12C6A54E600599E7C /* TabCase.swift */,
 				7B1581F82C6CEF1200599E7C /* EncodingType.swift */,
+				DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */,
 			);
 			path = EnumCase;
 			sourceTree = "<group>";
@@ -293,14 +293,6 @@
 				7B1581FE2C6CF2C400599E7C /* DTO.swift */,
 			);
 			path = Protocol;
-			sourceTree = "<group>";
-		};
-		7B1581F52C6CEC5A00599E7C /* Secret */ = {
-			isa = PBXGroup;
-			children = (
-				7B1581F62C6CEC6600599E7C /* GuideUURL.swift */,
-			);
-			path = Secret;
 			sourceTree = "<group>";
 		};
 		7B1581FA2C6CF29A00599E7C /* Codable */ = {
@@ -421,6 +413,7 @@
 				7B1581B92C6A56EC00599E7C /* SplashView.swift in Sources */,
 				7B1582032C6CF33400599E7C /* RelatedVideoDTO.swift in Sources */,
 				7B1581DD2C6CB34900599E7C /* RootCoordinatorView.swift in Sources */,
+				DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */,
 				7B1581D82C6C823900599E7C /* UserDefaultsManager.swift in Sources */,
 				7B1581D32C6C811100599E7C /* UserDefaultsWrapper.swift in Sources */,
 				7B1581DB2C6CB28A00599E7C /* RootCoordinator.swift in Sources */,
@@ -434,7 +427,6 @@
 				7B1581B62C6A560800599E7C /* GuideUTabView.swift in Sources */,
 				7B1581D62C6C815800599E7C /* CodableManager.swift in Sources */,
 				7B1581AF2C6A53A800599E7C /* GuideUColor.swift in Sources */,
-				7B1581F72C6CEC6600599E7C /* GuideUURL.swift in Sources */,
 				7B1581EA2C6CBEDF00599E7C /* ButtonWrapper.swift in Sources */,
 				7B1582012C6CF30000599E7C /* DuplicateDTO.swift in Sources */,
 				7B1581E42C6CB85100599E7C /* OnBoardPageView.swift in Sources */,
