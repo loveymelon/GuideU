@@ -23,4 +23,81 @@ enum GuideUColor{
         }
     }
     
+    enum ViewBaseColor: String {
+        case light
+        case dark
+        
+        var backColor: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "FFFFFF")
+            case .dark:
+                return UIColor(hexCode: "252525")
+            }
+        }
+        
+        var textColor: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "0D0D0D")
+            case .dark:
+                return UIColor(hexCode: "F8F8F8")
+            }
+        }
+        
+        var gray1: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "4C4B4A")
+            case .dark:
+                return UIColor(hexCode: "E1E1E1")
+            }
+        }
+        
+        var gray2: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "7F7E7D")
+            case .dark:
+                return UIColor(hexCode: "C0C0C0")
+            }
+        }
+        
+        var gray3: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "E1E1E1")
+            case .dark:
+                return UIColor(hexCode: "7F7E7D")
+            }
+        }
+        
+        var depth1: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "F8F8F8")
+            case .dark:
+                return UIColor(hexCode: "4C4B4A")
+            }
+        }
+        
+        var stroke: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "000000", alpha: 10)
+            case .dark:
+                return UIColor(hexCode: "FFFFFF", alpha: 10)
+            }
+        }
+        
+        var mainBlur: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "FAFAFA", alpha: 90)
+            case .dark:
+                return UIColor(hexCode: "151515", alpha: 95)
+            }
+        }
+    }
+    
 }

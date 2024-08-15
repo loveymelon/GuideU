@@ -49,6 +49,7 @@
 		7B1582032C6CF33400599E7C /* RelatedVideoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582022C6CF33400599E7C /* RelatedVideoDTO.swift */; };
 		7B1582052C6CF3DA00599E7C /* DTOList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582042C6CF3DA00599E7C /* DTOList.swift */; };
 		DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */; };
+		DFABE7302C6E1EA900EF5B81 /* ExColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72F2C6E1EA900EF5B81 /* ExColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		7B1582022C6CF33400599E7C /* RelatedVideoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedVideoDTO.swift; sourceTree = "<group>"; };
 		7B1582042C6CF3DA00599E7C /* DTOList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOList.swift; sourceTree = "<group>"; };
 		DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUURL.swift; sourceTree = "<group>"; };
+		DFABE72F2C6E1EA900EF5B81 /* ExColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 				7B1581AB2C6A528F00599E7C /* ExImage.swift */,
 				7B1581BC2C6A58B700599E7C /* Const.swift */,
 				7B1581E72C6CBEC400599E7C /* ExView.swift */,
+				DFABE72F2C6E1EA900EF5B81 /* ExColor.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFABE7302C6E1EA900EF5B81 /* ExColor.swift in Sources */,
 				7B1581AC2C6A528F00599E7C /* ExImage.swift in Sources */,
 				7B1581D02C6C7F5200599E7C /* SplashFeature.swift in Sources */,
 				7B1581F92C6CEF1200599E7C /* EncodingType.swift in Sources */,
