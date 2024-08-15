@@ -12,7 +12,8 @@ struct RelatedVideoDTO: DTO {
     let link: String
     let title: String
     let thumbnailURL: String
-    let channel, type: String
+    let channel: String
+    let type: RelatedVideoTypeDTO
 
     enum CodingKeys: String, CodingKey {
         case link, title
