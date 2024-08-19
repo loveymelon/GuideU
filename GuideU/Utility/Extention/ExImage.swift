@@ -10,6 +10,8 @@ import SwiftUI
 extension Image {
     
     static let appLogo = Image(.appLogo)
+    static let defaultBack = Image(.defaultBack)
+    static let search = Image(.search)
     
     enum TabbarImage {
         enum noneTab {
