@@ -9,58 +9,69 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @State
-    private var offsetY: CGFloat = 0
+    @State private var offsetY: CGFloat = 0
     
     var body: some View {
-        GeometryReader{ geometry in
+        GeometryReader { geometry in
             let size = geometry.size
             let safeArea = geometry.safeAreaInsets
+            
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
-                    HeaderView(parentSize: size, safeArea: safeArea, view: {
-                        HeaderContentView()
-                    }, nav: {
-                        fakeNavigationView()
-                    }, offsetY: $offsetY)
-                        .offset(y: -offsetY) // 상단고정
-                        .zIndex(1000)
-                    LazyVStack {
+                    headerView(size: size, safeArea: safeArea)
+                }
+                .zIndex(1000)
+                .background {
+                    ScrollDetector { offset in
+                        offsetY = offset
+                    } onDraggingEnd: { offset, velocity in
                         
                     }
                 }
-                .background {
-                    ScrollDetector { offset in
-                        print("offset: \(-offset) ")
-                        offsetY = -offset
-                    } onDraggingEnd: { offset, velocity in
-                        print("offset: \(offset), velocity: \(velocity)")
-                    }
-                }
             }
-            .ignoresSafeArea(edges: .top)
+            .ignoresSafeArea(.all, edges: .top)
+            .toolbar(.hidden, for: .navigationBar)
         }
-        .toolbar(.hidden, for: .navigationBar)
-        
     }
     
-    private func fakeNavigationView() -> some View {
+    @ViewBuilder
+    func headerView(size: CGSize, safeArea: EdgeInsets) -> some View {
+        let headerHeight = (size.height * 0.26) + safeArea.top
+        
+        ZStack {
+            /// 배경 이미지
+            Image.defaultBack.resizable()
+                .aspectRatio(contentMode: .fill)
+                .blur(radius: 20, opaque: true)
+                .opacity(0.3)
+                .frame(height: headerHeight) // 배경의 높이 설정
+            
+            GeometryReader { _ in
+                fakeNavigation()
+                    .padding(.top, safeArea.top)
+                    .frame(width: size.width)
+            }
+        }
+        .frame(height: headerHeight)
+        .offset(y: offsetY)
+    }
+    
+    private func fakeNavigation() -> some View {
         HStack {
-            Image.appLogo.resizable()
+            Image.appLogo
+                .resizable()
                 .aspectRatio(1, contentMode: .fit)
-                .frame(width: 52, height: 52)
-
+                .frame(height: 52)
+            
             Spacer()
             
-            Image.search.resizable()
+            Image.search
+                .resizable()
                 .aspectRatio(1, contentMode: .fit)
-                .frame(width: 32, height: 32)
-                .asButton {
-                    
-                }
+                .frame(height: 32)
         }
         .padding(.trailing, 10)
-        .padding(.leading, 4)
+        .padding(.leading, 10)
     }
 }
 
