@@ -27,6 +27,7 @@ struct PersonSectionView: View {
                         }
                         // 설명
                         Text("왁타버스의 수장이자 우왁굳의 게임방송의 우왁굳이다 아아")
+                            .lineLimit(1)
                     }
                 }
                 .padding(.all, 10)
@@ -85,9 +86,3 @@ extension PersonSectionView {
         }
     }
 }
-
-#if DEBUG
-#Preview {
-    HomeView()
-}
-#endif

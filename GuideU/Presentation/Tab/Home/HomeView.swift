@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
+
 
 struct HomeView: View {
     
     @State private var offsetY: CGFloat = 0
-    
-    private let entity = HeaderEntity(title: "이세계아이돌", channelName: "우왁굳의 게임방송", time: "08:30")
+    @Perception.Bindable var store: StoreOf<PersonFeature>
     
     var body: some View {
-        VStack {
+        WithPerceptionTracking {
             GeometryReader {
                 let safeArea = $0.safeAreaInsets
                 
@@ -25,10 +26,12 @@ struct HomeView: View {
                         VStack(spacing: 0) {
                             headerView(size: size, safeArea: safeArea)
                                 .zIndex(1000)
-                            ForEach(1...100, id: \.self ) { num in
-                                PersonSectionView()
+                            LazyVStack {
+                                ForEach(1...100, id: \.self ) { num in
+                                    PersonSectionView()
+                                }
+                                .frame(width: size.width)
                             }
-                            .frame(width: size.width)
                         }
                         .background {
                             ScrollDetector { offset in
@@ -43,6 +46,9 @@ struct HomeView: View {
                 }
                 .ignoresSafeArea(.all, edges: .top)
             }
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
     }
     
@@ -51,7 +57,6 @@ struct HomeView: View {
         let headerHeight = (size.height * 0.26) + safeArea.top
         let minHeight = 70 + safeArea.top
         let changeHeight = (headerHeight + offsetY)
-        let progress = max(min(-offsetY / (headerHeight - minHeight), 1), 0)
         let opacity = 0.8 + (offsetY / 100)
         
         GeometryReader { proxy in
@@ -61,11 +66,11 @@ struct HomeView: View {
                 .frame(height: changeHeight < minHeight ? minHeight : changeHeight, alignment: .bottom)
             
             VStack(spacing: 20) {
-                fakeNavigation(size: size, entity: entity, opacity: -opacity)
+                fakeNavigation(size: size, entity: store.headerState, opacity: -opacity)
                     .padding(.top, safeArea.top + 10)
                     .offset(y: -offsetY)
                     .zIndex(3000)
-                headerContentView(size: size, entity: entity)
+                headerContentView(size: size, entity: store.headerState)
                     .opacity(opacity)
             }
         }
@@ -136,6 +141,8 @@ struct HomeView: View {
 
 #if DEBUG
 #Preview {
-    HomeView()
+    HomeView(store: Store(initialState: .init(), reducer: {
+        PersonFeature()
+    }))
 }
 #endif
