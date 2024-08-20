@@ -98,6 +98,10 @@ enum GuideUColor{
                 return UIColor(hexCode: "151515", alpha: 95)
             }
         }
+        
+        var primary: UIColor {
+            return UIColor(hexCode: "#00ddbb", alpha: 1)
+        }
     }
     
 }

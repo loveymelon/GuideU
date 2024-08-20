@@ -11,6 +11,8 @@ struct HomeView: View {
     
     @State private var offsetY: CGFloat = 0
     
+    private let entity = HeaderEntity(title: "이세계아이돌", channelName: "우왁굳의 게임방송", time: "08:30")
+    
     var body: some View {
         VStack {
             GeometryReader {
@@ -18,7 +20,6 @@ struct HomeView: View {
                 
                 GeometryReader { geometry in
                     let size = geometry.size
-                    let minY = geometry.frame(in: .named("SCROOL")).minY
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 0) {
                             headerView(size: size, safeArea: safeArea)
@@ -53,17 +54,23 @@ struct HomeView: View {
         let headerHeight = (size.height * 0.26) + safeArea.top
         let minHeight = 70 + safeArea.top
         let changeHeight = (headerHeight + offsetY)
+        let progress = max(min(-offsetY / (headerHeight - minHeight), 1), 0)
+        let opacity = 0.8 + (offsetY / 100)
         
         GeometryReader { proxy in
             let size = proxy.size
-                backgroundImage(size: size, minY: offsetY)
-                    .offset(y: -offsetY)
-                    .frame(height: changeHeight < minHeight ? minHeight : changeHeight, alignment: .bottom)
+            backgroundImage(size: size, minY: offsetY)
+                .offset(y: -offsetY)
+                .frame(height: changeHeight < minHeight ? minHeight : changeHeight, alignment: .bottom)
             
-                fakeNavigation(size: size)
+            VStack(spacing: 20) {
+                fakeNavigation(size: size, entity: entity, opacity: -opacity)
                     .padding(.top, safeArea.top + 10)
                     .offset(y: -offsetY)
-            
+                    .zIndex(3000)
+                headerContentView(size: size, entity: entity)
+                    .opacity(opacity)
+            }
         }
         .frame(height: headerHeight)
     }
@@ -76,24 +83,55 @@ struct HomeView: View {
                 .frame(width: size.width, height: size.height + (minY > 0 ? minY : 0))
                 .clipped()
         }
-        .blur(radius: 20, opaque: true)
-        .opacity(0.4)
+        .blur(radius: 40, opaque: true)
+        .opacity(0.2)
         .background(.white)
     }
     
-    private func fakeNavigation(size: CGSize)  -> some View {
-        HStack {
-            Image.appLogo
-                .resizable()
-                .aspectRatio(1, contentMode: .fit)
-                .frame(height: 52)
+    private func fakeNavigation(size: CGSize, entity: HeaderEntity, opacity: CGFloat)  -> some View {
+        ZStack {
+            HStack {
+                Image.appLogo
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fit)
+                    .frame(height: 52)
+                    
+                Text(entity.title)
+                    .font(.WantedFont.boldFont.font(size: 23))
+                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
+                    .frame(maxWidth: .infinity)
+                    .opacity(opacity)
+                
+                VStack {
+                    Image.search
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .frame(height: 32)
+                }
+                .frame(width: 52)
+            }
+        }
+        .padding(.leading, 10)
+    }
+    
+    private func headerContentView(size: CGSize, entity: HeaderEntity) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(entity.sectionTitle)
+                .font(.WantedFont.midFont.font(size: 16))
+                .padding(.bottom, 4)
             
-            Spacer()
-            
-            Image.search
-                .resizable()
-                .aspectRatio(1, contentMode: .fit)
-                .frame(height: 32)
+            Text(entity.title)
+                .font(.WantedFont.boldFont.font(size: 30))
+                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
+                
+            HStack {
+                Text(entity.channelName)
+                Text("|")
+                Text(entity.time)
+                
+                Spacer()
+            }
+            .font(.WantedFont.midFont.font(size: 16))
         }
         .padding(.horizontal, 10)
     }
