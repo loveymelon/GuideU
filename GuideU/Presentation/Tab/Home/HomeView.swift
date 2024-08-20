@@ -20,16 +20,13 @@ struct HomeView: View {
                 
                 GeometryReader { geometry in
                     let size = geometry.size
+                    
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 0) {
                             headerView(size: size, safeArea: safeArea)
                                 .zIndex(1000)
-                            LazyVStack {
-                                ForEach(1...100, id: \.self) { num in
-                                    HStack {
-                                        Text(String(num))
-                                    }
-                                }
+                            ForEach(1...100, id: \.self ) { num in
+                                PersonSectionView()
                             }
                             .frame(width: size.width)
                         }

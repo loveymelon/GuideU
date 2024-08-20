@@ -52,5 +52,19 @@ extension Image {
             }
         }
     }
+    
+    enum chevron {
+        case up
+        case down
+        
+        var img: Image {
+            switch self {
+            case .up:
+                return Image(.chevronUp)
+            case .down:
+                return Image(.chevronDown)
+            }
+        }
+    }
 }
 

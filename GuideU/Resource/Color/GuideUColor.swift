@@ -102,6 +102,10 @@ enum GuideUColor{
         var primary: UIColor {
             return UIColor(hexCode: "#00ddbb", alpha: 1)
         }
+        
+        var interaction6: UIColor {
+            return UIColor(hexCode: "#00b196", alpha: 1)
+        }
     }
     
 }
