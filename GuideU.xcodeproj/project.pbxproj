@@ -61,6 +61,9 @@
 		7B1582602C74B2C800599E7C /* DetailMessageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15825F2C74B2C800599E7C /* DetailMessageDTO.swift */; };
 		7B1582622C74B2F800599E7C /* LocDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582612C74B2F800599E7C /* LocDTO.swift */; };
 		7B1582642C74B52A00599E7C /* DetailErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */; };
+		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
+		7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */; };
+		7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D22C7C49D9008D4CFC /* Entity.swift */; };
 		DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */; };
 		DFABE7302C6E1EA900EF5B81 /* ExColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72F2C6E1EA900EF5B81 /* ExColor.swift */; };
 /* End PBXBuildFile section */
@@ -117,6 +120,9 @@
 		7B15825F2C74B2C800599E7C /* DetailMessageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMessageDTO.swift; sourceTree = "<group>"; };
 		7B1582612C74B2F800599E7C /* LocDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocDTO.swift; sourceTree = "<group>"; };
 		7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailErrorDTO.swift; sourceTree = "<group>"; };
+		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
+		7BACA3D22C7C49D9008D4CFC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUURL.swift; sourceTree = "<group>"; };
 		DFABE72F2C6E1EA900EF5B81 /* ExColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -295,6 +301,7 @@
 		7B1581D92C6CB27200599E7C /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				7BACA3CD2C7C4192008D4CFC /* HomeTab */,
 				7B1581DA2C6CB28A00599E7C /* RootCoordinator.swift */,
 				7B1581DC2C6CB34900599E7C /* RootCoordinatorView.swift */,
 			);
@@ -322,6 +329,7 @@
 			children = (
 				7B1581F32C6CEBC200599E7C /* Router.swift */,
 				7B1581FE2C6CF2C400599E7C /* DTO.swift */,
+				7BACA3D22C7C49D9008D4CFC /* Entity.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -410,6 +418,15 @@
 				7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */,
 			);
 			path = Error;
+			sourceTree = "<group>";
+		};
+		7BACA3CD2C7C4192008D4CFC /* HomeTab */ = {
+			isa = PBXGroup;
+			children = (
+				7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */,
+				7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */,
+			);
+			path = HomeTab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -509,6 +526,7 @@
 				7B1581D02C6C7F5200599E7C /* SplashFeature.swift in Sources */,
 				7B1581F92C6CEF1200599E7C /* EncodingType.swift in Sources */,
 				7B1581FF2C6CF2C400599E7C /* DTO.swift in Sources */,
+				7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */,
 				7B1582492C73043F00599E7C /* HomeView.swift in Sources */,
 				7B1581B92C6A56EC00599E7C /* SplashView.swift in Sources */,
 				7B1582032C6CF33400599E7C /* RelatedVideoDTO.swift in Sources */,
@@ -522,6 +540,7 @@
 				7B1581DB2C6CB28A00599E7C /* RootCoordinator.swift in Sources */,
 				7B1581AA2C6A518200599E7C /* ExFont.swift in Sources */,
 				7B1581E82C6CBEC400599E7C /* ExView.swift in Sources */,
+				7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */,
 				7B1581EE2C6CC41900599E7C /* TabCoordinator.swift in Sources */,
 				7B15824E2C73075D00599E7C /* ScrollDetector.swift in Sources */,
 				7B1581E62C6CBA4200599E7C /* OnboardPageFeature.swift in Sources */,
@@ -542,6 +561,7 @@
 				7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */,
 				7B1581FD2C6CF2AF00599E7C /* MemeDTO.swift in Sources */,
 				7B1582562C745C7C00599E7C /* HeaderEntity.swift in Sources */,
+				7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */,
 				7B1582582C74855700599E7C /* PersonSectionView.swift in Sources */,
 				7B1581BD2C6A58B700599E7C /* Const.swift in Sources */,
 				7B15820F2C6E20CA00599E7C /* SearchTypeDTO.swift in Sources */,

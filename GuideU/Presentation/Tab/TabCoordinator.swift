@@ -15,11 +15,17 @@ struct TabCoordinator {
     @ObservableState
     struct State: Equatable {
         var currentTab = TabCase.home
+        
+        /// TabState
+        var homeTabState = HomeCoordinator.State.initialState
     }
     
     enum Action {
         case delegate(Delegate)
-        case 임시(TabCase)
+        case tabCase(TabCase)
+        
+        /// TabAction
+        case homeTabAction(HomeCoordinator.Action)
         
         enum Delegate {
 
@@ -27,10 +33,21 @@ struct TabCoordinator {
     }
     
     var body: some ReducerOf<Self> {
+        
+        Scope(state: \.homeTabState, action: \.homeTabAction) {
+            HomeCoordinator()
+        }
+        
+        core()
+    }
+}
+
+extension TabCoordinator {
+    private func core() -> some ReducerOf<Self>{
         Reduce { state, action in
             switch action {
                 
-            case let .임시(tabCase):
+            case let .tabCase(tabCase):
                 state.currentTab = tabCase
                 
             default:

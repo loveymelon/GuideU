@@ -17,9 +17,14 @@ struct GuideUTabView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            TabView(selection: $store.currentTab.sending(\.임시)) {
+            TabView(selection: $store.currentTab.sending(\.tabCase)) {
                 Group {
-                    Text("as")
+                    HomeCoordinatorView(
+                        store: store.scope(
+                            state: \.homeTabState,
+                            action: \.homeTabAction
+                        )
+                    )
                         .tabItem {
                             tabItemView(tabItem: .home)
                         }

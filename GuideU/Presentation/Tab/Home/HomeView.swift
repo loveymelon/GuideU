@@ -54,8 +54,8 @@ struct HomeView: View {
     
     @ViewBuilder
     func headerView(size: CGSize, safeArea: EdgeInsets) -> some View {
-        let headerHeight = (size.height * 0.26) + safeArea.top
-        let minHeight = 70 + safeArea.top
+        let headerHeight = (size.height * 0.3) + safeArea.top
+        let minHeight = 80 + safeArea.top
         let changeHeight = (headerHeight + offsetY)
         let opacity = 0.8 + (offsetY / 100)
         
@@ -141,8 +141,8 @@ struct HomeView: View {
 
 #if DEBUG
 #Preview {
-    HomeView(store: Store(initialState: .init(), reducer: {
-        PersonFeature()
+    GuideUTabView(store: Store(initialState: TabCoordinator.State(), reducer: {
+        TabCoordinator()
     }))
 }
 #endif

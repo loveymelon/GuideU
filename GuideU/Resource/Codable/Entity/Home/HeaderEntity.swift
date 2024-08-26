@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HeaderEntity {
+struct HeaderEntity: Entity {
     let sectionTitle = "지금 시청 중인"
     let title: String
     let channelName: String

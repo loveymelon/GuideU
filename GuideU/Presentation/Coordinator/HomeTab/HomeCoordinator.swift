@@ -1,28 +1,36 @@
 //
-//  PersonFeature.swift
+//  HomeCoordinator.swift
 //  GuideU
 //
-//  Created by Jae hyung Kim on 8/20/24.
+//  Created by Jae hyung Kim on 8/26/24.
 //
 
 import Foundation
 import ComposableArchitecture
+import TCACoordinators
+
+
+@Reducer(state: .equatable)
+enum HomeScreen {
+    case home(PersonFeature)
+}
 
 @Reducer
-struct PersonFeature {
+struct HomeCoordinator {
     
     @ObservableState
     struct State: Equatable {
-        var headerState = HeaderEntity(title: "동영상이 없어요!", channelName: "우왁굳의 게임방송", time: "00:00")
-        
-//        var listStates = 
+        static let initialState = State(routes: [.root(.home(PersonFeature.State()), embedInNavigationView: true)])
+        var routes: IdentifiedArrayOf<Route<HomeScreen.State>>
     }
     
     enum Action {
-        case onAppear
         
+        case router(IdentifiedRouterActionOf<HomeScreen>)
         
+        /// 상위뷰에게 전달
         case delegate(Delegate)
+        
         enum Delegate {
             
         }
@@ -31,19 +39,16 @@ struct PersonFeature {
     var body: some ReducerOf<Self> {
         core()
     }
-    
 }
 
-extension PersonFeature {
+extension HomeCoordinator {
+    
     private func core() -> some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onAppear:
-                
-                return .none
                 
             default:
-                break
+                break;
             }
             return .none
         }
