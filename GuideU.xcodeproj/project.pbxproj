@@ -291,7 +291,6 @@
 		7B1581D42C6C814400599E7C /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				7B1581EF2C6CEB8600599E7C /* NetworkManager */,
 				7B1581D52C6C815800599E7C /* CodableManager.swift */,
 				7B1581D72C6C823900599E7C /* UserDefaultsManager.swift */,
 			);
@@ -315,13 +314,6 @@
 				7B1581E52C6CBA4200599E7C /* OnboardPageFeature.swift */,
 			);
 			path = PageView;
-			sourceTree = "<group>";
-		};
-		7B1581EF2C6CEB8600599E7C /* NetworkManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 		7B1581F22C6CEBBC00599E7C /* Protocol */ = {
