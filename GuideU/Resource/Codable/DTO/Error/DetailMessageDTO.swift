@@ -8,6 +8,6 @@
 import Foundation
 
 /// DTOList 필요하지 않습니다.
-struct DetailMessageDTO: DTO {
+struct DetailMessageDTO: ErrorDTO {
       let detail: [DetailErrorDTO]
 }

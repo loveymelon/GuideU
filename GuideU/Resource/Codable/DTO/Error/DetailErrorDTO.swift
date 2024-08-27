@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DetailErrorDTO: DTO {
+struct DetailErrorDTO: ErrorDTO {
     let loc: [LocDTO]
     let msg: String
     let type: String

@@ -10,8 +10,6 @@ import ComposableArchitecture
 
 final class NetworkManager {
     
-    static let shared = NetworkManager()
-    
     func requestNetwork<T: DTO, R: Router, E: ErrorDTO>(dto: T.Type, router: R, errorDTO: E.Type) async -> Result<T, E> {
         
         return await withCheckedContinuation { continuation in
@@ -50,7 +48,7 @@ final class NetworkManager {
 }
 
 extension NetworkManager: DependencyKey {
-    static var liveValue: NetworkManager = NetworkManager.shared
+    static var liveValue: NetworkManager = NetworkManager()
 }
 
 extension DependencyValues {

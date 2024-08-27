@@ -7,10 +7,9 @@
 
 import Foundation
 
-enum LocDTO: DTO {
+enum LocDTO: ErrorDTO {
     case integer(Int)
     case string(String)
-    
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.singleValueContainer()

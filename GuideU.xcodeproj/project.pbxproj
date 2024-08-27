@@ -66,6 +66,12 @@
 		7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D22C7C49D9008D4CFC /* Entity.swift */; };
 		7BACA3DA2C7D8FEF008D4CFC /* DropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D92C7D8FEF008D4CFC /* DropDownMenu.swift */; };
 		7BACA3E02C7DB9EB008D4CFC /* GuideUSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3DF2C7DB9EB008D4CFC /* GuideUSearchBarView.swift */; };
+		DF1DECD12C7D79370098F761 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD02C7D79370098F761 /* CharacterRepository.swift */; };
+		DF1DECD32C7D79820098F761 /* CharacterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD22C7D79820098F761 /* CharacterMapper.swift */; };
+		DF1DECD62C7D7B9D0098F761 /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD52C7D7B9D0098F761 /* CharacterEntity.swift */; };
+		DF1DECD92C7D7EB10098F761 /* DetailErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD82C7D7EB10098F761 /* DetailErrorEntity.swift */; };
+		DF1DECDB2C7D7EF40098F761 /* ErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECDA2C7D7EF40098F761 /* ErrorEntity.swift */; };
+		DF1DECDF2C7D7F930098F761 /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECDE2C7D7F930098F761 /* ErrorMapper.swift */; };
 		DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */; };
 		DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */; };
 		DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */; };
@@ -131,6 +137,12 @@
 		7BACA3D22C7C49D9008D4CFC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		7BACA3D92C7D8FEF008D4CFC /* DropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenu.swift; sourceTree = "<group>"; };
 		7BACA3DF2C7DB9EB008D4CFC /* GuideUSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUSearchBarView.swift; sourceTree = "<group>"; };
+		DF1DECD02C7D79370098F761 /* CharacterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepository.swift; sourceTree = "<group>"; };
+		DF1DECD22C7D79820098F761 /* CharacterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMapper.swift; sourceTree = "<group>"; };
+		DF1DECD52C7D7B9D0098F761 /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
+		DF1DECD82C7D7EB10098F761 /* DetailErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailErrorEntity.swift; sourceTree = "<group>"; };
+		DF1DECDA2C7D7EF40098F761 /* ErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorEntity.swift; sourceTree = "<group>"; };
+		DF1DECDE2C7D7F930098F761 /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
 		DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
 		DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDTO.swift; sourceTree = "<group>"; };
@@ -197,6 +209,8 @@
 		7B1581962C6A500200599E7C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DF1DECCF2C7D791B0098F761 /* Mapper */,
+				DF1DECCE2C7D78FE0098F761 /* Repository */,
 				7B15824C2C73073B00599E7C /* Representable */,
 				7B1581F22C6CEBBC00599E7C /* Protocol */,
 				7B1581D42C6C814400599E7C /* Manager */,
@@ -337,6 +351,7 @@
 				7B1581FE2C6CF2C400599E7C /* DTO.swift */,
 				7BACA3D22C7C49D9008D4CFC /* Entity.swift */,
 				DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */,
+				DF1DECDA2C7D7EF40098F761 /* ErrorEntity.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -396,6 +411,8 @@
 		7B1582512C73337F00599E7C /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				DF1DECD72C7D7E8F0098F761 /* Error */,
+				DF1DECD42C7D7B8B0098F761 /* Character */,
 				7B1582542C745C7200599E7C /* Home */,
 			);
 			path = Entity;
@@ -443,6 +460,39 @@
 				7BACA3DF2C7DB9EB008D4CFC /* GuideUSearchBarView.swift */,
 			);
 			path = MoreCharacterView;
+			sourceTree = "<group>";
+		};
+		DF1DECCE2C7D78FE0098F761 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				DF1DECD02C7D79370098F761 /* CharacterRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		DF1DECCF2C7D791B0098F761 /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				DF1DECD22C7D79820098F761 /* CharacterMapper.swift */,
+				DF1DECDE2C7D7F930098F761 /* ErrorMapper.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
+		DF1DECD42C7D7B8B0098F761 /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				DF1DECD52C7D7B9D0098F761 /* CharacterEntity.swift */,
+			);
+			path = Character;
+			sourceTree = "<group>";
+		};
+		DF1DECD72C7D7E8F0098F761 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				DF1DECD82C7D7EB10098F761 /* DetailErrorEntity.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		DF986E7C2C7CC81B00F2D52F /* Network */ = {
@@ -578,22 +628,28 @@
 				7B1581EE2C6CC41900599E7C /* TabCoordinator.swift in Sources */,
 				7B15824E2C73075D00599E7C /* ScrollDetector.swift in Sources */,
 				7B1581E62C6CBA4200599E7C /* OnboardPageFeature.swift in Sources */,
+				DF1DECDF2C7D7F930098F761 /* ErrorMapper.swift in Sources */,
 				7B1582602C74B2C800599E7C /* DetailMessageDTO.swift in Sources */,
 				7B1582052C6CF3DA00599E7C /* DTOList.swift in Sources */,
 				7B1581B22C6A54E700599E7C /* TabCase.swift in Sources */,
 				7B1581F42C6CEBC200599E7C /* Router.swift in Sources */,
+				DF1DECDB2C7D7EF40098F761 /* ErrorEntity.swift in Sources */,
 				DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */,
 				7B1581B62C6A560800599E7C /* GuideUTabView.swift in Sources */,
 				7B1582112C6E210C00599E7C /* LinkDTO.swift in Sources */,
+				DF1DECD32C7D79820098F761 /* CharacterMapper.swift in Sources */,
+				DF1DECD62C7D7B9D0098F761 /* CharacterEntity.swift in Sources */,
 				7B1581D62C6C815800599E7C /* CodableManager.swift in Sources */,
 				DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */,
 				7B1581AF2C6A53A800599E7C /* GuideUColor.swift in Sources */,
 				DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */,
+				DF1DECD92C7D7EB10098F761 /* DetailErrorEntity.swift in Sources */,
 				7B1581EA2C6CBEDF00599E7C /* ButtonWrapper.swift in Sources */,
 				7B1582012C6CF30000599E7C /* DuplicateDTO.swift in Sources */,
 				7B1581E42C6CB85100599E7C /* OnBoardPageView.swift in Sources */,
 				7B1582622C74B2F800599E7C /* LocDTO.swift in Sources */,
 				7B15825A2C74A70000599E7C /* PersonFeature.swift in Sources */,
+				DF1DECD12C7D79370098F761 /* CharacterRepository.swift in Sources */,
 				7B15825D2C74B1DF00599E7C /* CharactersDTO.swift in Sources */,
 				7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */,
 				7B1581FD2C6CF2AF00599E7C /* MemeDTO.swift in Sources */,
