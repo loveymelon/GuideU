@@ -24,3 +24,5 @@ extension String {
         return attributedString
     }
 }
+
+extension String: Error { }

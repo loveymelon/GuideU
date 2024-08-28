@@ -43,5 +43,3 @@ extension DependencyValues {
         set { self[CharacterRepository.self] = newValue }
     }
 }
-
-extension String: Error { }
