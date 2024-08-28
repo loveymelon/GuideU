@@ -16,38 +16,40 @@ struct HomeView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            GeometryReader {
-                let safeArea = $0.safeAreaInsets
-                
-                GeometryReader { geometry in
-                    let size = geometry.size
+            VStack(spacing: 0) {
+                GeometryReader {
+                    let safeArea = $0.safeAreaInsets
                     
-                    ScrollView(.vertical, showsIndicators: false) {
-                        VStack(spacing: 0) {
-                            headerView(size: size, safeArea: safeArea)
-                                .zIndex(1000)
-                            LazyVStack {
-                                ForEach(1...100, id: \.self ) { num in
-                                    PersonSectionView()
+                    GeometryReader { geometry in
+                        let size = geometry.size
+                        
+                        ScrollView(.vertical, showsIndicators: false) {
+                            VStack(spacing: 0) {
+                                headerView(size: size, safeArea: safeArea)
+                                    .zIndex(1000)
+                                LazyVStack {
+                                    ForEach(1...100, id: \.self ) { num in
+                                        PersonSectionView()
+                                    }
+                                    .frame(width: size.width)
                                 }
-                                .frame(width: size.width)
                             }
-                        }
-                        .background {
-                            ScrollDetector { offset in
-                                offsetY = -offset
-                            } onDraggingEnd: { offset, veloc in
-                                
+                            .background {
+                                ScrollDetector { offset in
+                                    offsetY = -offset
+                                } onDraggingEnd: { offset, veloc in
+                                    
+                                }
                             }
+                            .zIndex(1000)
                         }
-                        .zIndex(1000)
+                        .toolbar(.hidden, for: .navigationBar)
                     }
-                    .toolbar(.hidden, for: .navigationBar)
+                    .ignoresSafeArea(.all, edges: .top)
                 }
-                .ignoresSafeArea(.all, edges: .top)
             }
             .onAppear {
-                store.send(.onAppear)
+                store.send(.viewCycleType(.onAppear))
             }
         }
     }

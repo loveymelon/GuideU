@@ -15,15 +15,33 @@ final class CharacterRepository {
 }
 
 extension CharacterRepository {
-    func fetchCharacter(limit: Int = 100, offset: Int = 0, start: String = "0") async -> Result<CharacterEntity, DetailErrorEntity> {
-        let result = await network.requestNetwork(dto: CharactersDTO.self, router: CharacterRouter.fetchCharacterList(limit: limit, offset: offset, start: start), errorDTO: DetailErrorDTO.self)
+    func fetchCharacter(limit: Int = 1, offset: Int = 0, start: String? = nil) async -> Result<[CharacterEntity], String> {
+        let result = await network.requestNetwork(dto: CharactersDTO.self, router: CharacterRouter.fetchCharacterList(limit: limit, offset: offset, start: start))
         
         switch result {
         case .success(let data):
-            return .success(mapper.dtoToEntity(data))
+            return .success(mapper.dtoToEntity(data.CharactersDTO))
         case .failure(let error):
-            return .failure(errorMapper.dtoToEntity(error))
+            switch error {
+                
+            case let .simple(simpleError):
+                return .failure(errorMapper.dtoToEntity(simpleError))
+            case let .detailed(detailError):
+                return .failure(errorMapper.dtoToEntity(detailError))
+            }
         }
-        
     }
 }
+
+extension CharacterRepository: DependencyKey {
+    static var liveValue: CharacterRepository = CharacterRepository()
+}
+
+extension DependencyValues {
+    var characterRepository: CharacterRepository {
+        get { self[CharacterRepository.self] }
+        set { self[CharacterRepository.self] = newValue }
+    }
+}
+
+extension String: Error { }

@@ -14,19 +14,39 @@ struct PersonFeature {
     @ObservableState
     struct State: Equatable {
         var headerState = HeaderEntity(title: "동영상이 없어요!", channelName: "우왁굳의 게임방송", time: "00:00")
-        
-//        var listStates = 
+        var characterInfoList: [CharacterEntity] = []
     }
     
     enum Action {
-        case onAppear
-        
+        case viewCycleType(ViewCycleType)
+        case viewEventType(ViewEventType)
+        case dataTransType(DataTransType)
+        case networkType(NetworkType)
         
         case delegate(Delegate)
         enum Delegate {
             
         }
     }
+    
+    enum ViewCycleType {
+        case onAppear
+    }
+    
+    enum ViewEventType {
+        
+    }
+    
+    enum DataTransType {
+        case characterInfo([CharacterEntity])
+        case errorInfo(String)
+    }
+    
+    enum NetworkType {
+        case fetchCharacters
+    }
+    
+    @Dependency(\.characterRepository) var repository
     
     var body: some ReducerOf<Self> {
         core()
@@ -38,9 +58,31 @@ extension PersonFeature {
     private func core() -> some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onAppear:
+            case .viewCycleType(.onAppear):
+                return .run { send in
+                    print("onAppear")
+                    await send(.networkType(.fetchCharacters))
+                    print("onAppear2")
+                }
                 
-                return .none
+            case .networkType(.fetchCharacters):
+                return .run { send in
+                    let result = await repository.fetchCharacter()
+                    
+                    switch result {
+                    case .success(let data):
+                        await send(.dataTransType(.characterInfo(data)))
+                    case .failure(let error):
+                        await send(.dataTransType(.errorInfo(error)))
+                    }
+                }
+                
+            case let .dataTransType(.characterInfo(characterList)):
+                state.characterInfoList = characterList
+                print(state.characterInfoList)
+                
+            case let .dataTransType(.errorInfo(error)):
+                print(error)
                 
             default:
                 break

@@ -10,8 +10,23 @@ import ComposableArchitecture
 
 struct CharacterMapper {
     /// CharacterDTO -> Entity
-    func dtoToEntity(_ dto: CharactersDTO) -> CharacterEntity {
-        return CharacterEntity(name: dto.name, engName: dto.engName, definition: dto.definition, smallImageUrl: dto.smallImageUrl, largeImageUrl: dto.largeImageUrl, links: dto.links, id: dto.id)
+    func dtoToEntity(_ dto: [CharacterDTO]) -> [CharacterEntity] {
+        return dto.map { dtoToEntity($0) }
+    }
+}
+
+extension CharacterMapper {
+    /// CharactersDTO -> Entity
+    private func dtoToEntity(_ dto: CharacterDTO) -> CharacterEntity {
+        return CharacterEntity(name: dto.name, engName: dto.engName, definition: dto.definition, smallImageUrl: dto.smallImageUrl, largeImageUrl: dto.largeImageUrl, links: dtoToEntity(dto.links ?? []), id: dto.id)
+    }
+    
+    private func dtoToEntity(_ dto: [LinkDTO]) -> [LinkEntity] {
+        return dto.map { dtoToEntity($0) }
+    }
+    
+    private func dtoToEntity(_ dto: LinkDTO) -> LinkEntity {
+        return LinkEntity(link: dto.link, title: dto.title, thumbnailURL: dto.thumbnailURL, channel: dto.channel, type: dto.type, description: dto.description, createdAt: dto.createdAt)
     }
 }
 

@@ -13,6 +13,6 @@ struct CharacterEntity: Entity {
     let definition: String
     let smallImageUrl: String
     let largeImageUrl: String
-    let links: [String]
+    let links: [LinkEntity]?
     let id: Int
 }

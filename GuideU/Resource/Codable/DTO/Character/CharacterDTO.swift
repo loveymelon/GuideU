@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct CharactersDTO: DTO {
+struct CharacterDTO: DTO {
     let name: String
     let engName: String
     let definition: String
     let smallImageUrl: String
     let largeImageUrl: String
-    let links: [String]
+    let links: [LinkDTO]?
     let id: Int
     
     enum CodingKeys: String, CodingKey {
@@ -24,5 +24,19 @@ struct CharactersDTO: DTO {
         case largeImageUrl = "large_image_url"
         case links
         case id
+    }
+}
+
+struct CharactersDTO: DTO {
+    let CharactersDTO: [CharacterDTO]
+    
+    init(from decoder: any Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        var characterList = [CharacterDTO] ()
+        while !container.isAtEnd {
+            let character = try container.decode(CharacterDTO.self)
+            characterList.append(character)
+        }
+        self.CharactersDTO = characterList
     }
 }

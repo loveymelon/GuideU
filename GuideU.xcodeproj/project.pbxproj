@@ -51,15 +51,12 @@
 		7B15820A2C6E1F6D00599E7C /* SearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582092C6E1F6D00599E7C /* SearchDTO.swift */; };
 		7B15820D2C6E207100599E7C /* RelatedVideoTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15820C2C6E207100599E7C /* RelatedVideoTypeDTO.swift */; };
 		7B15820F2C6E20CA00599E7C /* SearchTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15820E2C6E20CA00599E7C /* SearchTypeDTO.swift */; };
-		7B1582112C6E210C00599E7C /* LinkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582102C6E210C00599E7C /* LinkDTO.swift */; };
 		7B1582492C73043F00599E7C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582482C73043F00599E7C /* HomeView.swift */; };
 		7B15824E2C73075D00599E7C /* ScrollDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15824D2C73075D00599E7C /* ScrollDetector.swift */; };
 		7B1582562C745C7C00599E7C /* HeaderEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582552C745C7C00599E7C /* HeaderEntity.swift */; };
 		7B1582582C74855700599E7C /* PersonSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582572C74855700599E7C /* PersonSectionView.swift */; };
 		7B15825A2C74A70000599E7C /* PersonFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582592C74A70000599E7C /* PersonFeature.swift */; };
-		7B15825D2C74B1DF00599E7C /* CharactersDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15825C2C74B1DF00599E7C /* CharactersDTO.swift */; };
-		7B1582602C74B2C800599E7C /* DetailMessageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15825F2C74B2C800599E7C /* DetailMessageDTO.swift */; };
-		7B1582622C74B2F800599E7C /* LocDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582612C74B2F800599E7C /* LocDTO.swift */; };
+		7B15825D2C74B1DF00599E7C /* CharacterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15825C2C74B1DF00599E7C /* CharacterDTO.swift */; };
 		7B1582642C74B52A00599E7C /* DetailErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
 		7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */; };
@@ -72,6 +69,13 @@
 		DF1DECD92C7D7EB10098F761 /* DetailErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD82C7D7EB10098F761 /* DetailErrorEntity.swift */; };
 		DF1DECDB2C7D7EF40098F761 /* ErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECDA2C7D7EF40098F761 /* ErrorEntity.swift */; };
 		DF1DECDF2C7D7F930098F761 /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECDE2C7D7F930098F761 /* ErrorMapper.swift */; };
+		DF5879572C7F0A0E009F9171 /* SimpleErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879562C7F0A0E009F9171 /* SimpleErrorEntity.swift */; };
+		DF5879592C7F0AC1009F9171 /* DetailedErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879582C7F0AC1009F9171 /* DetailedErrorEntity.swift */; };
+		DF58795B2C7F0B0C009F9171 /* SimpleErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF58795A2C7F0B0C009F9171 /* SimpleErrorDTO.swift */; };
+		DF58795D2C7F0B1F009F9171 /* DetailedErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF58795C2C7F0B1F009F9171 /* DetailedErrorDTO.swift */; };
+		DF58795F2C7F0B41009F9171 /* APIErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF58795E2C7F0B41009F9171 /* APIErrorResponseDTO.swift */; };
+		DF5879612C7F15DC009F9171 /* LinkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879602C7F15DC009F9171 /* LinkDTO.swift */; };
+		DF5879632C7F1701009F9171 /* LinkEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879622C7F1701009F9171 /* LinkEntity.swift */; };
 		DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */; };
 		DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */; };
 		DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */; };
@@ -122,15 +126,12 @@
 		7B1582092C6E1F6D00599E7C /* SearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDTO.swift; sourceTree = "<group>"; };
 		7B15820C2C6E207100599E7C /* RelatedVideoTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedVideoTypeDTO.swift; sourceTree = "<group>"; };
 		7B15820E2C6E20CA00599E7C /* SearchTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTypeDTO.swift; sourceTree = "<group>"; };
-		7B1582102C6E210C00599E7C /* LinkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkDTO.swift; sourceTree = "<group>"; };
 		7B1582482C73043F00599E7C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7B15824D2C73075D00599E7C /* ScrollDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDetector.swift; sourceTree = "<group>"; };
 		7B1582552C745C7C00599E7C /* HeaderEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderEntity.swift; sourceTree = "<group>"; };
 		7B1582572C74855700599E7C /* PersonSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSectionView.swift; sourceTree = "<group>"; };
 		7B1582592C74A70000599E7C /* PersonFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFeature.swift; sourceTree = "<group>"; };
-		7B15825C2C74B1DF00599E7C /* CharactersDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersDTO.swift; sourceTree = "<group>"; };
-		7B15825F2C74B2C800599E7C /* DetailMessageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMessageDTO.swift; sourceTree = "<group>"; };
-		7B1582612C74B2F800599E7C /* LocDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocDTO.swift; sourceTree = "<group>"; };
+		7B15825C2C74B1DF00599E7C /* CharacterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDTO.swift; sourceTree = "<group>"; };
 		7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailErrorDTO.swift; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
@@ -143,6 +144,13 @@
 		DF1DECD82C7D7EB10098F761 /* DetailErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailErrorEntity.swift; sourceTree = "<group>"; };
 		DF1DECDA2C7D7EF40098F761 /* ErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorEntity.swift; sourceTree = "<group>"; };
 		DF1DECDE2C7D7F930098F761 /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
+		DF5879562C7F0A0E009F9171 /* SimpleErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleErrorEntity.swift; sourceTree = "<group>"; };
+		DF5879582C7F0AC1009F9171 /* DetailedErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedErrorEntity.swift; sourceTree = "<group>"; };
+		DF58795A2C7F0B0C009F9171 /* SimpleErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleErrorDTO.swift; sourceTree = "<group>"; };
+		DF58795C2C7F0B1F009F9171 /* DetailedErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedErrorDTO.swift; sourceTree = "<group>"; };
+		DF58795E2C7F0B41009F9171 /* APIErrorResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorResponseDTO.swift; sourceTree = "<group>"; };
+		DF5879602C7F15DC009F9171 /* LinkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkDTO.swift; sourceTree = "<group>"; };
+		DF5879622C7F1701009F9171 /* LinkEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEntity.swift; sourceTree = "<group>"; };
 		DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
 		DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDTO.swift; sourceTree = "<group>"; };
@@ -376,7 +384,6 @@
 				7B1582022C6CF33400599E7C /* RelatedVideoDTO.swift */,
 				7B1582042C6CF3DA00599E7C /* DTOList.swift */,
 				7B1582092C6E1F6D00599E7C /* SearchDTO.swift */,
-				7B1582102C6E210C00599E7C /* LinkDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -429,7 +436,8 @@
 		7B15825B2C74B1C900599E7C /* Character */ = {
 			isa = PBXGroup;
 			children = (
-				7B15825C2C74B1DF00599E7C /* CharactersDTO.swift */,
+				7B15825C2C74B1DF00599E7C /* CharacterDTO.swift */,
+				DF5879602C7F15DC009F9171 /* LinkDTO.swift */,
 			);
 			path = Character;
 			sourceTree = "<group>";
@@ -437,9 +445,10 @@
 		7B15825E2C74B2B700599E7C /* Error */ = {
 			isa = PBXGroup;
 			children = (
-				7B15825F2C74B2C800599E7C /* DetailMessageDTO.swift */,
-				7B1582612C74B2F800599E7C /* LocDTO.swift */,
 				7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */,
+				DF58795A2C7F0B0C009F9171 /* SimpleErrorDTO.swift */,
+				DF58795C2C7F0B1F009F9171 /* DetailedErrorDTO.swift */,
+				DF58795E2C7F0B41009F9171 /* APIErrorResponseDTO.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -483,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				DF1DECD52C7D7B9D0098F761 /* CharacterEntity.swift */,
+				DF5879622C7F1701009F9171 /* LinkEntity.swift */,
 			);
 			path = Character;
 			sourceTree = "<group>";
@@ -491,6 +501,8 @@
 			isa = PBXGroup;
 			children = (
 				DF1DECD82C7D7EB10098F761 /* DetailErrorEntity.swift */,
+				DF5879562C7F0A0E009F9171 /* SimpleErrorEntity.swift */,
+				DF5879582C7F0AC1009F9171 /* DetailedErrorEntity.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -624,33 +636,37 @@
 				7B1581DB2C6CB28A00599E7C /* RootCoordinator.swift in Sources */,
 				7B1581AA2C6A518200599E7C /* ExFont.swift in Sources */,
 				7B1581E82C6CBEC400599E7C /* ExView.swift in Sources */,
+				DF58795B2C7F0B0C009F9171 /* SimpleErrorDTO.swift in Sources */,
 				7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */,
 				7B1581EE2C6CC41900599E7C /* TabCoordinator.swift in Sources */,
 				7B15824E2C73075D00599E7C /* ScrollDetector.swift in Sources */,
 				7B1581E62C6CBA4200599E7C /* OnboardPageFeature.swift in Sources */,
 				DF1DECDF2C7D7F930098F761 /* ErrorMapper.swift in Sources */,
-				7B1582602C74B2C800599E7C /* DetailMessageDTO.swift in Sources */,
 				7B1582052C6CF3DA00599E7C /* DTOList.swift in Sources */,
 				7B1581B22C6A54E700599E7C /* TabCase.swift in Sources */,
 				7B1581F42C6CEBC200599E7C /* Router.swift in Sources */,
 				DF1DECDB2C7D7EF40098F761 /* ErrorEntity.swift in Sources */,
 				DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */,
 				7B1581B62C6A560800599E7C /* GuideUTabView.swift in Sources */,
-				7B1582112C6E210C00599E7C /* LinkDTO.swift in Sources */,
 				DF1DECD32C7D79820098F761 /* CharacterMapper.swift in Sources */,
+				DF58795D2C7F0B1F009F9171 /* DetailedErrorDTO.swift in Sources */,
 				DF1DECD62C7D7B9D0098F761 /* CharacterEntity.swift in Sources */,
 				7B1581D62C6C815800599E7C /* CodableManager.swift in Sources */,
 				DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */,
 				7B1581AF2C6A53A800599E7C /* GuideUColor.swift in Sources */,
 				DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */,
 				DF1DECD92C7D7EB10098F761 /* DetailErrorEntity.swift in Sources */,
+				DF5879572C7F0A0E009F9171 /* SimpleErrorEntity.swift in Sources */,
 				7B1581EA2C6CBEDF00599E7C /* ButtonWrapper.swift in Sources */,
+				DF5879592C7F0AC1009F9171 /* DetailedErrorEntity.swift in Sources */,
+				DF5879632C7F1701009F9171 /* LinkEntity.swift in Sources */,
 				7B1582012C6CF30000599E7C /* DuplicateDTO.swift in Sources */,
 				7B1581E42C6CB85100599E7C /* OnBoardPageView.swift in Sources */,
-				7B1582622C74B2F800599E7C /* LocDTO.swift in Sources */,
+				DF5879612C7F15DC009F9171 /* LinkDTO.swift in Sources */,
 				7B15825A2C74A70000599E7C /* PersonFeature.swift in Sources */,
+				DF58795F2C7F0B41009F9171 /* APIErrorResponseDTO.swift in Sources */,
 				DF1DECD12C7D79370098F761 /* CharacterRepository.swift in Sources */,
-				7B15825D2C74B1DF00599E7C /* CharactersDTO.swift in Sources */,
+				7B15825D2C74B1DF00599E7C /* CharacterDTO.swift in Sources */,
 				7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */,
 				7B1581FD2C6CF2AF00599E7C /* MemeDTO.swift in Sources */,
 				7B1582562C745C7C00599E7C /* HeaderEntity.swift in Sources */,

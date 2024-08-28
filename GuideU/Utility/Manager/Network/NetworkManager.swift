@@ -10,36 +10,43 @@ import ComposableArchitecture
 
 final class NetworkManager {
     
-    func requestNetwork<T: DTO, R: Router, E: ErrorDTO>(dto: T.Type, router: R, errorDTO: E.Type) async -> Result<T, E> {
+    func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async -> Result<T, APIErrorResponse> {
         
         return await withCheckedContinuation { continuation in
             
             do {
                 let request = try router.asURLRequest()
-                
-                AF.request(request, interceptor: NetworkInterceptor())
+                print ("Reqeust : ", request)
+                AF.request(request/*, interceptor: NetworkInterceptor()*/)
+                    .validate(statusCode: 200..<300)
                     .responseDecodable(of: T.self) { response in
                         switch response.result {
                         case let .success(data):
                             continuation.resume(returning: .success(data))
-                        case .failure(_):
+                        case .failure(let errorResponse):
                             guard let data = response.data else {
                                 print("error")
                                 return
                             }
+                            
+                            print("error", String(data: data, encoding: .utf8))
+                            
                             do {
-                                let errorData = try CodableManager.shared.jsonDecoding(model: errorDTO, from: data)
+                                let apiErrorResponse = try CodableManager.shared.jsonDecoding(model: APIErrorResponse.self, from: data)
                                 
-                                continuation.resume(returning: .failure(errorData))
+                                continuation.resume(returning: .failure(apiErrorResponse))
                             } catch {
-                                print(error)
+
+                                let defaultErrorResponse = APIErrorResponse.simple(SimpleErrorDTO(detail: "An unknown error occurred"))
+                                
+                                continuation.resume(returning: .failure(defaultErrorResponse))
                             }
                         }
                         
                     }
                 
             } catch {
-                print(error)
+                print("catchError", error)
             }
             
         }
