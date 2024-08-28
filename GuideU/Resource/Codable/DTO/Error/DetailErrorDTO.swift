@@ -8,7 +8,6 @@
 import Foundation
 
 struct DetailErrorDTO: ErrorDTO {
-    let loc: [LocDTO]
     let msg: String
     let type: String
 }

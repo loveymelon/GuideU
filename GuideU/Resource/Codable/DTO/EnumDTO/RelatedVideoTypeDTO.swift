@@ -11,4 +11,6 @@ enum RelatedVideoTypeDTO: String, DTO {
     case afreeca = "afreeca"
     case cafe = "cafe"
     case youtube = "youtube"
+    case twitter = "twitter"
+    case instagram = "instagram"
 }

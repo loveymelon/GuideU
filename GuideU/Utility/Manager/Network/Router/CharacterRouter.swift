@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum CharacterRouter: Router {
-    case fetchCharacterList(limit: Int, offset: Int, start: String)
+    case fetchCharacterList(limit: Int, offset: Int, start: String?)
 }
 
 extension CharacterRouter {
@@ -23,25 +23,37 @@ extension CharacterRouter {
     var path: String {
         switch self {
         case .fetchCharacterList:
-            return GuideUURL.baseURLString + "/api/v1/characters"
+            return "/api/v1/characters"
         }
     }
     
     var optionalHeaders: HTTPHeaders? {
         switch self {
         case .fetchCharacterList:
-            return nil
+            return HTTPHeaders([
+                HTTPHeader(name: "Content-Type", value: "application/json")
+            ])
         }
     }
     
     var parameters: Parameters? {
         switch self {
         case let .fetchCharacterList(limit, offset, start):
-            return [
-                    "limit": limit,
-                    "offset": offset,
-                    "starts_with": start
-                    ]
+            
+            if let start {
+                return [
+                        "limit": limit,
+                        "offset": offset,
+                        "starts_with": start
+                        ]
+            } else {
+                return [
+                        "limit": limit,
+                        "offset": offset
+                        ]
+            }
+            
+            
         }
     }
     

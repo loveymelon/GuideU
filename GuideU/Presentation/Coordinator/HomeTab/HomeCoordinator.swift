@@ -52,5 +52,6 @@ extension HomeCoordinator {
             }
             return .none
         }
+        .forEachRoute(\.routes, action: \.router)
     }
 }
