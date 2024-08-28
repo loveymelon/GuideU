@@ -38,7 +38,7 @@ extension SplashView {
                         .frame(width: 55, height: 55)
                     
                     Text(Const.Splash.splashText)
-                        .font(.WantedFont.boldFont.font(size: 34))
+                        .font(Font(WantedFont.boldFont.font(size: 34)))
                         .foregroundStyle(.white)
                 }
                 .padding(.leading, 20)

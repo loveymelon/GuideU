@@ -99,7 +99,7 @@ struct HomeView: View {
                     .frame(height: 52)
                     
                 Text(entity.title)
-                    .font(.WantedFont.boldFont.font(size: 23))
+                    .font(Font(WantedFont.boldFont.font(size: 23)))
                     .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
                     .frame(maxWidth: .infinity)
                     .opacity(opacity)
@@ -119,11 +119,11 @@ struct HomeView: View {
     private func headerContentView(size: CGSize, entity: HeaderEntity) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(entity.sectionTitle)
-                .font(.WantedFont.midFont.font(size: 16))
+                .font(Font(WantedFont.midFont.font(size: 16)))
                 .padding(.bottom, 4)
             
             Text(entity.title)
-                .font(.WantedFont.boldFont.font(size: 30))
+                .font(Font(WantedFont.boldFont.font(size: 30)))
                 .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
                 
             HStack {
@@ -133,7 +133,7 @@ struct HomeView: View {
                 
                 Spacer()
             }
-            .font(.WantedFont.midFont.font(size: 16))
+            .font(Font(WantedFont.midFont.font(size: 16)))
         }
         .padding(.horizontal, 10)
     }

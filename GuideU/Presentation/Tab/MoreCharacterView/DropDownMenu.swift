@@ -28,14 +28,13 @@ struct DropDownMenu: View {
             VStack(spacing: 0) {
                 // selected item
                 selectedItemView()
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 14)
                 .frame(height: buttonHeight, alignment: .leading)
                 ifShowDownView()
             }
             .foregroundStyle(.black)
         }
         .frame(height: buttonHeight, alignment: .top)
-        .padding(.horizontal, 125)
     }
 }
 extension DropDownMenu {

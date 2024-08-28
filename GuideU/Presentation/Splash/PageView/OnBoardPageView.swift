@@ -56,7 +56,7 @@ extension OnBoardPageView {
     private func startButton() -> some View {
         if currentButtonState {
             Text("시작하기")
-                .font(.WantedFont.midFont.font(size: 18))
+                .font(Font(WantedFont.midFont.font(size: 18)))
                 .padding(.all, 8)
                 .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 12))

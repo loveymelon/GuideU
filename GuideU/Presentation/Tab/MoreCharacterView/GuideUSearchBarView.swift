@@ -14,12 +14,16 @@ struct GuideUSearchBarView: View {
     
     let placeHolder: String
     let lineWidth: CGFloat
+    var onSubmit: () -> Void
    
     var body: some View {
         VStack {
             VStack {
                 TextField(placeHolder, text: $currentText)
                     .padding(.all, 14)
+                    .onSubmit {
+                        onSubmit()
+                    }
             }
             .background {
                 RoundedRectangle(cornerRadius: 10)
