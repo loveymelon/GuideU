@@ -9,6 +9,8 @@ import Foundation
 
 enum Const {
     
+    static let youtubeBaseString = "https://www.youtube.com/watch?v="
+    
     enum Splash {
         static let splashText = "왁타버스를 여행하는\n팬치, 이파리들을\n위한 안내서"
     }

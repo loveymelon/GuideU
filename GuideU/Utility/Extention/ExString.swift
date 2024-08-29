@@ -9,6 +9,10 @@ import UIKit
 
 extension String {
     
+    var toDate: Date? {
+        return DateManager.shared.toDate(self)
+    }
+    
     func styledText(fullFont: UIFont, fullColor: UIColor, targetString: String, targetFont: UIFont, targetColor: UIColor) -> AttributedString {
         var attributedString = AttributedString(self)
         

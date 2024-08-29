@@ -26,16 +26,7 @@ extension CharacterRepository {
         }
     }
     
-    func fetchVideos() async -> Result<VideoDTO, String> {
-        let result = await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos)
-        
-        switch result {
-        case .success(let success):
-            return .success(success)
-        case .failure(let error):
-            return .failure(catchError(error))
-        }
-    }
+    
     
     func fetchSearch(_ searchText: String) async -> Result<[SearchDTO], String> {
         let result = await network.requestNetwork(dto: SearchListDTO.self, router: SearchRouter.search(searchText: searchText))

@@ -44,7 +44,6 @@ struct PersonFeature {
     
     enum NetworkType {
         case fetchCharacters
-        case fetchVideos
         case search(String)
     }
     
@@ -63,7 +62,6 @@ extension PersonFeature {
             case .viewCycleType(.onAppear):
                 return .run { send in
                     await send(.networkType(.fetchCharacters))
-                    await send(.networkType(.fetchVideos))
                     await send(.networkType(.search("우왁굳")))
                 }
                 
@@ -74,18 +72,6 @@ extension PersonFeature {
                     switch result {
                     case let .success(data):
                         await send(.dataTransType(.characterInfo(data)))
-                    case let .failure(error):
-                        await send(.dataTransType(.errorInfo(error)))
-                    }
-                }
-                
-            case .networkType(.fetchVideos):
-                return .run { send in
-                    let result = await repository.fetchVideos()
-                    
-                    switch result {
-                    case let .success(data):
-                        print("videosDatas")
                     case let .failure(error):
                         await send(.dataTransType(.errorInfo(error)))
                     }
