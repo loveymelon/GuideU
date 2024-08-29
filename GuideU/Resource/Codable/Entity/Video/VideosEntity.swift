@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct VideosEntity: Entity {
+    let videoURL: URL?
+    let channelName: String
+    let videoImageURL: URL?
+    let updatedAt: Date
+    let channelImageURL: URL?
+}

@@ -7,14 +7,16 @@
 
 import Foundation
 
+// smallImageURL optional
+
 struct VideosDTO: DTO {
-    let identifier: String
+    let identifier: String // videoURL
     let title: String
     let channelId: String
-    let channelName: String
-    let thumbnailUrl: String
+    let channelName: String // channelName
+    let thumbnailUrl: String // videoImageURL
     let id: Int
-    let updatedAt: String
+    let updatedAt: String // updateAT
     
     enum CodingKeys: String, CodingKey {
         case identifier
@@ -26,3 +28,4 @@ struct VideosDTO: DTO {
         case updatedAt = "updated_at"
     }
 }
+
