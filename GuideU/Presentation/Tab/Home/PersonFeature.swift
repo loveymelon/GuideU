@@ -44,6 +44,8 @@ struct PersonFeature {
     
     enum NetworkType {
         case fetchCharacters
+        case fetchVideos
+        case search(String)
     }
     
     @Dependency(\.characterRepository) var repository
@@ -60,9 +62,9 @@ extension PersonFeature {
             switch action {
             case .viewCycleType(.onAppear):
                 return .run { send in
-                    print("onAppear")
                     await send(.networkType(.fetchCharacters))
-                    print("onAppear2")
+                    await send(.networkType(.fetchVideos))
+                    await send(.networkType(.search("우왁굳")))
                 }
                 
             case .networkType(.fetchCharacters):
@@ -70,8 +72,32 @@ extension PersonFeature {
                     let result = await repository.fetchCharacter()
                     
                     switch result {
-                    case .success(let data):
+                    case let .success(data):
                         await send(.dataTransType(.characterInfo(data)))
+                    case let .failure(error):
+                        await send(.dataTransType(.errorInfo(error)))
+                    }
+                }
+                
+            case .networkType(.fetchVideos):
+                return .run { send in
+                    let result = await repository.fetchVideos()
+                    
+                    switch result {
+                    case let .success(data):
+                        print("videosDatas")
+                    case let .failure(error):
+                        await send(.dataTransType(.errorInfo(error)))
+                    }
+                }
+                
+            case let .networkType(.search(text)):
+                return .run { send in
+                    let result = await repository.fetchSearch(text)
+                    
+                    switch result {
+                    case .success(let data):
+                        print(data)
                     case .failure(let error):
                         await send(.dataTransType(.errorInfo(error)))
                     }
@@ -79,7 +105,6 @@ extension PersonFeature {
                 
             case let .dataTransType(.characterInfo(characterList)):
                 state.characterInfoList = characterList
-                print(state.characterInfoList)
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
