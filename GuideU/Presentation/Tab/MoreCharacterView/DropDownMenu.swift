@@ -34,7 +34,10 @@ struct DropDownMenu: View {
             }
             .foregroundStyle(.black)
         }
-        .frame(height: buttonHeight, alignment: .top)
+        .onAppear {
+            print("갯수 \(options.count)")
+        }
+        .zIndex(100)
     }
 }
 extension DropDownMenu {
@@ -45,12 +48,12 @@ extension DropDownMenu {
             let scrollViewHeight: CGFloat = dropDownViewHeight()
             ScrollViewReader { proxy in
                 ScrollView(.vertical) {
-                    LazyVStack(spacing: 0) {
+                    VStack(spacing: 0) {
                         ForEach(0..<options.count, id: \.self) { index in
                             openSelectedItemView(index: index, proxy: proxy)
                                 .id(index)
-                            .padding(.horizontal, 20)
-                            .frame(height: buttonHeight, alignment: .leading)
+                                .padding(.horizontal, 20)
+                                .frame(height: buttonHeight, alignment: .leading)
                         }
                     }
                 }
@@ -62,7 +65,6 @@ extension DropDownMenu {
             }
         }
     }
-    
     
     private func openSelectedItemView(index: Int, proxy: ScrollViewProxy) -> some View {
         Button(action: {
