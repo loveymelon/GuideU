@@ -79,6 +79,10 @@
 		DF58795F2C7F0B41009F9171 /* APIErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF58795E2C7F0B41009F9171 /* APIErrorResponseDTO.swift */; };
 		DF5879612C7F15DC009F9171 /* LinkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879602C7F15DC009F9171 /* LinkDTO.swift */; };
 		DF5879632C7F1701009F9171 /* LinkEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879622C7F1701009F9171 /* LinkEntity.swift */; };
+		DF83B81E2C804ACC0088DE31 /* VideoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B81D2C804ACC0088DE31 /* VideoDTO.swift */; };
+		DF83B8202C804B070088DE31 /* VideosDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B81F2C804B070088DE31 /* VideosDTO.swift */; };
+		DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B8212C804C130088DE31 /* VideoRouter.swift */; };
+		DF83B8242C8055E80088DE31 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B8232C8055E80088DE31 /* SearchRouter.swift */; };
 		DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */; };
 		DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */; };
 		DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */; };
@@ -157,6 +161,10 @@
 		DF58795E2C7F0B41009F9171 /* APIErrorResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorResponseDTO.swift; sourceTree = "<group>"; };
 		DF5879602C7F15DC009F9171 /* LinkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkDTO.swift; sourceTree = "<group>"; };
 		DF5879622C7F1701009F9171 /* LinkEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEntity.swift; sourceTree = "<group>"; };
+		DF83B81D2C804ACC0088DE31 /* VideoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDTO.swift; sourceTree = "<group>"; };
+		DF83B81F2C804B070088DE31 /* VideosDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosDTO.swift; sourceTree = "<group>"; };
+		DF83B8212C804C130088DE31 /* VideoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRouter.swift; sourceTree = "<group>"; };
+		DF83B8232C8055E80088DE31 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
 		DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDTO.swift; sourceTree = "<group>"; };
@@ -383,6 +391,7 @@
 		7B1581FB2C6CF2A100599E7C /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				DF83B81C2C804ABE0088DE31 /* Video */,
 				7B15825E2C74B2B700599E7C /* Error */,
 				7B15825B2C74B1C900599E7C /* Character */,
 				7B15820B2C6E204E00599E7C /* EnumDTO */,
@@ -516,6 +525,15 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		DF83B81C2C804ABE0088DE31 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				DF83B81D2C804ACC0088DE31 /* VideoDTO.swift */,
+				DF83B81F2C804B070088DE31 /* VideosDTO.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		DF986E7C2C7CC81B00F2D52F /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +548,8 @@
 			isa = PBXGroup;
 			children = (
 				DF986E842C7CCACC00F2D52F /* CharacterRouter.swift */,
+				DF83B8212C804C130088DE31 /* VideoRouter.swift */,
+				DF83B8232C8055E80088DE31 /* SearchRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -639,6 +659,7 @@
 				7B15820D2C6E207100599E7C /* RelatedVideoTypeDTO.swift in Sources */,
 				7B15820A2C6E1F6D00599E7C /* SearchDTO.swift in Sources */,
 				7B1582642C74B52A00599E7C /* DetailErrorDTO.swift in Sources */,
+				DF83B81E2C804ACC0088DE31 /* VideoDTO.swift in Sources */,
 				DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */,
 				7B1581D82C6C823900599E7C /* UserDefaultsManager.swift in Sources */,
 				7B1581D32C6C811100599E7C /* UserDefaultsWrapper.swift in Sources */,
@@ -648,7 +669,9 @@
 				7B1581E82C6CBEC400599E7C /* ExView.swift in Sources */,
 				DF58795B2C7F0B0C009F9171 /* SimpleErrorDTO.swift in Sources */,
 				7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */,
+				DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */,
 				7B1581EE2C6CC41900599E7C /* TabCoordinator.swift in Sources */,
+				DF83B8242C8055E80088DE31 /* SearchRouter.swift in Sources */,
 				7B15824E2C73075D00599E7C /* ScrollDetector.swift in Sources */,
 				7B1581E62C6CBA4200599E7C /* OnboardPageFeature.swift in Sources */,
 				DF1DECDF2C7D7F930098F761 /* ErrorMapper.swift in Sources */,
@@ -685,6 +708,7 @@
 				7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */,
 				7B1582582C74855700599E7C /* PersonSectionView.swift in Sources */,
 				7B1581BD2C6A58B700599E7C /* Const.swift in Sources */,
+				DF83B8202C804B070088DE31 /* VideosDTO.swift in Sources */,
 				DF986E852C7CCACC00F2D52F /* CharacterRouter.swift in Sources */,
 				7BACA3DA2C7D8FEF008D4CFC /* DropDownMenu.swift in Sources */,
 				7B15820F2C6E20CA00599E7C /* SearchTypeDTO.swift in Sources */,

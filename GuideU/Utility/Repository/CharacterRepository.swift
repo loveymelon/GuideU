@@ -20,15 +20,43 @@ extension CharacterRepository {
         
         switch result {
         case .success(let data):
-            return .success(mapper.dtoToEntity(data.CharactersDTO))
+            return .success(mapper.dtoToEntity(data.charactersDTO))
         case .failure(let error):
-            switch error {
-                
-            case let .simple(simpleError):
-                return .failure(errorMapper.dtoToEntity(simpleError))
-            case let .detailed(detailError):
-                return .failure(errorMapper.dtoToEntity(detailError))
-            }
+            return .failure(catchError(error))
+        }
+    }
+    
+    func fetchVideos() async -> Result<VideoDTO, String> {
+        let result = await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos)
+        
+        switch result {
+        case .success(let success):
+            return .success(success)
+        case .failure(let error):
+            return .failure(catchError(error))
+        }
+    }
+    
+    func fetchSearch(_ searchText: String) async -> Result<[SearchDTO], String> {
+        let result = await network.requestNetwork(dto: SearchListDTO.self, router: SearchRouter.search(searchText: searchText))
+        
+        switch result {
+        case .success(let data):
+            return .success(data.searchListDTO)
+        case .failure(let error):
+            return .failure(catchError(error))
+        }
+    }
+}
+
+extension CharacterRepository {
+    private func catchError(_ error: APIErrorResponse) -> String {
+        switch error {
+            
+        case let .simple(simpleError):
+            return errorMapper.dtoToEntity(simpleError)
+        case let .detailed(detailError):
+            return errorMapper.dtoToEntity(detailError)
         }
     }
 }

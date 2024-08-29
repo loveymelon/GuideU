@@ -28,7 +28,7 @@ struct CharacterDTO: DTO {
 }
 
 struct CharactersDTO: DTO {
-    let CharactersDTO: [CharacterDTO]
+    let charactersDTO: [CharacterDTO]
     
     init(from decoder: any Decoder) throws {
         var container = try decoder.unkeyedContainer()
@@ -37,6 +37,6 @@ struct CharactersDTO: DTO {
             let character = try container.decode(CharacterDTO.self)
             characterList.append(character)
         }
-        self.CharactersDTO = characterList
+        self.charactersDTO = characterList
     }
 }

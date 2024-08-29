@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 // MARK: - SearchDTOElement
 /// 사용시 LinkeDTO에 담아서
 struct SearchDTO: DTO {
@@ -22,7 +20,7 @@ struct SearchDTO: DTO {
     let type: SearchTypeDTO
     let description: String?
     let synonyms: [String?]?
-    let relatedVideos: [RelatedVideoDTO]?
+    let relatedVideos: [RelatedVideoDTO?]?
     let isDetectable: Bool?
 
     enum CodingKeys: String, CodingKey {
@@ -37,4 +35,17 @@ struct SearchDTO: DTO {
     }
 }
 
+struct SearchListDTO: DTO {
+    let searchListDTO: [SearchDTO]
+    
+    init(from decoder: any Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        var searchList = [SearchDTO] ()
+        while !container.isAtEnd {
+            let searchData = try container.decode(SearchDTO.self)
+            searchList.append(searchData)
+        }
+        self.searchListDTO = searchList
+    }
+}
 
