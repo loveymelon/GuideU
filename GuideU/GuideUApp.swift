@@ -15,7 +15,9 @@ struct GuideUApp: App {
 //            RootCoordinatorView(store: Store(initialState: RootCoordinator.State.initialState, reducer: {
 //                RootCoordinator()
 //            }))
-            MoreCharacterView()
+            MoreCharacterView(store: Store(initialState: MoreCharacterFeature.State(), reducer: {
+                MoreCharacterFeature()
+            }))
         }
     }
 }

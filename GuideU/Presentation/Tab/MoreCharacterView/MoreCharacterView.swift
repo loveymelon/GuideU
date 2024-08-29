@@ -6,62 +6,74 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct MoreCharacterView: View {
-    @State
-    var currentText = ""
-    @State
-    var currentIndex = 0
     
-    private let text0 =  "알고싶은 왁타버스 영상을 여기에"
-    private let text1 = "나는 왁타버스에서"
-    private let text2 = "을 더 알아보고 싶어요."
+    @Perception.Bindable var store: StoreOf<MoreCharacterFeature>
     
     var body: some View {
-        contentView()
+        WithPerceptionTracking{
+            contentView()
+                .onAppear {
+                    store.send(.viewCycleType(.onAppear))
+                }
+        }
     }
 }
 
 extension MoreCharacterView {
     private func contentView() -> some View {
         VStack {
-            GuideUSearchBarView(currentText: $currentText, placeHolder: text0, lineWidth: 1.4) {
-                print(currentText)
+            GuideUSearchBarView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.constViewState.placeHolder, lineWidth: 1.4) {
+                store.send(.viewEventType(.onSubmit))
             }
             .padding(.horizontal, 10)
-            
             ScrollView {
-                wantMoreInfoView()
-                    .padding(.top, 5)
-                    .padding(.vertical, 10)
+                ZStack(alignment: .top) {
+                    wantMoreInfoView()
+                        .padding(.top, 5)
+                        .padding(.vertical, 10)
+                    VStack {
+                        ForEach(0...100, id: \.self) { num in
+                            Text(String(num))
+                        }
+                    }
+                    .padding(.top, 130)
+                }
             }
+            .scrollDisabled(false)
         }
     }
     
     private func wantMoreInfoView() -> some View {
         VStack(spacing: 0) {
             Text(
-                text1.styledText(
+                store.constViewState.main.styledText(
                     fullFont: WantedFont.regularFont.font(size: 22),
                     fullColor: .black,
-                    targetString: "왁타버스",
+                    targetString: store.constViewState.targetString,
                     targetFont: WantedFont.boldFont.font(size: 24),
                     targetColor: GuideUColor.ViewBaseColor.light.primary
                 )
             )
             
-            HStack {
-                DropDownMenu(options: ["아이네","주루루"], selectedOptionIndex: $currentIndex)
+            HStack( alignment: .top) {
+                DropDownMenu(options: store.dropDownOptions.map({ $0.name }), selectedOptionIndex: $store.currentIndex.sending(\.currentIndex))
                     .frame(width: 130)
-                Text(text2)
+                
+                Text(store.constViewState.sub)
                     .font(Font(WantedFont.semiFont.font(size: 22)))
+                    .padding(.top, 10)
             }
         }
     }
 }
 
-#if DEBUG
-#Preview {
-    MoreCharacterView()
-}
-#endif
+//#if DEBUG
+//#Preview {
+//    MoreCharacterView(store: Store(initialState: MoreCharacterFeature.State(), reducer: {
+//        MoreCharacterFeature()
+//    }))
+//}
+//#endif
