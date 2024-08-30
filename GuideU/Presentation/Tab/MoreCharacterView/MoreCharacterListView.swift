@@ -10,7 +10,6 @@ import Alamofire
 
 struct MoreCharacterListView: View {
     
-<<<<<<< HEAD
     let setModel: VideosEntity
     
     var body: some View {
@@ -61,29 +60,19 @@ extension MoreCharacterListView {
                 }
                 
             }
-=======
-    
-    var body: some View {
-        VStack {
-            
->>>>>>> origin/develop
         }
     }
+    
 }
-
-
 #if DEBUG
-#Preview(body: {
-<<<<<<< HEAD
+#Preview  {
     MoreCharacterListView(setModel: .init(
         videoURL: URL(string: "https://www.youtube.com/watch?v=A77QDU3GC6Y"),
         channelName: "징버거가 ZZANG센 주제에 너무 신중하다",
         videoImageURL: URL(string: "https://i.ytimg.com/vi/A77QDU3GC6Y/sddefault.jpg"),
         updatedAt: Date(),
-        channelImageURL: URL(string: "https://yt3.googleusercontent.com/ROy3xGFEsnCJtxG-dtb48RM51Z_GKwpIh2n76wr6XH0YQHAOJ-jYxVaWio-I43JyRCe6oOykdA=s160-c-k-c0x00ffffff-no-rj")
+        channelImageURL: URL(string: "https://yt3.googleusercontent.com/ROy3xGFEsnCJtxG-dtb48RM51Z_GKwpIh2n76wr6XH0YQHAOJ-jYxVaWio-I43JyRCe6oOykdA=s160-c-k-c0x00ffffff-no-rj"),
+        title: "테스트"
     ))
-=======
-    MoreCharacterListView()
->>>>>>> origin/develop
-})
+}
 #endif
