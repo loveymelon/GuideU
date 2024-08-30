@@ -13,13 +13,14 @@ struct CharacterMapper {
     func dtoToEntity(_ dto: [CharacterDTO]) -> [CharacterEntity] {
         return dto.map { dtoToEntity($0) }
     }
+    
+    /// CharactersDTO -> Entity
+    func dtoToEntity(_ dto: CharacterDTO) -> CharacterEntity {
+        return CharacterEntity(name: dto.name, engName: dto.engName, definition: dto.definition, smallImageUrl: dto.smallImageUrl, largeImageUrl: dto.largeImageUrl, links: dtoToEntity(dto.links ?? []), id: dto.id)
+    }
 }
 
 extension CharacterMapper {
-    /// CharactersDTO -> Entity
-    private func dtoToEntity(_ dto: CharacterDTO) -> CharacterEntity {
-        return CharacterEntity(name: dto.name, engName: dto.engName, definition: dto.definition, smallImageUrl: dto.smallImageUrl, largeImageUrl: dto.largeImageUrl, links: dtoToEntity(dto.links ?? []), id: dto.id)
-    }
     
     private func dtoToEntity(_ dto: [LinkDTO]) -> [LinkEntity] {
         return dto.map { dtoToEntity($0) }

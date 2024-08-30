@@ -63,14 +63,17 @@ struct MoreCharacterFeature {
     enum NetworkType {
         case fetchVideos([String], Int, Int, isScroll: Bool)
         case fetchSearch
+        case fetchCharacter(Int)
     }
     
     enum CancelId: Hashable {
         case categoryID
         case scrollID
+        case searchID
     }
     
-    @Dependency(\.videoRepository) var repository
+    @Dependency(\.videoRepository) var videoRepository
+    @Dependency(\.characterRepository) var characterRepository
     
     var body: some ReducerOf<Self> {
        core()
@@ -95,10 +98,11 @@ extension MoreCharacterFeature {
                 return .run { send in
                     await send(.networkType(.fetchSearch))
                 }
+                .debounce(id: CancelId.searchID, for: 1, scheduler: RunLoop.main, options: nil)
              
             case let .networkType(.fetchVideos(channelId, skip, limit, isScroll)):
                 return .run { send in
-                    let result = await repository.fetchVideos(channelId: channelId, skip: skip, limit: limit)
+                    let result = await videoRepository.fetchVideos(channelId: channelId, skip: skip, limit: limit)
                     
                     switch result {
                     case let .success(data):
@@ -110,7 +114,19 @@ extension MoreCharacterFeature {
                 
             case .networkType(.fetchSearch):
                 return .run { [state = state] send in
-                    let result = await repository.fetchSearch(state.currentText)
+                    let result = await videoRepository.fetchSearch(state.currentText)
+                }
+                
+            case let .networkType(.fetchCharacter(id)):
+                return .run { send in
+                    let result = await characterRepository.fetchCharacter(id: id)
+                    
+                    switch result {
+                    case let .success(data):
+                        print("character", data)
+                    case let .failure(error):
+                        await send(.dataTransType(.errorInfo(error)))
+                    }
                 }
                 
             case let .dataTransType(.videosInfo(videos, isScroll)):

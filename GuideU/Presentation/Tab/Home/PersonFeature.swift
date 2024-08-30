@@ -67,7 +67,7 @@ extension PersonFeature {
                 
             case .networkType(.fetchCharacters):
                 return .run { send in
-                    let result = await repository.fetchCharacter()
+                    let result = await repository.fetchCharacters()
                     
                     switch result {
                     case let .success(data):

@@ -15,7 +15,7 @@ final class CharacterRepository {
 }
 
 extension CharacterRepository {
-    func fetchCharacter(limit: Int = 1, offset: Int = 0, start: String? = nil) async -> Result<[CharacterEntity], String> {
+    func fetchCharacters(limit: Int = 1, offset: Int = 0, start: String? = nil) async -> Result<[CharacterEntity], String> {
         let result = await network.requestNetwork(dto: CharactersDTO.self, router: CharacterRouter.fetchCharacterList(limit: limit, offset: offset, start: start))
         
         switch result {
@@ -26,14 +26,23 @@ extension CharacterRepository {
         }
     }
     
-    
-    
     func fetchSearch(_ searchText: String) async -> Result<[SearchDTO], String> {
         let result = await network.requestNetwork(dto: SearchListDTO.self, router: SearchRouter.search(searchText: searchText))
         
         switch result {
         case .success(let data):
             return .success(data.searchListDTO)
+        case .failure(let error):
+            return .failure(catchError(error))
+        }
+    }
+    
+    func fetchCharacter(id: Int) async -> Result<CharacterEntity, String> {
+        let result = await network.requestNetwork(dto: CharacterDTO.self, router: CharacterRouter.fetchCharacter(id))
+        
+        switch result {
+        case .success(let data):
+            return .success(mapper.dtoToEntity(data))
         case .failure(let error):
             return .failure(catchError(error))
         }

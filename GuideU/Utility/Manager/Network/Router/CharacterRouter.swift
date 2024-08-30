@@ -10,12 +10,15 @@ import Alamofire
 
 enum CharacterRouter: Router {
     case fetchCharacterList(limit: Int, offset: Int, start: String?)
+    case fetchCharacter(Int)
 }
 
 extension CharacterRouter {
     var method: HTTPMethod {
         switch self {
         case .fetchCharacterList:
+            return .get
+        case .fetchCharacter:
             return .get
         }
     }
@@ -24,12 +27,14 @@ extension CharacterRouter {
         switch self {
         case .fetchCharacterList:
             return "/api/v1/characters"
+        case let .fetchCharacter(id):
+            return "/api/v1/characters/\(id)"
         }
     }
     
     var optionalHeaders: HTTPHeaders? {
         switch self {
-        case .fetchCharacterList:
+        case .fetchCharacterList, .fetchCharacter:
             return HTTPHeaders([
                 HTTPHeader(name: "Content-Type", value: "application/json")
             ])
@@ -52,6 +57,8 @@ extension CharacterRouter {
                         "offset": offset
                         ]
             }
+        case .fetchCharacter:
+            return nil
             
             
         }
@@ -59,14 +66,14 @@ extension CharacterRouter {
     
     var body: Data? {
         switch self {
-        case .fetchCharacterList:
+        case .fetchCharacterList, .fetchCharacter:
             return nil
         }
     }
     
     var encodingType: EncodingType {
         switch self {
-        case .fetchCharacterList:
+        case .fetchCharacterList, .fetchCharacter:
             return .url
         }
     }
