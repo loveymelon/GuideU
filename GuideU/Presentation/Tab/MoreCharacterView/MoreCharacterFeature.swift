@@ -17,6 +17,9 @@ struct MoreCharacterFeature {
         var currentText = ""
         var currentIndex = 0
         var targetIndex = 100
+        var currentStart = 0
+        
+        var videoInfos: [VideosEntity] = []
         
         let constViewState = ConstViewState()
     }
@@ -41,7 +44,6 @@ struct MoreCharacterFeature {
         /// Binding
         case currentText(String)
         case currentIndex(Int)
-        
     }
     
     enum ViewCycleType {
@@ -50,15 +52,17 @@ struct MoreCharacterFeature {
     
     enum ViewEventType {
         case onSubmit
+        case videoOnAppear(Int)
     }
     
     enum DataTransType {
-        case videosInfo([VideosEntity])
+        case videosInfo([VideosEntity], isScroll: Bool)
         case errorInfo(String)
     }
     
     enum NetworkType {
-        case fetchVideos([String], Int, Int)
+        case fetchVideos([String], Int, Int, isScroll: Bool)
+        case fetchSearch
     }
     
     @Dependency(\.videoRepository) var repository
@@ -74,26 +78,50 @@ extension MoreCharacterFeature {
         Reduce { state, action in
             switch action {
             case .viewCycleType(.onAppear):
+                return fetchVideos(state: &state, isScroll: false)
                 
-                return fetchVideos(state: &state)
+            case let .viewEventType(.videoOnAppear(index)):
+                
+                
+            case .viewEventType(.onSubmit):
+                return .run { send in
+                    await send(.networkType(.fetchSearch))
+                }
              
-            case let .networkType(.fetchVideos(channelId, skip, limit)):
+            case let .networkType(.fetchVideos(channelId, skip, limit, isScroll)):
                 return .run { send in
                     let result = await repository.fetchVideos(channelId: channelId, skip: skip, limit: limit)
                     
                     switch result {
                     case let .success(data):
-                        await send(.dataTransType(.videosInfo(data)))
+                        await send(.dataTransType(.videosInfo(data, isScroll: isScroll)))
                     case let .failure(error):
                         await send(.dataTransType(.errorInfo(error)))
                     }
                 }
                 
-            case let .dataTransType(.videosInfo(videos)):
-                print(videos)
+            case .networkType(.fetchSearch):
+                return .run { [state = state] send in
+                    let result = await repository.fetchSearch(state.currentText)
+                }
+                
+            case let .dataTransType(.videosInfo(videos, isScroll)):
+                if isScroll {
+                    state.videoInfos.append(contentsOf: videos)
+                } else {
+                    state.videoInfos = videos
+                }
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
+                
+                //binding action setting
+            case let .currentIndex(index):
+                state.currentIndex = index
+                return fetchVideos(state: &state, isScroll: false)
+                
+            case let .currentText(text):
+                state.currentText = text
                 
             default:
                 break
@@ -105,9 +133,9 @@ extension MoreCharacterFeature {
 }
 
 extension MoreCharacterFeature {
-    private func fetchVideos(state: inout State) -> Effect<Action> {
+    private func fetchVideos(state: inout State, isScroll: Bool) -> Effect<Action> {
         return .run { [state = state] send in
-            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex].channelIDs, state.currentIndex, 100)))
+            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex].channelIDs, state.currentStart, state.targetIndex, isScroll: isScroll)))
         }
     }
 }

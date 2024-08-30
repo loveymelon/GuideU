@@ -35,8 +35,12 @@ extension MoreCharacterView {
                         .padding(.top, 5)
                         .padding(.vertical, 10)
                     VStack {
-                        ForEach(0...100, id: \.self) { num in
-                            Text(String(num))
+                        ForEach(Array(store.videoInfos.enumerated()), id: \.element.self) { index, data in
+                            Text(String(index))
+                            // appendConstentOff
+                                .onAppear {
+                                    store.send(.viewEventType(.videoOnAppear(index)))
+                                }
                         }
                     }
                     .padding(.top, 130)

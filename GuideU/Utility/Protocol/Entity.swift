@@ -7,4 +7,4 @@
 
 import Foundation
 
-protocol Entity: Equatable {}
+protocol Entity: Equatable, Hashable {}

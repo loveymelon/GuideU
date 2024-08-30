@@ -17,7 +17,7 @@ struct VideoMapper {
 
 extension VideoMapper {
     private func dtoToEntity(_ dto: VideosDTO) -> VideosEntity {
-        return VideosEntity(videoURL: URL(string: dto.identifier), channelName: dto.channelName, videoImageURL: URL(string: dto.thumbnailUrl), updatedAt: dto.updatedAt.toDate ?? Date(), channelImageURL: nil)
+        return VideosEntity(videoURL: URL(string: dto.identifier), channelName: dto.channelName, videoImageURL: URL(string: dto.thumbnailUrl), updatedAt: dto.updatedAt.toDate ?? Date(), channelImageURL: nil, title: dto.title)
     }
 }
 

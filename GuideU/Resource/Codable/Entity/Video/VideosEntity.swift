@@ -13,4 +13,5 @@ struct VideosEntity: Entity {
     let videoImageURL: URL?
     let updatedAt: Date
     let channelImageURL: URL?
+    let title: String
 }
