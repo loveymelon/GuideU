@@ -16,8 +16,7 @@ struct MoreCharacterFeature {
         var dropDownOptions = Const.Channel.allCases
         var currentText = ""
         var currentIndex = 0
-        var targetIndex = 100
-        var currentStart = 0
+        var currentStart = 140
         
         var videoInfos: [VideosEntity] = []
         
@@ -81,7 +80,9 @@ extension MoreCharacterFeature {
                 return fetchVideos(state: &state, isScroll: false)
                 
             case let .viewEventType(.videoOnAppear(index)):
-                break 
+                if (state.videoInfos.count - 1) - index <= 3 {
+                    return fetchVideos(state: &state, isScroll: true)
+                }
                 
             case .viewEventType(.onSubmit):
                 return .run { send in
@@ -108,8 +109,10 @@ extension MoreCharacterFeature {
             case let .dataTransType(.videosInfo(videos, isScroll)):
                 if isScroll {
                     state.videoInfos.append(contentsOf: videos)
+                    state.currentStart += 20
                 } else {
                     state.videoInfos = videos
+                    state.currentStart += 20
                 }
                 
             case let .dataTransType(.errorInfo(error)):
@@ -133,9 +136,9 @@ extension MoreCharacterFeature {
 }
 
 extension MoreCharacterFeature {
-    private func fetchVideos(state: inout State, isScroll: Bool) -> Effect<Action> {
+    private func fetchVideos(state: inout State, isScroll: Bool, limit: Int = 20) -> Effect<Action> {
         return .run { [state = state] send in
-            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex].channelIDs, state.currentStart, state.targetIndex, isScroll: isScroll)))
+            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex].channelIDs, state.currentStart, limit, isScroll: isScroll)))
         }
     }
 }
