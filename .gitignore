@@ -4,6 +4,10 @@
 ## My_ignore
 .DS_Store
 
+/Secret
+Secret/
+Secret
+
 # Xcode workspace user state
 GuideU.xcodeproj/project.xcworkspace/xcuserdata/
 ### Swift ###

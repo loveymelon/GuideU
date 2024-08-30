@@ -7,12 +7,20 @@
 
 import SwiftUI
 import ComposableArchitecture
+import ComposableArchitecture
 
 struct MoreCharacterView: View {
     
     @Perception.Bindable var store: StoreOf<MoreCharacterFeature>
+    @Perception.Bindable var store: StoreOf<MoreCharacterFeature>
     
     var body: some View {
+        WithPerceptionTracking{
+            contentView()
+                .onAppear {
+                    store.send(.viewCycleType(.onAppear))
+                }
+        }
         WithPerceptionTracking{
             contentView()
                 .onAppear {
@@ -25,6 +33,8 @@ struct MoreCharacterView: View {
 extension MoreCharacterView {
     private func contentView() -> some View {
         VStack {
+            GuideUSearchBarView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.constViewState.placeHolder, lineWidth: 1.4) {
+                store.send(.viewEventType(.onSubmit))
             GuideUSearchBarView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.constViewState.placeHolder, lineWidth: 1.4) {
                 store.send(.viewEventType(.onSubmit))
             }
@@ -54,8 +64,10 @@ extension MoreCharacterView {
         VStack(spacing: 0) {
             Text(
                 store.constViewState.main.styledText(
+                store.constViewState.main.styledText(
                     fullFont: WantedFont.regularFont.font(size: 22),
                     fullColor: .black,
+                    targetString: store.constViewState.targetString,
                     targetString: store.constViewState.targetString,
                     targetFont: WantedFont.boldFont.font(size: 24),
                     targetColor: GuideUColor.ViewBaseColor.light.primary
@@ -64,16 +76,28 @@ extension MoreCharacterView {
             
             HStack( alignment: .top) {
                 DropDownMenu(options: store.dropDownOptions.map({ $0.name }), selectedOptionIndex: $store.currentIndex.sending(\.currentIndex))
+            HStack( alignment: .top) {
+                DropDownMenu(options: store.dropDownOptions.map({ $0.name }), selectedOptionIndex: $store.currentIndex.sending(\.currentIndex))
                     .frame(width: 130)
                 
                 Text(store.constViewState.sub)
+                
+                Text(store.constViewState.sub)
                     .font(Font(WantedFont.semiFont.font(size: 22)))
+                    .padding(.top, 10)
                     .padding(.top, 10)
             }
         }
     }
 }
 
+//#if DEBUG
+//#Preview {
+//    MoreCharacterView(store: Store(initialState: MoreCharacterFeature.State(), reducer: {
+//        MoreCharacterFeature()
+//    }))
+//}
+//#endif
 //#if DEBUG
 //#Preview {
 //    MoreCharacterView(store: Store(initialState: MoreCharacterFeature.State(), reducer: {
