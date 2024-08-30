@@ -29,24 +29,36 @@ extension MoreCharacterView {
                 store.send(.viewEventType(.onSubmit))
             }
             .padding(.horizontal, 10)
+            
             ScrollView {
                 ZStack(alignment: .top) {
-                    wantMoreInfoView()
-                        .padding(.top, 5)
-                        .padding(.vertical, 10)
-                    VStack {
-                        ForEach(Array(store.videoInfos.enumerated()), id: \.element.self) { index, data in
-                            Text(String(index))
-                            // appendConstentOff
-                                .onAppear {
-                                    store.send(.viewEventType(.videoOnAppear(index)))
-                                }
+                    ZStack {
+                        LazyVStack {
+                            ForEach(Array(store.videoInfos.enumerated()), id: \.element.self) { index, data in
+                                MoreCharacterListView(setModel: data)
+                                    .asButton { // 선택되었을때
+                                        print(data)
+                                    }
+                                    .onAppear {
+                                        store.send(.viewEventType(.videoOnAppear(index)))
+                                    }
+                                    .padding(.horizontal, 12)
+                                    .padding(.bottom, 10)
+                            }
                         }
+                        .padding(.top, 110)
                     }
-                    .padding(.top, 130)
+                    
+                    ZStack {
+                        wantMoreInfoView()
+                            .padding(.top, 5)
+                            .padding(.vertical, 4)
+                    }
+                    .zIndex(100)
                 }
+                
             }
-            .scrollDisabled(false)
+            .background(Color(GuideUColor.ViewBaseColor.light.backColor))
         }
     }
     
@@ -64,26 +76,22 @@ extension MoreCharacterView {
             
             HStack( alignment: .top) {
                 DropDownMenu(options: store.dropDownOptions.map({ $0.name }), selectedOptionIndex: $store.currentIndex.sending(\.currentIndex))
-                HStack( alignment: .top) {
-                    DropDownMenu(options: store.dropDownOptions.map({ $0.name }), selectedOptionIndex: $store.currentIndex.sending(\.currentIndex))
-                        .frame(width: 130)
-                    
-                    Text(store.constViewState.sub)
-                    
-                    Text(store.constViewState.sub)
-                        .font(Font(WantedFont.semiFont.font(size: 22)))
-                        .padding(.top, 10)
-                        .padding(.top, 10)
-                }
+                    .frame(width: 140)
+                    .zIndex(100)
+                
+                Text(store.constViewState.sub)
+                    .font(Font(WantedFont.regularFont.font(size: 22)))
+                    .padding(.top, 10)
             }
+            
         }
     }
 }
-//#if DEBUG
-//#Preview {
-//    MoreCharacterView(store: Store(initialState: MoreCharacterFeature.State(), reducer: {
-//        MoreCharacterFeature()
-//    }))
-//}
-//#endif
+#if DEBUG
+#Preview {
+    MoreCharacterView(store: Store(initialState: MoreCharacterFeature.State(), reducer: {
+        MoreCharacterFeature()
+    }))
+}
+#endif
 

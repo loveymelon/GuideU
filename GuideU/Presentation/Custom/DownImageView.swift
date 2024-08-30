@@ -22,11 +22,11 @@ struct DownImageView: View {
         var size: CGSize {
             return switch self {
             case .max:
-                CGSize(width: 180, height: 180)
+                CGSize(width: 250, height: 250)
             case .mid:
-                CGSize(width: 120, height: 120)
+                CGSize(width: 180, height: 180)
             case .min:
-                CGSize(width: 80, height: 80)
+                CGSize(width: 100, height: 100)
             case let .custom(size):
                 size
             }

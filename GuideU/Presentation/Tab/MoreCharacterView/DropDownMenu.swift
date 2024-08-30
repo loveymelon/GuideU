@@ -34,10 +34,7 @@ struct DropDownMenu: View {
             }
             .foregroundStyle(.black)
         }
-        .onAppear {
-            print("갯수 \(options.count)")
-        }
-        .zIndex(100)
+        .zIndex(102)
     }
 }
 extension DropDownMenu {
@@ -59,6 +56,8 @@ extension DropDownMenu {
                 }
                 .scrollDisabled(options.count <=  3)
                 .frame(height: scrollViewHeight)
+                .zIndex(103)
+                .background(Color.white)
                 .onAppear {
                     proxy.scrollTo(selectedOptionIndex)
                 }
@@ -93,6 +92,7 @@ extension DropDownMenu {
                 VStack(spacing: 0) {
                     HStack(spacing: nil) {
                         Text(options[selectedOptionIndex] + " 님")
+                            .font(Font(WantedFont.boldFont.font(size: 21)))
                         Spacer()
                         Image.dropDown
                             .rotationEffect(.degrees((showDropdown ?  -180 : 0)))

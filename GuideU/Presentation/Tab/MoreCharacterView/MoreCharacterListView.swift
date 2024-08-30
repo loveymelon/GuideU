@@ -27,7 +27,7 @@ extension MoreCharacterListView {
         }
         .background()
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        .shadow(radius: 10)
+        .shadow(radius: 6)
     }
     
     private func mainImageView() -> some View {
@@ -47,7 +47,7 @@ extension MoreCharacterListView {
             
             VStack(spacing: 4) {
                 HStack {
-                    Text("상당히 갑작스럽게 진행된 다이진희쇼")
+                    Text(setModel.title)
                         .font(Font(WantedFont.boldFont.font(size: 15)))
                         .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
                     Spacer()
@@ -72,7 +72,7 @@ extension MoreCharacterListView {
         videoImageURL: URL(string: "https://i.ytimg.com/vi/A77QDU3GC6Y/sddefault.jpg"),
         updatedAt: Date(),
         channelImageURL: URL(string: "https://yt3.googleusercontent.com/ROy3xGFEsnCJtxG-dtb48RM51Z_GKwpIh2n76wr6XH0YQHAOJ-jYxVaWio-I43JyRCe6oOykdA=s160-c-k-c0x00ffffff-no-rj"),
-        title: "테스트"
+        title: "상당히 갑작스럽게 진행된 다이진희쇼"
     ))
 }
 #endif
