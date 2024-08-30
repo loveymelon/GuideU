@@ -31,7 +31,6 @@ final class DateManager {
         dateFormatter.locale = locale
 
         if let fallbackResult = dateFormatter.date(from: dateString) {
-            print("DateChange success")
             return fallbackResult
         }
         

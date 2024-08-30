@@ -16,7 +16,8 @@ struct MoreCharacterFeature {
         var dropDownOptions = Const.Channel.allCases
         var currentText = ""
         var currentIndex = 0
-        var currentStart = 140
+        var currentStart = 0
+        var limit = 20
         
         var videoInfos: [VideosEntity] = []
         
@@ -64,6 +65,11 @@ struct MoreCharacterFeature {
         case fetchSearch
     }
     
+    enum CancelId: Hashable {
+        case categoryID
+        case scrollID
+    }
+    
     @Dependency(\.videoRepository) var repository
     
     var body: some ReducerOf<Self> {
@@ -82,6 +88,7 @@ extension MoreCharacterFeature {
             case let .viewEventType(.videoOnAppear(index)):
                 if (state.videoInfos.count - 1) - index <= 3 {
                     return fetchVideos(state: &state, isScroll: true)
+                        .debounce(id: CancelId.scrollID, for: 1, scheduler: RunLoop.main, options: nil)
                 }
                 
             case .viewEventType(.onSubmit):
@@ -109,10 +116,10 @@ extension MoreCharacterFeature {
             case let .dataTransType(.videosInfo(videos, isScroll)):
                 if isScroll {
                     state.videoInfos.append(contentsOf: videos)
-                    state.currentStart += 20
+                    state.currentStart += (state.limit + 1)
                 } else {
                     state.videoInfos = videos
-                    state.currentStart += 20
+                    state.currentStart += (state.limit + 1)
                 }
                 
             case let .dataTransType(.errorInfo(error)):
@@ -121,7 +128,9 @@ extension MoreCharacterFeature {
                 //binding action setting
             case let .currentIndex(index):
                 state.currentIndex = index
+                state.currentStart = 0
                 return fetchVideos(state: &state, isScroll: false)
+                    .debounce(id: CancelId.categoryID, for: 1, scheduler: RunLoop.main, options: nil)
                 
             case let .currentText(text):
                 state.currentText = text
@@ -136,9 +145,9 @@ extension MoreCharacterFeature {
 }
 
 extension MoreCharacterFeature {
-    private func fetchVideos(state: inout State, isScroll: Bool, limit: Int = 20) -> Effect<Action> {
+    private func fetchVideos(state: inout State, isScroll: Bool) -> Effect<Action> {
         return .run { [state = state] send in
-            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex].channelIDs, state.currentStart, limit, isScroll: isScroll)))
+            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex].channelIDs, state.currentStart, state.limit, isScroll: isScroll)))
         }
     }
 }
