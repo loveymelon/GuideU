@@ -81,7 +81,7 @@ extension MoreCharacterFeature {
                 return fetchVideos(state: &state, isScroll: false)
                 
             case let .viewEventType(.videoOnAppear(index)):
-                
+                break 
                 
             case .viewEventType(.onSubmit):
                 return .run { send in
