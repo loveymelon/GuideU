@@ -10,10 +10,56 @@ import Alamofire
 
 struct MoreCharacterListView: View {
     
+    let setModel: VideosEntity
     
     var body: some View {
+        contentView()
+    }
+}
+
+extension MoreCharacterListView {
+    private func contentView() -> some View {
         VStack {
+            mainImageView()
+            sectionView()
+                .padding(.horizontal, 10)
+                .padding(.bottom, 8)
+        }
+        .background()
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .shadow(radius: 10)
+    }
+    
+    private func mainImageView() -> some View {
+        DownImageView(url: setModel.videoImageURL, option: .max)
+            .aspectRatio(contentMode: .fill)
+            .frame(height: 190)
+            .clipped()
+    }
+    
+    private func sectionView() -> some View {
+        HStack {
             
+            DownImageView(url: setModel.channelImageURL, option: .min)
+                .frame(width: 40, height: 40)
+                .aspectRatio(1, contentMode: .fill)
+                .clipShape(Circle())
+            
+            VStack(spacing: 4) {
+                HStack {
+                    Text("상당히 갑작스럽게 진행된 다이진희쇼")
+                        .font(Font(WantedFont.boldFont.font(size: 15)))
+                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
+                    Spacer()
+                }
+                HStack {
+                    Text(setModel.channelName)
+                        .font(Font(WantedFont.midFont.font(size: 12)))
+                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                    Spacer()
+                }
+                
+            }
         }
     }
 }
@@ -21,6 +67,12 @@ struct MoreCharacterListView: View {
 
 #if DEBUG
 #Preview(body: {
-    MoreCharacterListView()
+    MoreCharacterListView(setModel: .init(
+        videoURL: URL(string: "https://www.youtube.com/watch?v=A77QDU3GC6Y"),
+        channelName: "징버거가 ZZANG센 주제에 너무 신중하다",
+        videoImageURL: URL(string: "https://i.ytimg.com/vi/A77QDU3GC6Y/sddefault.jpg"),
+        updatedAt: Date(),
+        channelImageURL: URL(string: "https://yt3.googleusercontent.com/ROy3xGFEsnCJtxG-dtb48RM51Z_GKwpIh2n76wr6XH0YQHAOJ-jYxVaWio-I43JyRCe6oOykdA=s160-c-k-c0x00ffffff-no-rj")
+    ))
 })
 #endif
