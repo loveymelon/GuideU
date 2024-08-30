@@ -8,6 +8,8 @@
 import Foundation
 
 struct VideosEntity: Entity {
+    let uuid = UUID()
+    
     let videoURL: URL?
     let channelName: String
     let videoImageURL: URL?
