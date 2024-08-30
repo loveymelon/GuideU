@@ -74,9 +74,9 @@ extension MoreCharacterView {
                 )
             )
             
-            HStack( alignment: .top) {
+            HStack(alignment: .top, spacing: 4) {
                 DropDownMenu(options: store.dropDownOptions.map({ $0.name }), selectedOptionIndex: $store.currentIndex.sending(\.currentIndex))
-                    .frame(width: 140)
+                    .frame(width: 110)
                     .zIndex(100)
                 
                 Text(store.constViewState.sub)

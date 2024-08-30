@@ -28,7 +28,6 @@ struct DropDownMenu: View {
             VStack(spacing: 0) {
                 // selected item
                 selectedItemView()
-                .padding(.horizontal, 14)
                 .frame(height: buttonHeight, alignment: .leading)
                 ifShowDownView()
             }
@@ -49,7 +48,7 @@ extension DropDownMenu {
                         ForEach(0..<options.count, id: \.self) { index in
                             openSelectedItemView(index: index, proxy: proxy)
                                 .id(index)
-                                .padding(.horizontal, 20)
+                                .padding(.horizontal, 10)
                                 .frame(height: buttonHeight, alignment: .leading)
                         }
                     }
