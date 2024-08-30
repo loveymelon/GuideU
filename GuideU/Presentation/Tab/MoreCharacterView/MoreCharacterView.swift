@@ -11,14 +11,10 @@ import ComposableArchitecture
 struct MoreCharacterView: View {
     
     @Perception.Bindable var store: StoreOf<MoreCharacterFeature>
-    
-    @State private var isSearchVisible: Bool = true
-    @State private var scrollOffset: CGFloat = 0
-    @State private var lastScrollOffset: CGFloat = 0
-    
+
     var body: some View {
-        WithPerceptionTracking{
-            ZStack(alignment: .top) {
+        WithPerceptionTracking {
+            VStack {
                 GuideUSearchBarView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.constViewState.placeHolder, lineWidth: 1.4) {
                     store.send(.viewEventType(.onSubmit))
                 }
@@ -28,7 +24,6 @@ struct MoreCharacterView: View {
                     .onAppear {
                         store.send(.viewCycleType(.onAppear))
                     }
-                    .padding(.top, isSearchVisible ? 54 : 0 )
             }
         }
     }
@@ -37,36 +32,8 @@ struct MoreCharacterView: View {
 extension MoreCharacterView {
     private func contentView() -> some View {
         ScrollView {
+            
             ZStack(alignment: .top) {
-                VStack {}
-                .background {
-                    ScrollDetector { offset in
-                        let offsetChange = offset - lastScrollOffset
-                        
-                        if abs(offsetChange) > 30 {
-                            if offsetChange > 0 {
-                                withAnimation {
-                                    isSearchVisible = false
-                                }
-                            } else if offsetChange < 0 || offset < -50 {
-                                withAnimation {
-                                    isSearchVisible = true
-                                }
-                            }
-                            print(offset)
-                            print(isSearchVisible)
-                        }
-                        else if offset < 20 {
-                            withAnimation {
-                                isSearchVisible = true
-                            }
-                        }
-                        
-                        lastScrollOffset = offset
-                        scrollOffset = offset
-                    } onDraggingEnd: { offset, veloc in }
-                }
-                
                 ZStack {
                     Group {
                         if store.state.videoInfos.isEmpty {
