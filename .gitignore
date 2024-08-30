@@ -5,6 +5,7 @@
 .DS_Store
 
 /Secret
+Secret/
 Secret
 
 # Xcode workspace user state
