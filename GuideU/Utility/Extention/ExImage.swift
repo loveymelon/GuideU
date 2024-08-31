@@ -14,12 +14,13 @@ extension Image {
     static let search = Image(.search)
     static let dropDown = Image(.dropDownButton)
     static let close = Image(.closeRounded)
+    static let history = Image(.historyTab)
     
     enum TabbarImage {
         enum noneTab {
             static let homeTab = Image(.homeTab)
             static let memeTab = Image(.memeTab)
-            static let historyTab = Image(.historyTab)
+            static let historyTab = history
             static let settingTab = Image(.settingTab)
         }
         
