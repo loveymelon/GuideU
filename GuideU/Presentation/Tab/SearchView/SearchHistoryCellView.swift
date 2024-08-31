@@ -12,6 +12,8 @@ struct SearchHistoryCellView: View {
     
     let name: String
     
+    var removeTapped: () -> Void
+    
     var body: some View {
         VStack {
             HStack(spacing: 0) {
@@ -23,7 +25,7 @@ struct SearchHistoryCellView: View {
                     .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
                 
                 Text(name)
-                    .font(Font(WantedFont.regularFont.font(size: 18)))
+                    .font(Font(WantedFont.regularFont.font(size: 16)))
                 Spacer()
                 
                 Image.close
@@ -32,14 +34,19 @@ struct SearchHistoryCellView: View {
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 22)
                     .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                    .asButton {
+                        removeTapped()
+                    }
             }
-            .padding(.vertical, 10)
+            .padding(.vertical, 8)
         }
     }
 }
 
 #if DEBUG
 #Preview {
-    SearchHistoryCellView(name: "빅토리")
+    SearchHistoryCellView(name: "빅토리") {
+        
+    }
 }
 #endif

@@ -17,7 +17,6 @@ struct SearchView: View {
         VStack {
             fakeNavigation()
                 .padding(.horizontal, 10)
-                .padding(.bottom, 10)
             
             if currentText.isEmpty {
                 currentListView()
@@ -36,7 +35,15 @@ extension SearchView {
         ScrollView {
             recentSectionView()
                 .padding(.horizontal, 10)
-            
+                .padding(.top, 10)
+            ForEach(0...100, id: \.self) { num in
+                SearchHistoryCellView(name: String(num)) {
+                    /// RemoveButtonTapped
+                    
+                }
+                    .padding(.trailing, 10)
+                    .padding(.leading, 8)
+            }
         }
     }
 }
@@ -84,14 +91,22 @@ extension SearchView {
                     .frame(height: 52)
                 
                 Spacer()
-                Image.close
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fit)
-                    .asButton {
-                        /// 전뷰로 이동
-                        
-                    }
-                    .frame(height: 32)
+                
+                Text(Const.navTitle)
+                    .font(Font(WantedFont.midFont.font(size: 17)))
+                
+                Spacer()
+                VStack {
+                    Image.close
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .asButton {
+                            /// 전뷰로 이동
+                            
+                        }
+                        .frame(height: 32)
+                }
+                .frame(width: 52)
             }
             GuidUSearchBarBottomLineView(currentText: $currentText, placeHolder: placeHolder, lineWidth: 1.4) {
                 /// onSubmit
