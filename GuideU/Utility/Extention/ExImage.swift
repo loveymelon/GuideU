@@ -13,6 +13,7 @@ extension Image {
     static let defaultBack = Image(.defaultBack)
     static let search = Image(.search)
     static let dropDown = Image(.dropDownButton)
+    static let close = Image(.closeRounded)
     
     enum TabbarImage {
         enum noneTab {

@@ -226,3 +226,9 @@ enum Const {
          */
     }
 }
+
+// MARK: Search View Text
+extension Const {
+    static let recentSection = "최근 검색한"
+    static let allClear = "전체삭제"
+}

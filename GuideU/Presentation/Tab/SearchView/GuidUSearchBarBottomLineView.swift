@@ -27,6 +27,9 @@ struct GuidUSearchBarBottomLineView: View {
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 25)
+                    .asButton {
+                        onSubmit()
+                    }
             }
             .padding(.bottom, 5)
 
