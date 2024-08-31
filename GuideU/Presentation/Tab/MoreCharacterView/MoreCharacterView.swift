@@ -18,6 +18,10 @@ struct MoreCharacterView: View {
                 GuideUSearchBarView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.constViewState.placeHolder, lineWidth: 1.4) {
                     store.send(.viewEventType(.onSubmit))
                 }
+                .onTapGesture {
+                    /// View Changed
+                    
+                }
                 .padding(.horizontal, 10)
                 
                 contentView()
