@@ -46,7 +46,6 @@ extension HomeCoordinator {
     private func core() -> some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                
             default:
                 break;
             }

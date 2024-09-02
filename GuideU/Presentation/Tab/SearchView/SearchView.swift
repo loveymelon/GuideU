@@ -110,8 +110,7 @@ extension SearchView {
                         .resizable()
                         .aspectRatio(1, contentMode: .fit)
                         .asButton {
-                            /// 전뷰로 이동
-                            
+                            store.send(.viewEventType(.closeButtonTapped))
                         }
                         .frame(height: 32)
                 }

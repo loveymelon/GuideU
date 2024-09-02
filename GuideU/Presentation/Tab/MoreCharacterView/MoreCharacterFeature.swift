@@ -20,6 +20,7 @@ struct MoreCharacterFeature: GuideUReducer {
         var limit = 20
         
         var videoInfos: [VideosEntity] = []
+        var onAppearIsValid: Bool = true
         
         var searchState: SearchFeature.State? = nil
         
@@ -94,13 +95,19 @@ extension MoreCharacterFeature {
         Reduce { state, action in
             switch action {
             case .viewCycleType(.onAppear):
-                return fetchVideos(state: &state, isScroll: false)
+                if state.onAppearIsValid {
+                    state.onAppearIsValid = false
+                    return fetchVideos(state: &state, isScroll: false)
+                }
                 
             case let .viewEventType(.videoOnAppear(index)):
                 if (state.videoInfos.count - 1) - index <= 3 {
                     return fetchVideos(state: &state, isScroll: true)
                         .debounce(id: CancelId.scrollID, for: 1, scheduler: RunLoop.main, options: nil)
                 }
+                
+            case .viewEventType(.searchViewChanged):
+                state.searchState = SearchFeature.State()
              
             case let .networkType(.fetchVideos(channelId, skip, limit, isScroll)):
                 return .run { send in
@@ -148,9 +155,8 @@ extension MoreCharacterFeature {
             case let .currentText(text):
                 state.currentText = text
                 
-            case .viewEventType(.searchViewChanged):
-                state.searchState = SearchFeature.State()
-                
+            case .searchAction(.delegate(.closeButtonTapped)):
+                state.searchState = nil
                 
             default:
                 break

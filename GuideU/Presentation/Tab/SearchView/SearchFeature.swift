@@ -34,7 +34,7 @@ struct SearchFeature: GuideUReducer {
         case currentText(String)
         case delegate(Delegate)
         enum Delegate {
-            
+            case closeButtonTapped
         }
     }
     
@@ -47,6 +47,7 @@ struct SearchFeature: GuideUReducer {
         case onSubmit
         case deleteHistory(index: Int)
         case deleteAll
+        case closeButtonTapped
     }
     
     enum DataTransType {
@@ -112,6 +113,11 @@ extension SearchFeature {
                     state.searchHistory.removeAll()
                 case .failure(let error):
                     return .send(.dataTransType(.errorInfo(error.description)))
+                }
+                
+            case .viewEventType(.closeButtonTapped):
+                return .run { send in
+                    await send(.delegate(.closeButtonTapped))
                 }
                 
                 // MARK: Network
