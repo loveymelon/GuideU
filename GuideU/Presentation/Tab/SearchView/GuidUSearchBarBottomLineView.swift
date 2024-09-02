@@ -40,9 +40,4 @@ struct GuidUSearchBarBottomLineView: View {
     }
 }
 
-#if DEBUG
-#Preview {
-  SearchView()
-}
-#endif
 

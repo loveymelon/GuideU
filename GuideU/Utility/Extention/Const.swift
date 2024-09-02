@@ -232,4 +232,5 @@ extension Const {
     static let recentSection = "최근 검색한"
     static let allClear = "전체삭제"
     static let navTitle = "검색"
+    static let placeHolderText = "알고싶은 왁타버스 영상을 여기에"
 }
