@@ -21,6 +21,8 @@ struct MoreCharacterFeature: GuideUReducer {
         
         var videoInfos: [VideosEntity] = []
         
+        var searchState: SearchFeature.State? = nil
+        
         let constViewState = ConstViewState()
     }
     
@@ -36,6 +38,9 @@ struct MoreCharacterFeature: GuideUReducer {
         case viewEventType(ViewEventType)
         case dataTransType(DataTransType)
         case networkType(NetworkType)
+        
+        // searchAction
+        case searchAction(SearchFeature.Action)
         
         case delegate(Delegate)
         enum Delegate {
@@ -53,6 +58,7 @@ struct MoreCharacterFeature: GuideUReducer {
     enum ViewEventType {
         case onSubmit
         case videoOnAppear(Int)
+        case searchViewChanged
     }
     
     enum DataTransType {
@@ -75,7 +81,10 @@ struct MoreCharacterFeature: GuideUReducer {
     @Dependency(\.characterRepository) var characterRepository
     
     var body: some ReducerOf<Self> {
-       core()
+        core()
+            .ifLet(\.searchState, action: \.searchAction) {
+                SearchFeature()
+            }
     }
 }
 
@@ -138,6 +147,10 @@ extension MoreCharacterFeature {
                 
             case let .currentText(text):
                 state.currentText = text
+                
+            case .viewEventType(.searchViewChanged):
+                state.searchState = SearchFeature.State()
+                
                 
             default:
                 break

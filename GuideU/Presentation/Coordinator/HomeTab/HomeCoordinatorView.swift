@@ -18,11 +18,7 @@ struct HomeCoordinatorView: View {
             TCARouter(store.scope(state: \.routes, action: \.router)) { screen in
                 switch screen.case {
                 case let .home(store):
-                    GeometryReader { _ in
-                        WithPerceptionTracking {
-                            HomeView(store: store)
-                        }
-                    }
+                    MoreCharacterView(store: store)
                 }
             }
         }

@@ -12,7 +12,7 @@ import TCACoordinators
 
 @Reducer(state: .equatable)
 enum HomeScreen {
-    case home(PersonFeature)
+    case home(MoreCharacterFeature)
 }
 
 @Reducer
@@ -20,7 +20,7 @@ struct HomeCoordinator {
     
     @ObservableState
     struct State: Equatable {
-        static let initialState = State(routes: [.root(.home(PersonFeature.State()), embedInNavigationView: true)])
+        static let initialState = State(routes: [.root(.home(MoreCharacterFeature.State()), embedInNavigationView: true)])
         var routes: IdentifiedArrayOf<Route<HomeScreen.State>>
     }
     

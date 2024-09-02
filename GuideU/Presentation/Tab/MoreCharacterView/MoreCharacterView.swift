@@ -14,20 +14,26 @@ struct MoreCharacterView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            VStack {
-                GuideUSearchBarView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.constViewState.placeHolder, lineWidth: 1.4) {
-                    store.send(.viewEventType(.onSubmit))
-                }
-                .onTapGesture {
-                    /// View Changed
-                    
-                }
-                .padding(.horizontal, 10)
-                
-                contentView()
-                    .onAppear {
-                        store.send(.viewCycleType(.onAppear))
+            if store.searchState == nil {
+                VStack {
+                    GuideUSearchBarView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.constViewState.placeHolder, lineWidth: 1.4) {
+                        store.send(.viewEventType(.onSubmit))
                     }
+                    .onTapGesture {
+                        /// View Changed
+                        store.send(.viewEventType(.searchViewChanged))
+                    }
+                    .padding(.horizontal, 10)
+                    
+                    contentView()
+                        .onAppear {
+                            store.send(.viewCycleType(.onAppear))
+                        }
+                }
+            } else {
+                IfLetStore(store.scope(state: \.searchState, action: \.searchAction)) { store in
+                    SearchView(store: store)
+                }
             }
         }
     }

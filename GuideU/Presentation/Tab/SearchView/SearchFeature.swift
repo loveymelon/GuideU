@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct SearchFeature: GuideUReducer {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var currentText = ""
         var searchHistory: [String] = []
         var searchCaseList: [SuggestEntity] = []
