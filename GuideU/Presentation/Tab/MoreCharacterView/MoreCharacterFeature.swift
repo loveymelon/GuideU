@@ -114,7 +114,14 @@ extension MoreCharacterFeature {
                 
             case .networkType(.fetchSearch):
                 return .run { [state = state] send in
-                    let result = await videoRepository.fetchSearch(state.currentText)
+                    let result = await videoRepository.fetchSuggest("우왁굳")
+                    
+                    switch result {
+                    case .success(let data):
+                        print(data)
+                    case .failure(let error):
+                        await send(.dataTransType(.errorInfo(error)))
+                    }
                 }
                 
             case let .networkType(.fetchCharacter(id)):

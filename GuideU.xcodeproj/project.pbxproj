@@ -98,6 +98,7 @@
 		DF986E852C7CCACC00F2D52F /* CharacterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E842C7CCACC00F2D52F /* CharacterRouter.swift */; };
 		DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */; };
 		DFABE7302C6E1EA900EF5B81 /* ExColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72F2C6E1EA900EF5B81 /* ExColor.swift */; };
+		DFB2BE5E2C85773B00518C7E /* SuggestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB2BE5D2C85773B00518C7E /* SuggestDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -189,6 +190,7 @@
 		DF986E842C7CCACC00F2D52F /* CharacterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRouter.swift; sourceTree = "<group>"; };
 		DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUURL.swift; sourceTree = "<group>"; };
 		DFABE72F2C6E1EA900EF5B81 /* ExColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExColor.swift; sourceTree = "<group>"; };
+		DFB2BE5D2C85773B00518C7E /* SuggestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,6 +414,7 @@
 		7B1581FB2C6CF2A100599E7C /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				DFB2BE5C2C85772F00518C7E /* Search */,
 				DF83B81C2C804ABE0088DE31 /* Video */,
 				7B15825E2C74B2B700599E7C /* Error */,
 				7B15825B2C74B1C900599E7C /* Character */,
@@ -420,7 +423,6 @@
 				7B1582002C6CF30000599E7C /* DuplicateDTO.swift */,
 				7B1582022C6CF33400599E7C /* RelatedVideoDTO.swift */,
 				7B1582042C6CF3DA00599E7C /* DTOList.swift */,
-				7B1582092C6E1F6D00599E7C /* SearchDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -605,6 +607,15 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		DFB2BE5C2C85772F00518C7E /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7B1582092C6E1F6D00599E7C /* SearchDTO.swift */,
+				DFB2BE5D2C85773B00518C7E /* SuggestDTO.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -725,6 +736,7 @@
 				7BACA4262C803E35008D4CFC /* MoreCharacterFeature.swift in Sources */,
 				7BACA4262C803E35008D4CFC /* MoreCharacterFeature.swift in Sources */,
 				7B1581E82C6CBEC400599E7C /* ExView.swift in Sources */,
+				DFB2BE5E2C85773B00518C7E /* SuggestDTO.swift in Sources */,
 				DF58795B2C7F0B0C009F9171 /* SimpleErrorDTO.swift in Sources */,
 				7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */,
 				DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */,

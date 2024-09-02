@@ -42,6 +42,17 @@ struct VideoRepository {
             return .failure(catchError(error))
         }
     }
+    
+    func fetchSuggest(_ searchText: String) async -> Result<[SuggestDTO], String> {
+        let result = await network.requestNetwork(dto: SuggestListDTO.self, router: SearchRouter.suggest(searchText: searchText))
+        
+        switch result {
+        case .success(let data):
+            return .success(data.suggestDTO)
+        case .failure(let error):
+            return .failure(catchError(error))
+        }
+    }
 }
 
 extension VideoRepository {

@@ -10,12 +10,15 @@ import Alamofire
 
 enum SearchRouter: Router {
     case search(searchText: String)
+    case suggest(searchText: String)
 }
 
 extension SearchRouter {
     var method: HTTPMethod {
         switch self {
         case .search:
+            return .get
+        case .suggest:
             return .get
         }
     }
@@ -24,6 +27,8 @@ extension SearchRouter {
         switch self {
         case .search:
             return "/api/v1/search"
+        case .suggest:
+            return "/api/v1/suggest"
         }
     }
     
@@ -33,12 +38,16 @@ extension SearchRouter {
             return HTTPHeaders([
                 HTTPHeader(name: "Content-Type", value: "application/json")
             ])
+        case .suggest:
+            return nil
         }
     }
     
     var parameters: Parameters? {
         switch self {
         case let .search(searchText):
+            return ["query": searchText]
+        case let .suggest(searchText):
             return ["query": searchText]
         }
     }
@@ -47,12 +56,16 @@ extension SearchRouter {
         switch self {
         case .search:
             return nil
+        case .suggest:
+            return nil
         }
     }
     
     var encodingType: EncodingType {
         switch self {
         case .search:
+            return .url
+        case .suggest:
             return .url
         }
     }
