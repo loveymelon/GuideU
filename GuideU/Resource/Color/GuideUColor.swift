@@ -106,6 +106,43 @@ enum GuideUColor{
         var interaction6: UIColor {
             return UIColor(hexCode: "#00b196", alpha: 1)
         }
+        
+        
+        var pinkType: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "#FFD2CF", alpha: 1)
+            case .dark:
+                return UIColor(hexCode: "#FFD2CF", alpha: 1)
+            }
+        }
+        
+        var darkPinkType: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "#5D1615", alpha: 1)
+            case .dark:
+                return UIColor(hexCode: "#5D1615", alpha: 1)
+            }
+        }
+        
+        var greenType: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "#DBEDDB", alpha: 1)
+            case .dark:
+                return UIColor(hexCode: "#DBEDDB", alpha: 1)
+            }
+        }
+        
+        var darkGreenType: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "#1D3829", alpha: 1)
+            case .dark:
+                return UIColor(hexCode: "#1D3829", alpha: 1)
+            }
+        }
     }
     
 }

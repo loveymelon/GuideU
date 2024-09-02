@@ -6,24 +6,26 @@
 //
 
 import SwiftUI
-
+import ComposableArchitecture
 
 struct SearchView: View {
     
-    @State var currentText = ""
-    let placeHolder =  "알고싶은 왁타버스 영상을 여기에"
+    @Perception.Bindable var store: StoreOf<SearchFeature>
     
     var body: some View {
         VStack {
             fakeNavigation()
                 .padding(.horizontal, 10)
             
-            if currentText.isEmpty {
+            if store.currentText.isEmpty {
                 currentListView()
                 
             } else {
                 searchListView()
             }
+        }
+        .onAppear {
+            store.send(.viewCycleType(.onAppear))
         }
     }
 }
@@ -36,10 +38,10 @@ extension SearchView {
             recentSectionView()
                 .padding(.horizontal, 10)
                 .padding(.top, 10)
-            ForEach(0...100, id: \.self) { num in
-                SearchHistoryCellView(name: String(num)) {
+            ForEach(Array(store.searchHistory.enumerated()), id: \.element.self) { index, text in
+                SearchHistoryCellView(name: text) {
                     /// RemoveButtonTapped
-                    
+                    store.send(.viewEventType(.deleteHistory(index: index)))
                 }
                     .padding(.trailing, 10)
                     .padding(.leading, 8)
@@ -51,7 +53,14 @@ extension SearchView {
 extension SearchView {
     private func searchListView() -> some View {
         ScrollView {
-            
+            ForEach(store.searchCaseList, id: \.self) { model in
+                SearchResultCaseView(
+                    currentText: store.currentText,
+                    setModel: model
+                )
+                .padding(.horizontal, 10)
+                .padding(.vertical, 10)
+            }
         }
     }
 }
@@ -61,13 +70,13 @@ extension SearchView {
     private func recentSectionView() -> some View {
         HStack(alignment: .center) {
             Group {
-                Text(Const.recentSection)
+                Text(store.recentSectionText)
                     .font(Font(WantedFont.midFont.font(size: 15)))
                     
                 Text("|")
                     .font(Font(WantedFont.midFont.font(size: 13)))
                     .offset(y: -1.5)
-                Text(Const.allClear)
+                Text(store.allClearText)
                     .font(Font(WantedFont.midFont.font(size: 15)))
                     .asButton {
                         /// 전체삭제 버튼 클릭시
@@ -92,7 +101,7 @@ extension SearchView {
                 
                 Spacer()
                 
-                Text(Const.navTitle)
+                Text(store.navigationTitle)
                     .font(Font(WantedFont.midFont.font(size: 17)))
                 
                 Spacer()
@@ -108,7 +117,7 @@ extension SearchView {
                 }
                 .frame(width: 52)
             }
-            GuidUSearchBarBottomLineView(currentText: $currentText, placeHolder: placeHolder, lineWidth: 1.4) {
+            GuidUSearchBarBottomLineView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.placeHolderText, lineWidth: 1.4) {
                 /// onSubmit
                 
             }
@@ -119,6 +128,8 @@ extension SearchView {
 
 #if DEBUG
 #Preview {
-  SearchView()
+    SearchView(store: Store(initialState: SearchFeature.State(), reducer: {
+        SearchFeature()
+    }))
 }
 #endif
