@@ -91,13 +91,17 @@ extension SearchFeature {
                 }
                 
             case .viewEventType(.onSubmit):
-                let result = realmRepository.create(history: state.currentText)
-                
-                switch result {
-                case .success(_):
-                    state.searchHistory = realmRepository.fetch()
-                case .failure(let error):
-                    return .send(.dataTransType(.errorInfo(error.description)))
+                if !state.currentText.trimmingCharacters(in: .whitespaces).isEmpty {
+                    
+                    let result = realmRepository.create(history: state.currentText)
+                    
+                    switch result {
+                    case .success(_):
+                        state.searchHistory = realmRepository.fetch()
+                        state.currentText = ""
+                    case .failure(let error):
+                        return .send(.dataTransType(.errorInfo(error.description)))
+                    }
                 }
                 
             case .viewEventType(.deleteAll):
