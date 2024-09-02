@@ -13,19 +13,20 @@ struct SearchView: View {
     @Perception.Bindable var store: StoreOf<SearchFeature>
     
     var body: some View {
-        VStack {
-            fakeNavigation()
-                .padding(.horizontal, 10)
-            
-            if store.currentText.isEmpty {
-                currentListView()
+        WithPerceptionTracking {
+            VStack {
+                fakeNavigation()
+                    .padding(.horizontal, 10)
                 
-            } else {
-                searchListView()
+                if store.currentText.isEmpty {
+                    currentListView()
+                } else {
+                    searchListView()
+                }
             }
-        }
-        .onAppear {
-            store.send(.viewCycleType(.onAppear))
+            .onAppear {
+                store.send(.viewCycleType(.onAppear))
+            }
         }
     }
 }
@@ -79,8 +80,7 @@ extension SearchView {
                 Text(store.allClearText)
                     .font(Font(WantedFont.midFont.font(size: 15)))
                     .asButton {
-                        /// 전체삭제 버튼 클릭시
-                        
+                        store.send(.viewEventType(.deleteAll))
                     }
             }
             .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
@@ -119,7 +119,7 @@ extension SearchView {
             }
             GuidUSearchBarBottomLineView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.placeHolderText, lineWidth: 1.4) {
                 /// onSubmit
-                
+                store.send(.viewEventType(.onSubmit))
             }
         }
     }

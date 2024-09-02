@@ -1,0 +1,49 @@
+//
+//  SearchRepository.swift
+//  GuideU
+//
+//  Created by 김진수 on 9/2/24.
+//
+
+import Foundation
+import ComposableArchitecture
+
+struct SearchRepository {
+    @Dependency(\.networkManager) var network
+    @Dependency(\.searchMapper) var searchMapper
+    @Dependency(\.errorMapper) var errorMapper
+    
+    func fetchSuggest(_ searchText: String) async -> Result<[SuggestEntity], String> {
+        let result = await network.requestNetwork(dto: SuggestListDTO.self, router: SearchRouter.suggest(searchText: searchText))
+        
+        switch result {
+        case .success(let data):
+            return .success(searchMapper.dtoToEntity(data.suggestDTO))
+        case .failure(let error):
+            return .failure(catchError(error))
+        }
+    }
+}
+
+extension SearchRepository {
+    private func catchError(_ error: APIErrorResponse) -> String {
+        switch error {
+            
+        case let .simple(simpleError):
+            return errorMapper.dtoToEntity(simpleError)
+        case let .detailed(detailError):
+            return errorMapper.dtoToEntity(detailError)
+        }
+    }
+}
+
+extension SearchRepository: DependencyKey {
+    static var liveValue: SearchRepository = SearchRepository()
+}
+
+extension DependencyValues {
+    var searchRepository: SearchRepository {
+        get { self[SearchRepository.self] }
+        set { self[SearchRepository.self] = newValue }
+    }
+}

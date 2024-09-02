@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct MoreCharacterFeature {
+struct MoreCharacterFeature: GuideUReducer {
     
     @ObservableState
     struct State: Equatable {
@@ -62,7 +62,6 @@ struct MoreCharacterFeature {
     
     enum NetworkType {
         case fetchVideos([String], Int, Int, isScroll: Bool)
-        case fetchSearch
         case fetchCharacter(Int)
     }
     
@@ -93,12 +92,6 @@ extension MoreCharacterFeature {
                     return fetchVideos(state: &state, isScroll: true)
                         .debounce(id: CancelId.scrollID, for: 1, scheduler: RunLoop.main, options: nil)
                 }
-                
-            case .viewEventType(.onSubmit):
-                return .run { send in
-                    await send(.networkType(.fetchSearch))
-                }
-                .debounce(id: CancelId.searchID, for: 1, scheduler: RunLoop.main, options: nil)
              
             case let .networkType(.fetchVideos(channelId, skip, limit, isScroll)):
                 return .run { send in
@@ -108,18 +101,6 @@ extension MoreCharacterFeature {
                     case let .success(data):
                         await send(.dataTransType(.videosInfo(data, isScroll: isScroll)))
                     case let .failure(error):
-                        await send(.dataTransType(.errorInfo(error)))
-                    }
-                }
-                
-            case .networkType(.fetchSearch):
-                return .run { [state = state] send in
-                    let result = await videoRepository.fetchSuggest("우왁굳")
-                    
-                    switch result {
-                    case .success(let data):
-                        print(data)
-                    case .failure(let error):
                         await send(.dataTransType(.errorInfo(error)))
                     }
                 }

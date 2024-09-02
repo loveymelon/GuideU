@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum ResultCase {
-    case character
-    case meme
+enum ResultCase: String {
+    case character = "character"
+    case meme = "meme"
     
     var title: String {
-        return switch self {
+        switch self {
         case .character:
             "인물"
         case .meme:

@@ -15,8 +15,11 @@ struct GuideUApp: App {
 //            RootCoordinatorView(store: Store(initialState: RootCoordinator.State.initialState, reducer: {
 //                RootCoordinator()
 //            }))
-            MoreCharacterView(store: Store(initialState: MoreCharacterFeature.State(), reducer: {
-                MoreCharacterFeature()
+//            MoreCharacterView(store: Store(initialState: MoreCharacterFeature.State(), reducer: {
+//                MoreCharacterFeature()
+//            }))
+            SearchView(store: Store(initialState: SearchFeature.State(), reducer: {
+                SearchFeature()
             }))
         }
     }

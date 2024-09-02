@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct PersonFeature {
+struct PersonFeature: GuideUReducer {
     
     @ObservableState
     struct State: Equatable {
@@ -45,6 +45,10 @@ struct PersonFeature {
     enum NetworkType {
         case fetchCharacters
         case search(String)
+    }
+    
+    enum CancelId: Hashable {
+        
     }
     
     @Dependency(\.characterRepository) var repository
