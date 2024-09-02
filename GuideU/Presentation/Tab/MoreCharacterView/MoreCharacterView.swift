@@ -16,9 +16,8 @@ struct MoreCharacterView: View {
         WithPerceptionTracking {
             if store.searchState == nil {
                 VStack {
-                    GuideUSearchBarView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.constViewState.placeHolder, lineWidth: 1.4) {
-                        store.send(.viewEventType(.onSubmit))
-                    }
+                    fakeSearchBar()
+                        .padding(.horizontal, 10)
                     .onTapGesture {
                         /// View Changed
                         store.send(.viewEventType(.searchViewChanged))
@@ -104,6 +103,23 @@ extension MoreCharacterView {
                     .padding(.top, 10)
             }
             
+        }
+    }
+    
+    private func fakeSearchBar() -> some View {
+        VStack {
+            HStack {
+                Text(store.constViewState.placeHolder)
+                    .font(Font(WantedFont.regularFont.font(size: 15)))
+                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.all, 12)
+            .background {
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(Color(GuideUColor.ViewBaseColor.light.primary), lineWidth: 1.4)
+            }
         }
     }
 }
