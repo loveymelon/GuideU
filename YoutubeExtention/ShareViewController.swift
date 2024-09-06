@@ -53,7 +53,10 @@ final class ShareViewController: UIViewController {
         print("공유받은 YouTube URL: \(url.absoluteString)")
         view.backgroundColor = .red
         // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.GuidU.Youtube") {
+        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube1") {
+            userDefaults.set(url.absoluteString, forKey: "sharedURL")
+        }
+        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube2") {
             userDefaults.set(url.absoluteString, forKey: "sharedURL")
         }
     }
