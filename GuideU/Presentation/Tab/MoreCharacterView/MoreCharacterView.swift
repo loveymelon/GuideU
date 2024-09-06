@@ -29,6 +29,9 @@ struct MoreCharacterView: View {
                             store.send(.viewCycleType(.onAppear))
                         }
                 }
+                .sheet(item: $store.seletedVideo.sending(\.selectedVideo)) { data in
+                    WKWebHosting(url: data.videoURL)
+                }
             } else {
                 IfLetStore(store.scope(state: \.searchState, action: \.searchAction)) { store in
                     SearchView(store: store)
@@ -70,7 +73,7 @@ extension MoreCharacterView {
             ForEach(Array(store.videoInfos.enumerated()), id: \.element.self) { index, data in
                 MoreCharacterListView(setModel: data)
                     .asButton { // 선택되었을때
-                        print(data)
+                        store.send(.viewEventType(.selectedVideoIndex(index)))
                     }
                     .onAppear {
                         store.send(.viewEventType(.videoOnAppear(index)))

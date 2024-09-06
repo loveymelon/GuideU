@@ -21,6 +21,7 @@ struct MoreCharacterFeature: GuideUReducer {
         
         var videoInfos: [VideosEntity] = []
         var onAppearIsValid: Bool = true
+        var seletedVideo: VideosEntity? = nil
         
         var searchState: SearchFeature.State? = nil
         
@@ -50,6 +51,7 @@ struct MoreCharacterFeature: GuideUReducer {
         /// Binding
         case currentText(String)
         case currentIndex(Int)
+        case selectedVideo(VideosEntity?)
     }
     
     enum ViewCycleType {
@@ -60,6 +62,7 @@ struct MoreCharacterFeature: GuideUReducer {
         case onSubmit
         case videoOnAppear(Int)
         case searchViewChanged
+        case selectedVideoIndex(Int)
     }
     
     enum DataTransType {
@@ -157,6 +160,12 @@ extension MoreCharacterFeature {
                 
             case .searchAction(.delegate(.closeButtonTapped)):
                 state.searchState = nil
+                
+            case let .viewEventType(.selectedVideoIndex(num)):
+                state.seletedVideo = state.videoInfos[num]
+                
+            case let .selectedVideo(data):
+                state.seletedVideo = data
                 
             default:
                 break

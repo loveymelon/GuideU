@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct VideosEntity: Entity {
-    let uuid = UUID()
+struct VideosEntity: Entity, Identifiable {
+    let id = UUID()
     
     let videoURL: URL?
     let channelName: String
