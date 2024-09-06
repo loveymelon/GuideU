@@ -102,6 +102,7 @@
 		DF83B8202C804B070088DE31 /* VideosDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B81F2C804B070088DE31 /* VideosDTO.swift */; };
 		DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B8212C804C130088DE31 /* VideoRouter.swift */; };
 		DF83B8242C8055E80088DE31 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B8232C8055E80088DE31 /* SearchRouter.swift */; };
+		DF8A2D6F2C8B117B0078F222 /* WKWebHosting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A2D6E2C8B117B0078F222 /* WKWebHosting.swift */; };
 		DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */; };
 		DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */; };
 		DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */; };
@@ -244,6 +245,7 @@
 		DF83B81F2C804B070088DE31 /* VideosDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosDTO.swift; sourceTree = "<group>"; };
 		DF83B8212C804C130088DE31 /* VideoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRouter.swift; sourceTree = "<group>"; };
 		DF83B8232C8055E80088DE31 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		DF8A2D6E2C8B117B0078F222 /* WKWebHosting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebHosting.swift; sourceTree = "<group>"; };
 		DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
 		DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDTO.swift; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 			isa = PBXGroup;
 			children = (
 				7BACA42E2C819D9D008D4CFC /* DownImageView.swift */,
+				DF8A2D6E2C8B117B0078F222 /* WKWebHosting.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -886,6 +889,7 @@
 				DFB2BE5E2C85773B00518C7E /* SuggestDTO.swift in Sources */,
 				DF58795B2C7F0B0C009F9171 /* SimpleErrorDTO.swift in Sources */,
 				7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */,
+				DF8A2D6F2C8B117B0078F222 /* WKWebHosting.swift in Sources */,
 				DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */,
 				DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */,
 				7B1581EE2C6CC41900599E7C /* TabCoordinator.swift in Sources */,
@@ -1133,7 +1137,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.WoowakGuide.GuideU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = GuideUDebug;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "GuideU Debug";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1175,7 +1179,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.WoowakGuide.GuideU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = GuideUDebug;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "GuideU Debug";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
