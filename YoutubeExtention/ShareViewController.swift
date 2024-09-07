@@ -5,28 +5,55 @@
 //  Created by Jae hyung Kim on 9/6/24.
 //
 
-import UIKit
+import SwiftUI
 import Social
+import Combine
 import UniformTypeIdentifiers
 
 final class ShareViewController: UIViewController {
     
+    private var viewModel = SharedViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        setting()
         handleSharedURL()
+    }
+    
+    private func setting() {
+        // Swift UI
+        let sharedView = SharedForYoutubeView(viewModel: viewModel) { [ weak self ] in
+            self?.openMainApp()
+        } justClose: { [weak self] in
+            self?.close()
+        }
+        
+        let hostingController = UIHostingController(rootView: sharedView)
+        hostingController.view.backgroundColor = UIColor(white: 0, alpha: 0.23)
+//        view.backgroundColor = .clear
+        addChild(hostingController)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hostingController.view)
+        setLayout(viewCon: hostingController)
+    }
+    
+    private func setLayout(viewCon: UIViewController) {
+        NSLayoutConstraint.activate([
+            viewCon.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            viewCon.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            viewCon.view.topAnchor.constraint(equalTo: view.topAnchor),
+            viewCon.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        viewCon.didMove(toParent: self)
     }
     
     private func handleSharedURL() {
         // 공유된 항목 가져오기
         if let item = extensionContext?.inputItems.first as? NSExtensionItem {
-            view.backgroundColor = .blue
             if let attachments = item.attachments {
-                view.backgroundColor = .green
                 for provider in attachments {
                     // URL을 처리하기 위한 타입 확인
                     if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-                        view.backgroundColor = .red
                         provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { (item, error) in
                             if let url = item as? URL {
                                 // YouTube URL 확인 및 처리
@@ -34,8 +61,6 @@ final class ShareViewController: UIViewController {
                             }
                         }
                     } else if provider.hasItemConformingToTypeIdentifier(UTType.text.identifier) {
-                        view.backgroundColor = .darkGray
-                        
                         provider.loadItem(forTypeIdentifier: UTType.text.identifier, options: nil) { (item, error) in
                             if let url = item as? String {
                                 // YouTube URL 확인 및 처리
@@ -51,7 +76,6 @@ final class ShareViewController: UIViewController {
     private func processYouTubeURL(_ url: URL) {
         // YouTube URL을 처리하거나, 앱으로 전달하는 로직
         print("공유받은 YouTube URL: \(url.absoluteString)")
-        view.backgroundColor = .red
         // 앱 그룹을 통해 메인 앱에 전달
         if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube1") {
             userDefaults.set(url.absoluteString, forKey: "sharedURL")
@@ -59,20 +83,56 @@ final class ShareViewController: UIViewController {
         if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube2") {
             userDefaults.set(url.absoluteString, forKey: "sharedURL")
         }
+       
+        DispatchQueue.main.async { [weak self] in
+            self?.viewModel.trigger = true
+        }
     }
     private func processYouTubeURL(_ string: String) {
         print("공유받은 YouTube URL: \(string)")
-        view.backgroundColor = .red
+        
         // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.GuidU.Youtube") {
+        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube1") {
             userDefaults.set(string, forKey: "sharedURL")
+        }
+        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube2") {
+            userDefaults.set(string, forKey: "sharedURL")
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.viewModel.trigger = true
         }
     }
     
     private func close() {
-        // Share Extension 종료
+        // Share Extension 종료 및 앱 이동
         self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
     }
     
+    private func openMainApp() {
+        let urlScheme = "guideu://"
+        if let url = URL(string: urlScheme) {
+            // 앱 실행
+            if self.openURL(url) {
+                print( "RUN : APP")
+            } else {
+                print( "NOT RUN : APP")
+            }
+            close()
+        }
+    }
     
+    @objc private func openURL(_ url: URL) -> Bool {
+        var responder: UIResponder? = self
+        while responder != nil {
+            if let application = responder as? UIApplication {
+                return application.perform(#selector(openURL(_:)), with: url) != nil
+            }
+            responder = responder?.next
+        }
+        return false
+    }
+}
+
+final class SharedViewModel: ObservableObject {
+    @Published var trigger = false
 }

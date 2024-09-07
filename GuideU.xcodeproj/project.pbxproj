@@ -78,6 +78,7 @@
 		7BACA43F2C856C63008D4CFC /* ResultCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA43E2C856C62008D4CFC /* ResultCase.swift */; };
 		7BACA4412C856CBA008D4CFC /* SearchResultCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA4402C856CBA008D4CFC /* SearchResultCaseView.swift */; };
 		7BACA4442C857186008D4CFC /* SuggestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA4432C857186008D4CFC /* SuggestEntity.swift */; };
+		7BE122FC2C8C4C0F002E198F /* SharedForYoutubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */; };
 		7BFC8E302C8B0242007FD8F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */; };
 		7BFC8E332C8B0242007FD8F3 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC8E322C8B0242007FD8F3 /* Base */; };
 		7BFC8E372C8B0242007FD8F3 /* YoutubeExtention.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7BFC8E2D2C8B0242007FD8F3 /* YoutubeExtention.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -220,6 +221,7 @@
 		7BACA43E2C856C62008D4CFC /* ResultCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCase.swift; sourceTree = "<group>"; };
 		7BACA4402C856CBA008D4CFC /* SearchResultCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCaseView.swift; sourceTree = "<group>"; };
 		7BACA4432C857186008D4CFC /* SuggestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestEntity.swift; sourceTree = "<group>"; };
+		7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedForYoutubeView.swift; sourceTree = "<group>"; };
 		7BFC8E2D2C8B0242007FD8F3 /* YoutubeExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YoutubeExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7BFC8E322C8B0242007FD8F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -631,6 +633,7 @@
 			children = (
 				7BFC8E3B2C8B0EAE007FD8F3 /* YoutubeExtention.entitlements */,
 				7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */,
+				7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */,
 				7BFC8E312C8B0242007FD8F3 /* MainInterface.storyboard */,
 				7BFC8E342C8B0242007FD8F3 /* Info.plist */,
 			);
@@ -964,6 +967,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BFC8E302C8B0242007FD8F3 /* ShareViewController.swift in Sources */,
+				7BE122FC2C8C4C0F002E198F /* SharedForYoutubeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
