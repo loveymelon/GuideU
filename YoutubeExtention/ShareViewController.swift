@@ -77,13 +77,9 @@ final class ShareViewController: UIViewController {
         // YouTube URL을 처리하거나, 앱으로 전달하는 로직
         print("공유받은 YouTube URL: \(url.absoluteString)")
         // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube1") {
+        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube") {
             userDefaults.set(url.absoluteString, forKey: "sharedURL")
         }
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube2") {
-            userDefaults.set(url.absoluteString, forKey: "sharedURL")
-        }
-       
         DispatchQueue.main.async { [weak self] in
             self?.viewModel.trigger = true
         }
@@ -92,12 +88,10 @@ final class ShareViewController: UIViewController {
         print("공유받은 YouTube URL: \(string)")
         
         // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube1") {
+        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube") {
             userDefaults.set(string, forKey: "sharedURL")
         }
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube2") {
-            userDefaults.set(string, forKey: "sharedURL")
-        }
+        
         DispatchQueue.main.async { [weak self] in
             self?.viewModel.trigger = true
         }
