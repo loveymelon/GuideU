@@ -48,6 +48,7 @@ extension MoreCharacterListView {
             VStack(spacing: 4) {
                 HStack {
                     Text(setModel.title)
+                        .multilineTextAlignment(.leading)
                         .font(Font(WantedFont.boldFont.font(size: 15)))
                         .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
                     Spacer()

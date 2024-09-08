@@ -11,6 +11,8 @@ enum Const {
     
     static let youtubeBaseString = "https://www.youtube.com/watch?v="
     
+    static let channelImageBaseString = "https://photo.waksight.com/channel/"
+    
     enum Splash {
         static let splashText = "왁타버스를 여행하는\n팬치, 이파리들을\n위한 안내서"
     }
@@ -86,6 +88,19 @@ enum Const {
                 "UChCqDNXQddSr0ncjs_78duA"
             }
         }
+        
+        var imageURLString: String {
+            switch self {
+            case .main:
+                "WAKGOOD.jpg"
+            case .waktaverse:
+                "WAKTAVERSE.jpg"
+            case .banchan:
+                "WAKBANCHAN.jpg"
+            case .zero:
+                "WAKFULL.jpg"
+            }
+        }
         /*
          "UCBkyj16n2snkRg1BAzpovXQ": "우왁굳의 게임방송",
          "UCzh4yY8rl38knH33XpNqXbQ": "왁타버스 WAKTAVERSE",
@@ -110,6 +125,14 @@ enum Const {
             }
         }
     
+        var imageURLString: String {
+            switch self {
+            case .main:
+                "INE.jpeg"
+            case .sub:
+                "INEDESUK.jpeg"
+            }
+        }
         /*
          "UCroM00J2ahCN6k-0-oAiDxg": "아이네 INE",
          "UCmHltryGykfakS-JmaxrNBg": "데친 숙주나물",
@@ -129,6 +152,14 @@ enum Const {
                 "UCHE7GBQVtdh-c1m3tjFdevQ"
             case .sub:
                 "UC-S9NE-xzcBpxOFSvsmOzAA"
+            }
+        }
+        var imageURLString: String {
+            switch self {
+            case .main:
+                "JingBurgerChannel.jpeg"
+            case .sub:
+                "JINGBURGERZZANG.jpeg"
             }
         }
         /*
@@ -154,6 +185,14 @@ enum Const {
             }
         }
         
+        var imageURLString: String {
+            switch self {
+            case .main:
+                "LILPA.jpeg"
+            case .sub:
+                "LILPAGGOGGO.jpeg"
+            }
+        }
         /*
          "UC-oCJP9t47v7-DmsnmXV38Q": "릴파 lilpa",
          "UC8dEJs2kpS5x2vI1X7aaUhA": "릴파의 꼬꼬",
@@ -174,6 +213,14 @@ enum Const {
                 "UCTifMx1ONpElK5x6B4ng8eg"
             case .sub:
                 "UCgGvSg2lscdNUx9ZJIBh9FQ"
+            }
+        }
+        var imageURLString: String {
+            switch self {
+            case .main:
+                "JURURU.jpeg"
+            case .sub:
+                "JURURUUNSEALED.jpeg"
             }
         }
         /*
@@ -198,6 +245,15 @@ enum Const {
                 "UCSSPlgcyDA5eoN3hrkXpvHg"
             }
         }
+        
+        var imageURLString: String {
+            switch self {
+            case .main:
+                "GOSEGU.jpeg"
+            case .sub:
+                "GOSEGUMORE.jpeg"
+            }
+        }
         /*
          "UCV9WL7sW6_KjanYkUUaIDfQ": "고세구 GOSEGU",
          "UCSSPlgcyDA5eoN3hrkXpvHg": "고세구의 좀 더",
@@ -218,6 +274,15 @@ enum Const {
                 "UCs6EwgxKLY9GG4QNUrP5hoQ"
             case .sub:
                 "UCuJUfqThFp5-k-lrHcO1dFg"
+            }
+        }
+        
+        var imageURLString: String {
+            switch self {
+            case .main:
+                "VIICHAN.jpeg"
+            case .sub:
+                "VIICHANME.jpeg"
             }
         }
         /*

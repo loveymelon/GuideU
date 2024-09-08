@@ -71,7 +71,7 @@ struct MoreCharacterFeature: GuideUReducer {
     }
     
     enum NetworkType {
-        case fetchVideos([String], Int, Int, isScroll: Bool)
+        case fetchVideos(Const.Channel, Int, Int, isScroll: Bool)
         case fetchCharacter(Int)
     }
     
@@ -112,9 +112,9 @@ extension MoreCharacterFeature {
             case .viewEventType(.searchViewChanged):
                 state.searchState = SearchFeature.State()
              
-            case let .networkType(.fetchVideos(channelId, skip, limit, isScroll)):
+            case let .networkType(.fetchVideos(channel, skip, limit, isScroll)):
                 return .run { send in
-                    let result = await videoRepository.fetchVideos(channelId: channelId, skip: skip, limit: limit)
+                    let result = await videoRepository.fetchVideos(channel: channel, skip: skip, limit: limit)
                     
                     switch result {
                     case let .success(data):
@@ -179,7 +179,7 @@ extension MoreCharacterFeature {
 extension MoreCharacterFeature {
     private func fetchVideos(state: inout State, isScroll: Bool) -> Effect<Action> {
         return .run { [state = state] send in
-            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex].channelIDs, state.currentStart, state.limit, isScroll: isScroll)))
+            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex], state.currentStart, state.limit, isScroll: isScroll)))
         }
     }
 }
