@@ -10,12 +10,14 @@ import Alamofire
 
 enum VideoRouter: Router {
     case fetchVideos(channelId: String, skip: Int, limit: Int)
+    case fetchCharacters(String)
+    case fetchMemes(String)
 }
 
 extension VideoRouter {
     var method: HTTPMethod {
         switch self {
-        case .fetchVideos:
+        case .fetchVideos, .fetchCharacters, .fetchMemes:
             return .get
         }
     }
@@ -24,12 +26,16 @@ extension VideoRouter {
         switch self {
         case .fetchVideos:
             return "/api/v1/videos"
+        case let .fetchCharacters(identifiable):
+            return "/api/v1/videos/\(identifiable)/characters"
+        case let .fetchMemes(identifiable):
+            return "/api/v1/videos/\(identifiable)/memes"
         }
     }
     
     var optionalHeaders: HTTPHeaders? {
         switch self {
-        case .fetchVideos:
+        case .fetchVideos, .fetchCharacters, .fetchMemes:
             return HTTPHeaders([
                 HTTPHeader(name: "Content-Type", value: "application/json")
             ])
@@ -44,19 +50,21 @@ extension VideoRouter {
                 "skip": skip,
                 "limit": limit
                 ]
+        case .fetchCharacters, .fetchMemes:
+            return nil
         }
     }
     
     var body: Data? {
         switch self {
-        case .fetchVideos:
+        case .fetchVideos, .fetchCharacters, .fetchMemes:
             return nil
         }
     }
     
     var encodingType: EncodingType {
         switch self {
-        case .fetchVideos:
+        case .fetchVideos, .fetchCharacters, .fetchMemes:
             return .url
         }
     }
