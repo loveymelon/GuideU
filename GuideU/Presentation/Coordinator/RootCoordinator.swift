@@ -33,11 +33,21 @@ struct RootCoordinator {
         case router(IdentifiedRouterActionOf<RootScreen>)
         
         case tabCoordinatorAction(TabCoordinator.Action)
+        
+        case viewLifeCycle(ViewLifeCycle)
     }
     
     enum RootCoordinatorViewState: Equatable {
         case start
         case tab
+    }
+    
+    enum ViewLifeCycle {
+        case background
+            
+        case inactive
+            
+        case active
     }
     
     var body: some ReducerOf<Self> {
@@ -54,6 +64,13 @@ struct RootCoordinator {
                 
             case .router(.routeAction(id: _, action: .onboardPage(.delegate(.startButtonTapped)))):
                 return changeTabView(state: &state)
+                
+            case .viewLifeCycle(.active):
+                print("액티브")
+                print("URL -> ", UserDefaultsManager.sharedURL)
+                
+            case .viewLifeCycle(.inactive):
+                print("IN 액티브")
             default:
                 break
             }

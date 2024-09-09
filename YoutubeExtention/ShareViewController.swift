@@ -74,27 +74,44 @@ final class ShareViewController: UIViewController {
     }
     
     private func processYouTubeURL(_ url: URL) {
-        // YouTube URL을 처리하거나, 앱으로 전달하는 로직
-        print("공유받은 YouTube URL: \(url.absoluteString)")
         // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube") {
-            userDefaults.set(url.absoluteString, forKey: "sharedURL")
-        }
-        DispatchQueue.main.async { [weak self] in
-            self?.viewModel.trigger = true
+        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube"),
+           let encode = encoding(string: url.absoluteString) {
+            
+            userDefaults.setValue(encode, forKey: "sharedURL")
+            print("공유받은 YouTube URL: \(url.absoluteString)")
+
+            userDefaults.synchronize()
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.viewModel.trigger = true
+            }
+        } else {
+            close()
         }
     }
+    
     private func processYouTubeURL(_ string: String) {
-        print("공유받은 YouTube URL: \(string)")
         
         // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube") {
-            userDefaults.set(string, forKey: "sharedURL")
+        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube"),
+           let encode = encoding(string: string) {
+            
+            userDefaults.setValue(encode, forKey: "sharedURL")
+            print("공유받은 YouTube URL: \(string)")
+
+            userDefaults.synchronize()
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.viewModel.trigger = true
+            }
+        } else {
+            close()
         }
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.viewModel.trigger = true
-        }
+    }
+    
+    private func encoding(string: String) -> Data? {
+        return try? JSONEncoder().encode(string)
     }
     
     private func close() {

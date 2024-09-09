@@ -11,6 +11,7 @@ enum UserDefaultsManager {
     
     enum Key: String {
         case isFirst
+        case sharedURL
         
         var value: String {
             return self.rawValue
@@ -19,4 +20,7 @@ enum UserDefaultsManager {
     
     @UserDefaultsWrapper(key: Key.isFirst.value, placeValue: true)
     static var isFirst: Bool
+    
+    @UserDefaultsAppGroupWrapper(key: Key.sharedURL.value, placeValue: nil, appGroupType: .youtube)
+    static var sharedURL: String?
 }
