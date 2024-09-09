@@ -16,6 +16,7 @@ struct SearchFeature: GuideUReducer {
         var currentText = ""
         var searchHistory: [String] = []
         var searchCaseList: [SuggestEntity] = []
+        var isSearchResEmpty: Bool = false
         
         // Static Text
         let placeHolderText = Const.placeHolderText
@@ -44,10 +45,11 @@ struct SearchFeature: GuideUReducer {
     }
     
     enum ViewEventType {
-        case onSubmit
+        case onSubmit(String)
         case deleteHistory(index: Int)
         case deleteAll
         case closeButtonTapped
+        case searchResultTapped(String)
     }
     
     enum DataTransType {
@@ -91,10 +93,15 @@ extension SearchFeature {
                     return .send(.dataTransType(.errorInfo(error.description)))
                 }
                 
-            case .viewEventType(.onSubmit):
+            case let .viewEventType(.onSubmit(text)):
+                return .run { send in
+                    await send(.networkType(.search(text)))
+                }
+                
+            case let .viewEventType(.searchResultTapped(text)):
                 if !state.currentText.trimmingCharacters(in: .whitespaces).isEmpty {
                     
-                    let result = realmRepository.create(history: state.currentText)
+                    let result = realmRepository.create(history: text)
                     
                     switch result {
                     case .success(_):
@@ -136,6 +143,7 @@ extension SearchFeature {
                 // MARK: DataTrans
             case let .dataTransType(.searchData(suggestEntity)):
                 state.searchCaseList = suggestEntity
+                state.isSearchResEmpty = state.searchCaseList.isEmpty
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
