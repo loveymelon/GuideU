@@ -322,4 +322,23 @@ extension Const {
     static let allClear = "전체삭제"
     static let navTitle = "검색"
     static let placeHolderText = "알고싶은 왁타버스 영상을 여기에"
+    
+    static let noResultMent = "검색 결과가 없습니다."
+    
+    enum noResultReason: CaseIterable {
+        case check
+        case other
+        case noResult
+        
+        var text: String {
+            switch self {
+            case .check:
+                "﹒검색어의 철자가 정확한지 확인해 주세요."
+            case .other:
+                "﹒비슷한 다른 검색어를 입력해보세요."
+            case .noResult:
+                "﹒데이터가 존재하지 않은 검색어일 수 있습니다."
+            }
+        }
+    }
 }

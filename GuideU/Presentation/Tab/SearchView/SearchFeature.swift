@@ -151,6 +151,7 @@ extension SearchFeature {
                 // MARK: Binding
             case let .currentText(text):
                 state.currentText = text
+                state.isSearchResEmpty = false
                 
                 return .run { send in
                     await send(.networkType(.search(text)))

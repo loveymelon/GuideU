@@ -106,7 +106,9 @@ enum GuideUColor{
         var interaction6: UIColor {
             return UIColor(hexCode: "#00b196", alpha: 1)
         }
-        
+        var Interaction1: UIColor {
+            return UIColor(hexCode: "#FF5148")
+        }
         
         var pinkType: UIColor {
             switch self {

@@ -21,7 +21,11 @@ struct SearchView: View {
                 if store.currentText.isEmpty {
                     currentListView()
                 } else {
-                    searchListView()
+                    if store.isSearchResEmpty {
+                        noResultView()
+                    } else {
+                        searchListView()
+                    }
                 }
             }
             .onAppear {
@@ -124,6 +128,29 @@ extension SearchView {
                 store.send(.viewEventType(.onSubmit(store.currentText)))
             }
         }
+    }
+    
+    private func noResultView() -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("'\(store.currentText)' " + Const.noResultMent)
+                    .lineLimit(3)
+                    .font(Font(WantedFont.semiFont.font(size: 22)))
+                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.Interaction1))
+                Spacer()
+            }
+            .padding(.vertical, 10)
+            
+            VStack(alignment: .leading, spacing: 7) {
+                ForEach(Const.noResultReason.allCases, id: \.self) { caseOf in
+                    Text(caseOf.text)
+                        .font(Font(WantedFont.regularFont.font(size: 14)))
+                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                }
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 10)
     }
 }
 
