@@ -69,5 +69,25 @@ extension Image {
             }
         }
     }
+    
+    enum SocialImages: String {
+        case youtube = "youtube"
+        case instagram = "instagram"
+        case twitterX = "twitter"
+        case soop = "afreeca"
+        
+        var img: Image {
+            switch self {
+            case .youtube:
+                return Image(.youtubeLogo)
+            case .instagram:
+                return Image(.instagramLogo)
+            case .twitterX:
+                return Image(.xLogo)
+            case .soop:
+                return Image(.soopLogo)
+            }
+        }
+    }
 }
 
