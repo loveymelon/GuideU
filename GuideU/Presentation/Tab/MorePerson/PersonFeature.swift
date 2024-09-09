@@ -14,8 +14,11 @@ struct PersonFeature: GuideUReducer {
     @ObservableState
     struct State: Equatable {
         var headerState = HeaderEntity(title: "동영상이 없어요!", channelName: "동영상이 없어요!", time: "00:00")
-        var characterInfoList: [CharacterEntity] = []
         var sharedURL: String = ""
+        var charactersInfo: [YoutubeCharacterEntity] = []
+        var memesInfo: [MemeEntity] = []
+        
+        var currentMoreType: MoreType = .characters
     }
     
     enum Action {
@@ -41,22 +44,38 @@ struct PersonFeature: GuideUReducer {
     }
     
     enum ViewEventType {
-        
+        case switchCurrentType(MoreType)
     }
     
     enum DataTransType {
-        case characterInfo([CharacterEntity])
+        case characters([YoutubeCharacterEntity])
+        case memes([MemeEntity])
         case youtubeURL(String)
         case errorInfo(String)
     }
     
     enum NetworkType {
-        case fetchCharacters
+        case fetchCharacters(String)
+        case fetchMemes(String)
         case search(String)
     }
     
     enum CancelId: Hashable {
         
+    }
+    
+    enum MoreType: CaseIterable {
+        case characters
+        case memes
+        
+        var text: String {
+            switch self {
+            case .characters:
+                return "등장인물"
+            case .memes:
+                return "사용되는 밈"
+            }
+        }
     }
     
     @Dependency(\.characterRepository) var repository
@@ -72,34 +91,42 @@ extension PersonFeature {
         Reduce { state, action in
             switch action {
             case .viewCycleType(.onAppear):
-                print("a")
+                break
                 
-            case .networkType(.fetchCharacters):
+            case let .viewEventType(.switchCurrentType(moreType)):
+                state.currentMoreType = moreType
+                
+            case let .networkType(.fetchCharacters(identifier)):
                 return .run { send in
-                    let result = await repository.fetchCharacters()
+                    let result = await repository.fetchCharacters(id: identifier)
                     
                     switch result {
                     case let .success(data):
-                        await send(.dataTransType(.characterInfo(data)))
+                        await send(.dataTransType(.characters(data)))
                     case let .failure(error):
                         await send(.dataTransType(.errorInfo(error)))
                     }
                 }
                 
-            case let .networkType(.search(text)):
+            case let .networkType(.fetchMemes(identifier)):
                 return .run { send in
-                    let result = await repository.fetchSearch(text)
+                    let result = await repository.fetchMemes(id: identifier)
                     
                     switch result {
-                    case .success(let data):
-                        print(data)
-                    case .failure(let error):
+                    case let .success(data):
+                        await send(.dataTransType(.memes(data)))
+                    case let .failure(error):
                         await send(.dataTransType(.errorInfo(error)))
                     }
                 }
                 
-            case let .dataTransType(.characterInfo(characterList)):
-                state.characterInfoList = characterList
+            case let .dataTransType(.characters(entitys)):
+                state.charactersInfo = entitys
+                print("characters", state.charactersInfo)
+                
+            case let .dataTransType(.memes(entitys)):
+                state.memesInfo = entitys
+                print("memes", state.memesInfo)
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
@@ -109,8 +136,14 @@ extension PersonFeature {
                    let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
                    let queryItems = components.queryItems {
                     
-                    if let siValue = queryItems.first(where: { $0.name == "si" })?.value {
-                        print("youtube", siValue)
+                    if let vValue = queryItems.first(where: { $0.name == "v" })?.value {
+                        
+                        UserDefaultsManager.sharedURL = nil
+                        
+                        return .run { send in
+                            await send(.networkType(.fetchCharacters(vValue)))
+                            await send(.networkType(.fetchMemes(vValue)))
+                        }
                     } else {
                         print("notFound")
                     }

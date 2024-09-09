@@ -11,8 +11,15 @@ struct CharacterEntity: Entity {
     let name: String
     let engName: String
     let definition: String
-    let smallImageUrl: String
-    let largeImageUrl: String
+    let smallImageUrl: URL?
+    let largeImageUrl: URL?
     let links: [LinkEntity]?
     let id: Int
+}
+
+struct YoutubeCharacterEntity: Entity {
+    let name, engName, definition: String
+    let smallImageURL: URL?
+    let largeImageURL: URL?
+    let links: [LinkEntity]
 }

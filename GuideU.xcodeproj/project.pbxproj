@@ -51,7 +51,6 @@
 		7B15820A2C6E1F6D00599E7C /* SearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582092C6E1F6D00599E7C /* SearchDTO.swift */; };
 		7B15820D2C6E207100599E7C /* RelatedVideoTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15820C2C6E207100599E7C /* RelatedVideoTypeDTO.swift */; };
 		7B15820F2C6E20CA00599E7C /* SearchTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15820E2C6E20CA00599E7C /* SearchTypeDTO.swift */; };
-		7B1582492C73043F00599E7C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582482C73043F00599E7C /* HomeView.swift */; };
 		7B15824E2C73075D00599E7C /* ScrollDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15824D2C73075D00599E7C /* ScrollDetector.swift */; };
 		7B1582562C745C7C00599E7C /* HeaderEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582552C745C7C00599E7C /* HeaderEntity.swift */; };
 		7B1582582C74855700599E7C /* PersonSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582572C74855700599E7C /* PersonSectionView.swift */; };
@@ -103,6 +102,10 @@
 		DF58795F2C7F0B41009F9171 /* APIErrorResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF58795E2C7F0B41009F9171 /* APIErrorResponseDTO.swift */; };
 		DF5879612C7F15DC009F9171 /* LinkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879602C7F15DC009F9171 /* LinkDTO.swift */; };
 		DF5879632C7F1701009F9171 /* LinkEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879622C7F1701009F9171 /* LinkEntity.swift */; };
+		DF5E5E3E2C8F4D0D0090A0D4 /* MemeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5E5E3D2C8F4D0D0090A0D4 /* MemeEntity.swift */; };
+		DF5E5E402C8F4D670090A0D4 /* RelatedVideoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5E5E3F2C8F4D670090A0D4 /* RelatedVideoEntity.swift */; };
+		DF5E5E442C8F4DFE0090A0D4 /* DuplicateEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5E5E432C8F4DFE0090A0D4 /* DuplicateEntity.swift */; };
+		DF5E5E462C8F5BBD0090A0D4 /* BookElementsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5E5E452C8F5BBD0090A0D4 /* BookElementsEntity.swift */; };
 		DF83B81E2C804ACC0088DE31 /* VideoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B81D2C804ACC0088DE31 /* VideoDTO.swift */; };
 		DF83B8202C804B070088DE31 /* VideosDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B81F2C804B070088DE31 /* VideosDTO.swift */; };
 		DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B8212C804C130088DE31 /* VideoRouter.swift */; };
@@ -199,7 +202,6 @@
 		7B1582092C6E1F6D00599E7C /* SearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDTO.swift; sourceTree = "<group>"; };
 		7B15820C2C6E207100599E7C /* RelatedVideoTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedVideoTypeDTO.swift; sourceTree = "<group>"; };
 		7B15820E2C6E20CA00599E7C /* SearchTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTypeDTO.swift; sourceTree = "<group>"; };
-		7B1582482C73043F00599E7C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7B15824D2C73075D00599E7C /* ScrollDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDetector.swift; sourceTree = "<group>"; };
 		7B1582552C745C7C00599E7C /* HeaderEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderEntity.swift; sourceTree = "<group>"; };
 		7B1582572C74855700599E7C /* PersonSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonSectionView.swift; sourceTree = "<group>"; };
@@ -252,6 +254,10 @@
 		DF58795E2C7F0B41009F9171 /* APIErrorResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorResponseDTO.swift; sourceTree = "<group>"; };
 		DF5879602C7F15DC009F9171 /* LinkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkDTO.swift; sourceTree = "<group>"; };
 		DF5879622C7F1701009F9171 /* LinkEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEntity.swift; sourceTree = "<group>"; };
+		DF5E5E3D2C8F4D0D0090A0D4 /* MemeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeEntity.swift; sourceTree = "<group>"; };
+		DF5E5E3F2C8F4D670090A0D4 /* RelatedVideoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedVideoEntity.swift; sourceTree = "<group>"; };
+		DF5E5E432C8F4DFE0090A0D4 /* DuplicateEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateEntity.swift; sourceTree = "<group>"; };
+		DF5E5E452C8F5BBD0090A0D4 /* BookElementsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookElementsEntity.swift; sourceTree = "<group>"; };
 		DF83B81D2C804ACC0088DE31 /* VideoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDTO.swift; sourceTree = "<group>"; };
 		DF83B81F2C804B070088DE31 /* VideosDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosDTO.swift; sourceTree = "<group>"; };
 		DF83B8212C804C130088DE31 /* VideoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRouter.swift; sourceTree = "<group>"; };
@@ -535,7 +541,6 @@
 			isa = PBXGroup;
 			children = (
 				7B1582572C74855700599E7C /* PersonSectionView.swift */,
-				7B1582482C73043F00599E7C /* HomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -695,6 +700,10 @@
 			children = (
 				DF1DECD52C7D7B9D0098F761 /* CharacterEntity.swift */,
 				DF5879622C7F1701009F9171 /* LinkEntity.swift */,
+				DF5E5E3D2C8F4D0D0090A0D4 /* MemeEntity.swift */,
+				DF5E5E3F2C8F4D670090A0D4 /* RelatedVideoEntity.swift */,
+				DF5E5E432C8F4DFE0090A0D4 /* DuplicateEntity.swift */,
+				DF5E5E452C8F5BBD0090A0D4 /* BookElementsEntity.swift */,
 			);
 			path = Character;
 			sourceTree = "<group>";
@@ -896,7 +905,6 @@
 				7B1581F92C6CEF1200599E7C /* EncodingType.swift in Sources */,
 				7B1581FF2C6CF2C400599E7C /* DTO.swift in Sources */,
 				7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */,
-				7B1582492C73043F00599E7C /* HomeView.swift in Sources */,
 				DF2DBBF32C8094A1000581F6 /* VideoMapper.swift in Sources */,
 				DF2DBBF32C8094A1000581F6 /* VideoMapper.swift in Sources */,
 				7BACA4322C83662F008D4CFC /* SearchView.swift in Sources */,
@@ -915,6 +923,7 @@
 				DF2DBBF12C809464000581F6 /* VideoRepository.swift in Sources */,
 				7B1581D82C6C823900599E7C /* UserDefaultsManager.swift in Sources */,
 				7B1581D32C6C811100599E7C /* UserDefaultsWrapper.swift in Sources */,
+				DF5E5E462C8F5BBD0090A0D4 /* BookElementsEntity.swift in Sources */,
 				7B1581DB2C6CB28A00599E7C /* RootCoordinator.swift in Sources */,
 				7B1581AA2C6A518200599E7C /* ExFont.swift in Sources */,
 				7BACA4262C803E35008D4CFC /* MoreCharacterFeature.swift in Sources */,
@@ -925,6 +934,7 @@
 				7BB2333F2C8EC43D00CE4D39 /* MorePersonView.swift in Sources */,
 				7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */,
 				7BB2333C2C8EAB4500CE4D39 /* UserDefaultsAppGroupWrapper.swift in Sources */,
+				DF5E5E402C8F4D670090A0D4 /* RelatedVideoEntity.swift in Sources */,
 				DF8A2D6F2C8B117B0078F222 /* WKWebHosting.swift in Sources */,
 				DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */,
 				DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */,
@@ -935,6 +945,7 @@
 				7B1581E62C6CBA4200599E7C /* OnboardPageFeature.swift in Sources */,
 				DFB2BE6E2C858D8F00518C7E /* SearchRepository.swift in Sources */,
 				7BACA42C2C8191CE008D4CFC /* MoreCharacterListView.swift in Sources */,
+				DF5E5E3E2C8F4D0D0090A0D4 /* MemeEntity.swift in Sources */,
 				DF1DECDF2C7D7F930098F761 /* ErrorMapper.swift in Sources */,
 				7B1582052C6CF3DA00599E7C /* DTOList.swift in Sources */,
 				7B1581B22C6A54E700599E7C /* TabCase.swift in Sources */,
@@ -982,6 +993,7 @@
 				7BACA3E02C7DB9EB008D4CFC /* GuideUSearchBarView.swift in Sources */,
 				7BACA4342C836718008D4CFC /* GuidUSearchBarBottomLineView.swift in Sources */,
 				7BACA43F2C856C63008D4CFC /* ResultCase.swift in Sources */,
+				DF5E5E442C8F4DFE0090A0D4 /* DuplicateEntity.swift in Sources */,
 				7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */,
 				7B1582582C74855700599E7C /* PersonSectionView.swift in Sources */,
 				7B1581BD2C6A58B700599E7C /* Const.swift in Sources */,

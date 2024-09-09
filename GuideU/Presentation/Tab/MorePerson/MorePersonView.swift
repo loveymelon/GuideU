@@ -13,26 +13,8 @@ struct MorePersonView: View {
     
     @State private var offsetY: CGFloat = 0
     @State private var opacity: CGFloat = 1
+    @State private var moreType: PersonFeature.MoreType = .characters
     @Namespace var name
-    
-    /// Feature 로 가져가야 할 영역
-    @State private var currentMoreType = moreType.characters
-    
-    enum moreType: CaseIterable {
-        case characters
-        case memes
-        
-        var text: String {
-            switch self {
-            case .characters:
-                return "등장인물"
-            case .memes:
-                return "사용되는 밈"
-            }
-        }
-    }
-    /////////
-    
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -51,6 +33,11 @@ struct MorePersonView: View {
                 }
                 .onAppear {
                     store.send(.viewCycleType(.onAppear))
+                }
+                .onChange(of: store.currentMoreType) { newValue in
+                    withAnimation {
+                        moreType = newValue
+                    }
                 }
             }
         }
@@ -160,19 +147,18 @@ struct MorePersonView: View {
         let fontSize: CGFloat = 15
         
         return HStack(spacing: 0) {
-            ForEach(moreType.allCases, id: \.self) { caseOf in
+            ForEach(PersonFeature.MoreType.allCases, id: \.self) { caseOf in
+                
                 VStack {
                     Text(caseOf.text)
                         .foregroundStyle(.black)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .font(caseOf == currentMoreType ? Font(WantedFont.boldFont.font(size: fontSize)) : Font(WantedFont.midFont.font(size: fontSize)))
+                        .font(caseOf == store.currentMoreType ? Font(WantedFont.boldFont.font(size: fontSize)) : Font(WantedFont.midFont.font(size: fontSize)))
                         .asButton {
-                            withAnimation {
-                                currentMoreType = caseOf
-                            }
+                            store.send(.viewEventType(.switchCurrentType(caseOf)))
                         }
                     Group {
-                        if caseOf == currentMoreType {
+                        if caseOf == moreType {
                             Capsule()
                                 .foregroundColor(Color(GuideUColor.ViewBaseColor.light.primary))
                                 .matchedGeometryEffect(id: "Tab", in: name)

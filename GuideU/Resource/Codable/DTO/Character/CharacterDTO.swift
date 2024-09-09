@@ -7,6 +7,21 @@
 
 import Foundation
 
+struct YoutubeCharacterDTO: DTO {
+    let name, engName, definition, smallImageURL: String
+    let largeImageURL: String
+    let links: [LinkDTO]
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case engName = "eng_name"
+        case definition
+        case smallImageURL = "small_image_url"
+        case largeImageURL = "large_image_url"
+        case links
+    }
+}
+
 struct CharacterDTO: DTO {
     let name: String
     let engName: String
@@ -35,6 +50,20 @@ struct CharactersDTO: DTO {
         var characterList = [CharacterDTO] ()
         while !container.isAtEnd {
             let character = try container.decode(CharacterDTO.self)
+            characterList.append(character)
+        }
+        self.charactersDTO = characterList
+    }
+}
+
+struct YoutubeCharactersDTO: DTO {
+    let charactersDTO: [YoutubeCharacterDTO]
+    
+    init(from decoder: any Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        var characterList = [YoutubeCharacterDTO] ()
+        while !container.isAtEnd {
+            let character = try container.decode(YoutubeCharacterDTO.self)
             characterList.append(character)
         }
         self.charactersDTO = characterList
