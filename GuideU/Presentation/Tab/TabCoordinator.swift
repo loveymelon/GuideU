@@ -18,6 +18,7 @@ struct TabCoordinator {
         
         /// TabState
         var homeTabState = HomeCoordinator.State.initialState
+        var morePersonTabState = MorePersonCoordinator.State.initialState
     }
     
     enum Action {
@@ -26,6 +27,7 @@ struct TabCoordinator {
         
         /// TabAction
         case homeTabAction(HomeCoordinator.Action)
+        case morePersonTabAction(MorePersonCoordinator.Action)
         
         enum Delegate {
 
@@ -36,6 +38,9 @@ struct TabCoordinator {
         
         Scope(state: \.homeTabState, action: \.homeTabAction) {
             HomeCoordinator()
+        }
+        Scope(state: \.morePersonTabState, action: \.morePersonTabAction) {
+            MorePersonCoordinator()
         }
         
         core()

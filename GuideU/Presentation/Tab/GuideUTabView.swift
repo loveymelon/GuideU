@@ -30,7 +30,7 @@ struct GuideUTabView: View {
                         }
                         .tag(TabCase.home)
                         
-                    Text("ass")
+                    MorePersonCoordinatorView(store: store.scope(state: \.morePersonTabState, action: \.morePersonTabAction))
                         .tabItem {
                             tabItemView(tabItem: .meme)
                         }

@@ -79,6 +79,9 @@
 		7BACA4412C856CBA008D4CFC /* SearchResultCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA4402C856CBA008D4CFC /* SearchResultCaseView.swift */; };
 		7BACA4442C857186008D4CFC /* SuggestEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA4432C857186008D4CFC /* SuggestEntity.swift */; };
 		7BB2333C2C8EAB4500CE4D39 /* UserDefaultsAppGroupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB2333B2C8EAB4500CE4D39 /* UserDefaultsAppGroupWrapper.swift */; };
+		7BB2333F2C8EC43D00CE4D39 /* MorePersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB2333E2C8EC43D00CE4D39 /* MorePersonView.swift */; };
+		7BB233462C8EC7B300CE4D39 /* MorePersonCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB233452C8EC7B300CE4D39 /* MorePersonCoordinator.swift */; };
+		7BB233482C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB233472C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift */; };
 		7BE122FC2C8C4C0F002E198F /* SharedForYoutubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */; };
 		7BFC8E302C8B0242007FD8F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */; };
 		7BFC8E332C8B0242007FD8F3 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC8E322C8B0242007FD8F3 /* Base */; };
@@ -223,6 +226,9 @@
 		7BACA4402C856CBA008D4CFC /* SearchResultCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCaseView.swift; sourceTree = "<group>"; };
 		7BACA4432C857186008D4CFC /* SuggestEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestEntity.swift; sourceTree = "<group>"; };
 		7BB2333B2C8EAB4500CE4D39 /* UserDefaultsAppGroupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsAppGroupWrapper.swift; sourceTree = "<group>"; };
+		7BB2333E2C8EC43D00CE4D39 /* MorePersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePersonView.swift; sourceTree = "<group>"; };
+		7BB233452C8EC7B300CE4D39 /* MorePersonCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePersonCoordinator.swift; sourceTree = "<group>"; };
+		7BB233472C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePersonCoordinatorView.swift; sourceTree = "<group>"; };
 		7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedForYoutubeView.swift; sourceTree = "<group>"; };
 		7BFC8E2D2C8B0242007FD8F3 /* YoutubeExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YoutubeExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -416,6 +422,7 @@
 		7B1581B42C6A55FB00599E7C /* Tab */ = {
 			isa = PBXGroup;
 			children = (
+				7BB2333D2C8EC40100CE4D39 /* MorePerson */,
 				7BACA4302C8365E0008D4CFC /* SearchView */,
 				7BACA3D82C7D8FD3008D4CFC /* MoreCharacterView */,
 				7B1582452C73034300599E7C /* Home */,
@@ -459,6 +466,7 @@
 		7B1581D92C6CB27200599E7C /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				7BB233442C8EC7A300CE4D39 /* MorePersonTab */,
 				7BACA3CD2C7C4192008D4CFC /* HomeTab */,
 				7B1581DA2C6CB28A00599E7C /* RootCoordinator.swift */,
 				7B1581DC2C6CB34900599E7C /* RootCoordinatorView.swift */,
@@ -629,6 +637,23 @@
 				7BACA4432C857186008D4CFC /* SuggestEntity.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		7BB2333D2C8EC40100CE4D39 /* MorePerson */ = {
+			isa = PBXGroup;
+			children = (
+				7BB2333E2C8EC43D00CE4D39 /* MorePersonView.swift */,
+			);
+			path = MorePerson;
+			sourceTree = "<group>";
+		};
+		7BB233442C8EC7A300CE4D39 /* MorePersonTab */ = {
+			isa = PBXGroup;
+			children = (
+				7BB233452C8EC7B300CE4D39 /* MorePersonCoordinator.swift */,
+				7BB233472C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift */,
+			);
+			path = MorePersonTab;
 			sourceTree = "<group>";
 		};
 		7BFC8E2E2C8B0242007FD8F3 /* YoutubeExtention */ = {
@@ -885,6 +910,7 @@
 				DF83B81E2C804ACC0088DE31 /* VideoDTO.swift in Sources */,
 				DF83B81E2C804ACC0088DE31 /* VideoDTO.swift in Sources */,
 				DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */,
+				7BB233462C8EC7B300CE4D39 /* MorePersonCoordinator.swift in Sources */,
 				DF2DBBF12C809464000581F6 /* VideoRepository.swift in Sources */,
 				DF2DBBF12C809464000581F6 /* VideoRepository.swift in Sources */,
 				7B1581D82C6C823900599E7C /* UserDefaultsManager.swift in Sources */,
@@ -896,6 +922,7 @@
 				7B1581E82C6CBEC400599E7C /* ExView.swift in Sources */,
 				DFB2BE5E2C85773B00518C7E /* SuggestDTO.swift in Sources */,
 				DF58795B2C7F0B0C009F9171 /* SimpleErrorDTO.swift in Sources */,
+				7BB2333F2C8EC43D00CE4D39 /* MorePersonView.swift in Sources */,
 				7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */,
 				7BB2333C2C8EAB4500CE4D39 /* UserDefaultsAppGroupWrapper.swift in Sources */,
 				DF8A2D6F2C8B117B0078F222 /* WKWebHosting.swift in Sources */,
@@ -940,6 +967,7 @@
 				7BACA42F2C819D9D008D4CFC /* DownImageView.swift in Sources */,
 				DF5879612C7F15DC009F9171 /* LinkDTO.swift in Sources */,
 				7B15825A2C74A70000599E7C /* PersonFeature.swift in Sources */,
+				7BB233482C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift in Sources */,
 				DF58795F2C7F0B41009F9171 /* APIErrorResponseDTO.swift in Sources */,
 				7BACA43B2C855CC2008D4CFC /* SearchFeature.swift in Sources */,
 				DF1DECD12C7D79370098F761 /* CharacterRepository.swift in Sources */,
