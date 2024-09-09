@@ -64,9 +64,15 @@ struct MorePersonView: View {
                         .frame(height: 150)
                         .background(Color.clear)
 
-                    LazyVStack {
+                    LazyVStack(spacing: 0) {
+                        Color.clear.frame(height: 10)
+                        
                         ForEach(1...100, id: \.self ) { num in
                             PersonSectionView()
+                                .background(.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .padding(.all, 10)
+                                .shadow(radius: 4)
                         }
                     }
                     .background(.white)
