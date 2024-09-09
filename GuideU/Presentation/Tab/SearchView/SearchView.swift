@@ -61,6 +61,9 @@ extension SearchView {
                 )
                 .padding(.horizontal, 10)
                 .padding(.vertical, 10)
+                .onTapGesture {
+                    store.send(.viewEventType(.searchResultTapped(model.keyWord)))
+                }
             }
         }
     }
@@ -118,7 +121,7 @@ extension SearchView {
             }
             GuidUSearchBarBottomLineView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.placeHolderText, lineWidth: 1.4) {
                 /// onSubmit
-                store.send(.viewEventType(.onSubmit))
+                store.send(.viewEventType(.onSubmit(store.currentText)))
             }
         }
     }
