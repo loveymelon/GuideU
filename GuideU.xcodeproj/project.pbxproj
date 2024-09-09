@@ -536,7 +536,6 @@
 			children = (
 				7B1582572C74855700599E7C /* PersonSectionView.swift */,
 				7B1582482C73043F00599E7C /* HomeView.swift */,
-				7B1582592C74A70000599E7C /* PersonFeature.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -643,6 +642,7 @@
 			isa = PBXGroup;
 			children = (
 				7BB2333E2C8EC43D00CE4D39 /* MorePersonView.swift */,
+				7B1582592C74A70000599E7C /* PersonFeature.swift */,
 			);
 			path = MorePerson;
 			sourceTree = "<group>";
