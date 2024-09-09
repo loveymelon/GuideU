@@ -25,14 +25,18 @@ struct MorePersonCoordinator {
     }
     
     enum Action {
-        
         case router(IdentifiedRouterActionOf<MorePersonScreen>)
         
         /// 상위뷰에게 전달
         case delegate(Delegate)
+        case parentAction(ParentAction)
         
         enum Delegate {
             
+        }
+        
+        enum ParentAction {
+            case checkURL
         }
     }
     
@@ -46,6 +50,11 @@ extension MorePersonCoordinator {
     private func core() -> some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .parentAction(.checkURL):
+                return .run { send in
+                    await send(.router(.routeAction(id: .home, action: .home(.parentAction(.checkURL)))))
+                }
+                
             default:
                 break;
             }

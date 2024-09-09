@@ -32,9 +32,7 @@ struct RootCoordinatorView: View {
                     }
                     
                 case .tab:
-                    IfLetStore(store.scope(state: \.currentTabCoordinator, action: \.tabCoordinatorAction)) { store in
-                        GuideUTabView(store: store)
-                    }
+                    GuideUTabView(store: store.scope(state: \.currentTabCoordinator, action: \.tabCoordinatorAction))
                 }
             }
             .onChange(of: phase) { newValue in

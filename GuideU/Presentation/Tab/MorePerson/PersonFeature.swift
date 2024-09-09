@@ -13,8 +13,9 @@ struct PersonFeature: GuideUReducer {
     
     @ObservableState
     struct State: Equatable {
-        var headerState = HeaderEntity(title: "동영상이 없어요!", channelName: "우왁굳의 게임방송", time: "00:00")
+        var headerState = HeaderEntity(title: "동영상이 없어요!", channelName: "동영상이 없어요!", time: "00:00")
         var characterInfoList: [CharacterEntity] = []
+        var sharedURL: String = ""
     }
     
     enum Action {
@@ -24,8 +25,14 @@ struct PersonFeature: GuideUReducer {
         case networkType(NetworkType)
         
         case delegate(Delegate)
+        case parentAction(ParentAction)
+        
         enum Delegate {
             
+        }
+        
+        enum ParentAction {
+            case checkURL
         }
     }
     
@@ -39,6 +46,7 @@ struct PersonFeature: GuideUReducer {
     
     enum DataTransType {
         case characterInfo([CharacterEntity])
+        case youtubeURL(String)
         case errorInfo(String)
     }
     
@@ -64,10 +72,7 @@ extension PersonFeature {
         Reduce { state, action in
             switch action {
             case .viewCycleType(.onAppear):
-                return .run { send in
-                    await send(.networkType(.fetchCharacters))
-                    await send(.networkType(.search("우왁굳")))
-                }
+                print("a")
                 
             case .networkType(.fetchCharacters):
                 return .run { send in
@@ -98,6 +103,26 @@ extension PersonFeature {
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
+                
+            case let .dataTransType(.youtubeURL(urlString)):
+                if let url = URL(string: urlString),
+                   let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                   let queryItems = components.queryItems {
+                    
+                    if let siValue = queryItems.first(where: { $0.name == "si" })?.value {
+                        print("youtube", siValue)
+                    } else {
+                        print("notFound")
+                    }
+                } else {
+                    print("Invalid URL")
+                }
+                
+            case .parentAction(.checkURL):
+                let sharedURL = UserDefaultsManager.sharedURL ?? "epmty"
+                return .run { send in
+                    await send(.dataTransType(.youtubeURL(sharedURL)))
+                }
                 
             default:
                 break

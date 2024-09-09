@@ -23,6 +23,7 @@ struct TabCoordinator {
     
     enum Action {
         case delegate(Delegate)
+        case paretnAction(ParentAction)
         case tabCase(TabCase)
         
         /// TabAction
@@ -30,8 +31,16 @@ struct TabCoordinator {
         case morePersonTabAction(MorePersonCoordinator.Action)
         
         enum Delegate {
-
+            
         }
+        
+        enum ParentAction {
+            case checkURL
+        }
+    }
+    
+    enum CancelID: Hashable {
+        case parentAction
     }
     
     var body: some ReducerOf<Self> {
@@ -54,6 +63,11 @@ extension TabCoordinator {
                 
             case let .tabCase(tabCase):
                 state.currentTab = tabCase
+                
+            case .paretnAction(.checkURL):
+                return .run { send in
+                    await send(.morePersonTabAction(.parentAction(.checkURL)))
+                }
                 
             default:
                 break

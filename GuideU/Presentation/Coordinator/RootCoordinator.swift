@@ -26,7 +26,7 @@ struct RootCoordinator {
         var routes: IdentifiedArrayOf<Route<RootScreen.State>>
         
         var viewState: RootCoordinatorViewState = .start
-        var currentTabCoordinator: TabCoordinator.State? = nil
+        var currentTabCoordinator: TabCoordinator.State = TabCoordinator.State()
     }
     
     enum Action {
@@ -35,6 +35,11 @@ struct RootCoordinator {
         case tabCoordinatorAction(TabCoordinator.Action)
         
         case viewLifeCycle(ViewLifeCycle)
+        case parentAction(ParentAction)
+
+        enum ParentAction {
+            case checkURL
+        }
     }
     
     enum RootCoordinatorViewState: Equatable {
@@ -51,6 +56,10 @@ struct RootCoordinator {
     }
     
     var body: some ReducerOf<Self> {
+        Scope(state: \.currentTabCoordinator, action: \.tabCoordinatorAction) {
+            TabCoordinator()
+        }
+        
         Reduce { state, action in
             switch action {
                 
@@ -59,18 +68,28 @@ struct RootCoordinator {
                 if trigger {
                     state.routes.push(.onboardPage(OnboardPageFeature.State()))
                 } else {
-                    return changeTabView(state: &state)
+                    state.viewState = .tab
                 }
                 
-            case .router(.routeAction(id: _, action: .onboardPage(.delegate(.startButtonTapped)))):
-                return changeTabView(state: &state)
+//            case .router(.routeAction(id: _, action: .onboardPage(.delegate(.startButtonTapped)))):
+//                return changeTabView(state: &state)
                 
             case .viewLifeCycle(.active):
                 print("액티브")
                 print("URL -> ", UserDefaultsManager.sharedURL)
                 
+                return .run { send in
+                    await send(.parentAction(.checkURL))
+                }
+                
             case .viewLifeCycle(.inactive):
                 print("IN 액티브")
+                
+            case .parentAction(.checkURL):
+                return .run { send in
+                    await send(.tabCoordinatorAction(.paretnAction(.checkURL)))
+                }
+                
             default:
                 break
             }
@@ -78,18 +97,8 @@ struct RootCoordinator {
             return .none
         }
         .forEachRoute(\.routes, action: \.router)
-        .ifLet(\.currentTabCoordinator, action: \.tabCoordinatorAction) {
-            TabCoordinator()
-        }
+//        .ifLet(\.currentTabCoordinator, action: \.tabCoordinatorAction) {
+//            TabCoordinator()
+//        }
     }
-}
-
-extension RootCoordinator {
-    
-    private func changeTabView(state: inout State) -> Effect<Action> {
-        state.currentTabCoordinator = TabCoordinator.State()
-        state.viewState = .tab
-        return .none
-    }
-    
 }
