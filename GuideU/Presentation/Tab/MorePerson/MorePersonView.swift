@@ -9,12 +9,14 @@ import SwiftUI
 import ComposableArchitecture
 
 struct MorePersonView: View {
+    @Perception.Bindable var store: StoreOf<PersonFeature>
     
     @State private var offsetY: CGFloat = 0
-    @Perception.Bindable var store: StoreOf<PersonFeature>
-    @State private var currentMoreType = moreType.characters
     @State private var opacity: CGFloat = 1
     @Namespace var name
+    
+    /// Feature 로 가져가야 할 영역
+    @State private var currentMoreType = moreType.characters
     
     enum moreType: CaseIterable {
         case characters
@@ -29,6 +31,8 @@ struct MorePersonView: View {
             }
         }
     }
+    /////////
+    
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -57,9 +61,8 @@ struct MorePersonView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
                     headerView()
-                        .frame(height: 140)
+                        .frame(height: 150)
                         .background(Color.clear)
-                        .ignoresSafeArea(edges: .top)
 
                     LazyVStack {
                         ForEach(1...100, id: \.self ) { num in
@@ -84,7 +87,6 @@ struct MorePersonView: View {
     }
     
     func headerView() -> some View {
-        let newHeight: CGFloat = 140
         return ZStack(alignment: .top) {
             // 배경 이미지나 콘텐츠
             VStack {
@@ -94,7 +96,6 @@ struct MorePersonView: View {
             }
             .background(.clear)
         }
-        .frame(height: newHeight)
     }
     
     private func fakeNavigation(entity: HeaderEntity, opacity: CGFloat) -> some View {
@@ -132,7 +133,7 @@ struct MorePersonView: View {
                 .padding(.bottom, 4)
             
             Text(entity.title)
-                .font(Font(WantedFont.boldFont.font(size: 30)))
+                .font(Font(WantedFont.boldFont.font(size: 28)))
                 .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
                 
             HStack {
@@ -142,38 +143,45 @@ struct MorePersonView: View {
                 
                 Spacer()
             }
-            .font(Font(WantedFont.midFont.font(size: 16)))
-            
+            .font(Font(WantedFont.midFont.font(size: 14)))
+            .padding(.bottom, 18)
             switchView()
         }
         .padding(.horizontal, 10)
     }
     
     private func switchView() -> some View {
-        HStack(spacing: 0) {
+        let fontSize: CGFloat = 15
+        
+        return HStack(spacing: 0) {
             ForEach(moreType.allCases, id: \.self) { caseOf in
                 VStack {
                     Text(caseOf.text)
                         .foregroundStyle(.black)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .font(caseOf == currentMoreType ? Font(WantedFont.boldFont.font(size: fontSize)) : Font(WantedFont.midFont.font(size: fontSize)))
                         .asButton {
                             withAnimation {
                                 currentMoreType = caseOf
                             }
                         }
-                    if caseOf == currentMoreType {
-                        Capsule()
-                            .frame(height: 3)
-                            .foregroundColor(Color(GuideUColor.ViewBaseColor.light.primary)) // Capsule 색상 설정
-                            .matchedGeometryEffect(id: "Tab", in: name)
-                    } else {
-                        Capsule()
-                            .frame(height: 3)
-                            .foregroundColor(.clear)
+                    Group {
+                        if caseOf == currentMoreType {
+                            Capsule()
+                                .foregroundColor(Color(GuideUColor.ViewBaseColor.light.primary))
+                                .matchedGeometryEffect(id: "Tab", in: name)
+                        } else {
+                            Capsule()
+                                .foregroundColor(.clear)
+                            
+                        }
                     }
+                    .frame(height: 3)
+                    .padding(.horizontal, 10)
                 }
             }
         }
-        .frame(height: 50)
+        .frame(height: 30)
     }
     
     private func backgroundImage(size: CGSize, minY: CGFloat) -> some View {
