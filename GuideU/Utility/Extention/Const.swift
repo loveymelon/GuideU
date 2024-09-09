@@ -66,6 +66,30 @@ enum Const {
                 return VIichan.allCases.map { $0.id }
             }
         }
+        
+        func getChannelImageURL( channelId: String) -> URL? {
+            let base = Const.channelImageBaseString
+            let urlString: String
+            
+            switch self {
+            case .wakgood:
+                urlString = base + (Const.Wakgood.allCases.first { $0.id == channelId }?.imageURLString ?? "")
+            case .ine:
+                urlString = base + (Const.INE.allCases.first { $0.id == channelId }?.imageURLString ?? "")
+            case .jingburger:
+                urlString = base + (Const.JINGBURGER.allCases.first { $0.id == channelId }?.imageURLString ?? "")
+            case .lilpa:
+                urlString = base + (Const.Lilpa.allCases.first { $0.id == channelId }?.imageURLString ?? "")
+            case .jururu:
+                urlString = base + (Const.JURURU.allCases.first { $0.id == channelId }?.imageURLString ?? "")
+            case .gosegu:
+                urlString = base + (Const.GOSEGU.allCases.first { $0.id == channelId }?.imageURLString ?? "")
+            case .viichan:
+                urlString = base + (Const.VIichan.allCases.first { $0.id == channelId }?.imageURLString ?? "")
+            }
+            
+            return URL(string: urlString)
+        }
     }
     
     enum Wakgood: CaseIterable {
