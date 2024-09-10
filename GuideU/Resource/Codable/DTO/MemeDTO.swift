@@ -8,6 +8,7 @@
 import Foundation
 
 struct BookElementDTO: DTO {
+    let timestamp: Int
     let memes: [MemeDTO]
 }
 

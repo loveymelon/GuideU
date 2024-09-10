@@ -13,8 +13,8 @@ struct CharacterMapper {
         return dto.map { dtoToEntity($0) }
     }
     
-    func dtoToEntity(_ dto: [BookElementDTO]) -> [MemeEntity] {
-        return dto.map { dtoToEntity($0) }.flatMap { $0.memes }
+    func dtoToEntity(_ dto: [BookElementDTO]) -> [BookElementsEntity] {
+        return dto.map { dtoToEntity($0) }
     }
     
     /// CharacterDTO -> Entity
@@ -40,7 +40,7 @@ extension CharacterMapper {
     }
     
     private func dtoToEntity(_ dto: BookElementDTO) -> BookElementsEntity {
-        return BookElementsEntity(memes: dtoToEntity(dto.memes))
+        return BookElementsEntity(timestamp: intToTime(time: dto.timestamp), memes: dtoToEntity(dto.memes))
     }
     
     private func dtoToEntity(_ dto: [LinkDTO]) -> [LinkEntity] {
@@ -74,6 +74,13 @@ extension CharacterMapper {
     /// DuplicateDTO -> DuplicateEntity
     private func dtoToEntity(_ dto: DuplicateDTO) -> DuplicateEntity {
         return DuplicateEntity(name: dto.name, memeID: dto.memeID)
+    }
+    
+    private func intToTime(time: Int) -> String {
+        let min = time / 60
+        let sec = time % 60
+        
+        return String(format: "%02d:%02d", min, sec)
     }
 }
 

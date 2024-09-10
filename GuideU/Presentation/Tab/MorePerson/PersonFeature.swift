@@ -16,7 +16,7 @@ struct PersonFeature: GuideUReducer {
         var headerState = HeaderEntity(title: "동영상이 없어요!", channelName: "동영상이 없어요!", time: "00:00")
         var sharedURL: String = ""
         var charactersInfo: [YoutubeCharacterEntity] = []
-        var memesInfo: [MemeEntity] = []
+        var bookElementsInfo: [BookElementsEntity] = []
         var selectedURL: URL?
         var currentMoreType: MoreType = .characters
     }
@@ -53,7 +53,7 @@ struct PersonFeature: GuideUReducer {
     
     enum DataTransType {
         case characters([YoutubeCharacterEntity])
-        case memes([MemeEntity])
+        case booksElements([BookElementsEntity])
         case youtubeURL(String)
         case errorInfo(String)
     }
@@ -122,7 +122,7 @@ extension PersonFeature {
                     
                     switch result {
                     case let .success(data):
-                        await send(.dataTransType(.memes(data)))
+                        await send(.dataTransType(.booksElements(data)))
                     case let .failure(error):
                         await send(.dataTransType(.errorInfo(error)))
                     }
@@ -132,8 +132,8 @@ extension PersonFeature {
                 state.charactersInfo = entitys
                 print("characters", state.charactersInfo)
                 
-            case let .dataTransType(.memes(entitys)):
-                state.memesInfo = entitys
+            case let .dataTransType(.booksElements(entitys)):
+                state.bookElementsInfo = entitys
 //                print("memes", state.memesInfo)
                 
             case let .dataTransType(.errorInfo(error)):

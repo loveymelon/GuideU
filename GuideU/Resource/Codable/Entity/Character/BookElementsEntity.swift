@@ -8,5 +8,6 @@
 import Foundation
 
 struct BookElementsEntity: Entity {
+    let timestamp: String
     let memes: [MemeEntity]
 }

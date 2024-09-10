@@ -74,8 +74,7 @@ struct MorePersonView: View {
                                     .background(.white)
                             }
                         } else {
-                            ForEach(store.memesInfo, id: \.id) { model in
-                                
+                            ForEach(store.bookElementsInfo, id: \.self) { model in
     //                            PersonSectionView()
     //                                .background(.white)
     //                                .clipShape(RoundedRectangle(cornerRadius: 12))

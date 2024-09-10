@@ -38,7 +38,7 @@ extension CharacterRepository {
         }
     }
     
-    func fetchMemes(id: String) async -> Result<[MemeEntity], String> {
+    func fetchMemes(id: String) async -> Result<[BookElementsEntity], String> {
         let result = await network.requestNetwork(dto: BooksDTO.self, router: VideoRouter.fetchMemes(id))
         
         switch result {
