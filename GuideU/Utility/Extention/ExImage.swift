@@ -16,6 +16,7 @@ extension Image {
     static let close = Image(.closeRounded)
     static let history = Image(.historyTab)
     static let clock = Image(.clock)
+    static let backBlack = Image(.backBlack)
     
     enum TabbarImage {
         enum noneTab {

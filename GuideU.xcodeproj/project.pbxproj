@@ -57,6 +57,7 @@
 		7B15825A2C74A70000599E7C /* PersonFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582592C74A70000599E7C /* PersonFeature.swift */; };
 		7B15825D2C74B1DF00599E7C /* CharacterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15825C2C74B1DF00599E7C /* CharacterDTO.swift */; };
 		7B1582642C74B52A00599E7C /* DetailErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */; };
+		7B2665712C90D587000A483A /* IdentifiableURLEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665702C90D587000A483A /* IdentifiableURLEntity.swift */; };
 		7B6B3CD02C85D89D00F643FB /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; };
 		7B6B3CD12C85D8EB00F643FB /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
@@ -213,6 +214,7 @@
 		7B1582592C74A70000599E7C /* PersonFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFeature.swift; sourceTree = "<group>"; };
 		7B15825C2C74B1DF00599E7C /* CharacterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDTO.swift; sourceTree = "<group>"; };
 		7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailErrorDTO.swift; sourceTree = "<group>"; };
+		7B2665702C90D587000A483A /* IdentifiableURLEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableURLEntity.swift; sourceTree = "<group>"; };
 		7B6B3CD62C85E16000F643FB /* GuideU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideU.entitlements; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 				DF1DECD72C7D7E8F0098F761 /* Error */,
 				DF1DECD42C7D7B8B0098F761 /* Character */,
 				7B1582542C745C7200599E7C /* Home */,
+				7B2665702C90D587000A483A /* IdentifiableURLEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -965,6 +968,7 @@
 				7BACA43D2C855E9E008D4CFC /* GuideUReducer.swift in Sources */,
 				DF58795D2C7F0B1F009F9171 /* DetailedErrorDTO.swift in Sources */,
 				DF1DECD62C7D7B9D0098F761 /* CharacterEntity.swift in Sources */,
+				7B2665712C90D587000A483A /* IdentifiableURLEntity.swift in Sources */,
 				7B1581D62C6C815800599E7C /* CodableManager.swift in Sources */,
 				7BACA4442C857186008D4CFC /* SuggestEntity.swift in Sources */,
 				DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */,

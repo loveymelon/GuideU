@@ -17,12 +17,16 @@ struct MorePersonView: View {
     @Namespace var name
     
     var body: some View {
-        ZStack(alignment: .top) {
-            // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
-            backgroundImage(size: CGSize(width: UIScreen.main.bounds.width, height: 270 + -offsetY), minY: offsetY)
-                .ignoresSafeArea(edges: .top) // Safe area까지 무시
+        WithPerceptionTracking {
+            ZStack(alignment: .top) {
+                // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
+                backgroundImage(size: CGSize(
+                    width: UIScreen.main.bounds.width,
+                    height: 270 + -offsetY )
+                )
+                    .ignoresSafeArea(edges: .top) // Safe area까지 무시
                 
-            WithPerceptionTracking {
+                
                 VStack(spacing: 0) {
                     mainView()
                         .safeAreaInset(edge: .top) {
@@ -31,60 +35,62 @@ struct MorePersonView: View {
                                 .frame(maxWidth: .infinity)
                         }
                 }
-                .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
-                    WKWebHosting(url: socialURL)
-                }
+                
                 .onAppear {
                     store.send(.viewCycleType(.onAppear))
                 }
                 .onChange(of: store.currentMoreType) { newValue in
-                    withAnimation {
-                        moreType = newValue
-                    }
+                    moreType = newValue
                 }
+                
             }
+            .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
+                WKWebHosting(url: socialURL.url)
+                    .onAppear {
+                        print ( socialURL )
+                    }
+            }
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
     
     private func mainView() -> some View {
-        WithPerceptionTracking {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 0) {
-                    headerView()
-                        .frame(height: 150)
-                        .background(Color.clear)
-
-                    LazyVStack(spacing: 0) {
-                        Color.clear.frame(height: 10)
+        
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 0) {
+                headerView()
+                    .frame(height: 150)
+                    .background(Color.clear)
+                
+                LazyVStack(spacing: 0) {
+                    Color.clear.frame(height: 10)
+                    VStack {
                         switch moreType {
                         case .characters:
-                            
                             characterSectionView()
-                            
                         case .memes:
-                    
                             memeSectionView()
                                 .padding(.vertical, 5)
-                            
                         }
                     }
-                    .background(.white)
                 }
-                .background {
-                    ScrollDetector { offset in
-                        DispatchQueue.main.async {
-                            offsetY = offset + 80
-                            opacity = max(0, min(1, 1 - (offsetY / 100)))
-                            print("투명도 : ",opacity)
-                        }
-                    } onDraggingEnd: { offset, veloc in
-                        
+                .background(.white)
+                
+                Color.white
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.white)
+            }
+            .background {
+                ScrollDetector { offset in
+                    DispatchQueue.main.async {
+                        offsetY = offset + 80
+                        opacity = max(0, min(1, 1 - (offsetY / 100)))
+                        print("투명도 : ",opacity)
                     }
+                } onDraggingEnd: { offset, veloc in
+                    
                 }
             }
-            
-            .toolbar(.hidden, for: .navigationBar)
-            
         }
     }
     
@@ -100,57 +106,46 @@ struct MorePersonView: View {
         }
     }
     
-    @ViewBuilder
+    
     private func characterSectionView() -> some View {
-        if !store.charactersInfo.isEmpty {
-            ForEach(store.charactersInfo, id: \.id) { model in
-                PersonSectionView(selectedURL: { urlString in
-                    store.send(.viewEventType(.socialTapped(urlString)))
-                }, setModel: model)
-                .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .padding(.all, 10)
-                .shadow(radius: 4)
-            }
-        } else {
-            Color.white
-                .frame(maxWidth: .infinity)
-                .frame(height: 200)
-                .background(.white)
+        ForEach(store.charactersInfo, id: \.id) { model in
+            PersonSectionView(selectedURL: { urlString in
+                store.send(.viewEventType(.socialTapped(urlString)))
+            }, setModel: model)
+            .background(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .padding(.all, 10)
+            .shadow(radius: 4)
         }
     }
     
     private func memeSectionView() -> some View {
-        VStack {
-            if !store.bookElementsInfo.isEmpty {
-                ForEach(store.bookElementsInfo, id: \.id) { model in
-                    Section {
-                        LazyVStack {
-                            ForEach(model.memes, id: \.id) { model in
-                                MemeExtendView(selectedURL: { urlString in
-                                    store.send(.viewEventType(.socialTapped(urlString)))
-                                }, setModel: model)
-                                .background(.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .padding(.all, 10)
-                                .shadow(radius: 4)
-                            }
-                        }
-                        .padding(.bottom, 10)
-                    } header: {
-                        HStack {
-                            Image.clock
-                                .resizable()
-                                .aspectRatio(1, contentMode: .fit)
-                                .frame(width: 25)
-                            
-                            Text(model.timestamp)
-                                .font(Font(WantedFont.midFont.font(size: 15)))
-                            Spacer()
-                        }
-                        .padding(.horizontal, 10)
+        ForEach(store.bookElementsInfo, id: \.id) { model in
+            Section {
+                LazyVStack {
+                    ForEach(model.memes, id: \.id) { model in
+                        MemeExtendView(selectedURL: { urlString in
+                            store.send(.viewEventType(.socialTapped(urlString)))
+                        }, setModel: model)
+                        .background(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .padding(.all, 10)
+                        .shadow(radius: 4)
                     }
                 }
+                .padding(.bottom, 10)
+            } header: {
+                HStack {
+                    Image.clock
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .frame(width: 25)
+                    
+                    Text(model.timestamp)
+                        .font(Font(WantedFont.midFont.font(size: 15)))
+                    Spacer()
+                }
+                .padding(.horizontal, 10)
             }
         }
     }
@@ -158,25 +153,26 @@ struct MorePersonView: View {
     private func fakeNavigation(entity: HeaderEntity, opacity: CGFloat) -> some View {
         ZStack {
             HStack {
-                Image.appLogo
+                Image.backBlack
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
-                    .frame(height: 42)
-                    
-                Text(entity.title)
-                    .font(Font(WantedFont.boldFont.font(size: 23)))
-                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
-                    .frame(maxWidth: .infinity)
-                    .opacity(opacity)
-                
-                VStack {
-                    Image.search
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fit)
-                        .frame(height: 28)
-                }
-                .frame(width: 52)
+                    .frame(height: 25)
+                    .asButton {
+                        /// 뒤로가기 달아야함
+                    }
+                Spacer()
             }
+            Text("왁타버스 알아보기")
+                .font(Font(WantedFont.boldFont.font(size: 21)))
+                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray1))
+                .frame(maxWidth: .infinity)
+                .opacity(1 - opacity)
+            
+            Text(entity.title)
+                .font(Font(WantedFont.boldFont.font(size: 23)))
+                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray1))
+                .frame(maxWidth: .infinity)
+                .opacity(opacity)
         }
         .padding(.leading, 10)
         .frame(height: 50)
@@ -240,22 +236,17 @@ struct MorePersonView: View {
         .frame(height: 30)
     }
     
-    private func backgroundImage(size: CGSize, minY: CGFloat) -> some View {
-        Group {
+    private func backgroundImage(size: CGSize) -> some View {
+        let safeHeight = size.height < 0 ? 0 : size.height
+        return Group {
             /// 조건에 따라 이미지 변경할것.
             Image.defaultBack.resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: size.width, height: size.height + (minY > 0 ? minY : 0))
+                .frame(width: size.width, height: safeHeight)
                 .clipped()
         }
         .blur(radius: 40, opaque: true)
         .opacity(0.2)
-        .background(.white)
-    }
-}
-extension URL: Identifiable {
-    public var id: UUID {
-        return UUID()
     }
 }
 

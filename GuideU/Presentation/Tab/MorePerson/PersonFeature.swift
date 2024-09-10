@@ -17,10 +17,11 @@ struct PersonFeature: GuideUReducer {
         var sharedURL: String = ""
         var charactersInfo: [YoutubeCharacterEntity] = []
         var bookElementsInfo: [BookElementsEntity] = []
-        var selectedURL: URL?
+        var selectedURL: IdentifiableURLEntity? = nil
         var currentMoreType: MoreType = .characters
         var identifierURL: String
     }
+    
     
     enum Action {
         case viewCycleType(ViewCycleType)
@@ -31,7 +32,7 @@ struct PersonFeature: GuideUReducer {
         case delegate(Delegate)
         
         //binding
-        case bindingURL(URL?)
+        case bindingURL(IdentifiableURLEntity?)
         
         enum Delegate {
             
@@ -102,7 +103,10 @@ extension PersonFeature {
                 
             case let .viewEventType(.socialTapped(url)):
                 print("tap")
-                return .send(.bindingURL(URL(string: url)))
+                if let url = URL(string: url) {
+                    state.selectedURL = IdentifiableURLEntity(url: url)
+                }
+                
                 
             case let .networkType(.fetchCharacters(identifier)):
                 return .run { send in
