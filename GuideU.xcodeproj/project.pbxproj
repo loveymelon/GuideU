@@ -81,6 +81,7 @@
 		7BB2333F2C8EC43D00CE4D39 /* MorePersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB2333E2C8EC43D00CE4D39 /* MorePersonView.swift */; };
 		7BB233462C8EC7B300CE4D39 /* MorePersonCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB233452C8EC7B300CE4D39 /* MorePersonCoordinator.swift */; };
 		7BB233482C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB233472C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift */; };
+		7BB2334A2C90102500CE4D39 /* TextFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB233492C90102500CE4D39 /* TextFormatManager.swift */; };
 		7BE122FC2C8C4C0F002E198F /* SharedForYoutubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */; };
 		7BFC8E302C8B0242007FD8F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */; };
 		7BFC8E332C8B0242007FD8F3 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC8E322C8B0242007FD8F3 /* Base */; };
@@ -231,6 +232,7 @@
 		7BB2333E2C8EC43D00CE4D39 /* MorePersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePersonView.swift; sourceTree = "<group>"; };
 		7BB233452C8EC7B300CE4D39 /* MorePersonCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePersonCoordinator.swift; sourceTree = "<group>"; };
 		7BB233472C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePersonCoordinatorView.swift; sourceTree = "<group>"; };
+		7BB233492C90102500CE4D39 /* TextFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatManager.swift; sourceTree = "<group>"; };
 		7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedForYoutubeView.swift; sourceTree = "<group>"; };
 		7BFC8E2D2C8B0242007FD8F3 /* YoutubeExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YoutubeExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				7B1581D52C6C815800599E7C /* CodableManager.swift */,
 				7B1581D72C6C823900599E7C /* UserDefaultsManager.swift */,
 				DF2DBBF72C809CE2000581F6 /* DateManager.swift */,
+				7BB233492C90102500CE4D39 /* TextFormatManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -996,6 +999,7 @@
 				DF5E5E442C8F4DFE0090A0D4 /* DuplicateEntity.swift in Sources */,
 				7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */,
 				7B1582582C74855700599E7C /* PersonSectionView.swift in Sources */,
+				7BB2334A2C90102500CE4D39 /* TextFormatManager.swift in Sources */,
 				7B1581BD2C6A58B700599E7C /* Const.swift in Sources */,
 				DF83B8202C804B070088DE31 /* VideosDTO.swift in Sources */,
 				DF83B8202C804B070088DE31 /* VideosDTO.swift in Sources */,

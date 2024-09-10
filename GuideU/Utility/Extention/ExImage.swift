@@ -79,13 +79,13 @@ extension Image {
         var img: Image {
             switch self {
             case .youtube:
-                return Image(.youtubeLogo)
+                return Image(.youtubeIcon)
             case .instagram:
-                return Image(.instagramLogo)
+                return Image(.instagramIcon)
             case .twitterX:
-                return Image(.xLogo)
+                return Image(.xIcon)
             case .soop:
-                return Image(.soopLogo)
+                return Image(.soopIcon)
             }
         }
     }

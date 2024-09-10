@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "YoutubeLogo.png",
+      "filename" : "SoopIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "SoopIcon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "SoopIcon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

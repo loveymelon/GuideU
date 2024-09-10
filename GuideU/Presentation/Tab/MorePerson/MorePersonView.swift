@@ -55,11 +55,11 @@ struct MorePersonView: View {
                         Color.clear.frame(height: 10)
                         
                         ForEach(1...100, id: \.self ) { num in
-                            PersonSectionView()
-                                .background(.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .padding(.all, 10)
-                                .shadow(radius: 4)
+//                            PersonSectionView()
+//                                .background(.white)
+//                                .clipShape(RoundedRectangle(cornerRadius: 12))
+//                                .padding(.all, 10)
+//                                .shadow(radius: 4)
                         }
                     }
                     .background(.white)
