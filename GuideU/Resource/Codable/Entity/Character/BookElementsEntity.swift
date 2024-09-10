@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct BookElementsEntity: Entity {
+struct BookElementsEntity: Entity, Identifiable {
+    let id = UUID()
+    
     let timestamp: String
     let memes: [MemeEntity]
 }

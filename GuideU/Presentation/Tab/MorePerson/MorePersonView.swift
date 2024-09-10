@@ -74,15 +74,31 @@ struct MorePersonView: View {
                                     .background(.white)
                             }
                         } else {
-                            if !store.memesInfo.isEmpty {
-                                ForEach(store.memesInfo, id: \.id) { model in
-                                    MemeExtendView(selectedURL: { urlString in
-                                        store.send(.viewEventType(.socialTapped(urlString)))
-                                    }, setModel: model)
-                                    .background(.white)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                                    .padding(.all, 10)
-                                    .shadow(radius: 4)
+                            if !store.bookElementsInfo.isEmpty {
+                                ForEach(store.bookElementsInfo, id: \.id) { model in
+                                    Section {
+                                        LazyVStack {
+                                            ForEach(model.memes, id: \.id) { model in
+                                                MemeExtendView(selectedURL: { urlString in
+                                                    store.send(.viewEventType(.socialTapped(urlString)))
+                                                }, setModel: model)
+                                                .background(.white)
+                                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                                .padding(.all, 10)
+                                                .shadow(radius: 4)
+                                            }
+                                        }
+                                    } header: {
+                                        HStack {
+                                            Image.clock
+                                                .resizable()
+                                                .aspectRatio(1, contentMode: .fit)
+                                                .frame(width: 30)
+                                            
+                                            Text(model.timestamp)
+                                        }
+                                    }
+                                    
                                 }
                             } else {
                                 Color.white
