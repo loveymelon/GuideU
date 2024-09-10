@@ -17,7 +17,9 @@ struct CharacterEntity: Entity {
     let id: Int
 }
 
-struct YoutubeCharacterEntity: Entity {
+struct YoutubeCharacterEntity: Entity, Identifiable {
+    let id = UUID()
+    
     let name, engName, definition: String
     let smallImageURL: URL?
     let largeImageURL: URL?

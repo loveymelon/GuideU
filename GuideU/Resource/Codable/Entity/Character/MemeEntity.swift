@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct MemeEntity: Entity {
-    let name: String/*, definition, description: String*/
-//    let synonyms: [String]
-//    let relatedVideos: [RelatedVideoEntity]
-//    let isDetectable: Bool
-//    let id: Int
-//    let duplicates: [DuplicateEntity]
+struct MemeEntity: Entity, Identifiable {
+    let name: String, definition, description: String
+    let synonyms: [String]
+    let relatedVideos: [RelatedVideoEntity]
+    let isDetectable: Bool
+    let id: Int
+    let duplicates: [DuplicateEntity]
 }

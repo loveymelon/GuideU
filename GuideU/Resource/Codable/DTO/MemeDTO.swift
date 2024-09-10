@@ -13,18 +13,19 @@ struct BookElementDTO: DTO {
 
 /// MemeDTO
 struct MemeDTO: DTO {
-    let name: String//, definition, description: String
-//    let synonyms: [String]
-//    let relatedVideos: [RelatedVideoDTO]
-//    let isDetectable: Bool
-//    let id: Int
-//    let duplicates: [DuplicateDTO]
+    let name, definition, description: String
+    let synonyms: [String]
+    let relatedVideos: [RelatedVideoDTO]
+    let isDetectable: Bool
+    let id: Int
+    let duplicates: [DuplicateDTO]?
 
     enum CodingKeys: String, CodingKey {
-        case name//, definition, description, synonyms
-//        case relatedVideos = "related_videos"
-//        case isDetectable = "is_detectable"
-//        case id
+        case name, definition, description, synonyms
+        case relatedVideos = "related_videos"
+        case isDetectable = "is_detectable"
+        case id
+        case duplicates
     }
 }
 

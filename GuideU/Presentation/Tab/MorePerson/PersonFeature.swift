@@ -126,7 +126,7 @@ extension PersonFeature {
                 
             case let .dataTransType(.memes(entitys)):
                 state.memesInfo = entitys
-                print("memes", state.memesInfo)
+//                print("memes", state.memesInfo)
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
@@ -136,17 +136,27 @@ extension PersonFeature {
                    let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
                    let queryItems = components.queryItems {
                     
+                    var string: String? = nil
+                    
                     if let vValue = queryItems.first(where: { $0.name == "v" })?.value {
-                        
-                        UserDefaultsManager.sharedURL = nil
-                        
+                        string = vValue
+                    } else if let vValue = queryItems.first(where: { $0.name == "si" })?.value {
+                        string = vValue
+                    }
+                    if let string {
+                        print( string )
                         return .run { send in
-                            await send(.networkType(.fetchCharacters(vValue)))
-                            await send(.networkType(.fetchMemes(vValue)))
+                            await send(.networkType(.fetchCharacters(string)))
+                            await send(.networkType(.fetchMemes(string)))
+                            UserDefaultsManager.sharedURL = nil
                         }
                     } else {
                         print("notFound")
                     }
+                    
+                    UserDefaultsManager.sharedURL = nil
+                    
+                    
                 } else {
                     print("Invalid URL")
                 }

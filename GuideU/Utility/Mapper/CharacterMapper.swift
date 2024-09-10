@@ -53,7 +53,7 @@ extension CharacterMapper {
     
     /// MemeDTO -> MemeEntity
     private func dtoToEntity(_ dto: MemeDTO) -> MemeEntity {
-        return MemeEntity(name: dto.name)//, definition: dto.definition, description: dto.description, synonyms: dto.synonyms/*, relatedVideos: dtoToEntity(dto.relatedVideos)*/, isDetectable: dto.isDetectable, id: dto.id/*, duplicates: dtoToEntity(dto.duplicates)*/)
+        return MemeEntity(name: dto.name, definition: dto.definition, description: dto.description, synonyms: dto.synonyms, relatedVideos: dtoToEntity(dto.relatedVideos), isDetectable: dto.isDetectable, id: dto.id, duplicates: dtoToEntity(dto.duplicates ?? []))
     }
     
     /// [RelatedVideoDTO] -> [RelatedVideoEntity]

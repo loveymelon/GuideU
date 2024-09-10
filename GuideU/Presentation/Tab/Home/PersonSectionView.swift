@@ -10,7 +10,7 @@ import SwiftUI
 struct PersonSectionView: View {
     
     @State
-    private var isExtend: Bool = true
+    private var isExtend: Bool = false
     private let textManager = TextFormatManager()
    
     var rows: [GridItem] = Array(repeating: GridItem(.flexible()), count: 2)

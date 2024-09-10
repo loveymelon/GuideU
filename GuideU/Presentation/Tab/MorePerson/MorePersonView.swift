@@ -19,9 +19,9 @@ struct MorePersonView: View {
     var body: some View {
         ZStack(alignment: .top) {
             // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
-            backgroundImage(size: CGSize(width: UIScreen.main.bounds.width, height: 300 + -offsetY), minY: offsetY)
+            backgroundImage(size: CGSize(width: UIScreen.main.bounds.width, height: 270 + -offsetY), minY: offsetY)
                 .ignoresSafeArea(edges: .top) // Safe area까지 무시
-
+                
             WithPerceptionTracking {
                 VStack(spacing: 0) {
                     mainView()
@@ -53,27 +53,49 @@ struct MorePersonView: View {
 
                     LazyVStack(spacing: 0) {
                         Color.clear.frame(height: 10)
-                        
-                        ForEach(1...100, id: \.self ) { num in
-//                            PersonSectionView()
-//                                .background(.white)
-//                                .clipShape(RoundedRectangle(cornerRadius: 12))
-//                                .padding(.all, 10)
-//                                .shadow(radius: 4)
+                        if moreType == .characters {
+                            if !store.charactersInfo.isEmpty {
+                                ForEach(store.charactersInfo, id: \.id) { model in
+                                    PersonSectionView(selectedURL: { urlString in
+                                        print(urlString)
+                                    }, setModel: model)
+                                    .background(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .padding(.all, 10)
+                                    .shadow(radius: 4)
+                                }
+                            } else {
+                                Color.white
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 200)
+                                    .background(.white)
+                            }
+                        } else {
+                            ForEach(store.memesInfo, id: \.id) { model in
+                                
+    //                            PersonSectionView()
+    //                                .background(.white)
+    //                                .clipShape(RoundedRectangle(cornerRadius: 12))
+    //                                .padding(.all, 10)
+    //                                .shadow(radius: 4)
+                            }
                         }
                     }
                     .background(.white)
                 }
                 .background {
                     ScrollDetector { offset in
-                        offsetY = offset + 80
-                        opacity = max(0, min(1, 1 - (offsetY / 100)))
-                        print("투명도 : ",opacity)
+                        DispatchQueue.main.async {
+                            offsetY = offset + 80
+                            opacity = max(0, min(1, 1 - (offsetY / 100)))
+                            print("투명도 : ",opacity)
+                        }
                     } onDraggingEnd: { offset, veloc in
                         
                     }
                 }
             }
+            
             .toolbar(.hidden, for: .navigationBar)
             
         }
