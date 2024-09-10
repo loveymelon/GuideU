@@ -31,6 +31,9 @@ struct MorePersonView: View {
                                 .frame(maxWidth: .infinity)
                         }
                 }
+                .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
+                    WKWebHosting(url: socialURL)
+                }
                 .onAppear {
                     store.send(.viewCycleType(.onAppear))
                 }
@@ -57,7 +60,7 @@ struct MorePersonView: View {
                             if !store.charactersInfo.isEmpty {
                                 ForEach(store.charactersInfo, id: \.id) { model in
                                     PersonSectionView(selectedURL: { urlString in
-                                        print(urlString)
+                                        store.send(.viewEventType(.socialTapped(urlString)))
                                     }, setModel: model)
                                     .background(.white)
                                     .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -209,6 +212,11 @@ struct MorePersonView: View {
         .blur(radius: 40, opaque: true)
         .opacity(0.2)
         .background(.white)
+    }
+}
+extension URL: Identifiable {
+    public var id: UUID {
+        return UUID()
     }
 }
 

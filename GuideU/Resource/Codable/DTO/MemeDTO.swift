@@ -19,6 +19,7 @@ struct MemeDTO: DTO {
     let isDetectable: Bool
     let id: Int
     let duplicates: [DuplicateDTO]?
+    let appearanceTime: Int?
 
     enum CodingKeys: String, CodingKey {
         case name, definition, description, synonyms
@@ -26,6 +27,7 @@ struct MemeDTO: DTO {
         case isDetectable = "is_detectable"
         case id
         case duplicates
+        case appearanceTime = "appearance_time"
     }
 }
 

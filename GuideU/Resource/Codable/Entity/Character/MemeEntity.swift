@@ -14,4 +14,5 @@ struct MemeEntity: Entity, Identifiable {
     let isDetectable: Bool
     let id: Int
     let duplicates: [DuplicateEntity]
+    let appearanceTime: Int
 }

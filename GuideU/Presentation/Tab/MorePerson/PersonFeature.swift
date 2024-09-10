@@ -17,7 +17,7 @@ struct PersonFeature: GuideUReducer {
         var sharedURL: String = ""
         var charactersInfo: [YoutubeCharacterEntity] = []
         var memesInfo: [MemeEntity] = []
-        
+        var selectedURL: URL?
         var currentMoreType: MoreType = .characters
     }
     
@@ -29,6 +29,9 @@ struct PersonFeature: GuideUReducer {
         
         case delegate(Delegate)
         case parentAction(ParentAction)
+        
+        //binding
+        case bindingURL(URL?)
         
         enum Delegate {
             
@@ -45,6 +48,7 @@ struct PersonFeature: GuideUReducer {
     
     enum ViewEventType {
         case switchCurrentType(MoreType)
+        case socialTapped(String)
     }
     
     enum DataTransType {
@@ -95,6 +99,10 @@ extension PersonFeature {
                 
             case let .viewEventType(.switchCurrentType(moreType)):
                 state.currentMoreType = moreType
+                
+            case let .viewEventType(.socialTapped(url)):
+                print("tap")
+                return .send(.bindingURL(URL(string: url)))
                 
             case let .networkType(.fetchCharacters(identifier)):
                 return .run { send in
@@ -166,6 +174,10 @@ extension PersonFeature {
                 return .run { send in
                     await send(.dataTransType(.youtubeURL(sharedURL)))
                 }
+                
+            case let .bindingURL(socialURL):
+                print("binding")
+                state.selectedURL = socialURL
                 
             default:
                 break
