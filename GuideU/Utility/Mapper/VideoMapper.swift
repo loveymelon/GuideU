@@ -13,11 +13,16 @@ struct VideoMapper {
     func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel, channelID: String) -> [VideosEntity] {
         return dtos.map { dtoToEntity($0, channel: channel, channelID: channelID) }
     }
+    
+    func requestDTOToEntity(_ requestDTO: [VideoHistoryRequestDTO]) -> [VideosEntity] {
+        return requestDTO.map { requestDTOToEntity($0) }
+    }
 }
 
 extension VideoMapper {
     private func dtoToEntity(_ dto: VideosDTO, channel: Const.Channel, channelID: String) -> VideosEntity {
         return VideosEntity(
+            identifier: dto.identifier,
             videoURL: URL(
                 string: Const.youtubeBaseString + dto.identifier
             ),
@@ -29,6 +34,10 @@ extension VideoMapper {
             channelImageURL: channel.getChannelImageURL(channelId: channelID),
             title: dto.title
         )
+    }
+    
+    private func requestDTOToEntity(_ requestDTO: VideoHistoryRequestDTO) -> VideosEntity {
+        return VideosEntity(identifier: requestDTO.identifier, videoURL: URL(string: requestDTO.videoURL), channelName: requestDTO.channelName, videoImageURL: URL(string: requestDTO.thumbnail), updatedAt: requestDTO.updatedAt, channelImageURL: nil, title: requestDTO.title)
     }
 }
 

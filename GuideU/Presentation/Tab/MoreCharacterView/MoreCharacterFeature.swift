@@ -83,6 +83,7 @@ struct MoreCharacterFeature: GuideUReducer {
     
     @Dependency(\.videoRepository) var videoRepository
     @Dependency(\.characterRepository) var characterRepository
+    @Dependency(\.realmRepository) var realmRepository
     
     var body: some ReducerOf<Self> {
         core()
@@ -163,6 +164,15 @@ extension MoreCharacterFeature {
                 
             case let .viewEventType(.selectedVideoIndex(num)):
                 state.seletedVideo = state.videoInfos[num]
+                
+                let result = realmRepository.videoHistoryCreate(videoData: state.videoInfos[num])
+                
+                switch result {
+                case .success(_):
+                    break
+                case .failure(let error):
+                    return .send(.dataTransType(.errorInfo(error.description)))
+                }
                 
             case let .selectedVideo(data):
                 state.seletedVideo = data

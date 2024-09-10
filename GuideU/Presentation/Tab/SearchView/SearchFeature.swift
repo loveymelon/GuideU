@@ -101,7 +101,7 @@ extension SearchFeature {
             case let .viewEventType(.searchResultTapped(text)):
                 if !state.currentText.trimmingCharacters(in: .whitespaces).isEmpty {
                     
-                    let result = realmRepository.create(history: text)
+                    let result = realmRepository.searchCreate(history: text)
                     
                     switch result {
                     case .success(_):
