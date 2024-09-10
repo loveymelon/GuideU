@@ -111,6 +111,7 @@
 		DF83B8222C804C130088DE31 /* VideoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B8212C804C130088DE31 /* VideoRouter.swift */; };
 		DF83B8242C8055E80088DE31 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83B8232C8055E80088DE31 /* SearchRouter.swift */; };
 		DF8A2D6F2C8B117B0078F222 /* WKWebHosting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A2D6E2C8B117B0078F222 /* WKWebHosting.swift */; };
+		DF8F72172C9015F400B8C7BA /* VideoHistoryRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F72162C9015F400B8C7BA /* VideoHistoryRequestDTO.swift */; };
 		DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */; };
 		DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */; };
 		DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */; };
@@ -263,6 +264,7 @@
 		DF83B8212C804C130088DE31 /* VideoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRouter.swift; sourceTree = "<group>"; };
 		DF83B8232C8055E80088DE31 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		DF8A2D6E2C8B117B0078F222 /* WKWebHosting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebHosting.swift; sourceTree = "<group>"; };
+		DF8F72162C9015F400B8C7BA /* VideoHistoryRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHistoryRequestDTO.swift; sourceTree = "<group>"; };
 		DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
 		DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDTO.swift; sourceTree = "<group>"; };
@@ -769,6 +771,7 @@
 			isa = PBXGroup;
 			children = (
 				DFB2BE692C858A2F00518C7E /* SearchHistoryRequestDTO.swift */,
+				DF8F72162C9015F400B8C7BA /* VideoHistoryRequestDTO.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -919,6 +922,7 @@
 				DF83B81E2C804ACC0088DE31 /* VideoDTO.swift in Sources */,
 				DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */,
 				7BB233462C8EC7B300CE4D39 /* MorePersonCoordinator.swift in Sources */,
+				DF8F72172C9015F400B8C7BA /* VideoHistoryRequestDTO.swift in Sources */,
 				DF2DBBF12C809464000581F6 /* VideoRepository.swift in Sources */,
 				DF2DBBF12C809464000581F6 /* VideoRepository.swift in Sources */,
 				7B1581D82C6C823900599E7C /* UserDefaultsManager.swift in Sources */,
