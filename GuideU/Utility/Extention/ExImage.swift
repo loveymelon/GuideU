@@ -15,6 +15,7 @@ extension Image {
     static let dropDown = Image(.dropDownButton)
     static let close = Image(.closeRounded)
     static let history = Image(.historyTab)
+    static let clock = Image(.clock)
     
     enum TabbarImage {
         enum noneTab {

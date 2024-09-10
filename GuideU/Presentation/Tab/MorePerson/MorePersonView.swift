@@ -74,12 +74,21 @@ struct MorePersonView: View {
                                     .background(.white)
                             }
                         } else {
-                            ForEach(store.bookElementsInfo, id: \.self) { model in
-    //                            PersonSectionView()
-    //                                .background(.white)
-    //                                .clipShape(RoundedRectangle(cornerRadius: 12))
-    //                                .padding(.all, 10)
-    //                                .shadow(radius: 4)
+                            if !store.memesInfo.isEmpty {
+                                ForEach(store.memesInfo, id: \.id) { model in
+                                    MemeExtendView(selectedURL: { urlString in
+                                        store.send(.viewEventType(.socialTapped(urlString)))
+                                    }, setModel: model)
+                                    .background(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .padding(.all, 10)
+                                    .shadow(radius: 4)
+                                }
+                            } else {
+                                Color.white
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 200)
+                                    .background(.white)
                             }
                         }
                     }
