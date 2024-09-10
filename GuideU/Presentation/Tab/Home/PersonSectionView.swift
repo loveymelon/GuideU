@@ -73,7 +73,7 @@ extension PersonSectionView {
                 
                 socialView()
                 
-                relative()
+                // relative()
             }
         }
     }
