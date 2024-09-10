@@ -157,6 +157,7 @@ extension PersonSectionView {
         .asButton {
             selectedURL(item.link)
         }
+        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
     }
 
     private func profileImage(size: CGSize) -> some View {
