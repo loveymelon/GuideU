@@ -13,8 +13,6 @@ import TCACoordinators
 struct RootCoordinatorView: View {
     
     @Perception.Bindable var store: StoreOf<RootCoordinator>
-    /// Swift UI 적인 방법
-    @Environment(\.scenePhase) var phase
     
     var body: some View {
         WithPerceptionTracking {
@@ -32,21 +30,10 @@ struct RootCoordinatorView: View {
                     }
                     
                 case .tab:
-                    GuideUTabView(store: store.scope(state: \.currentTabCoordinator, action: \.tabCoordinatorAction))
+                    TabNavCoordinatorView(store: store.scope(state: \.tabNavCoordinator, action: \.tabNavCoordinatorAction))
                 }
             }
-            .onChange(of: phase) { newValue in
-                switch newValue {
-                case .background:
-                    store.send(.viewLifeCycle(.background))
-                case .inactive:
-                    store.send(.viewLifeCycle(.inactive))
-                case .active:
-                    store.send(.viewLifeCycle(.active))
-                @unknown default:
-                    break
-                }
-            }
+            
         }
     }
 }

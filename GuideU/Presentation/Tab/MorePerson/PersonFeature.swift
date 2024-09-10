@@ -19,6 +19,7 @@ struct PersonFeature: GuideUReducer {
         var bookElementsInfo: [BookElementsEntity] = []
         var selectedURL: URL?
         var currentMoreType: MoreType = .characters
+        var identifierURL: String
     }
     
     enum Action {
@@ -28,17 +29,12 @@ struct PersonFeature: GuideUReducer {
         case networkType(NetworkType)
         
         case delegate(Delegate)
-        case parentAction(ParentAction)
         
         //binding
         case bindingURL(URL?)
         
         enum Delegate {
             
-        }
-        
-        enum ParentAction {
-            case checkURL
         }
     }
     
@@ -95,7 +91,11 @@ extension PersonFeature {
         Reduce { state, action in
             switch action {
             case .viewCycleType(.onAppear):
-                break
+                if !state.identifierURL.isEmpty {
+                    return .run { [state = state] send in
+                        await send(.dataTransType(.youtubeURL(state.identifierURL)))
+                    }
+                }
                 
             case let .viewEventType(.switchCurrentType(moreType)):
                 state.currentMoreType = moreType
@@ -167,12 +167,6 @@ extension PersonFeature {
                     
                 } else {
                     print("Invalid URL")
-                }
-                
-            case .parentAction(.checkURL):
-                let sharedURL = UserDefaultsManager.sharedURL ?? "epmty"
-                return .run { send in
-                    await send(.dataTransType(.youtubeURL(sharedURL)))
                 }
                 
             case let .bindingURL(socialURL):

@@ -23,7 +23,7 @@ final class NetworkManager {
                         switch response.result {
                         case let .success(data):
                             continuation.resume(returning: .success(data))
-                        case .failure(let errorResponse):
+                        case .failure(_):
                             guard let data = response.data else {
                                 print("error")
                                 return
