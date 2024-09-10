@@ -32,7 +32,7 @@ struct HomeCoordinator {
         case delegate(Delegate)
         
         enum Delegate {
-            
+            case detailButtonTapped(String)
         }
     }
     
@@ -46,6 +46,10 @@ extension HomeCoordinator {
     private func core() -> some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .router(.routeAction(id: .home, action: .home(.delegate(.detailButtonTapped(identifier))))):
+                return .run { send in
+                    await send(.delegate(.detailButtonTapped(identifier)))
+                }
             default:
                 break;
             }

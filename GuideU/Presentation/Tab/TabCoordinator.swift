@@ -23,7 +23,6 @@ struct TabCoordinator {
     
     enum Action {
         case delegate(Delegate)
-        case paretnAction(ParentAction)
         case tabCase(TabCase)
         
         /// TabAction
@@ -31,11 +30,7 @@ struct TabCoordinator {
         case morePersonTabAction(MorePersonCoordinator.Action)
         
         enum Delegate {
-            
-        }
-        
-        enum ParentAction {
-            case checkURL
+            case detailButtonTapped(String)
         }
     }
     
@@ -64,9 +59,9 @@ extension TabCoordinator {
             case let .tabCase(tabCase):
                 state.currentTab = tabCase
                 
-            case .paretnAction(.checkURL):
+            case let .homeTabAction(.delegate(.detailButtonTapped(identifier))):
                 return .run { send in
-                    await send(.morePersonTabAction(.parentAction(.checkURL)))
+                    await send(.delegate(.detailButtonTapped(identifier)))
                 }
                 
             default:

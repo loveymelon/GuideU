@@ -259,10 +259,10 @@ extension URL: Identifiable {
     }
 }
 
-#if DEBUG
-#Preview {
-    MorePersonView(store: Store(initialState: PersonFeature.State(), reducer: {
-        PersonFeature()
-    }))
-}
-#endif
+//#if DEBUG
+//#Preview {
+//    MorePersonView(store: Store(initialState: PersonFeature.State(), reducer: {
+//        PersonFeature()
+//    }))
+//}
+//#endif

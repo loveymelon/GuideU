@@ -48,10 +48,10 @@ final class RealmRepository {
                     VideoHistoryRequestDTO.self,
                     value: [
                         "identifier": videoData.identifier,
-                        "videoURL": videoData.videoURL?.absoluteString,
+                        "videoURL": videoData.videoURL?.absoluteString ?? "",
                         "title": videoData.title,
                         "channelName": videoData.channelName,
-                        "thumbnail": videoData.videoImageURL?.absoluteString,
+                        "thumbnail": videoData.videoImageURL?.absoluteString ?? "",
                         "updatedAt": videoData.updatedAt,
                         "watchedAt": Date()
                     ],

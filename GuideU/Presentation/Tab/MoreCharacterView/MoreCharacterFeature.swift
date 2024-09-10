@@ -18,6 +18,8 @@ struct MoreCharacterFeature: GuideUReducer {
         var currentIndex = 0
         var currentStart = 0
         var limit = 20
+        var dialogPresent: Bool = false
+        var selectedIndex: Int = 0
         
         var videoInfos: [VideosEntity] = []
         var onAppearIsValid: Bool = true
@@ -46,12 +48,13 @@ struct MoreCharacterFeature: GuideUReducer {
         
         case delegate(Delegate)
         enum Delegate {
-            
+            case detailButtonTapped(String)
         }
         /// Binding
         case currentText(String)
         case currentIndex(Int)
         case selectedVideo(VideosEntity?)
+        case dialogBinding(Bool)
     }
     
     enum ViewCycleType {
@@ -63,6 +66,8 @@ struct MoreCharacterFeature: GuideUReducer {
         case videoOnAppear(Int)
         case searchViewChanged
         case selectedVideoIndex(Int)
+        case youtubeButtonTapped
+        case detailButtonTapped
     }
     
     enum DataTransType {
@@ -112,7 +117,28 @@ extension MoreCharacterFeature {
                 
             case .viewEventType(.searchViewChanged):
                 state.searchState = SearchFeature.State()
-             
+                
+            case let .viewEventType(.selectedVideoIndex(num)):
+                state.selectedIndex = num
+                return .send(.dialogBinding(true))
+                
+            case .viewEventType(.youtubeButtonTapped):
+                state.seletedVideo = state.videoInfos[state.selectedIndex]
+                
+                let result = realmRepository.videoHistoryCreate(videoData: state.videoInfos[state.selectedIndex])
+                
+                switch result {
+                case .success(_):
+                    break
+                case .failure(let error):
+                    return .send(.dataTransType(.errorInfo(error.description)))
+                }
+                
+            case .viewEventType(.detailButtonTapped):
+                return .run { [state = state] send in
+                    await send(.delegate(.detailButtonTapped(state.videoInfos[state.selectedIndex].identifier)))
+                }
+                
             case let .networkType(.fetchVideos(channel, skip, limit, isScroll)):
                 return .run { send in
                     let result = await videoRepository.fetchVideos(channel: channel, skip: skip, limit: limit)
@@ -162,20 +188,11 @@ extension MoreCharacterFeature {
             case .searchAction(.delegate(.closeButtonTapped)):
                 state.searchState = nil
                 
-            case let .viewEventType(.selectedVideoIndex(num)):
-                state.seletedVideo = state.videoInfos[num]
-                
-                let result = realmRepository.videoHistoryCreate(videoData: state.videoInfos[num])
-                
-                switch result {
-                case .success(_):
-                    break
-                case .failure(let error):
-                    return .send(.dataTransType(.errorInfo(error.description)))
-                }
-                
             case let .selectedVideo(data):
                 state.seletedVideo = data
+                
+            case let .dialogBinding(isValid):
+                state.dialogPresent = isValid
                 
             default:
                 break

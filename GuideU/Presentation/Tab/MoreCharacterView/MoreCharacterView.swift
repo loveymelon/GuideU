@@ -29,6 +29,15 @@ struct MoreCharacterView: View {
                             store.send(.viewCycleType(.onAppear))
                         }
                 }
+                .confirmationDialog("이동", isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
+                    Button("링크 이동") {
+                        store.send(.viewEventType(.youtubeButtonTapped))
+                    }
+                    
+                    Button("영상 상세뷰") {
+                        store.send(.viewEventType(.detailButtonTapped))
+                    }
+                }
                 .sheet(item: $store.seletedVideo.sending(\.selectedVideo)) { data in
                     WKWebHosting(url: data.videoURL)
                 }
