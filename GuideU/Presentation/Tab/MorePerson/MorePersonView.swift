@@ -56,56 +56,16 @@ struct MorePersonView: View {
 
                     LazyVStack(spacing: 0) {
                         Color.clear.frame(height: 10)
-                        if moreType == .characters {
-                            if !store.charactersInfo.isEmpty {
-                                ForEach(store.charactersInfo, id: \.id) { model in
-                                    PersonSectionView(selectedURL: { urlString in
-                                        store.send(.viewEventType(.socialTapped(urlString)))
-                                    }, setModel: model)
-                                    .background(.white)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                                    .padding(.all, 10)
-                                    .shadow(radius: 4)
-                                }
-                            } else {
-                                Color.white
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 200)
-                                    .background(.white)
-                            }
-                        } else {
-                            if !store.bookElementsInfo.isEmpty {
-                                ForEach(store.bookElementsInfo, id: \.id) { model in
-                                    Section {
-                                        LazyVStack {
-                                            ForEach(model.memes, id: \.id) { model in
-                                                MemeExtendView(selectedURL: { urlString in
-                                                    store.send(.viewEventType(.socialTapped(urlString)))
-                                                }, setModel: model)
-                                                .background(.white)
-                                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                                .padding(.all, 10)
-                                                .shadow(radius: 4)
-                                            }
-                                        }
-                                    } header: {
-                                        HStack {
-                                            Image.clock
-                                                .resizable()
-                                                .aspectRatio(1, contentMode: .fit)
-                                                .frame(width: 30)
-                                            
-                                            Text(model.timestamp)
-                                        }
-                                    }
-                                    
-                                }
-                            } else {
-                                Color.white
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 200)
-                                    .background(.white)
-                            }
+                        switch moreType {
+                        case .characters:
+                            
+                            characterSectionView()
+                            
+                        case .memes:
+                    
+                            memeSectionView()
+                                .padding(.vertical, 5)
+                            
                         }
                     }
                     .background(.white)
@@ -137,6 +97,61 @@ struct MorePersonView: View {
                     .opacity(opacity)
             }
             .background(.clear)
+        }
+    }
+    
+    @ViewBuilder
+    private func characterSectionView() -> some View {
+        if !store.charactersInfo.isEmpty {
+            ForEach(store.charactersInfo, id: \.id) { model in
+                PersonSectionView(selectedURL: { urlString in
+                    store.send(.viewEventType(.socialTapped(urlString)))
+                }, setModel: model)
+                .background(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(.all, 10)
+                .shadow(radius: 4)
+            }
+        } else {
+            Color.white
+                .frame(maxWidth: .infinity)
+                .frame(height: 200)
+                .background(.white)
+        }
+    }
+    
+    private func memeSectionView() -> some View {
+        VStack {
+            if !store.bookElementsInfo.isEmpty {
+                ForEach(store.bookElementsInfo, id: \.id) { model in
+                    Section {
+                        LazyVStack {
+                            ForEach(model.memes, id: \.id) { model in
+                                MemeExtendView(selectedURL: { urlString in
+                                    store.send(.viewEventType(.socialTapped(urlString)))
+                                }, setModel: model)
+                                .background(.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .padding(.all, 10)
+                                .shadow(radius: 4)
+                            }
+                        }
+                        .padding(.bottom, 10)
+                    } header: {
+                        HStack {
+                            Image.clock
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fit)
+                                .frame(width: 25)
+                            
+                            Text(model.timestamp)
+                                .font(Font(WantedFont.midFont.font(size: 15)))
+                            Spacer()
+                        }
+                        .padding(.horizontal, 10)
+                    }
+                }
+            }
         }
     }
     
