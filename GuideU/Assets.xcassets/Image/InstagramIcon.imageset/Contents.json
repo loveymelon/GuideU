@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "XLogo.png",
+      "filename" : "InstagramIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "InstagramIcon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "InstagramIcon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
