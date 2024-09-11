@@ -158,7 +158,7 @@ struct MorePersonView: View {
                     .aspectRatio(1, contentMode: .fit)
                     .frame(height: 25)
                     .asButton {
-                        /// 뒤로가기 달아야함
+                        store.send(.viewEventType(.backButtonTapped))
                     }
                 Spacer()
             }

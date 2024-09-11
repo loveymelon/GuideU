@@ -17,6 +17,8 @@ struct MoreCharacterFeature: GuideUReducer {
         var currentText = ""
         var currentIndex = 0
         var currentStart = 0
+        var skipIndex = 0
+        
         var limit = 20
         var dialogPresent: Bool = false
         var selectedIndex: Int = 0
@@ -110,9 +112,15 @@ extension MoreCharacterFeature {
                 }
                 
             case let .viewEventType(.videoOnAppear(index)):
-                if (state.videoInfos.count - 1) - index <= 3 {
-                    return fetchVideos(state: &state, isScroll: true)
-                        .debounce(id: CancelId.scrollID, for: 1, scheduler: RunLoop.main, options: nil)
+                
+                if state.skipIndex < index {
+                    state.skipIndex = index
+                    if (state.videoInfos.count - 1) - index <= 5 {
+                        // .debounce(id: CancelId.scrollID, for: 1, scheduler: RunLoop.main, options: nil)
+                        return fetchVideos(state: &state, isScroll: true)
+                            .debounce(id: CancelId.scrollID, for: 1, scheduler: RunLoop.main, options: nil)
+                            
+                    }
                 }
                 
             case .viewEventType(.searchViewChanged):
@@ -179,6 +187,7 @@ extension MoreCharacterFeature {
             case let .currentIndex(index):
                 state.currentIndex = index
                 state.currentStart = 0
+                state.skipIndex = 0
                 return fetchVideos(state: &state, isScroll: false)
                     .debounce(id: CancelId.categoryID, for: 1, scheduler: RunLoop.main, options: nil)
                 

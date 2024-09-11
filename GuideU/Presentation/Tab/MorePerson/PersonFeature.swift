@@ -35,7 +35,7 @@ struct PersonFeature: GuideUReducer {
         case bindingURL(IdentifiableURLEntity?)
         
         enum Delegate {
-            
+            case backButtonTapped
         }
     }
     
@@ -46,6 +46,7 @@ struct PersonFeature: GuideUReducer {
     enum ViewEventType {
         case switchCurrentType(MoreType)
         case socialTapped(String)
+        case backButtonTapped
     }
     
     enum DataTransType {
@@ -176,6 +177,10 @@ extension PersonFeature {
             case let .bindingURL(socialURL):
                 print("binding")
                 state.selectedURL = socialURL
+                
+                /// 뒤로가기 이벤트
+            case .viewEventType(.backButtonTapped):
+                return .send(.delegate(.backButtonTapped))
                 
             default:
                 break

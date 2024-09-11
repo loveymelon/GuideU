@@ -45,6 +45,8 @@ struct TabNavCoordinator {
         case inactive
             
         case active
+        
+        case onAppear
     }
     
     var body: some ReducerOf<Self> {
@@ -62,14 +64,19 @@ extension TabNavCoordinator {
                 
             case .viewLifeCycle(.active):
                 print("액티브")
-                print("URL -> ", UserDefaultsManager.sharedURL)
                 
                 if let url = UserDefaultsManager.sharedURL {
                     state.routes.push(.detail(.init(identifierURL: url)))
                 }
                 
-            case .viewLifeCycle(.inactive):
-                print("IN 액티브")
+            case .viewLifeCycle(.onAppear):
+                if let url = UserDefaultsManager.sharedURL {
+                    state.routes.push(.detail(.init(identifierURL: url)))
+                }
+                
+                
+            case .router(.routeAction(id: .detail, action: .detail(.delegate(.backButtonTapped)))):
+                state.routes.pop()
                 
             default:
                 break;

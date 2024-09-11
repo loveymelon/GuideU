@@ -39,6 +39,9 @@ struct TabNavCoordinatorView: View {
                     break
                 }
             }
+            .onAppear {
+                store.send(.viewLifeCycle(.onAppear))
+            }
         }
     }
 }

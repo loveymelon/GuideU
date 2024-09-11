@@ -31,7 +31,7 @@ struct MorePersonCoordinator {
         case delegate(Delegate)
         
         enum Delegate {
-            
+            case homeViewBackButtonTapped
         }
     }
     
@@ -45,6 +45,10 @@ extension MorePersonCoordinator {
     private func core() -> some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+                
+            case .router(.routeAction(id: _, action: .home(.delegate(.backButtonTapped)))):
+                return .send(.delegate(.homeViewBackButtonTapped))
+                
             default:
                 break;
             }

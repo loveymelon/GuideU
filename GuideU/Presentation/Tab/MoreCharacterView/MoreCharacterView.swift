@@ -79,15 +79,19 @@ extension MoreCharacterView {
     
     private func listContentView() -> some View {
         LazyVStack {
-            ForEach(Array(store.videoInfos.enumerated()), id: \.element.self) { index, data in
+            ForEach(Array(store.videoInfos.enumerated()), id: \.element.id) { index, data in
                 MoreCharacterListView(setModel: data)
                     .asButton { // 선택되었을때
                         store.send(.viewEventType(.selectedVideoIndex(index)))
                     }
-                    .onAppear {
-                        store.send(.viewEventType(.videoOnAppear(index)))
-                    }
                     .padding(.bottom, 10)
+                    .onAppear {
+                        if index >= store.videoInfos.count - 5 {
+                            DispatchQueue.main.async {
+                                store.send(.viewEventType(.videoOnAppear(index)))
+                            }
+                        }
+                    }
             }
         }
         .padding(.horizontal, 12)
