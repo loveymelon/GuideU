@@ -33,6 +33,7 @@ struct HomeCoordinator {
         
         enum Delegate {
             case detailButtonTapped(String)
+            case searchBarTapped
         }
     }
     
@@ -50,6 +51,8 @@ extension HomeCoordinator {
                 return .run { send in
                     await send(.delegate(.detailButtonTapped(identifier)))
                 }
+            case .router(.routeAction(id: .home, action: .home(.delegate(.searchBarTapped)))):
+                return .send(.delegate(.searchBarTapped))
             default:
                 break;
             }

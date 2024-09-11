@@ -21,14 +21,14 @@ extension Image {
     enum TabbarImage {
         enum noneTab {
             static let homeTab = Image(.homeTab)
-            static let memeTab = Image(.memeTab)
+            static let searchTab = Image(.searchTabDis)
             static let historyTab = history
             static let settingTab = Image(.settingTab)
         }
         
         enum selected {
             static let homeTab = Image(.homeSelectedTab)
-            static let memeTab = Image(.memeSeletedTab)
+            static let searchTab = Image(.searchTab)
             static let historyTab = Image(.historySelectedTab)
             static let settingTab = Image(.settingSelectedTab)
         }

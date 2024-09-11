@@ -18,7 +18,7 @@ struct TabCoordinator {
         
         /// TabState
         var homeTabState = HomeCoordinator.State.initialState
-        var morePersonTabState = MorePersonCoordinator.State.initialState
+        var searchTabState = SearchCoordinator.State.initialState
     }
     
     enum Action {
@@ -27,7 +27,7 @@ struct TabCoordinator {
         
         /// TabAction
         case homeTabAction(HomeCoordinator.Action)
-        case morePersonTabAction(MorePersonCoordinator.Action)
+        case searchTabAction(SearchCoordinator.Action)
         
         enum Delegate {
             case detailButtonTapped(String)
@@ -43,8 +43,8 @@ struct TabCoordinator {
         Scope(state: \.homeTabState, action: \.homeTabAction) {
             HomeCoordinator()
         }
-        Scope(state: \.morePersonTabState, action: \.morePersonTabAction) {
-            MorePersonCoordinator()
+        Scope(state: \.searchTabState, action: \.searchTabAction) {
+            SearchCoordinator()
         }
         
         core()
@@ -63,6 +63,8 @@ extension TabCoordinator {
                 return .run { send in
                     await send(.delegate(.detailButtonTapped(identifier)))
                 }
+            case .homeTabAction(.delegate(.searchBarTapped)):
+                state.currentTab = .searchTab
                 
             default:
                 break

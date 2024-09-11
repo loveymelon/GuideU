@@ -25,17 +25,27 @@ struct GuideUTabView: View {
                             action: \.homeTabAction
                         )
                     )
-                        .tabItem {
-                            tabItemView(tabItem: .home)
-                        }
-                        .tag(TabCase.home)
-                        
-                    MorePersonCoordinatorView(store: store.scope(state: \.morePersonTabState, action: \.morePersonTabAction))
-                        .tabItem {
-                            tabItemView(tabItem: .meme)
-                        }
-                        .tag(TabCase.meme)
+                    .tabItem {
+                        tabItemView(tabItem: .home)
+                    }
+                    .tag(TabCase.home)
+
                        
+                    SearchCoordinatorView(
+                        store: store.scope(
+                            state: \.searchTabState,
+                            action: \.searchTabAction
+                        )
+                    )
+                    .tabItem {
+                        tabItemView(
+                            tabItem: .searchTab
+                        )
+                    }
+                    .tag(
+                        TabCase.searchTab
+                    )
+                    
                     Text("asss")
                         .tabItem {
                             tabItemView(tabItem: .timeLine)
@@ -53,7 +63,8 @@ struct GuideUTabView: View {
                 case .light:
                     UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.light.color
                 case .dark:
-                    UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.dark.color
+//                    UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.dark.color
+                    UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.light.color
                 @unknown default:
                     break
                 }
@@ -76,8 +87,8 @@ extension GuideUTabView {
                         .renderingMode(.template)
                         .resizable()
                     
-                case .meme:
-                    store.currentTab == .meme ? Image.TabbarImage.selected.memeTab : Image.TabbarImage.noneTab.memeTab
+                case .searchTab:
+                    store.currentTab == .searchTab ? Image.TabbarImage.selected.searchTab : Image.TabbarImage.noneTab.searchTab
                         .renderingMode(.template)
                         .resizable()
                 case .timeLine:

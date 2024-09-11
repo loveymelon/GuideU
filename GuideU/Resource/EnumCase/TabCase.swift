@@ -9,7 +9,8 @@ import Foundation
 
 enum TabCase: Hashable {
     case home
-    case meme
+    /// meme -> Search Tab 변경
+    case searchTab
     case timeLine
     case setting
 }

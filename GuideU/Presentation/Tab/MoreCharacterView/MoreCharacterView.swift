@@ -11,40 +11,41 @@ import ComposableArchitecture
 struct MoreCharacterView: View {
     
     @Perception.Bindable var store: StoreOf<MoreCharacterFeature>
-
+    
     var body: some View {
         WithPerceptionTracking {
-            if store.searchState == nil {
-                VStack {
-                    fakeSearchBar()
-                        .padding(.horizontal, 10)
+            VStack {
+                fakeSearchBar()
+                    .padding(.horizontal, 10)
                     .onTapGesture {
                         /// View Changed
                         store.send(.viewEventType(.searchViewChanged))
                     }
                     .padding(.horizontal, 10)
-                    
-                    contentView()
-                        .onAppear {
-                            store.send(.viewCycleType(.onAppear))
+                
+                contentView()
+                    .onAppear {
+                        store.send(.viewCycleType(.onAppear))
+                    }
+            }
+            .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
+                Group {
+                    ForEach(MoreCharacterDialog.allCases, id: \.self) { caseOf in
+                        switch caseOf {
+                        case .buttonTitle1:
+                            Button(caseOf.buttonTitle) {
+                                store.send(.viewEventType(.youtubeButtonTapped))
+                            }
+                        case .buttonTitle2:
+                            Button(caseOf.buttonTitle) {
+                                store.send(.viewEventType(.detailButtonTapped))
+                            }
                         }
-                }
-                .confirmationDialog("이동", isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
-                    Button("링크 이동") {
-                        store.send(.viewEventType(.youtubeButtonTapped))
-                    }
-                    
-                    Button("영상 상세뷰") {
-                        store.send(.viewEventType(.detailButtonTapped))
                     }
                 }
-                .sheet(item: $store.seletedVideo.sending(\.selectedVideo)) { data in
-                    WKWebHosting(url: data.videoURL)
-                }
-            } else {
-                IfLetStore(store.scope(state: \.searchState, action: \.searchAction)) { store in
-                    SearchView(store: store)
-                }
+            }
+            .sheet(item: $store.selectedVideo.sending(\.selectedVideo)) { data in
+                WKWebHosting(url: data.videoURL)
             }
         }
     }

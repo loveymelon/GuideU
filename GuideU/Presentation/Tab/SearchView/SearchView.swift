@@ -112,16 +112,21 @@ extension SearchView {
                     .font(Font(WantedFont.midFont.font(size: 17)))
                 
                 Spacer()
-                VStack {
-                    Image.close
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fit)
-                        .asButton {
-                            store.send(.viewEventType(.closeButtonTapped))
-                        }
-                        .frame(height: 32)
+                if !store.backButtonHidden {
+                    VStack {
+                        Image.close
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fit)
+                            .asButton {
+                                store.send(.viewEventType(.closeButtonTapped))
+                            }
+                            .frame(height: 32)
+                    }
+                    .frame(width: 52)
+                } else {
+                    Color.clear
+                        .frame(width: 52, height: 52)
                 }
-                .frame(width: 52)
             }
             GuidUSearchBarBottomLineView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.placeHolderText, lineWidth: 1.4) {
                 /// onSubmit

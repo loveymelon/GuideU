@@ -22,7 +22,7 @@ struct MorePersonView: View {
                 // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
                 backgroundImage(size: CGSize(
                     width: UIScreen.main.bounds.width,
-                    height: 254 + -offsetY )
+                    height: 270 + -offsetY )
                 )
                     .ignoresSafeArea(edges: .top) // Safe area까지 무시
                 
@@ -172,7 +172,7 @@ struct MorePersonView: View {
                     }
                 Spacer()
             }
-            Text("왁타버스 알아보기")
+            Text(Const.moreInfoText)
                 .font(Font(WantedFont.boldFont.font(size: 21)))
                 .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray1))
                 .frame(maxWidth: .infinity)
@@ -183,6 +183,8 @@ struct MorePersonView: View {
                 .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray1))
                 .frame(maxWidth: .infinity)
                 .opacity(opacity)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 80)
         }
         .padding(.leading, 10)
         .frame(height: 50)

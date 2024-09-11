@@ -58,6 +58,9 @@
 		7B15825D2C74B1DF00599E7C /* CharacterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15825C2C74B1DF00599E7C /* CharacterDTO.swift */; };
 		7B1582642C74B52A00599E7C /* DetailErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */; };
 		7B2665712C90D587000A483A /* IdentifiableURLEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665702C90D587000A483A /* IdentifiableURLEntity.swift */; };
+		7B2665742C91BC31000A483A /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665732C91BC31000A483A /* SearchCoordinator.swift */; };
+		7B2665762C91BC3E000A483A /* SearchCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665752C91BC3E000A483A /* SearchCoordinatorView.swift */; };
+		7B2665792C91C3CC000A483A /* moreChacacterDialogCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665782C91C3CC000A483A /* moreChacacterDialogCase.swift */; };
 		7B6B3CD02C85D89D00F643FB /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; };
 		7B6B3CD12C85D8EB00F643FB /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
@@ -215,6 +218,9 @@
 		7B15825C2C74B1DF00599E7C /* CharacterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDTO.swift; sourceTree = "<group>"; };
 		7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailErrorDTO.swift; sourceTree = "<group>"; };
 		7B2665702C90D587000A483A /* IdentifiableURLEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableURLEntity.swift; sourceTree = "<group>"; };
+		7B2665732C91BC31000A483A /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		7B2665752C91BC3E000A483A /* SearchCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinatorView.swift; sourceTree = "<group>"; };
+		7B2665782C91C3CC000A483A /* moreChacacterDialogCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moreChacacterDialogCase.swift; sourceTree = "<group>"; };
 		7B6B3CD62C85E16000F643FB /* GuideU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideU.entitlements; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
@@ -443,8 +449,6 @@
 				7BB2333D2C8EC40100CE4D39 /* MorePerson */,
 				7BACA4302C8365E0008D4CFC /* SearchView */,
 				7BACA3D82C7D8FD3008D4CFC /* MoreCharacterView */,
-				7B1581B52C6A560800599E7C /* GuideUTabView.swift */,
-				7B1581ED2C6CC41900599E7C /* TabCoordinator.swift */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -484,6 +488,8 @@
 		7B1581D92C6CB27200599E7C /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				7B2665772C91BEB0000A483A /* Tab */,
+				7B2665722C91BC23000A483A /* SearchTab */,
 				7BB233442C8EC7A300CE4D39 /* MorePersonTab */,
 				7BACA3CD2C7C4192008D4CFC /* HomeTab */,
 				7B1581DA2C6CB28A00599E7C /* RootCoordinator.swift */,
@@ -600,6 +606,24 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		7B2665722C91BC23000A483A /* SearchTab */ = {
+			isa = PBXGroup;
+			children = (
+				7B2665732C91BC31000A483A /* SearchCoordinator.swift */,
+				7B2665752C91BC3E000A483A /* SearchCoordinatorView.swift */,
+			);
+			path = SearchTab;
+			sourceTree = "<group>";
+		};
+		7B2665772C91BEB0000A483A /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				7B1581B52C6A560800599E7C /* GuideUTabView.swift */,
+				7B1581ED2C6CC41900599E7C /* TabCoordinator.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
 		7BACA3CD2C7C4192008D4CFC /* HomeTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +641,7 @@
 				7BACA41B2C7EE7FE008D4CFC /* MoreCharacterView.swift */,
 				7BACA4252C803E35008D4CFC /* MoreCharacterFeature.swift */,
 				7BACA42B2C8191CE008D4CFC /* MoreCharacterListView.swift */,
+				7B2665782C91C3CC000A483A /* moreChacacterDialogCase.swift */,
 			);
 			path = MoreCharacterView;
 			sourceTree = "<group>";
@@ -922,6 +947,7 @@
 				7B1581AC2C6A528F00599E7C /* ExImage.swift in Sources */,
 				7B1581D02C6C7F5200599E7C /* SplashFeature.swift in Sources */,
 				7B1581F92C6CEF1200599E7C /* EncodingType.swift in Sources */,
+				7B2665792C91C3CC000A483A /* moreChacacterDialogCase.swift in Sources */,
 				7B1581FF2C6CF2C400599E7C /* DTO.swift in Sources */,
 				7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */,
 				7BACA4322C83662F008D4CFC /* SearchView.swift in Sources */,
@@ -952,6 +978,7 @@
 				DF8A2D6F2C8B117B0078F222 /* WKWebHosting.swift in Sources */,
 				7B1581EE2C6CC41900599E7C /* TabCoordinator.swift in Sources */,
 				7B15824E2C73075D00599E7C /* ScrollDetector.swift in Sources */,
+				7B2665762C91BC3E000A483A /* SearchCoordinatorView.swift in Sources */,
 				7B1581E62C6CBA4200599E7C /* OnboardPageFeature.swift in Sources */,
 				DFB2BE6E2C858D8F00518C7E /* SearchRepository.swift in Sources */,
 				7BACA42C2C8191CE008D4CFC /* MoreCharacterListView.swift in Sources */,
@@ -1009,6 +1036,7 @@
 				DF986E852C7CCACC00F2D52F /* CharacterRouter.swift in Sources */,
 				7BACA3DA2C7D8FEF008D4CFC /* DropDownMenu.swift in Sources */,
 				7B15820F2C6E20CA00599E7C /* SearchTypeDTO.swift in Sources */,
+				7B2665742C91BC31000A483A /* SearchCoordinator.swift in Sources */,
 				7BACA4202C7EECAD008D4CFC /* ExString.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

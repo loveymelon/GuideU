@@ -17,6 +17,7 @@ struct SearchFeature: GuideUReducer {
         var searchHistory: [String] = []
         var searchCaseList: [SuggestEntity] = []
         var isSearchResEmpty: Bool = false
+        var backButtonHidden: Bool = true
         
         // Static Text
         let placeHolderText = Const.placeHolderText

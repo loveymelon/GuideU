@@ -25,9 +25,7 @@ struct MoreCharacterFeature: GuideUReducer {
         
         var videoInfos: [VideosEntity] = []
         var onAppearIsValid: Bool = true
-        var seletedVideo: VideosEntity? = nil
-        
-        var searchState: SearchFeature.State? = nil
+        var selectedVideo: VideosEntity? = nil
         
         let constViewState = ConstViewState()
     }
@@ -45,12 +43,10 @@ struct MoreCharacterFeature: GuideUReducer {
         case dataTransType(DataTransType)
         case networkType(NetworkType)
         
-        // searchAction
-        case searchAction(SearchFeature.Action)
-        
         case delegate(Delegate)
         enum Delegate {
             case detailButtonTapped(String)
+            case searchBarTapped
         }
         /// Binding
         case currentText(String)
@@ -94,9 +90,6 @@ struct MoreCharacterFeature: GuideUReducer {
     
     var body: some ReducerOf<Self> {
         core()
-            .ifLet(\.searchState, action: \.searchAction) {
-                SearchFeature()
-            }
     }
 }
 
@@ -124,14 +117,14 @@ extension MoreCharacterFeature {
                 }
                 
             case .viewEventType(.searchViewChanged):
-                state.searchState = SearchFeature.State()
+                return .send(.delegate(.searchBarTapped))
                 
             case let .viewEventType(.selectedVideoIndex(num)):
                 state.selectedIndex = num
                 return .send(.dialogBinding(true))
                 
             case .viewEventType(.youtubeButtonTapped):
-                state.seletedVideo = state.videoInfos[state.selectedIndex]
+                state.selectedVideo = state.videoInfos[state.selectedIndex]
                 
                 let result = realmRepository.videoHistoryCreate(videoData: state.videoInfos[state.selectedIndex])
                 
@@ -194,11 +187,8 @@ extension MoreCharacterFeature {
             case let .currentText(text):
                 state.currentText = text
                 
-            case .searchAction(.delegate(.closeButtonTapped)):
-                state.searchState = nil
-                
             case let .selectedVideo(data):
-                state.seletedVideo = data
+                state.selectedVideo = data
                 
             case let .dialogBinding(isValid):
                 state.dialogPresent = isValid

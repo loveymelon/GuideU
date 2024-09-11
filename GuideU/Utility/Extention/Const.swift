@@ -320,7 +320,7 @@ enum Const {
 extension Const {
     static let recentSection = "최근 검색한"
     static let allClear = "전체삭제"
-    static let navTitle = "검색"
+    static let navTitle = "왁타버스 대백과"
     static let placeHolderText = "알고싶은 왁타버스 영상을 여기에"
     
     static let noResultMent = "검색 결과가 없습니다."
@@ -341,4 +341,10 @@ extension Const {
             }
         }
     }
+}
+
+// MARK: MorePersonView
+extension Const {
+    static let moreInfoText = "왁타버스 알아보기"
+    
 }
