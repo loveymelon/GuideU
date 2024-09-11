@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum VideoRouter: Router {
-    case fetchVideos(channelId: String, skip: Int, limit: Int)
+    case fetchVideos(channelId: String = "", skip: Int = 0, limit: Int = 100, identifier: String = "")
     case fetchCharacters(String)
     case fetchMemes(String)
 }
@@ -44,12 +44,18 @@ extension VideoRouter {
     
     var parameters: Parameters? {
         switch self {
-        case let .fetchVideos(channelId, skip, limit):
-            return [
-                "channel_id": channelId,
-                "skip": skip,
-                "limit": limit
+        case let .fetchVideos(channelId, skip, limit, identifier):
+            if identifier.isEmpty {
+                return [
+                    "channel_id": channelId,
+                    "skip": skip,
+                    "limit": limit
                 ]
+            } else {
+                return [
+                    "identifier": identifier
+                ]
+            }
         case .fetchCharacters, .fetchMemes:
             return nil
         }

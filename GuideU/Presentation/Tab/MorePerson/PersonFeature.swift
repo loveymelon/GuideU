@@ -17,6 +17,7 @@ struct PersonFeature: GuideUReducer {
         var sharedURL: String = ""
         var charactersInfo: [YoutubeCharacterEntity] = []
         var bookElementsInfo: [BookElementsEntity] = []
+        var videoInfo: VideosEntity = VideosEntity()
         var selectedURL: IdentifiableURLEntity? = nil
         var currentMoreType: MoreType = .characters
         var identifierURL: String
@@ -52,6 +53,7 @@ struct PersonFeature: GuideUReducer {
     enum DataTransType {
         case characters([YoutubeCharacterEntity])
         case booksElements([BookElementsEntity])
+        case videodatas(VideosEntity)
         case youtubeURL(String)
         case errorInfo(String)
     }
@@ -60,6 +62,7 @@ struct PersonFeature: GuideUReducer {
         case fetchCharacters(String)
         case fetchMemes(String)
         case search(String)
+        case fetchVideo(String)
     }
     
     enum CancelId: Hashable {
@@ -81,6 +84,7 @@ struct PersonFeature: GuideUReducer {
     }
     
     @Dependency(\.characterRepository) var repository
+    @Dependency(\.videoRepository) var videoRepository
     
     var body: some ReducerOf<Self> {
         core()
@@ -133,13 +137,28 @@ extension PersonFeature {
                     }
                 }
                 
+            case let .networkType(.fetchVideo(identifier)):
+                return .run { send in
+                    let result = await videoRepository.fetchVideo(identifier: identifier)
+                    
+                    switch result {
+                    case let .success(data):
+                        await send(.dataTransType(.videodatas(data)))
+                    case let .failure(error):
+                        await send(.dataTransType(.errorInfo(error)))
+                    }
+                }
+                
             case let .dataTransType(.characters(entitys)):
                 state.charactersInfo = entitys
                 print("characters", state.charactersInfo)
                 
             case let .dataTransType(.booksElements(entitys)):
                 state.bookElementsInfo = entitys
-//                print("memes", state.memesInfo)
+                
+            case let .dataTransType(.videodatas(entity)):
+                state.videoInfo = entity
+                print(entity.title, entity.updatedAt)
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
@@ -161,6 +180,7 @@ extension PersonFeature {
                         return .run { send in
                             await send(.networkType(.fetchCharacters(string)))
                             await send(.networkType(.fetchMemes(string)))
+                            await send(.networkType(.fetchVideo(string)))
                             UserDefaultsManager.sharedURL = nil
                         }
                     } else {

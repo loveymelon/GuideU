@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct VideoMapper {
     /// [VideosDTO] -> [VideosEntity]
-    func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel, channelID: String) -> [VideosEntity] {
+    func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [VideosEntity] {
         return dtos.map { dtoToEntity($0, channel: channel, channelID: channelID) }
     }
     
@@ -20,7 +20,7 @@ struct VideoMapper {
 }
 
 extension VideoMapper {
-    private func dtoToEntity(_ dto: VideosDTO, channel: Const.Channel, channelID: String) -> VideosEntity {
+    func dtoToEntity(_ dto: VideosDTO, channel: Const.Channel, channelID: String) -> VideosEntity {
         return VideosEntity(
             identifier: dto.identifier,
             videoURL: URL(
