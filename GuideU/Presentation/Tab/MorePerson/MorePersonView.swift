@@ -22,7 +22,7 @@ struct MorePersonView: View {
                 // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
                 backgroundImage(size: CGSize(
                     width: UIScreen.main.bounds.width,
-                    height: 270 + -offsetY )
+                    height: 254 + -offsetY )
                 )
                     .ignoresSafeArea(edges: .top) // Safe area까지 무시
                 
@@ -67,10 +67,20 @@ struct MorePersonView: View {
                     VStack {
                         switch moreType {
                         case .characters:
-                            characterSectionView()
+                            if !store.charactersInfo.isEmpty {
+                                characterSectionView()
+                            } else {
+                                Color.white.frame(maxWidth: .infinity)
+                                    .frame(height: 200)
+                            }
                         case .memes:
-                            memeSectionView()
-                                .padding(.vertical, 5)
+                            if !store.bookElementsInfo.isEmpty {
+                                memeSectionView()
+                                    .padding(.vertical, 5)
+                            } else {
+                                Color.white.frame(maxWidth: .infinity)
+                                    .frame(height: 200)
+                            }
                         }
                     }
                 }
@@ -246,6 +256,7 @@ struct MorePersonView: View {
                 .clipped()
         }
         .blur(radius: 40, opaque: true)
+        .clipped()
         .opacity(0.2)
     }
 }

@@ -52,8 +52,9 @@ extension MemeExtendView {
            
            textBoxView()
                .padding(.bottom, 12)
-           
-           relative()
+           if !setModel.relatedVideos.isEmpty {
+               relative()
+           }
         }
     }
     
