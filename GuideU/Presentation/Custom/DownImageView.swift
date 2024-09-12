@@ -37,28 +37,32 @@ struct DownImageView: View {
     }
     
     var body: some View {
-        VStack {
-            if currentURL != nil {
-                KFImage(currentURL)
-                    .setProcessor(
-                        DownsamplingImageProcessor(
-                            size: option.size
-                        )
+        if currentURL != nil {
+            KFImage(currentURL)
+                .setProcessor(
+                    DownsamplingImageProcessor(
+                        size: option.size
                     )
-                    .onFailure { error in
-                        print(error)
-                        if case .imageSettingError(reason: .emptySource) = error {
-                            currentURL = url
-                        } else if let fallbackURL {
-                            currentURL = fallbackURL
-                        }
+                )
+                .onFailure { error in
+                    print(error)
+                    if case .imageSettingError(reason: .emptySource) = error {
+                        currentURL = url
+                    } else if let fallbackURL {
+                        currentURL = fallbackURL
                     }
-                    .cacheOriginalImage()
-                    .resizable()
-            }
-        }
-        .onAppear {
-            currentURL = url ?? fallbackURL
+                }
+                .loadDiskFileSynchronously(false) // 동기적 디스크 호출 안함
+                .cancelOnDisappear(true) // 사라지면 취소
+                .diskCacheExpiration(.days(7))  // 7일 후 디스크 캐시에서 만료
+                .backgroundDecode(true) // 백그라운드에서 디코딩
+                .fade(duration: 0.38)
+                .resizable()
+        } else {
+            Color.clear
+                .onAppear {
+                    currentURL = url ?? fallbackURL
+                }
         }
     }
 }

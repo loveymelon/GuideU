@@ -31,7 +31,7 @@ extension MoreCharacterListView {
     }
     
     private func mainImageView() -> some View {
-        DownImageView(url: setModel.videoImageURL, option: .max)
+        DownImageView(url: setModel.videoImageURL, option: .custom(CGSize(width: 400, height: 200)))
             .aspectRatio(contentMode: .fill)
             .frame(height: 190)
             .clipped()

@@ -87,7 +87,7 @@ extension MoreCharacterView {
                     }
                     .padding(.bottom, 10)
                     .onAppear {
-                        if index >= store.videoInfos.count - 5 {
+                        if index >= store.videoInfos.count - 3 {
                             DispatchQueue.main.async {
                                 store.send(.viewEventType(.videoOnAppear(index)))
                             }
