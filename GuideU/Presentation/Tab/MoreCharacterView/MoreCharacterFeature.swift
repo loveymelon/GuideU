@@ -66,6 +66,7 @@ struct MoreCharacterFeature: GuideUReducer {
         case selectedVideoIndex(Int)
         case youtubeButtonTapped
         case detailButtonTapped
+        case successOpenURL
     }
     
     enum DataTransType {
@@ -143,6 +144,9 @@ extension MoreCharacterFeature {
                 return .run { [state = state] send in
                     await send(.delegate(.detailButtonTapped(state.videoInfos[state.selectedIndex].identifier)))
                 }
+                
+            case .viewEventType(.successOpenURL):
+                state.openURLCase = nil
                 
             case let .networkType(.fetchVideos(channel, skip, limit, isScroll)):
                 return .run { send in

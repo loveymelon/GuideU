@@ -65,6 +65,8 @@ struct MorePersonView: View {
             }
             .onChange(of: store.openURLCase) { newValue in
                 guard let openURL = newValue else { return }
+                
+                store.send(.viewEventType(.successOpenURL))
                 openURLManager.openAppUrl(urlCase: openURL)
             }
             .toolbar(.hidden, for: .navigationBar)

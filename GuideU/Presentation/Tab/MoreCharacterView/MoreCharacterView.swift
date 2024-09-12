@@ -49,6 +49,7 @@ struct MoreCharacterView: View {
             .onChange(of: store.openURLCase) { newValue in
                 guard let openURL = newValue else { return }
                 
+                store.send(.viewEventType(.successOpenURL))
                 openURLManager.openAppUrl(urlCase: openURL)
             }
 //            .sheet(item: $store.selectedVideo.sending(\.selectedVideo)) { data in

@@ -13,7 +13,12 @@ struct HeaderEntity: Entity {
         title: Const.MorePersonHeader.title,
         channelName: Const.MorePersonHeader.channelName,
         time: Const.MorePersonHeader.channelName,
-        thumImage: nil
+        thumImage: nil,
+        identifier: "",
+        videoURL: nil,
+        videoImage: nil,
+        channelImageURL: nil,
+        updatedAt: Date()
     )
     
     let sectionTitle = Const.MorePersonHeader.headerTop
@@ -21,4 +26,9 @@ struct HeaderEntity: Entity {
     let channelName: String
     let time: String
     let thumImage: URL?
+    let identifier: String
+    let videoURL: URL?
+    let videoImage: URL?
+    let channelImageURL: URL?
+    let updatedAt: Date
 }

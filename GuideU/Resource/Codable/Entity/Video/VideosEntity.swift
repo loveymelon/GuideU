@@ -17,5 +17,4 @@ struct VideosEntity: Entity, Identifiable {
     let updatedAt: Date
     let channelImageURL: URL?
     let title: String
-
 }

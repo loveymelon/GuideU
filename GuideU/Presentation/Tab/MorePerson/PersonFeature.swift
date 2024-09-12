@@ -49,6 +49,7 @@ struct PersonFeature: GuideUReducer {
         case socialTapped(String)
         case backButtonTapped
         case moreButtonTapped
+        case successOpenURL
     }
     
     enum DataTransType {
@@ -56,6 +57,7 @@ struct PersonFeature: GuideUReducer {
         case booksElements([BookElementsEntity])
         case videodatas(HeaderEntity)
         case youtubeURL(String)
+        case checkURL(String)
         case errorInfo(String)
     }
     
@@ -87,6 +89,7 @@ struct PersonFeature: GuideUReducer {
     @Dependency(\.characterRepository) var repository
     @Dependency(\.videoRepository) var videoRepository
     @Dependency(\.urlDividerManager) var urlDividerManager
+    @Dependency(\.realmRepository) var realmRepository
     
     var body: some ReducerOf<Self> {
         core()
@@ -116,12 +119,23 @@ extension PersonFeature {
                 
             case .viewEventType(.moreButtonTapped):
                 let identifierURL = state.identifierURL
+                let headerState = state.headerState
                 
-                if identifierURL.contains(Const.youtubeBaseURL) {
-                    guard let identifier = urlDividerManager.dividerResult(type: .youtubeIdentifier(identifierURL)) else { return .none }
-                    
-                    state.openURLCase = OpenURLCase.youtube(identifier: identifier)
+                let result = realmRepository.videoHistoryCreate(videoData: VideosEntity(identifier: headerState.identifier, videoURL: headerState.videoURL, channelName: headerState.channelName, videoImageURL: headerState.videoImage, updatedAt: headerState.updatedAt, channelImageURL: headerState.channelImageURL, title: headerState.title))
+                
+                switch result {
+                case .success(_):
+                    return .run { send in
+                        await send(.dataTransType(.checkURL(identifierURL)))
+                    }
+                case .failure(let error):
+                    return .send(.dataTransType(.errorInfo(error.description)))
                 }
+                
+                
+                
+            case .viewEventType(.successOpenURL):
+                state.openURLCase = nil
                 
             case let .networkType(.fetchCharacters(identifier)):
                 return .run { send in
@@ -168,6 +182,13 @@ extension PersonFeature {
                 
             case let .dataTransType(.videodatas(entity)):
                 state.headerState = entity
+                
+            case let .dataTransType(.checkURL(identifierURL)):
+                if identifierURL.contains(Const.youtubeBaseURL) {
+                    guard let identifier = urlDividerManager.dividerResult(type: .youtubeIdentifier(identifierURL)) else { return .none }
+                    
+                    state.openURLCase = OpenURLCase.youtube(identifier: identifier)
+                }
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
