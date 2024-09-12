@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "SettingSelectedTab.png",
+      "filename" : "HistoryTabSelected.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "HistoryTabSelected@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "HistoryTabSelected@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

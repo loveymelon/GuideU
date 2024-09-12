@@ -27,10 +27,10 @@ extension Image {
         }
         
         enum selected {
-            static let homeTab = Image(.homeSelectedTab)
+            static let homeTab = Image(.homeTabSelected)
             static let searchTab = Image(.searchTab)
-            static let historyTab = Image(.historySelectedTab)
-            static let settingTab = Image(.settingSelectedTab)
+            static let historyTab = Image(.historyTabSelected)
+            static let settingTab = Image(.settingTabSelected)
         }
     }
     

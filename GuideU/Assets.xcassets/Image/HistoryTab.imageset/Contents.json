@@ -6,10 +6,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "HistoryTab@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "HistoryTab@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
