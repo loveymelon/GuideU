@@ -347,4 +347,11 @@ extension Const {
 extension Const {
     static let moreInfoText = "왁타버스 알아보기"
     
+    enum MorePersonHeader {
+        static let headerTop = "지금 알아보는 영상은?"
+        static let title = "찾거나 없어요..."
+        static let channelName = "누구 영상 일까요...."
+        static let time = "00:00"
+    }
+    
 }

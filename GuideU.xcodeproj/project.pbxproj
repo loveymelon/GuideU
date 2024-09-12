@@ -61,6 +61,7 @@
 		7B2665742C91BC31000A483A /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665732C91BC31000A483A /* SearchCoordinator.swift */; };
 		7B2665762C91BC3E000A483A /* SearchCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665752C91BC3E000A483A /* SearchCoordinatorView.swift */; };
 		7B2665792C91C3CC000A483A /* moreChacacterDialogCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665782C91C3CC000A483A /* moreChacacterDialogCase.swift */; };
+		7B26657B2C929F0F000A483A /* MarqueeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26657A2C929F0F000A483A /* MarqueeTextView.swift */; };
 		7B6B3CD02C85D89D00F643FB /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; };
 		7B6B3CD12C85D8EB00F643FB /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
@@ -221,6 +222,7 @@
 		7B2665732C91BC31000A483A /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		7B2665752C91BC3E000A483A /* SearchCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinatorView.swift; sourceTree = "<group>"; };
 		7B2665782C91C3CC000A483A /* moreChacacterDialogCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moreChacacterDialogCase.swift; sourceTree = "<group>"; };
+		7B26657A2C929F0F000A483A /* MarqueeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeTextView.swift; sourceTree = "<group>"; };
 		7B6B3CD62C85E16000F643FB /* GuideU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideU.entitlements; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
@@ -651,6 +653,7 @@
 			children = (
 				7BACA42E2C819D9D008D4CFC /* DownImageView.swift */,
 				DF8A2D6E2C8B117B0078F222 /* WKWebHosting.swift */,
+				7B26657A2C929F0F000A483A /* MarqueeTextView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -948,6 +951,7 @@
 				7B1581D02C6C7F5200599E7C /* SplashFeature.swift in Sources */,
 				7B1581F92C6CEF1200599E7C /* EncodingType.swift in Sources */,
 				7B2665792C91C3CC000A483A /* moreChacacterDialogCase.swift in Sources */,
+				7B26657B2C929F0F000A483A /* MarqueeTextView.swift in Sources */,
 				7B1581FF2C6CF2C400599E7C /* DTO.swift in Sources */,
 				7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */,
 				7BACA4322C83662F008D4CFC /* SearchView.swift in Sources */,

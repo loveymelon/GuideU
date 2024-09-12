@@ -8,8 +8,17 @@
 import Foundation
 
 struct HeaderEntity: Entity {
-    let sectionTitle = "지금 시청 중인"
+    
+    static let initialSelf = HeaderEntity(
+        title: Const.MorePersonHeader.title,
+        channelName: Const.MorePersonHeader.channelName,
+        time: Const.MorePersonHeader.channelName,
+        thumImage: nil
+    )
+    
+    let sectionTitle = Const.MorePersonHeader.headerTop
     let title: String
     let channelName: String
     let time: String
+    let thumImage: URL?
 }

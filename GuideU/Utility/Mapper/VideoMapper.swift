@@ -17,6 +17,10 @@ struct VideoMapper {
     func requestDTOToEntity(_ requestDTO: [VideoHistoryRequestDTO]) -> [VideosEntity] {
         return requestDTO.map { requestDTOToEntity($0) }
     }
+    
+    func dtoToEntityToHeader(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [HeaderEntity] {
+        return dtos.map { dtoToEntityToHeader($0, channel: channel, channelID: channelID) }
+    }
 }
 
 extension VideoMapper {
@@ -33,6 +37,15 @@ extension VideoMapper {
             updatedAt: dto.updatedAt.toDate ?? Date(),
             channelImageURL: channel.getChannelImageURL(channelId: channelID),
             title: dto.title
+        )
+    }
+    
+    private func dtoToEntityToHeader(_ dto: VideosDTO, channel: Const.Channel, channelID: String) -> HeaderEntity {
+        return HeaderEntity(
+            title: dto.title,
+            channelName: dto.channelName,
+            time: dto.updatedAt.toDate(dateFormat: .fullType),
+            thumImage: URL(string: dto.thumbnailUrl)
         )
     }
     

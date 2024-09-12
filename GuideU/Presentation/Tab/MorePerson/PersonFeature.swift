@@ -13,11 +13,10 @@ struct PersonFeature: GuideUReducer {
     
     @ObservableState
     struct State: Equatable {
-        var headerState = HeaderEntity(title: "동영상이 없어요!", channelName: "동영상이 없어요!", time: "00:00")
+        var headerState = HeaderEntity.initialSelf
         var sharedURL: String = ""
         var charactersInfo: [YoutubeCharacterEntity] = []
         var bookElementsInfo: [BookElementsEntity] = []
-        var videoInfo: VideosEntity = VideosEntity()
         var selectedURL: IdentifiableURLEntity? = nil
         var currentMoreType: MoreType = .characters
         var identifierURL: String
@@ -53,7 +52,7 @@ struct PersonFeature: GuideUReducer {
     enum DataTransType {
         case characters([YoutubeCharacterEntity])
         case booksElements([BookElementsEntity])
-        case videodatas(VideosEntity)
+        case videodatas(HeaderEntity)
         case youtubeURL(String)
         case errorInfo(String)
     }
@@ -139,7 +138,7 @@ extension PersonFeature {
                 
             case let .networkType(.fetchVideo(identifier)):
                 return .run { send in
-                    let result = await videoRepository.fetchVideo(identifier: identifier)
+                    let result = await videoRepository.fetchVideoHeader(identifier: identifier)
                     
                     switch result {
                     case let .success(data):
@@ -157,8 +156,7 @@ extension PersonFeature {
                 state.bookElementsInfo = entitys
                 
             case let .dataTransType(.videodatas(entity)):
-                state.videoInfo = entity
-                print(entity.title, entity.updatedAt)
+                state.headerState = entity
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
@@ -178,9 +176,9 @@ extension PersonFeature {
                     if let string {
                         print( string )
                         return .run { send in
+                            await send(.networkType(.fetchVideo(string)))
                             await send(.networkType(.fetchCharacters(string)))
                             await send(.networkType(.fetchMemes(string)))
-                            await send(.networkType(.fetchVideo(string)))
                             UserDefaultsManager.sharedURL = nil
                         }
                     } else {

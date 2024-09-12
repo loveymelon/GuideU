@@ -14,6 +14,8 @@ struct MorePersonView: View {
     @State private var offsetY: CGFloat = 0
     @State private var opacity: CGFloat = 1
     @State private var moreType: PersonFeature.MoreType = .characters
+    @State private var titleOffset = UIScreen.main.bounds.width
+    @State private var backGroundTrigger = false
     @Namespace var name
     
     var body: some View {
@@ -197,9 +199,14 @@ struct MorePersonView: View {
                 .font(Font(WantedFont.midFont.font(size: 16)))
                 .padding(.bottom, 4)
             
-            Text(entity.title)
-                .font(Font(WantedFont.boldFont.font(size: 28)))
-                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
+            MarqueeTextView(
+                text: entity.title,
+                font: WantedFont.boldFont.font(size: 28),
+                leading: 15,
+                trailing: 15,
+                startDelay: 1
+            )
+            .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
                 
             HStack {
                 Text(entity.channelName)
@@ -252,14 +259,26 @@ struct MorePersonView: View {
         let safeHeight = size.height < 0 ? 0 : size.height
         return Group {
             /// 조건에 따라 이미지 변경할것.
-            Image.defaultBack.resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: size.width, height: safeHeight)
-                .clipped()
+            if backGroundTrigger {
+                DownImageView(url: store.headerState.thumImage, option: .mid)
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                Image.defaultBack.resizable()
+                    .aspectRatio(contentMode: .fill)
+            }
         }
-        .blur(radius: 40, opaque: true)
+        .transition(.opacity)
+        .animation(.easeInOut, value: store.headerState.thumImage)
+        .onChange(of: store.headerState.thumImage) { newValue in
+            withAnimation {
+                backGroundTrigger = newValue != nil ? true : false
+            }
+        }
+        .frame(width: size.width, height: safeHeight)
+        .blur(radius: 20, opaque: false)
         .clipped()
-        .opacity(0.2)
+        .opacity(0.22)
+        
     }
 }
 

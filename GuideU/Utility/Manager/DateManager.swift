@@ -17,10 +17,15 @@ final class DateManager {
     private let locale = Locale(identifier:"ko_KR")
     
     enum dateFormatType: String {
+        /// "yy. MM. dd"
         case slimYDM = "yy. MM. dd"
+        /// "yyyy년 M월 d일"
         case fullType = "yyyy년 M월 d일"
+        /// "a hh:mm"
         case roomListType = "a hh:mm"
+        /// "a hh시 mm분"
         case rightChatType = "a hh시 mm분"
+        /// "hh시 mm분 a"
         case leftChatType = "hh시 mm분 a"
         
         var format: String { return self.rawValue}
@@ -36,6 +41,15 @@ final class DateManager {
         
         print("fail")
         return nil
+    }
+    
+    func toDate(_ dateString: String, format: dateFormatType) -> String {
+        guard let fallbackResult = toDate(dateString) else {
+            return ""
+        }
+        dateFormatter.dateFormat = format.format
+        dateFormatter.locale = locale
+        return dateFormatter.string(from: fallbackResult)
     }
     
     func toDateISO(_ dateString: String) -> Date? {
