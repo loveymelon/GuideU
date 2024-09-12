@@ -48,9 +48,6 @@ struct MorePersonView: View {
             }
             .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
                 WKWebHosting(url: socialURL.url)
-                    .onAppear {
-                        print ( socialURL )
-                    }
             }
             .toolbar(.hidden, for: .navigationBar)
         }
