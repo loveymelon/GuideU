@@ -24,7 +24,7 @@ struct MorePersonView: View {
                 // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
                 backgroundImage(size: CGSize(
                     width: UIScreen.main.bounds.width,
-                    height: 270 + -offsetY )
+                    height: 275 + -offsetY )
                 )
                     .ignoresSafeArea(edges: .top) // Safe area까지 무시
                 
@@ -61,7 +61,7 @@ struct MorePersonView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
                 headerView()
-                    .frame(height: 150)
+                    .frame(height: 155)
                     .background(Color.clear)
                 
                 LazyVStack(spacing: 0) {
@@ -78,7 +78,6 @@ struct MorePersonView: View {
                         case .memes:
                             if !store.bookElementsInfo.isEmpty {
                                 memeSectionView()
-                                    .padding(.vertical, 5)
                             } else {
                                 Color.white.frame(maxWidth: .infinity)
                                     .frame(height: 200)
@@ -133,32 +132,32 @@ struct MorePersonView: View {
     
     private func memeSectionView() -> some View {
         ForEach(store.bookElementsInfo, id: \.id) { model in
-            Section {
-                LazyVStack {
-                    ForEach(model.memes, id: \.id) { model in
-                        MemeExtendView(selectedURL: { urlString in
-                            store.send(.viewEventType(.socialTapped(urlString)))
-                        }, setModel: model)
-                        .background(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .padding(.all, 10)
-                        .shadow(radius: 4)
-                    }
-                }
-                .padding(.bottom, 10)
-            } header: {
-                HStack {
-                    Image.clock
-                        .resizable()
-                        .aspectRatio(1, contentMode: .fit)
-                        .frame(width: 25)
-                    
-                    Text(model.timestamp)
-                        .font(Font(WantedFont.midFont.font(size: 15)))
-                    Spacer()
-                }
-                .padding(.horizontal, 10)
+            HStack {
+                Image.clock
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fit)
+                    .frame(width: 25)
+                
+                Text(model.timestamp)
+                    .font(Font(WantedFont.midFont.font(size: 15)))
+                Spacer()
             }
+            .padding(.horizontal, 10)
+            .padding(.top, 5)
+            
+            VStack {
+                ForEach(model.memes, id: \.id) { model in
+                    MemeExtendView(selectedURL: { urlString in
+                        store.send(.viewEventType(.socialTapped(urlString)))
+                    }, setModel: model)
+                    .background(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .padding(.all, 10)
+                    .shadow(radius: 4)
+                }
+            }
+            .padding(.bottom, 10)
+
         }
     }
     
@@ -207,7 +206,8 @@ struct MorePersonView: View {
                 startDelay: 1
             )
             .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
-                
+            .padding(.bottom, 4)
+            
             HStack {
                 Text(entity.channelName)
                 Text("|")
