@@ -65,7 +65,13 @@ final class RealmRepository {
     }
     
     func fetch() -> [String] {
-        return mapper.requestDTOToString(Array(realm.objects(SearchHistoryRequestDTO.self).sorted(by: \.date, ascending: false)))
+        let searchDatas = mapper.requestDTOToString(Array(realm.objects(SearchHistoryRequestDTO.self).sorted(by: \.date, ascending: false)))
+        
+        if searchDatas.count > 5 {
+            return Array(searchDatas.prefix(5))
+        } else {
+            return searchDatas
+        }
     }
     
     func fetchVideoHistory() -> [VideosEntity] {
