@@ -20,6 +20,7 @@ struct PersonFeature: GuideUReducer {
         var selectedURL: IdentifiableURLEntity? = nil
         var currentMoreType: MoreType = .characters
         var identifierURL: String
+        var openURLCase: OpenURLCase? = nil
     }
     
     
@@ -47,6 +48,7 @@ struct PersonFeature: GuideUReducer {
         case switchCurrentType(MoreType)
         case socialTapped(String)
         case backButtonTapped
+        case moreButtonTapped
     }
     
     enum DataTransType {
@@ -84,6 +86,7 @@ struct PersonFeature: GuideUReducer {
     
     @Dependency(\.characterRepository) var repository
     @Dependency(\.videoRepository) var videoRepository
+    @Dependency(\.urlDividerManager) var urlDividerManager
     
     var body: some ReducerOf<Self> {
         core()
@@ -111,6 +114,14 @@ extension PersonFeature {
                     state.selectedURL = IdentifiableURLEntity(url: url)
                 }
                 
+            case .viewEventType(.moreButtonTapped):
+                let identifierURL = state.identifierURL
+                
+                if identifierURL.contains(Const.youtubeBaseURL) {
+                    guard let identifier = urlDividerManager.dividerResult(type: .youtubeIdentifier(identifierURL)) else { return .none }
+                    
+                    state.openURLCase = OpenURLCase.youtube(identifier: identifier)
+                }
                 
             case let .networkType(.fetchCharacters(identifier)):
                 return .run { send in
@@ -162,34 +173,16 @@ extension PersonFeature {
                 print(error)
                 
             case let .dataTransType(.youtubeURL(urlString)):
-                if let url = URL(string: urlString),
-                   let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                   let queryItems = components.queryItems {
-                    
-                    var string: String? = nil
-                    
-                    if let vValue = queryItems.first(where: { $0.name == "v" })?.value {
-                        string = vValue
-                    } else if let vValue = queryItems.first(where: { $0.name == "si" })?.value {
-                        string = vValue
+                if let identifier = urlDividerManager.dividerResult(type: .youtubeIdentifier(urlString)) {
+                    return .run { send in
+                        await send(.networkType(.fetchVideo(identifier)))
+                        await send(.networkType(.fetchCharacters(identifier)))
+                        await send(.networkType(.fetchMemes(identifier)))
+                        UserDefaultsManager.sharedURL = nil
                     }
-                    if let string {
-                        print( string )
-                        return .run { send in
-                            await send(.networkType(.fetchVideo(string)))
-                            await send(.networkType(.fetchCharacters(string)))
-                            await send(.networkType(.fetchMemes(string)))
-                            UserDefaultsManager.sharedURL = nil
-                        }
-                    } else {
-                        print("notFound")
-                    }
-                    
-                    UserDefaultsManager.sharedURL = nil
-                    
-                    
                 } else {
-                    print("Invalid URL")
+                    UserDefaultsManager.sharedURL = nil
+                    print("notFound")
                 }
                 
             case let .bindingURL(socialURL):

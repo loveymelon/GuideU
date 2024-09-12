@@ -12,6 +12,8 @@ struct MoreCharacterView: View {
     
     @Perception.Bindable var store: StoreOf<MoreCharacterFeature>
     
+    @Environment(\.openURLManager) var openURLManager
+    
     var body: some View {
         WithPerceptionTracking {
             VStack {
@@ -44,9 +46,14 @@ struct MoreCharacterView: View {
                     }
                 }
             }
-            .sheet(item: $store.selectedVideo.sending(\.selectedVideo)) { data in
-                WKWebHosting(url: data.videoURL)
+            .onChange(of: store.openURLCase) { newValue in
+                guard let openURL = newValue else { return }
+                
+                openURLManager.openAppUrl(urlCase: openURL)
             }
+//            .sheet(item: $store.selectedVideo.sending(\.selectedVideo)) { data in
+//                WKWebHosting(url: data.videoURL)
+//            }
         }
     }
 }

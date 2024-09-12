@@ -8,35 +8,18 @@
 import SwiftUI
 
 /// NO Dependency TCA PLZ 알겠죠? 이건 UI 관할 입니다.
+/// okokok
 struct OpenURLManager {
     
-    enum UrlCase {
-        case youtube(identifier: String)
-        
-        var appURL: URL? {
-            switch self {
-            case .youtube(let identifier):
-                return URL(string:"youtube://\(identifier)")
-            }
-        }
-        
-        var WebURL: URL? {
-            switch self {
-            case .youtube(let identifier):
-                return URL(string: Const.youtubeBaseString + identifier)
-            }
-        }
-    }
-    
-    func openAppUrl(urlCase: UrlCase) {
+    func openAppUrl(urlCase: OpenURLCase) {
         if let appURL = urlCase.appURL {
             if !openAppUrl(url: appURL) {
-                guard let webUrl = urlCase.WebURL else {
+                guard let webUrl = urlCase.webURL else {
                     return
                 }
                 openAppUrl(url: webUrl)
             }
-        } else if let webUrl = urlCase.WebURL {
+        } else if let webUrl = urlCase.webURL {
             openAppUrl(url: webUrl)
         }
     }

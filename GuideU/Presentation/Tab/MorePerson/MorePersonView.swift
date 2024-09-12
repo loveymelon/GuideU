@@ -18,6 +18,8 @@ struct MorePersonView: View {
     @State private var backGroundTrigger = false
     @Namespace var name
     
+    @Environment(\.openURLManager) var openURLManager
+    
     var body: some View {
         WithPerceptionTracking {
             ZStack(alignment: .top) {
@@ -50,9 +52,7 @@ struct MorePersonView: View {
                         .background(Color(GuideUColor.ViewBaseColor.light.primary))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .asButton {
-                            /// 해당 영상 분석후 ( 유튜브 인지 아닌지 ) 유튜브면 유튜브 앱실행 할수 있도록 짜세요!
-                            ///
-                            ///
+                            store.send(.viewEventType(.moreButtonTapped))
                             print("해당 영상 분석후 ( 유튜브 인지 아닌지 ) 유튜브면 유튜브 앱실행 할수 있도록 짜세요!")
                         }
                         .foregroundStyle(Color(GuideUColor.ViewBaseColor.dark.textColor))
@@ -62,6 +62,10 @@ struct MorePersonView: View {
             }
             .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
                 WKWebHosting(url: socialURL.url)
+            }
+            .onChange(of: store.openURLCase) { newValue in
+                guard let openURL = newValue else { return }
+                openURLManager.openAppUrl(urlCase: openURL)
             }
             .toolbar(.hidden, for: .navigationBar)
         }

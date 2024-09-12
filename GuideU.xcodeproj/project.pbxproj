@@ -98,6 +98,8 @@
 		DF1DECD92C7D7EB10098F761 /* DetailErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD82C7D7EB10098F761 /* DetailErrorEntity.swift */; };
 		DF1DECDB2C7D7EF40098F761 /* ErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECDA2C7D7EF40098F761 /* ErrorEntity.swift */; };
 		DF1DECDF2C7D7F930098F761 /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECDE2C7D7F930098F761 /* ErrorMapper.swift */; };
+		DF57E15B2C9319B700E094D1 /* OpenURLCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57E15A2C9319B700E094D1 /* OpenURLCase.swift */; };
+		DF57E15D2C931DB100E094D1 /* URLDividerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57E15C2C931DB100E094D1 /* URLDividerManager.swift */; };
 		DF5879572C7F0A0E009F9171 /* SimpleErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879562C7F0A0E009F9171 /* SimpleErrorEntity.swift */; };
 		DF5879592C7F0AC1009F9171 /* DetailedErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879582C7F0AC1009F9171 /* DetailedErrorEntity.swift */; };
 		DF58795B2C7F0B0C009F9171 /* SimpleErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF58795A2C7F0B0C009F9171 /* SimpleErrorDTO.swift */; };
@@ -266,6 +268,8 @@
 		DF2DBBF22C8094A1000581F6 /* VideoMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMapper.swift; sourceTree = "<group>"; };
 		DF2DBBF52C80987A000581F6 /* VideosEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosEntity.swift; sourceTree = "<group>"; };
 		DF2DBBF72C809CE2000581F6 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		DF57E15A2C9319B700E094D1 /* OpenURLCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenURLCase.swift; sourceTree = "<group>"; };
+		DF57E15C2C931DB100E094D1 /* URLDividerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDividerManager.swift; sourceTree = "<group>"; };
 		DF5879562C7F0A0E009F9171 /* SimpleErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleErrorEntity.swift; sourceTree = "<group>"; };
 		DF5879582C7F0AC1009F9171 /* DetailedErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedErrorEntity.swift; sourceTree = "<group>"; };
 		DF58795A2C7F0B0C009F9171 /* SimpleErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleErrorDTO.swift; sourceTree = "<group>"; };
@@ -432,6 +436,7 @@
 				7B1581F82C6CEF1200599E7C /* EncodingType.swift */,
 				DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */,
 				7BACA43E2C856C62008D4CFC /* ResultCase.swift */,
+				DF57E15A2C9319B700E094D1 /* OpenURLCase.swift */,
 			);
 			path = EnumCase;
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 				DF2DBBF72C809CE2000581F6 /* DateManager.swift */,
 				7BB233492C90102500CE4D39 /* TextFormatManager.swift */,
 				7B26657F2C92C210000A483A /* OpenURLManager.swift */,
+				DF57E15C2C931DB100E094D1 /* URLDividerManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -993,6 +999,7 @@
 				DF5E5E3E2C8F4D0D0090A0D4 /* MemeEntity.swift in Sources */,
 				DF1DECDF2C7D7F930098F761 /* ErrorMapper.swift in Sources */,
 				7B1582052C6CF3DA00599E7C /* DTOList.swift in Sources */,
+				DF57E15B2C9319B700E094D1 /* OpenURLCase.swift in Sources */,
 				7B1581B22C6A54E700599E7C /* TabCase.swift in Sources */,
 				7B1581F42C6CEBC200599E7C /* Router.swift in Sources */,
 				DF1DECDB2C7D7EF40098F761 /* ErrorEntity.swift in Sources */,
@@ -1016,6 +1023,7 @@
 				DFB2BE6C2C858C0F00518C7E /* SearchMapper.swift in Sources */,
 				DF5879592C7F0AC1009F9171 /* DetailedErrorEntity.swift in Sources */,
 				DF5879632C7F1701009F9171 /* LinkEntity.swift in Sources */,
+				DF57E15D2C931DB100E094D1 /* URLDividerManager.swift in Sources */,
 				7B1582012C6CF30000599E7C /* DuplicateDTO.swift in Sources */,
 				DFB2BE662C85897300518C7E /* RealmRepository.swift in Sources */,
 				7B1581E42C6CB85100599E7C /* OnBoardPageView.swift in Sources */,

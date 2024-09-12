@@ -60,18 +60,18 @@ extension TabNavCoordinator {
         Reduce { state, action in
             switch action {
             case let .router(.routeAction(id: .tab, action: .tab(.delegate(.detailButtonTapped(identifier))))):
-                state.routes.push(.detail(.init(identifierURL: Const.youtubeBaseString + identifier)))
+                state.routes.push(.detail(PersonFeature.State(identifierURL: Const.youtubeBaseString + identifier)))
                 
             case .viewLifeCycle(.active):
                 print("액티브")
                 
                 if let url = UserDefaultsManager.sharedURL {
-                    state.routes.push(.detail(.init(identifierURL: url)))
+                    state.routes.push(.detail(PersonFeature.State(identifierURL: url)))
                 }
                 
             case .viewLifeCycle(.onAppear):
                 if let url = UserDefaultsManager.sharedURL {
-                    state.routes.push(.detail(.init(identifierURL: url)))
+                    state.routes.push(.detail(PersonFeature.State(identifierURL: url)))
                 }
                 
                 

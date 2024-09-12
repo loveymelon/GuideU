@@ -25,7 +25,7 @@ struct MoreCharacterFeature: GuideUReducer {
         
         var videoInfos: [VideosEntity] = []
         var onAppearIsValid: Bool = true
-        var selectedVideo: VideosEntity? = nil
+        var openURLCase: OpenURLCase? = nil
         
         let constViewState = ConstViewState()
     }
@@ -70,6 +70,7 @@ struct MoreCharacterFeature: GuideUReducer {
     
     enum DataTransType {
         case videosInfo([VideosEntity], isScroll: Bool)
+        case selectVideoURL(String?)
         case errorInfo(String)
     }
     
@@ -87,6 +88,7 @@ struct MoreCharacterFeature: GuideUReducer {
     @Dependency(\.videoRepository) var videoRepository
     @Dependency(\.characterRepository) var characterRepository
     @Dependency(\.realmRepository) var realmRepository
+    @Dependency(\.urlDividerManager) var urlDividerManager
     
     var body: some ReducerOf<Self> {
         core()
@@ -124,13 +126,15 @@ extension MoreCharacterFeature {
                 return .send(.dialogBinding(true))
                 
             case .viewEventType(.youtubeButtonTapped):
-                state.selectedVideo = state.videoInfos[state.selectedIndex]
+                let videoURL = state.videoInfos[state.selectedIndex].videoURL?.absoluteString
                 
                 let result = realmRepository.videoHistoryCreate(videoData: state.videoInfos[state.selectedIndex])
                 
                 switch result {
                 case .success(_):
-                    break
+                    return .run { send in
+                        await send(.dataTransType(.selectVideoURL(videoURL)))
+                    }
                 case .failure(let error):
                     return .send(.dataTransType(.errorInfo(error.description)))
                 }
@@ -173,6 +177,10 @@ extension MoreCharacterFeature {
                     state.currentStart += (state.limit + 1)
                 }
                 
+            case let .dataTransType(.selectVideoURL(selectURL)):
+                guard let youtubeURL = selectURL, let identifier = urlDividerManager.dividerResult(type: .youtubeIdentifier(youtubeURL)) else { return .none }
+                state.openURLCase = OpenURLCase.youtube(identifier: identifier)
+                
             case let .dataTransType(.errorInfo(error)):
                 print(error)
                 
@@ -186,9 +194,6 @@ extension MoreCharacterFeature {
                 
             case let .currentText(text):
                 state.currentText = text
-                
-            case let .selectedVideo(data):
-                state.selectedVideo = data
                 
             case let .dialogBinding(isValid):
                 state.dialogPresent = isValid
