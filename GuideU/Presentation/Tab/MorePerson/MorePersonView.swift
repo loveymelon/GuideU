@@ -28,23 +28,37 @@ struct MorePersonView: View {
                 )
                     .ignoresSafeArea(edges: .top) // Safe area까지 무시
                 
-                
-                VStack(spacing: 0) {
-                    mainView()
-                        .safeAreaInset(edge: .top) {
-                            // 네비게이션 바를 고정시킴
-                            fakeNavigation(entity: store.headerState, opacity: 1 - opacity)
-                                .frame(maxWidth: .infinity)
+                ZStack(alignment: .bottom) {
+                    VStack(spacing: 0) {
+                        mainView()
+                            .safeAreaInset(edge: .top) {
+                                // 네비게이션 바를 고정시킴
+                                fakeNavigation(entity: store.headerState, opacity: 1 - opacity)
+                                    .frame(maxWidth: .infinity)
+                            }
+                    }
+                    .onAppear {
+                        store.send(.viewCycleType(.onAppear))
+                    }
+                    .onChange(of: store.currentMoreType) { newValue in
+                        moreType = newValue
+                    }
+                    Text(Const.moreCheckText)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 14)
+                        .font(Font(WantedFont.semiFont.font(size: 20)))
+                        .background(Color(GuideUColor.ViewBaseColor.light.primary))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .asButton {
+                            /// 해당 영상 분석후 ( 유튜브 인지 아닌지 ) 유튜브면 유튜브 앱실행 할수 있도록 짜세요!
+                            ///
+                            ///
+                            print("해당 영상 분석후 ( 유튜브 인지 아닌지 ) 유튜브면 유튜브 앱실행 할수 있도록 짜세요!")
                         }
+                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.dark.textColor))
+                        .padding(.horizontal, 10)
+                        .padding(.bottom, 10)
                 }
-                
-                .onAppear {
-                    store.send(.viewCycleType(.onAppear))
-                }
-                .onChange(of: store.currentMoreType) { newValue in
-                    moreType = newValue
-                }
-                
             }
             .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
                 WKWebHosting(url: socialURL.url)
@@ -68,6 +82,8 @@ struct MorePersonView: View {
                         case .characters:
                             if !store.charactersInfo.isEmpty {
                                 characterSectionView()
+                                Color.white.frame(maxWidth: .infinity)
+                                    .frame(height: 80)
                             } else {
                                 Color.white.frame(maxWidth: .infinity)
                                     .frame(height: 200)
@@ -75,6 +91,8 @@ struct MorePersonView: View {
                         case .memes:
                             if !store.bookElementsInfo.isEmpty {
                                 memeSectionView()
+                                Color.white.frame(maxWidth: .infinity)
+                                    .frame(height: 80)
                             } else {
                                 Color.white.frame(maxWidth: .infinity)
                                     .frame(height: 200)
@@ -83,10 +101,6 @@ struct MorePersonView: View {
                     }
                 }
                 .background(.white)
-                
-                Color.white
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(.white)
             }
             .background {
                 ScrollDetector { offset in
@@ -279,10 +293,10 @@ struct MorePersonView: View {
     }
 }
 
-//#if DEBUG
-//#Preview {
-//    MorePersonView(store: Store(initialState: PersonFeature.State(), reducer: {
-//        PersonFeature()
-//    }))
-//}
-//#endif
+#if DEBUG
+#Preview {
+    MorePersonView(store: Store(initialState: PersonFeature.State( identifierURL: "HDHOeLYT0rE"), reducer: {
+        PersonFeature()
+    }))
+}
+#endif

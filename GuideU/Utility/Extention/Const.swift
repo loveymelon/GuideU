@@ -346,7 +346,7 @@ extension Const {
 // MARK: MorePersonView
 extension Const {
     static let moreInfoText = "왁타버스 알아보기"
-    
+    static let moreCheckText = "이 영상을 다 알아봤다면?"
     enum MorePersonHeader {
         static let headerTop = "지금 알아보는 영상은?"
         static let title = "찾거나 없어요..."
