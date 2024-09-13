@@ -52,9 +52,6 @@ struct MoreCharacterView: View {
                 store.send(.viewEventType(.successOpenURL))
                 openURLManager.openAppUrl(urlCase: openURL)
             }
-//            .sheet(item: $store.selectedVideo.sending(\.selectedVideo)) { data in
-//                WKWebHosting(url: data.videoURL)
-//            }
         }
     }
 }

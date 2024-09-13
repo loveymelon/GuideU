@@ -17,7 +17,6 @@ struct PersonFeature: GuideUReducer {
         var sharedURL: String = ""
         var charactersInfo: [YoutubeCharacterEntity] = []
         var bookElementsInfo: [BookElementsEntity] = []
-        var videosInfo: VideosEntity = VideosEntity()
         var selectedURL: IdentifiableURLEntity? = nil
         var currentMoreType: MoreType = .characters
         var identifierURL: String
@@ -113,26 +112,15 @@ extension PersonFeature {
                 state.currentMoreType = moreType
                 
             case let .viewEventType(.socialTapped(url)):
-                print("tap")
                 if let url = URL(string: url) {
                     state.selectedURL = IdentifiableURLEntity(url: url)
                 }
                 
             case .viewEventType(.moreButtonTapped):
                 let identifierURL = state.identifierURL
-                
-                let result = realmRepository.videoHistoryCreate(videoData: state.videosInfo)
-                
-                switch result {
-                case .success(_):
-                    return .run { send in
-                        await send(.dataTransType(.checkURL(identifierURL)))
-                    }
-                case .failure(let error):
-                    return .send(.dataTransType(.errorInfo(error.description)))
+                return .run { send in
+                    await send(.dataTransType(.checkURL(identifierURL)))
                 }
-                
-                
                 
             case .viewEventType(.successOpenURL):
                 state.openURLCase = nil
