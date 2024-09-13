@@ -91,8 +91,8 @@ extension VideoMapper {
             } else if calendar.isDate(date, inSameDayAs: dayOption.yesterDay) {
                 title = "어제"
             } else {
-                let dateToString = DateManager.shared.asDateToString(date)
-                title = DateManager.shared.toDate(dateToString, format: .fullType)
+                let trans = DateManager.shared.toString(date: date, format: .fullType)
+                title = trans
             }
             result.append(HistoryVideosEntity(lastWatched: title, videosEntity: contents))
         }
