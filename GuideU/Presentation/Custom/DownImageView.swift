@@ -15,7 +15,6 @@ struct DownImageView: View {
     let url: URL?
     let option: Option
     var fallbackURL: URL? = nil
-    var ifNeedFailTrigger: (() -> Void)?
     
     enum Option {
         case max
@@ -50,7 +49,6 @@ struct DownImageView: View {
                     if case .imageSettingError(reason: .emptySource) = error {
                         currentURL = url
                     } else if let fallbackURL {
-                        ifNeedFailTrigger?()
                         currentURL = fallbackURL
                     }
                 }
