@@ -19,6 +19,7 @@ struct GuideUTabView: View {
         WithPerceptionTracking {
             TabView(selection: $store.currentTab.sending(\.tabCase)) {
                 Group {
+                    
                     HomeCoordinatorView(
                         store: store.scope(
                             state: \.homeTabState,
@@ -30,7 +31,6 @@ struct GuideUTabView: View {
                     }
                     .tag(TabCase.home)
 
-                       
                     SearchCoordinatorView(
                         store: store.scope(
                             state: \.searchTabState,
@@ -46,11 +46,19 @@ struct GuideUTabView: View {
                         TabCase.searchTab
                     )
                     
-                    Text("asss")
-                        .tabItem {
-                            tabItemView(tabItem: .timeLine)
-                        }
-                        .tag(TabCase.timeLine)
+                    HistoryCoordinatorView(
+                        store: store.scope(
+                            state: \.historyTabState,
+                            action: \.historyTabAction
+                        )
+                    )
+//                    Text("asdasd")
+                    .tabItem {
+                        tabItemView(tabItem: .timeLine)
+                    }
+                    .tag(TabCase.timeLine)
+                    
+                    
                     Text("assss")
                         .tabItem {
                             tabItemView(tabItem: .setting)

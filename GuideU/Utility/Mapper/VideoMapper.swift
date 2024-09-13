@@ -21,6 +21,10 @@ struct VideoMapper {
     func dtoToEntityToHeader(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [HeaderEntity] {
         return dtos.map { dtoToEntityToHeader($0, channel: channel, channelID: channelID) }
     }
+    
+    func requestDTOToEntity(_ requestDTO: VideoHistoryRequestDTO) -> VideosEntity {
+        return VideosEntity(identifier: requestDTO.identifier, videoURL: URL(string: requestDTO.videoURL), channelName: requestDTO.channelName, videoImageURL: URL(string: requestDTO.thumbnail), updatedAt: requestDTO.updatedAt, channelImageURL: nil, title: requestDTO.title)
+    }
 }
 
 extension VideoMapper {
@@ -53,9 +57,54 @@ extension VideoMapper {
             updatedAt: dto.updatedAt.toDate ?? Date()
         )
     }
+}
+
+// MARK: Date
+extension VideoMapper {
     
-    private func requestDTOToEntity(_ requestDTO: VideoHistoryRequestDTO) -> VideosEntity {
-        return VideosEntity(identifier: requestDTO.identifier, videoURL: URL(string: requestDTO.videoURL), channelName: requestDTO.channelName, videoImageURL: URL(string: requestDTO.thumbnail), updatedAt: requestDTO.updatedAt, channelImageURL: nil, title: requestDTO.title)
+    func dtoToEntity(dtos: [VideoHistoryRequestDTO]) -> [HistoryVideosEntity] {
+        var groupedData = [Date: [VideosEntity]]()
+        
+        for item in dtos {
+            let startOfDay = Calendar.current.startOfDay(for: item.watchedAt)
+            
+            if groupedData[startOfDay] == nil {
+                groupedData[startOfDay] = [requestDTOToEntity(item)]
+            } else {
+                groupedData[startOfDay]?.append(requestDTOToEntity(item))
+            }
+        }
+        
+        return sortedVideo(datas: groupedData.sorted { $0.key < $1.key })
+    }
+    
+    private func sortedVideo(datas: [Dictionary<Date, [VideosEntity]>.Element]) -> [HistoryVideosEntity] {
+        let calendar = Calendar.current
+        let dayOption = settingToDivideDay()
+        var result = [HistoryVideosEntity]()
+        
+        for (date, contents) in datas {
+            let title: String
+            
+            if calendar.isDate(date, inSameDayAs: dayOption.now) {
+                title = "오늘"
+            } else if calendar.isDate(date, inSameDayAs: dayOption.yesterDay) {
+                title = "내일"
+            } else {
+                let dateToString = DateManager.shared.asDateToString(date)
+                title = DateManager.shared.toDate(dateToString, format: .fullType)
+            }
+            result.append(HistoryVideosEntity(lastWatched: title, videosEntity: contents))
+        }
+        
+        return result
+    }
+    
+    private func settingToDivideDay() -> (now: Date, yesterDay: Date) {
+        let calendar = Calendar.current
+        let nowDate = Calendar.current.startOfDay(for: Date())
+        let yesterDay = calendar.date(byAdding: .day, value: -1, to: nowDate) ?? Date()
+        return (nowDate, yesterDay)
     }
 }
 
