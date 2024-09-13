@@ -12,6 +12,9 @@ struct MoreCharacterListView: View {
     
     let setModel: VideosEntity
     
+    @State
+    private var channelImageCancel = true
+    
     var body: some View {
         contentView()
     }
@@ -39,11 +42,20 @@ extension MoreCharacterListView {
     
     private func sectionView() -> some View {
         HStack {
-            
-            DownImageView(url: setModel.channelImageURL, option: .min)
+            if channelImageCancel {
+                DownImageView(url: setModel.channelImageURL, option: .min) {
+                    channelImageCancel = false
+                }
                 .frame(width: 40, height: 40)
                 .aspectRatio(1, contentMode: .fill)
                 .clipShape(Circle())
+            } else {
+                Text("준비중")
+                    .frame(width: 40, height: 40)
+                    .aspectRatio(1, contentMode: .fill)
+                    .background(Color(GuideUColor.ViewBaseColor.light.primary))
+                    .clipShape(Circle())
+            }
             
             VStack(spacing: 4) {
                 HStack {
