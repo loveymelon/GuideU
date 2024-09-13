@@ -47,9 +47,12 @@ final class DateManager {
         guard let fallbackResult = toDate(dateString) else {
             return ""
         }
+        return toString(date: fallbackResult, format: format)
+    }
+    func toString(date: Date, format: dateFormatType) -> String {
         dateFormatter.dateFormat = format.format
         dateFormatter.locale = locale
-        return dateFormatter.string(from: fallbackResult)
+        return dateFormatter.string(from: date)
     }
     
     func toDateISO(_ dateString: String) -> Date? {
