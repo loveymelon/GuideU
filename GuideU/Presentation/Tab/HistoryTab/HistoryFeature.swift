@@ -31,6 +31,7 @@ struct HistoryFeature {
     
     enum ViewCycleType {
         case viewOnAppear
+        case viewDisAppear
     }
     
     enum ViewEventType {
@@ -62,6 +63,7 @@ extension HistoryFeature {
             switch action {
             case .viewCycleType(.viewOnAppear):
                 state.videosEntity = realmRepository.fetchVideoHistory()
+                print("실행함 \(state.videosEntity)")
                 
             case let .viewEventType(.videoTapped(entity)):
                 let result = realmRepository.videoHistoryCreate(videoData: entity)

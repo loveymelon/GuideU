@@ -43,5 +43,6 @@ extension HistoryCoordinator {
             }
             return .none
         }
+        .forEachRoute(\.routes, action: \.router)
     }
 }

@@ -75,7 +75,7 @@ extension VideoMapper {
             }
         }
         
-        return sortedVideo(datas: groupedData.sorted { $0.key < $1.key })
+        return sortedVideo(datas: groupedData.sorted { $0.key > $1.key })
     }
     
     private func sortedVideo(datas: [Dictionary<Date, [VideosEntity]>.Element]) -> [HistoryVideosEntity] {
@@ -89,7 +89,7 @@ extension VideoMapper {
             if calendar.isDate(date, inSameDayAs: dayOption.now) {
                 title = "오늘"
             } else if calendar.isDate(date, inSameDayAs: dayOption.yesterDay) {
-                title = "내일"
+                title = "어제"
             } else {
                 let dateToString = DateManager.shared.asDateToString(date)
                 title = DateManager.shared.toDate(dateToString, format: .fullType)
