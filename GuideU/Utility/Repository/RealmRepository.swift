@@ -68,8 +68,12 @@ final class RealmRepository {
         return mapper.requestDTOToString(Array(realm.objects(SearchHistoryRequestDTO.self).sorted(by: \.date, ascending: false)))
     }
     
-    func fetchVideoHistory() -> [VideosEntity] {
-        return videoMapper.requestDTOToEntity(Array(realm.objects(VideoHistoryRequestDTO.self).sorted(by: \.watchedAt, ascending: false)))
+    func fetchVideoHistory() -> [HistoryVideosEntity] {
+        let realmData = Array(realm.objects(VideoHistoryRequestDTO.self).sorted(by: \.watchedAt, ascending: false))
+        
+        let mapping = videoMapper.dtoToEntity(dtos: realmData)
+        
+        return mapping
     }
     
     func delete(keyworkd: String) -> Result<Void, RealmError> {
