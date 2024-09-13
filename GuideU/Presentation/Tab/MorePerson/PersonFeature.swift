@@ -17,6 +17,7 @@ struct PersonFeature: GuideUReducer {
         var sharedURL: String = ""
         var charactersInfo: [YoutubeCharacterEntity] = []
         var bookElementsInfo: [BookElementsEntity] = []
+        var videosInfo: VideosEntity = VideosEntity()
         var selectedURL: IdentifiableURLEntity? = nil
         var currentMoreType: MoreType = .characters
         var identifierURL: String
@@ -119,9 +120,8 @@ extension PersonFeature {
                 
             case .viewEventType(.moreButtonTapped):
                 let identifierURL = state.identifierURL
-                let headerState = state.headerState
                 
-                let result = realmRepository.videoHistoryCreate(videoData: VideosEntity(identifier: headerState.identifier, videoURL: headerState.videoURL, channelName: headerState.channelName, videoImageURL: headerState.videoImage, updatedAt: headerState.updatedAt, channelImageURL: headerState.channelImageURL, title: headerState.title))
+                let result = realmRepository.videoHistoryCreate(videoData: state.videosInfo)
                 
                 switch result {
                 case .success(_):
