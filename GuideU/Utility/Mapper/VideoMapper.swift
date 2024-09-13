@@ -50,10 +50,6 @@ extension VideoMapper {
             channelName: dto.channelName,
             time: dto.updatedAt.toDate(dateFormat: .fullType),
             thumImage: URL(string: dto.thumbnailUrl),
-            identifier: dto.identifier,
-            videoURL: URL(string: Const.youtubeBaseString + dto.identifier),
-            videoImage: URL(string: dto.thumbnailUrl),
-            channelImageURL: channel.getChannelImageURL(channelId: dto.channelId),
             updatedAt: dto.updatedAt.toDate ?? Date()
         )
     }
