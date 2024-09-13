@@ -20,7 +20,7 @@ struct SearchDTO: DTO {
     let type: SearchTypeDTO
     let description: String?
     let synonyms: [String?]?
-    let relatedVideos: [RelatedVideoDTO?]?
+    let relatedVideos: [RelatedVideoDTO]?
     let isDetectable: Bool?
 
     enum CodingKeys: String, CodingKey {

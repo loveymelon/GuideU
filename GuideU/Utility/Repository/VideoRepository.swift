@@ -45,17 +45,6 @@ struct VideoRepository {
         
         return .success(tempData.sorted { $0.updatedAt > $1.updatedAt })
     }
-    
-    func fetchSearch(_ searchText: String) async -> Result<[SearchDTO], String> {
-        let result = await network.requestNetwork(dto: SearchListDTO.self, router: SearchRouter.search(searchText: searchText))
-        
-        switch result {
-        case .success(let data):
-            return .success(data.searchListDTO)
-        case .failure(let error):
-            return .failure(catchError(error))
-        }
-    }
 }
 
 extension VideoRepository {

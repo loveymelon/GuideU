@@ -20,4 +20,12 @@ struct RelatedVideoDTO: DTO {
         case thumbnailURL = "thumbnail_url"
         case channel, type
     }
+    
+    init(link: String = "", title: String = "", thumbnailURL: String = "", channel: String = "", type: RelatedVideoTypeDTO = .youtube) {
+        self.link = link
+        self.title = title
+        self.thumbnailURL = thumbnailURL
+        self.channel = channel
+        self.type = type
+    }
 }

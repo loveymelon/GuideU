@@ -23,6 +23,17 @@ struct SearchRepository {
             return .failure(catchError(error))
         }
     }
+    
+    func fetchSearch(_ searchText: String) async -> Result<[SearchResultEntity], String> {
+        let result = await network.requestNetwork(dto: SearchListDTO.self, router: SearchRouter.search(searchText: searchText))
+        
+        switch result {
+        case .success(let data):
+            return .success(searchMapper.dtoToEntity(data.searchListDTO))
+        case .failure(let error):
+            return .failure(catchError(error)) 
+        }
+    }
 }
 
 extension SearchRepository {
