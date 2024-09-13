@@ -108,6 +108,8 @@
 		DF1DECDF2C7D7F930098F761 /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECDE2C7D7F930098F761 /* ErrorMapper.swift */; };
 		DF57E15B2C9319B700E094D1 /* OpenURLCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57E15A2C9319B700E094D1 /* OpenURLCase.swift */; };
 		DF57E15D2C931DB100E094D1 /* URLDividerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57E15C2C931DB100E094D1 /* URLDividerManager.swift */; };
+		DF57E15F2C933B3000E094D1 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57E15E2C933B3000E094D1 /* ErrorManager.swift */; };
+		DF57E1612C93643700E094D1 /* NWPathMonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57E1602C93643700E094D1 /* NWPathMonitorManager.swift */; };
 		DF5879572C7F0A0E009F9171 /* SimpleErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879562C7F0A0E009F9171 /* SimpleErrorEntity.swift */; };
 		DF5879592C7F0AC1009F9171 /* DetailedErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5879582C7F0AC1009F9171 /* DetailedErrorEntity.swift */; };
 		DF58795B2C7F0B0C009F9171 /* SimpleErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF58795A2C7F0B0C009F9171 /* SimpleErrorDTO.swift */; };
@@ -286,6 +288,8 @@
 		DF2DBBF72C809CE2000581F6 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		DF57E15A2C9319B700E094D1 /* OpenURLCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenURLCase.swift; sourceTree = "<group>"; };
 		DF57E15C2C931DB100E094D1 /* URLDividerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDividerManager.swift; sourceTree = "<group>"; };
+		DF57E15E2C933B3000E094D1 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
+		DF57E1602C93643700E094D1 /* NWPathMonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NWPathMonitorManager.swift; sourceTree = "<group>"; };
 		DF5879562C7F0A0E009F9171 /* SimpleErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleErrorEntity.swift; sourceTree = "<group>"; };
 		DF5879582C7F0AC1009F9171 /* DetailedErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedErrorEntity.swift; sourceTree = "<group>"; };
 		DF58795A2C7F0B0C009F9171 /* SimpleErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleErrorDTO.swift; sourceTree = "<group>"; };
@@ -509,6 +513,7 @@
 				7BB233492C90102500CE4D39 /* TextFormatManager.swift */,
 				7B26657F2C92C210000A483A /* OpenURLManager.swift */,
 				DF57E15C2C931DB100E094D1 /* URLDividerManager.swift */,
+				DF57E15E2C933B3000E094D1 /* ErrorManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -828,6 +833,7 @@
 				DF986E832C7CCABE00F2D52F /* Router */,
 				DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */,
 				DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */,
+				DF57E1602C93643700E094D1 /* NWPathMonitorManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -986,6 +992,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF57E1612C93643700E094D1 /* NWPathMonitorManager.swift in Sources */,
 				DF92787C2C90776800507207 /* VideosDTO.swift in Sources */,
 				7B26659A2C94203F000A483A /* HistoryVideosEntity.swift in Sources */,
 				DF92787B2C90774C00507207 /* VideoDTO.swift in Sources */,
@@ -996,6 +1003,7 @@
 				DF9278762C9076B000507207 /* VideosEntity.swift in Sources */,
 				DF9278752C90769200507207 /* VideoRouter.swift in Sources */,
 				DF9278742C90767A00507207 /* MoreCharacterFeature.swift in Sources */,
+				DF57E15F2C933B3000E094D1 /* ErrorManager.swift in Sources */,
 				DFABE7302C6E1EA900EF5B81 /* ExColor.swift in Sources */,
 				7B1581AC2C6A528F00599E7C /* ExImage.swift in Sources */,
 				7B1581D02C6C7F5200599E7C /* SplashFeature.swift in Sources */,

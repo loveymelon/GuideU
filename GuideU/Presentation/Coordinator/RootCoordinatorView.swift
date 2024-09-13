@@ -16,7 +16,7 @@ struct RootCoordinatorView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            Group {
+            VStack {
                 switch store.viewState {
                 case .start:
                     
@@ -32,6 +32,22 @@ struct RootCoordinatorView: View {
                 case .tab:
                     TabNavCoordinatorView(store: store.scope(state: \.tabNavCoordinator, action: \.tabNavCoordinatorAction))
                 }
+            }
+            .onAppear {
+                store.send(.viewCycle(.onAppear))
+            }
+            .alert(item: $store.alertMessage.sending(\.bindingMessage)) { item in
+                Text("네트워크 에러")
+            } actions: { _ in
+                Text("확인")
+                    .asButton {
+                        store.send(.bindingMessage(nil))
+                    }
+            } message: { item in
+                Text(item.message)
+                    .onAppear {
+                        print(item)
+                    }
             }
             
         }
