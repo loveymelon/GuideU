@@ -13,7 +13,6 @@ struct HistoryFeature {
     
     @ObservableState
     struct State: Equatable {
-        
         var videosEntity: [HistoryVideosEntity] = []
     }
     

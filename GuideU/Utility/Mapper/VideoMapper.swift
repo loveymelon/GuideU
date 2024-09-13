@@ -23,7 +23,7 @@ struct VideoMapper {
     }
     
     func requestDTOToEntity(_ requestDTO: VideoHistoryRequestDTO) -> VideosEntity {
-        return VideosEntity(identifier: requestDTO.identifier, videoURL: URL(string: requestDTO.videoURL), channelName: requestDTO.channelName, videoImageURL: URL(string: requestDTO.thumbnail), updatedAt: requestDTO.updatedAt, channelImageURL: nil, title: requestDTO.title)
+        return VideosEntity(identifier: requestDTO.identifier, videoURL: URL(string: requestDTO.videoURL), channelName: requestDTO.channelName, videoImageURL: URL(string: requestDTO.thumbnail), updatedAt: requestDTO.updatedAt, channelImageURL: URL(string: requestDTO.channelImage), title: requestDTO.title)
     }
 }
 

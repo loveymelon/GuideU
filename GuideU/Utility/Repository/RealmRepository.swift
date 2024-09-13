@@ -51,6 +51,7 @@ final class RealmRepository {
                         "videoURL": videoData.videoURL?.absoluteString ?? "",
                         "title": videoData.title,
                         "channelName": videoData.channelName,
+                        "channelImage": videoData.channelImageURL?.absoluteString ?? "",
                         "thumbnail": videoData.videoImageURL?.absoluteString ?? "",
                         "updatedAt": videoData.updatedAt,
                         "watchedAt": Date()
