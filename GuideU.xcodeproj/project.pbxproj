@@ -100,6 +100,8 @@
 		7BC2CB552C9839B300309B9B /* SettingCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB542C9839B300309B9B /* SettingCase.swift */; };
 		7BC2CB572C983CA400309B9B /* SettingListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB562C983CA400309B9B /* SettingListCellView.swift */; };
 		7BC2CB592C9840F600309B9B /* SettingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB582C9840F600309B9B /* SettingFeature.swift */; };
+		7BC2CB5C2C98442F00309B9B /* SettingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB5B2C98442F00309B9B /* SettingCoordinator.swift */; };
+		7BC2CB5E2C9844E500309B9B /* SettingCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB5D2C9844E500309B9B /* SettingCoordinatorView.swift */; };
 		7BE122FC2C8C4C0F002E198F /* SharedForYoutubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */; };
 		7BFC8E302C8B0242007FD8F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */; };
 		7BFC8E332C8B0242007FD8F3 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC8E322C8B0242007FD8F3 /* Base */; };
@@ -278,6 +280,8 @@
 		7BC2CB542C9839B300309B9B /* SettingCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCase.swift; sourceTree = "<group>"; };
 		7BC2CB562C983CA400309B9B /* SettingListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListCellView.swift; sourceTree = "<group>"; };
 		7BC2CB582C9840F600309B9B /* SettingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFeature.swift; sourceTree = "<group>"; };
+		7BC2CB5B2C98442F00309B9B /* SettingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCoordinator.swift; sourceTree = "<group>"; };
+		7BC2CB5D2C9844E500309B9B /* SettingCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCoordinatorView.swift; sourceTree = "<group>"; };
 		7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedForYoutubeView.swift; sourceTree = "<group>"; };
 		7BFC8E2D2C8B0242007FD8F3 /* YoutubeExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YoutubeExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -531,6 +535,7 @@
 		7B1581D92C6CB27200599E7C /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				7BC2CB5A2C98441D00309B9B /* SettingTab */,
 				7B2665962C940CB6000A483A /* HistoryTab */,
 				7B2665772C91BEB0000A483A /* Tab */,
 				7B2665722C91BC23000A483A /* SearchTab */,
@@ -767,6 +772,15 @@
 				7BC2CB522C9838AF00309B9B /* SettingView.swift */,
 				7BC2CB562C983CA400309B9B /* SettingListCellView.swift */,
 				7BC2CB582C9840F600309B9B /* SettingFeature.swift */,
+			);
+			path = SettingTab;
+			sourceTree = "<group>";
+		};
+		7BC2CB5A2C98441D00309B9B /* SettingTab */ = {
+			isa = PBXGroup;
+			children = (
+				7BC2CB5B2C98442F00309B9B /* SettingCoordinator.swift */,
+				7BC2CB5D2C9844E500309B9B /* SettingCoordinatorView.swift */,
 			);
 			path = SettingTab;
 			sourceTree = "<group>";
@@ -1064,6 +1078,7 @@
 				7B1581EE2C6CC41900599E7C /* TabCoordinator.swift in Sources */,
 				7B15824E2C73075D00599E7C /* ScrollDetector.swift in Sources */,
 				7B2665762C91BC3E000A483A /* SearchCoordinatorView.swift in Sources */,
+				7BC2CB5C2C98442F00309B9B /* SettingCoordinator.swift in Sources */,
 				7B1581E62C6CBA4200599E7C /* OnboardPageFeature.swift in Sources */,
 				DFB2BE6E2C858D8F00518C7E /* SearchRepository.swift in Sources */,
 				7BACA42C2C8191CE008D4CFC /* MoreCharacterListView.swift in Sources */,
@@ -1083,6 +1098,7 @@
 				7BACA43D2C855E9E008D4CFC /* GuideUReducer.swift in Sources */,
 				DF58795D2C7F0B1F009F9171 /* DetailedErrorDTO.swift in Sources */,
 				DF1DECD62C7D7B9D0098F761 /* CharacterEntity.swift in Sources */,
+				7BC2CB5E2C9844E500309B9B /* SettingCoordinatorView.swift in Sources */,
 				7B2665712C90D587000A483A /* IdentifiableURLEntity.swift in Sources */,
 				7B1581D62C6C815800599E7C /* CodableManager.swift in Sources */,
 				7BACA4442C857186008D4CFC /* SuggestEntity.swift in Sources */,

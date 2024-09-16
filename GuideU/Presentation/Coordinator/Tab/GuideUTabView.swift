@@ -52,18 +52,23 @@ struct GuideUTabView: View {
                             action: \.historyTabAction
                         )
                     )
-//                    Text("asdasd")
                     .tabItem {
                         tabItemView(tabItem: .timeLine)
                     }
                     .tag(TabCase.timeLine)
                     
                     
-                    Text("assss")
-                        .tabItem {
-                            tabItemView(tabItem: .setting)
-                        }
-                        .tag(TabCase.setting)
+                    SettingCoordinatorView(
+                        store: store.scope(
+                            state: \.settingTabState,
+                            action: \.settingTabAction
+                        )
+                    )
+                    .tabItem {
+                        tabItemView(tabItem: .setting)
+                    }
+                    .tag(TabCase.setting)
+                    
                 }
             }
             .onAppear {

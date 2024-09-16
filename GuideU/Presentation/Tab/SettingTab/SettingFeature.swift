@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct SettingFeature: GuideUReducer {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         let navigationTitle = Const.setting
     }
     

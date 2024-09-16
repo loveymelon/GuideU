@@ -20,6 +20,7 @@ struct TabCoordinator {
         var homeTabState = HomeCoordinator.State.initialState
         var searchTabState = SearchCoordinator.State.initialState
         var historyTabState = HistoryCoordinator.State.initialState
+        var settingTabState = SettingCoordinator.State.initialState
     }
     
     enum Action {
@@ -30,6 +31,7 @@ struct TabCoordinator {
         case homeTabAction(HomeCoordinator.Action)
         case searchTabAction(SearchCoordinator.Action)
         case historyTabAction(HistoryCoordinator.Action)
+        case settingTabAction(SettingCoordinator.Action)
         
         enum Delegate {
             case detailButtonTapped(String)
@@ -50,6 +52,9 @@ struct TabCoordinator {
         }
         Scope(state: \.historyTabState, action: \.historyTabAction) {
             HistoryCoordinator()
+        }
+        Scope(state: \.settingTabState, action: \.settingTabAction) {
+            SettingCoordinator()
         }
         
         core()

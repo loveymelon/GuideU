@@ -34,6 +34,7 @@ extension SettingView {
             }
             .listStyle(.plain)
             .navigationTitle(store.navigationTitle)
+            .navigationBarTitleDisplayMode(.inline)
             .scrollDisabled(true)
         }
     }
