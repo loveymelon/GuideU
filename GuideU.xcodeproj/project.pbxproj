@@ -96,6 +96,9 @@
 		7BB233482C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB233472C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift */; };
 		7BB2334A2C90102500CE4D39 /* TextFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB233492C90102500CE4D39 /* TextFormatManager.swift */; };
 		7BB2334E2C90682C00CE4D39 /* MemeExtendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB2334D2C90682C00CE4D39 /* MemeExtendView.swift */; };
+		7BC2CB532C9838AF00309B9B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB522C9838AF00309B9B /* SettingView.swift */; };
+		7BC2CB552C9839B300309B9B /* SettingCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB542C9839B300309B9B /* SettingCase.swift */; };
+		7BC2CB572C983CA400309B9B /* SettingListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB562C983CA400309B9B /* SettingListCellView.swift */; };
 		7BE122FC2C8C4C0F002E198F /* SharedForYoutubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */; };
 		7BFC8E302C8B0242007FD8F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */; };
 		7BFC8E332C8B0242007FD8F3 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC8E322C8B0242007FD8F3 /* Base */; };
@@ -270,6 +273,9 @@
 		7BB233472C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePersonCoordinatorView.swift; sourceTree = "<group>"; };
 		7BB233492C90102500CE4D39 /* TextFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatManager.swift; sourceTree = "<group>"; };
 		7BB2334D2C90682C00CE4D39 /* MemeExtendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeExtendView.swift; sourceTree = "<group>"; };
+		7BC2CB522C9838AF00309B9B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		7BC2CB542C9839B300309B9B /* SettingCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCase.swift; sourceTree = "<group>"; };
+		7BC2CB562C983CA400309B9B /* SettingListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListCellView.swift; sourceTree = "<group>"; };
 		7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedForYoutubeView.swift; sourceTree = "<group>"; };
 		7BFC8E2D2C8B0242007FD8F3 /* YoutubeExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YoutubeExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -457,6 +463,7 @@
 				DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */,
 				7BACA43E2C856C62008D4CFC /* ResultCase.swift */,
 				DF57E15A2C9319B700E094D1 /* OpenURLCase.swift */,
+				7BC2CB542C9839B300309B9B /* SettingCase.swift */,
 			);
 			path = EnumCase;
 			sourceTree = "<group>";
@@ -475,6 +482,7 @@
 		7B1581B42C6A55FB00599E7C /* Tab */ = {
 			isa = PBXGroup;
 			children = (
+				7BC2CB512C98384600309B9B /* SettingTab */,
 				7B26658D2C940C5D000A483A /* HistoryTab */,
 				7BB2333D2C8EC40100CE4D39 /* MorePerson */,
 				7BACA4302C8365E0008D4CFC /* SearchView */,
@@ -749,6 +757,15 @@
 				7BB233472C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift */,
 			);
 			path = MorePersonTab;
+			sourceTree = "<group>";
+		};
+		7BC2CB512C98384600309B9B /* SettingTab */ = {
+			isa = PBXGroup;
+			children = (
+				7BC2CB522C9838AF00309B9B /* SettingView.swift */,
+				7BC2CB562C983CA400309B9B /* SettingListCellView.swift */,
+			);
+			path = SettingTab;
 			sourceTree = "<group>";
 		};
 		7BFC8E2E2C8B0242007FD8F3 /* YoutubeExtention */ = {
@@ -1028,6 +1045,7 @@
 				7B1581D32C6C811100599E7C /* UserDefaultsWrapper.swift in Sources */,
 				DF5E5E462C8F5BBD0090A0D4 /* BookElementsEntity.swift in Sources */,
 				7B2665802C92C210000A483A /* OpenURLManager.swift in Sources */,
+				7BC2CB572C983CA400309B9B /* SettingListCellView.swift in Sources */,
 				7B1581DB2C6CB28A00599E7C /* RootCoordinator.swift in Sources */,
 				7B1581AA2C6A518200599E7C /* ExFont.swift in Sources */,
 				7BB2334E2C90682C00CE4D39 /* MemeExtendView.swift in Sources */,
@@ -1078,6 +1096,7 @@
 				7B2665932C940C9E000A483A /* HistoryCoordinatorView.swift in Sources */,
 				7B1582012C6CF30000599E7C /* DuplicateDTO.swift in Sources */,
 				DFB2BE662C85897300518C7E /* RealmRepository.swift in Sources */,
+				7BC2CB552C9839B300309B9B /* SettingCase.swift in Sources */,
 				7B1581E42C6CB85100599E7C /* OnBoardPageView.swift in Sources */,
 				7BACA42F2C819D9D008D4CFC /* DownImageView.swift in Sources */,
 				DF5879612C7F15DC009F9171 /* LinkDTO.swift in Sources */,
@@ -1086,6 +1105,7 @@
 				DF58795F2C7F0B41009F9171 /* APIErrorResponseDTO.swift in Sources */,
 				7BACA43B2C855CC2008D4CFC /* SearchFeature.swift in Sources */,
 				DF1DECD12C7D79370098F761 /* CharacterRepository.swift in Sources */,
+				7BC2CB532C9838AF00309B9B /* SettingView.swift in Sources */,
 				7BACA4362C8371C3008D4CFC /* SearchHistoryCellView.swift in Sources */,
 				DFB2BE682C8589D200518C7E /* RealmError.swift in Sources */,
 				7B15825D2C74B1DF00599E7C /* CharacterDTO.swift in Sources */,
