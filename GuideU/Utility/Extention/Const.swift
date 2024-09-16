@@ -357,3 +357,7 @@ extension Const {
     }
     
 }
+
+extension Const {
+    static let setting = "설정"
+}

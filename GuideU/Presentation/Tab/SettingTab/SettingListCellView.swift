@@ -35,9 +35,3 @@ struct SettingListCellView: View {
         }
     }
 }
-
-#if DEBUG
-#Preview {
-    SettingView()
-}
-#endif

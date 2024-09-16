@@ -99,6 +99,7 @@
 		7BC2CB532C9838AF00309B9B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB522C9838AF00309B9B /* SettingView.swift */; };
 		7BC2CB552C9839B300309B9B /* SettingCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB542C9839B300309B9B /* SettingCase.swift */; };
 		7BC2CB572C983CA400309B9B /* SettingListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB562C983CA400309B9B /* SettingListCellView.swift */; };
+		7BC2CB592C9840F600309B9B /* SettingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC2CB582C9840F600309B9B /* SettingFeature.swift */; };
 		7BE122FC2C8C4C0F002E198F /* SharedForYoutubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */; };
 		7BFC8E302C8B0242007FD8F3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */; };
 		7BFC8E332C8B0242007FD8F3 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC8E322C8B0242007FD8F3 /* Base */; };
@@ -276,6 +277,7 @@
 		7BC2CB522C9838AF00309B9B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		7BC2CB542C9839B300309B9B /* SettingCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCase.swift; sourceTree = "<group>"; };
 		7BC2CB562C983CA400309B9B /* SettingListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListCellView.swift; sourceTree = "<group>"; };
+		7BC2CB582C9840F600309B9B /* SettingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFeature.swift; sourceTree = "<group>"; };
 		7BE122FB2C8C4C0F002E198F /* SharedForYoutubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedForYoutubeView.swift; sourceTree = "<group>"; };
 		7BFC8E2D2C8B0242007FD8F3 /* YoutubeExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YoutubeExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFC8E2F2C8B0242007FD8F3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 			children = (
 				7BC2CB522C9838AF00309B9B /* SettingView.swift */,
 				7BC2CB562C983CA400309B9B /* SettingListCellView.swift */,
+				7BC2CB582C9840F600309B9B /* SettingFeature.swift */,
 			);
 			path = SettingTab;
 			sourceTree = "<group>";
@@ -1072,6 +1075,7 @@
 				7B1581B22C6A54E700599E7C /* TabCase.swift in Sources */,
 				7B1581F42C6CEBC200599E7C /* Router.swift in Sources */,
 				DF1DECDB2C7D7EF40098F761 /* ErrorEntity.swift in Sources */,
+				7BC2CB592C9840F600309B9B /* SettingFeature.swift in Sources */,
 				DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */,
 				7B1581B62C6A560800599E7C /* GuideUTabView.swift in Sources */,
 				DF1DECD32C7D79820098F761 /* CharacterMapper.swift in Sources */,

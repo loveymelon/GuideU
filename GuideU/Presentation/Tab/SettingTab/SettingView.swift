@@ -10,7 +10,8 @@ import ComposableArchitecture
 
 struct SettingView: View {
     
-//    @Perception.Bindable var store: StoreOf<
+    @Perception.Bindable var store: StoreOf<SettingFeature>
+    
     var body: some View {
         WithPerceptionTracking {
             contentView()
@@ -25,20 +26,23 @@ extension SettingView {
                 ForEach(SettingCase.allCases, id: \.self) { caseOf in
                     SettingListCellView(setModel: caseOf)
                         .asButton {
-                            
+                            store.send(.viewEventType(.selectedSettingCase(caseOf)))
                         }
                         .padding(.vertical, 10)
                         .listRowSeparator(.hidden)
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("설정")
+            .navigationTitle(store.navigationTitle)
+            .scrollDisabled(true)
         }
     }
 }
 
 #if DEBUG
 #Preview {
-    SettingView()
+    SettingView(store: Store(initialState: SettingFeature.State(), reducer: {
+        SettingFeature()
+    }))
 }
 #endif
