@@ -73,6 +73,12 @@ extension TabCoordinator {
                 return .run { send in
                     await send(.delegate(.detailButtonTapped(identifier)))
                 }
+                
+            case let .historyTabAction(.delegate(.detailButtonTapped(identifier))):
+                return .run { send in
+                    await send(.delegate(.detailButtonTapped(identifier)))
+                }
+                
             case .homeTabAction(.delegate(.searchBarTapped)):
                 state.currentTab = .searchTab
                 

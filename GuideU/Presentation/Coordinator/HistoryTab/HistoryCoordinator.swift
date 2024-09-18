@@ -25,6 +25,12 @@ struct HistoryCoordinator {
     
     enum Action {
         case router(IdentifiedRouterActionOf<HistoryScreen>)
+        
+        case delegate(Delegate)
+        
+        enum Delegate {
+            case detailButtonTapped(String)
+        }
     }
     
     var body: some ReducerOf<Self> {
@@ -37,6 +43,11 @@ extension HistoryCoordinator {
     private func core() -> some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+                
+            case let .router(.routeAction(id: .historyView, action: .root(.delegate(.detailButtonTapped(identifier))))):
+                return .run { send in
+                    await send(.delegate(.detailButtonTapped(identifier)))
+                }
                 
             default:
                 break
