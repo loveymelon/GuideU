@@ -39,7 +39,7 @@ extension VideoMapper {
                 string: dto.thumbnailUrl
             ),
             updatedAt: dto.updatedAt.toDate ?? Date(),
-            channelImageURL: channel.getChannelImageURL(channelId: channelID),
+            channelImageURL: channel.getChannelImageURL(channelId: dto.channelId),
             title: dto.title
         )
     }

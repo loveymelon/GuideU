@@ -51,9 +51,14 @@ extension VideoRouter {
                     "skip": skip,
                     "limit": limit
                 ]
-            } else {
+            } else if !identifier.isEmpty {
                 return [
                     "identifier": identifier
+                ]
+            } else {
+                return [
+                    "skip": skip,
+                    "limit": limit
                 ]
             }
         case .fetchCharacters, .fetchMemes:

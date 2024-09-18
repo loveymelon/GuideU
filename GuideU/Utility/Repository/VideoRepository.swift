@@ -30,17 +30,26 @@ struct VideoRepository {
     func fetchVideos(channel: Const.Channel, skip: Int = 0, limit: Int = 10) async -> Result<[VideosEntity], String> {
         var tempData: [VideosEntity] = []
         
-        for id in channel.channelIDs {
-            
-            let result = await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos(channelId: id, skip: skip, limit: limit))
+        if channel.channelIDs.isEmpty {
+            let result = await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos(skip: skip, limit: limit))
             
             switch result {
             case .success(let data):
-                tempData.append(contentsOf: videoMapper.dtoToEntity(data.videos, channel: channel, channelID: id))
+                return .success(videoMapper.dtoToEntity(data.videos, channel: channel))
             case .failure(let error):
                 return .failure(catchError(error))
             }
-            
+        } else {
+            for id in channel.channelIDs {
+                let result = await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos(channelId: id, skip: skip, limit: limit))
+                
+                switch result {
+                case .success(let data):
+                    tempData.append(contentsOf: videoMapper.dtoToEntity(data.videos, channel: channel, channelID: id))
+                case .failure(let error):
+                    return .failure(catchError(error))
+                }
+            }
         }
         
         return .success(tempData.sorted { $0.updatedAt > $1.updatedAt })

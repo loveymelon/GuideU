@@ -23,6 +23,7 @@ enum Const {
     /// 홈화면 에서 사용되는 인물 열겨헝입니다.
     /// 각 이름과 채널 아이디들을 제공합니다.
     enum Channel: CaseIterable {
+        case all
         case wakgood
         case ine
         case jingburger
@@ -33,6 +34,8 @@ enum Const {
         
         var name: String {
             switch self {
+            case .all:
+                return "모두"
             case .wakgood:
                 return Wakgood.name
             case .ine:
@@ -52,6 +55,8 @@ enum Const {
         
         var channelIDs: [String] {
             switch self {
+            case .all:
+                return []
             case .wakgood:
                 return Wakgood.allCases.map { $0.id }
             case .ine:
@@ -69,11 +74,29 @@ enum Const {
             }
         }
         
-        func getChannelImageURL( channelId: String) -> URL? {
+        func getChannelImageURL(channelId: String) -> URL? {
             let base = Const.channelImageBaseString
             let urlString: String
             
             switch self {
+            case .all:
+                if let wakURL = Const.Wakgood.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                    urlString = base + wakURL
+                } else if let ineURL = Const.INE.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                    urlString = base + ineURL
+                } else if let jingURL = Const.JINGBURGER.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                    urlString = base + jingURL
+                } else if let lilpaURL = Const.Lilpa.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                    urlString = base + lilpaURL
+                } else if let jururuURL = Const.JURURU.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                    urlString = base + jururuURL
+                } else if let goseURL = Const.GOSEGU.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                    urlString = base + goseURL
+                } else if let viichanURL = Const.VIichan.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                    urlString = base + viichanURL
+                } else {
+                    urlString = ""
+                }
             case .wakgood:
                 urlString = base + (Const.Wakgood.allCases.first { $0.id == channelId }?.imageURLString ?? "")
             case .ine:
