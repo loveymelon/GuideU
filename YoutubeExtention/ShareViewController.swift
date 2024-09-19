@@ -9,6 +9,7 @@ import SwiftUI
 import Social
 import Combine
 import UniformTypeIdentifiers
+import AppIntents
 
 final class ShareViewController: UIViewController {
     
@@ -120,15 +121,28 @@ final class ShareViewController: UIViewController {
     }
     
     private func openMainApp() {
-        let urlScheme = "guideu://"
+        let urlScheme = "GuideU://"
         if let url = URL(string: urlScheme) {
             // 앱 실행
             if self.openURL(url) {
                 print( "RUN : APP")
             } else {
-                print( "NOT RUN : APP")
+                if let url = (URL(string: urlScheme)) {
+                    if #available(iOS 17, *) {
+                        iOS18ECCEPT(url: url)
+                    }
+                }
             }
             close()
+        }
+    }
+    
+    @available(iOS 17, *)
+    private func iOS18ECCEPT(url : URL) {
+        if !self.openURL2(url) {
+            print( "NOT RUN : APP")
+        } else {
+            
         }
     }
     
@@ -142,6 +156,19 @@ final class ShareViewController: UIViewController {
         }
         return false
     }
+    
+    @objc private func openURL2(_ url: URL) -> Bool {
+        var responder: UIResponder? = self
+        while responder != nil {
+            if let application = responder as? UIApplication {
+                application.open(url, options: [:], completionHandler: nil)
+                return true
+            }
+            responder = responder?.next
+        }
+        return false
+    }
+
 }
 
 final class SharedViewModel: ObservableObject {
