@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import PopupView
 
 struct SearchView: View {
     
@@ -30,6 +31,15 @@ struct SearchView: View {
             }
             .onAppear {
                 store.send(.viewCycleType(.onAppear))
+            }
+            .popup(item: $store.popUpCase.sending(\.popUpCase)) { caseOf in
+                BottomPopView(detail: caseOf.message, backColor: .white)
+            } customize: {
+                $0
+                    .type(.floater())
+                    .position(.top)
+                    .animation(.spring())
+                    .autohideIn(1.5)
             }
         }
     }
