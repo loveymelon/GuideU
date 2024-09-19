@@ -9,6 +9,9 @@ import Foundation
 
 enum Const {
     
+    // 출시후 실제 앱 ID
+    static let appID = "com.WoowakGuide.GuideU"
+    
     static let youtubeBaseString = "https://www.youtube.com/watch?v="
     
     static let channelImageBaseString = "https://photo.waksight.com/channel/"

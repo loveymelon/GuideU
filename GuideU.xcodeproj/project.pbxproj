@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B0D63392C9BFE8C00A9A071 /* SearchResultRelatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63382C9BFE8C00A9A071 /* SearchResultRelatedView.swift */; };
+		7B0D633F2C9C0CC800A9A071 /* AppStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D633E2C9C0CBB00A9A071 /* AppStoreManager.swift */; };
 		7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581862C6A476200599E7C /* GuideUApp.swift */; };
 		7B15818B2C6A476300599E7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818A2C6A476300599E7C /* Assets.xcassets */; };
 		7B15818E2C6A476300599E7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818D2C6A476300599E7C /* Preview Assets.xcassets */; };
@@ -192,6 +193,7 @@
 
 /* Begin PBXFileReference section */
 		7B0D63382C9BFE8C00A9A071 /* SearchResultRelatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRelatedView.swift; sourceTree = "<group>"; };
+		7B0D633E2C9C0CBB00A9A071 /* AppStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreManager.swift; sourceTree = "<group>"; };
 		7B1581832C6A476200599E7C /* GuideU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B1581862C6A476200599E7C /* GuideUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUApp.swift; sourceTree = "<group>"; };
 		7B15818A2C6A476300599E7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 		7B1581D42C6C814400599E7C /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				7B0D633E2C9C0CBB00A9A071 /* AppStoreManager.swift */,
 				DF986E7C2C7CC81B00F2D52F /* Network */,
 				7B1581D52C6C815800599E7C /* CodableManager.swift */,
 				7B1581D72C6C823900599E7C /* UserDefaultsManager.swift */,
@@ -1138,6 +1141,7 @@
 				7B1581FD2C6CF2AF00599E7C /* MemeDTO.swift in Sources */,
 				7B1582562C745C7C00599E7C /* HeaderEntity.swift in Sources */,
 				7BACA3E02C7DB9EB008D4CFC /* GuideUSearchBarView.swift in Sources */,
+				7B0D633F2C9C0CC800A9A071 /* AppStoreManager.swift in Sources */,
 				7BACA4342C836718008D4CFC /* GuidUSearchBarBottomLineView.swift in Sources */,
 				7BACA43F2C856C63008D4CFC /* ResultCase.swift in Sources */,
 				DF5E5E442C8F4DFE0090A0D4 /* DuplicateEntity.swift in Sources */,
@@ -1336,7 +1340,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WoowakGuide.GuideU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1380,7 +1384,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.WoowakGuide.GuideU;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
