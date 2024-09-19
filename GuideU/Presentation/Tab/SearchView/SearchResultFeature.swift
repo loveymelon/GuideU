@@ -78,6 +78,11 @@ extension SearchResultFeature {
                     }
                 }
                 
+            case let .dataTransType(.searchDatas(entitys)):
+                guard let searchResult = entitys.first else { return .none }
+                
+                state.searchResultEntity = searchResult
+                
             case let .dataTransType(.errorInfo(error)):
                 print(error)
                 

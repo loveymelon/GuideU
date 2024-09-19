@@ -10,7 +10,7 @@ import Foundation
 struct SearchResultEntity: Entity {
     let name: String
     let resultType: ResultCase
-    let mean: String
+    let mean: String?
     let description: String
     let relatedVideos: [RelatedVideoEntity]
 }
