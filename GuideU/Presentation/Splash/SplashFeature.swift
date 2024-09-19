@@ -14,7 +14,7 @@ struct SplashFeature {
     @ObservableState
     struct State: Equatable {
         
-        let isFirstUser = UserDefaultsManager.isFirst
+        let isFirstUser = /*UserDefaultsManager.isFirst*/ false
     }
     
     enum Action {
