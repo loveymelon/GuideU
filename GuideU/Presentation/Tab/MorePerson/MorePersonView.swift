@@ -22,55 +22,80 @@ struct MorePersonView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            ZStack(alignment: .top) {
-                // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
-                backgroundImage(size: CGSize(
-                    width: UIScreen.main.bounds.width,
-                    height: 275 + -offsetY )
-                )
+            if store.isValidHeader {
+                ZStack(alignment: .top) {
+                    // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
+                    backgroundImage(size: CGSize(
+                        width: UIScreen.main.bounds.width,
+                        height: 275 + -offsetY )
+                    )
                     .ignoresSafeArea(edges: .top) // Safe area까지 무시
-                
-                ZStack(alignment: .bottom) {
-                    VStack(spacing: 0) {
-                        mainView()
-                            .safeAreaInset(edge: .top) {
-                                // 네비게이션 바를 고정시킴
-                                fakeNavigation(entity: store.headerState, opacity: 1 - opacity)
-                                    .frame(maxWidth: .infinity)
-                            }
-                    }
-                    .onAppear {
-                        store.send(.viewCycleType(.onAppear))
-                    }
-                    .onChange(of: store.currentMoreType) { newValue in
-                        moreType = newValue
-                    }
-                    Text(Const.moreCheckText)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.vertical, 14)
-                        .font(Font(WantedFont.semiFont.font(size: 20)))
-                        .background(Color(GuideUColor.ViewBaseColor.light.primary))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .asButton {
-                            store.send(.viewEventType(.moreButtonTapped))
-                            print("해당 영상 분석후 ( 유튜브 인지 아닌지 ) 유튜브면 유튜브 앱실행 할수 있도록 짜세요!")
+                    
+                    ZStack(alignment: .bottom) {
+                        VStack(spacing: 0) {
+                            mainView()
+                                .safeAreaInset(edge: .top) {
+                                    // 네비게이션 바를 고정시킴
+                                    fakeNavigation(entity: store.headerState, opacity: 1 - opacity)
+                                        .frame(maxWidth: .infinity)
+                                }
                         }
-                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.dark.textColor))
-                        .padding(.horizontal, 10)
-                        .padding(.bottom, 10)
+                        .onAppear {
+                            store.send(.viewCycleType(.onAppear))
+                        }
+                        .onChange(of: store.currentMoreType) { newValue in
+                            moreType = newValue
+                        }
+                        Text(Const.moreCheckText)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.vertical, 14)
+                            .font(Font(WantedFont.semiFont.font(size: 20)))
+                            .background(Color(GuideUColor.ViewBaseColor.light.primary))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .asButton {
+                                store.send(.viewEventType(.moreButtonTapped))
+                                print("해당 영상 분석후 ( 유튜브 인지 아닌지 ) 유튜브면 유튜브 앱실행 할수 있도록 짜세요!")
+                            }
+                            .foregroundStyle(Color(GuideUColor.ViewBaseColor.dark.textColor))
+                            .padding(.horizontal, 10)
+                            .padding(.bottom, 10)
+                    }
                 }
+                .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
+                    WKWebHosting(url: socialURL.url)
+                }
+                .onChange(of: store.openURLCase) { newValue in
+                    guard let openURL = newValue else { return }
+                    
+                    store.send(.viewEventType(.successOpenURL))
+                    openURLManager.openAppUrl(urlCase: openURL)
+                }
+                .toolbar(.hidden, for: .navigationBar)
+            } else {
+                errorView(imageType: .notWak, errorType: .noWak)
             }
-            .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
-                WKWebHosting(url: socialURL.url)
-            }
-            .onChange(of: store.openURLCase) { newValue in
-                guard let openURL = newValue else { return }
-                
-                store.send(.viewEventType(.successOpenURL))
-                openURLManager.openAppUrl(urlCase: openURL)
-            }
-            .toolbar(.hidden, for: .navigationBar)
         }
+    }
+    
+    private func errorView(imageType: Image.ErrorImages, errorType: Const.ErrorDes) -> some View {
+        VStack(spacing: 0) {
+            Image(imageType.rawValue)
+                .resizable()
+                .aspectRatio(1, contentMode: .fit)
+                .frame(width: 260, height: 260)
+                .padding(.bottom, 30)
+            
+            Text(errorType.title)
+                .font(Font(WantedFont.boldFont.font(size: 20)))
+                .padding(.bottom, 4)
+            Text(errorType.des)
+                .font(Font(WantedFont.semiFont.font(size: 14)))
+                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                .multilineTextAlignment(.center)
+            
+            Spacer()
+        }
+        .padding(.horizontal, 5)
     }
     
     private func mainView() -> some View {
@@ -91,8 +116,7 @@ struct MorePersonView: View {
                                 Color.white.frame(maxWidth: .infinity)
                                     .frame(height: 80)
                             } else {
-                                Color.white.frame(maxWidth: .infinity)
-                                    .frame(height: 200)
+                                errorView(imageType: .noData, errorType: .noData)
                             }
                         case .memes:
                             if !store.bookElementsInfo.isEmpty {
@@ -100,8 +124,7 @@ struct MorePersonView: View {
                                 Color.white.frame(maxWidth: .infinity)
                                     .frame(height: 80)
                             } else {
-                                Color.white.frame(maxWidth: .infinity)
-                                    .frame(height: 200)
+                                errorView(imageType: .noData, errorType: .noData)
                             }
                         }
                     }

@@ -393,3 +393,34 @@ extension Const {
 extension Const {
     static let setting = "설정"
 }
+
+extension Const {
+    
+    enum ErrorDes {
+        case noWak
+        case noVideo
+        case noData
+        
+        var title: String {
+            switch self {
+            case .noWak:
+                return "왁타버스의 관련 채널이 아닌 것 같습니다!"
+            case .noVideo:
+                return "영상이 감지 되지 않았습니다!"
+            case .noData:
+                return "영상에서 검출된 정보가 없습니다!"
+            }
+        }
+        
+        var des: String {
+            switch self {
+            case .noWak:
+                return "우왁굳, 이세돌, 고정 멤버, 아카데미 등의\n공식 채널만 작동하는 앱으로\n유튜브 영상을 확인해 주세요!"
+            case .noVideo:
+                return "여러 문제로 에러가 났을 수 있습니다.\n최대한 빨리 고칠 수 있도록 항상 노력하는\n가이두 팀이 되겠습니다."
+            case .noData:
+                return "영상을 찾아봤지만.. 정보가 존재 하지 않네요..\n만약 오류가 발생 한것 같으면\n가이두 팀에게 문의를 남겨주세요!"
+            }
+        }
+    }
+}

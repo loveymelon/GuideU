@@ -91,5 +91,11 @@ extension Image {
             }
         }
     }
+    
+    enum ErrorImages: String {
+        case notWak = "NotWak"
+        case noData = "NoData"
+        case noVideo = "NoVideo"
+    }
 }
 

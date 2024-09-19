@@ -21,6 +21,7 @@ struct PersonFeature: GuideUReducer {
         var currentMoreType: MoreType = .characters
         var identifierURL: String
         var openURLCase: OpenURLCase? = nil
+        var isValidHeader: Bool = true
     }
     
     
@@ -55,7 +56,7 @@ struct PersonFeature: GuideUReducer {
     enum DataTransType {
         case characters([YoutubeCharacterEntity])
         case booksElements([BookElementsEntity])
-        case videodatas(HeaderEntity)
+        case videodatas(HeaderEntity?)
         case youtubeURL(String)
         case checkURL(String)
         case errorInfo(String)
@@ -169,7 +170,12 @@ extension PersonFeature {
                 state.bookElementsInfo = entitys
                 
             case let .dataTransType(.videodatas(entity)):
-                state.headerState = entity
+                guard let headerData = entity else {
+                    state.isValidHeader = false
+                    return .none
+                }
+                
+                state.headerState = headerData
                 
             case let .dataTransType(.checkURL(identifierURL)):
                 if identifierURL.contains(Const.youtubeBaseURL) {
