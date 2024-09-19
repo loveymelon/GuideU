@@ -160,9 +160,11 @@ extension SearchFeature {
                 state.currentText = text
                 state.isSearchResEmpty = false
                 
-                return .run { send in
-                    await send(.networkType(.search(text)))
-                }.debounce(id: CancelId.searchID, for: 1, scheduler: RunLoop.main)
+                if !text.isEmpty {
+                    return .run { send in
+                        await send(.networkType(.search(text)))
+                    }.debounce(id: CancelId.searchID, for: 1, scheduler: RunLoop.main)
+                }
                 
             default:
                 break
