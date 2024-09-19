@@ -69,7 +69,7 @@ extension VideoRepository {
 }
 
 extension VideoRepository: DependencyKey {
-    static var liveValue: VideoRepository = VideoRepository()
+    static let liveValue: VideoRepository = VideoRepository()
 }
 
 extension DependencyValues {

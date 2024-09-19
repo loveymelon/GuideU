@@ -105,7 +105,7 @@ extension VideoMapper {
 }
 
 extension VideoMapper: DependencyKey {
-    static var liveValue: VideoMapper = VideoMapper()
+    static let liveValue: VideoMapper = VideoMapper()
 }
 
 extension DependencyValues {

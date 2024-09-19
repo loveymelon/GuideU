@@ -75,7 +75,7 @@ extension SearchView {
                 )
                 .padding(.horizontal, 10)
                 .padding(.vertical, 10)
-                .onTapGesture {
+                .asButton {
                     store.send(.viewEventType(.searchResultTapped(model.keyWord)))
                 }
             }
@@ -168,7 +168,6 @@ extension SearchView {
         .padding(.horizontal, 10)
     }
 }
-
 
 #if DEBUG
 #Preview {
