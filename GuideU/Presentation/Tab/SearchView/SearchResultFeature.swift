@@ -15,6 +15,9 @@ struct SearchResultFeature: GuideUReducer {
     struct State: Equatable {
         var searchResultEntity: SearchResultEntity? = nil
         let currentSearchKeyword: String
+        let meanText = Const.mean
+        let descriptionText = Const.explain
+        let relatedText = Const.related
     }
     
     enum Action {
@@ -63,15 +66,18 @@ extension SearchResultFeature {
             switch action {
             case .viewCycleType(.viewOnAppear):
                 return .run { send in
+                    print("onAppear")
                     await send(.networkType(.fetchSearch))
                 }
                 
             case .networkType(.fetchSearch):
                 return .run { [state = state] send in
+                    print("network")
                     let result = await searchRepository.fetchSearch(state.currentSearchKeyword)
                     
                     switch result {
                     case let .success(data):
+//                        print(data)
                         await send(.dataTransType(.searchDatas(data)))
                     case let .failure(error):
                         await send(.dataTransType(.errorInfo(error)))
@@ -80,9 +86,10 @@ extension SearchResultFeature {
                 
             case let .dataTransType(.searchDatas(entitys)):
                 guard let searchResult = entitys.first else { return .none }
-                
+                print(entitys[0].relatedVideos)
+                print("result", state.searchResultEntity)
                 state.searchResultEntity = searchResult
-                
+                print("result", state.searchResultEntity)
             case let .dataTransType(.errorInfo(error)):
                 print(error)
                 

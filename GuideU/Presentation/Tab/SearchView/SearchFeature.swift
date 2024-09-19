@@ -37,6 +37,7 @@ struct SearchFeature: GuideUReducer {
         case delegate(Delegate)
         enum Delegate {
             case closeButtonTapped
+            case openToResultView(searchText: String)
         }
     }
     
@@ -100,7 +101,8 @@ extension SearchFeature {
                 }
                 
             case let .viewEventType(.searchResultTapped(text)):
-                if !state.currentText.trimmingCharacters(in: .whitespaces).isEmpty {
+                let currentText = state.currentText.trimmingCharacters(in: .whitespaces)
+                if !currentText.isEmpty {
                     
                     let result = realmRepository.searchCreate(history: text)
                     
@@ -108,6 +110,10 @@ extension SearchFeature {
                     case .success(_):
                         state.searchHistory = realmRepository.fetch()
                         state.currentText = ""
+                        
+                        return .run { send in
+                            await send(.delegate(.openToResultView(searchText: text)))
+                        }
                     case .failure(let error):
                         return .send(.dataTransType(.errorInfo(error.description)))
                     }

@@ -12,6 +12,7 @@ import TCACoordinators
 @Reducer(state: .equatable)
 enum SearchScreen {
     case search(SearchFeature)
+    case searchResult(SearchResultFeature)
 }
 
 @Reducer
@@ -33,6 +34,9 @@ struct SearchCoordinator {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+                
+            case let .router(.routeAction(id: .search, action: .search(.delegate(.openToResultView(searchText))))):
+                state.routes.push(.searchResult(SearchResultFeature.State(currentSearchKeyword: searchText)))
                 
             default:
                 break

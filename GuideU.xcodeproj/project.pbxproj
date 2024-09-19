@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B0D63392C9BFE8C00A9A071 /* SearchResultRelatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63382C9BFE8C00A9A071 /* SearchResultRelatedView.swift */; };
 		7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581862C6A476200599E7C /* GuideUApp.swift */; };
 		7B15818B2C6A476300599E7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818A2C6A476300599E7C /* Assets.xcassets */; };
 		7B15818E2C6A476300599E7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818D2C6A476300599E7C /* Preview Assets.xcassets */; };
@@ -190,6 +191,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B0D63382C9BFE8C00A9A071 /* SearchResultRelatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRelatedView.swift; sourceTree = "<group>"; };
 		7B1581832C6A476200599E7C /* GuideU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B1581862C6A476200599E7C /* GuideUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUApp.swift; sourceTree = "<group>"; };
 		7B15818A2C6A476300599E7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -733,6 +735,7 @@
 				7BACA4402C856CBA008D4CFC /* SearchResultCaseView.swift */,
 				7B2665892C93FEF6000A483A /* SearchResultFeature.swift */,
 				7B26658B2C940441000A483A /* SearchResultView.swift */,
+				7B0D63382C9BFE8C00A9A071 /* SearchResultRelatedView.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				7B1581D62C6C815800599E7C /* CodableManager.swift in Sources */,
 				7BACA4442C857186008D4CFC /* SuggestEntity.swift in Sources */,
 				DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */,
+				7B0D63392C9BFE8C00A9A071 /* SearchResultRelatedView.swift in Sources */,
 				7B1581AF2C6A53A800599E7C /* GuideUColor.swift in Sources */,
 				DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */,
 				7BACA41C2C7EE7FE008D4CFC /* MoreCharacterView.swift in Sources */,

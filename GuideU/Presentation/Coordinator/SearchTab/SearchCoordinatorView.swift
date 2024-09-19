@@ -19,6 +19,8 @@ struct SearchCoordinatorView: View {
                 switch screen.case {
                 case let .search(store):
                     SearchView(store: store)
+                case let .searchResult(store):
+                    SearchResultView(store: store)
                 }
             }
         }
@@ -32,11 +34,14 @@ extension SearchScreen.State: Identifiable {
         switch self {
         case .search:
             return .search
+        case .searchResult:
+            return .searchResult
         }
     }
     
     enum ID {
         case search
+        case searchResult
         
         var id: ID {
             return self
