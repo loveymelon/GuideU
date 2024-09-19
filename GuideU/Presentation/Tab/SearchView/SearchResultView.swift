@@ -20,7 +20,15 @@ struct SearchResultView: View {
             .onAppear {
                 store.send(.viewCycleType(.viewOnAppear))
             }
-            .navigationTitle(store.currentSearchKeyword)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Image(.backBlack)
+                        .asButton {
+                            store.send(.viewEventType(.backButtonTapped))
+                        }
+                }
+            }
+            .navigationBarBackButtonHidden()
         }
     }
 }
@@ -38,9 +46,11 @@ extension SearchResultView {
                         .padding(.horizontal, 15)
                         .padding(.vertical, 8)
                 }
-                descriptionSection(description: model.description)
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 8)
+                if !model.description.isEmpty {
+                    descriptionSection(description: model.description)
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 8)
+                }
                 
                 Divider()
                     .frame(height: 1)
@@ -56,8 +66,8 @@ extension SearchResultView {
     private func titleSection(model: SearchResultEntity) -> some View {
         VStack {
             HStack {
-                MarqueeTextView(text: model.name, font: WantedFont.semiFont.font(size: 24), leading: 10, trailing: 20, startDelay: 1, alignment: .leading)
-                    .padding(.horizontal, 14)
+                MarqueeTextView(text: model.name, font: WantedFont.semiFont.font(size: 24), leading: 10, trailing: 10, startDelay: 1, alignment: .leading)
+                    .padding(.horizontal, 4)
                 
                 caseOfView(model: model)
                 Spacer()

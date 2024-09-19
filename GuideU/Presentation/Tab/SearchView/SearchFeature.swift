@@ -18,12 +18,28 @@ struct SearchFeature: GuideUReducer {
         var searchCaseList: [SuggestEntity] = []
         var isSearchResEmpty: Bool = false
         var backButtonHidden: Bool = true
+        var popUpCase: popUpCase? = nil
         
         // Static Text
         let placeHolderText = Const.placeHolderText
         let navigationTitle = Const.navTitle
         let allClearText = Const.allClear
         let recentSectionText = Const.recentSection
+    }
+    
+    enum popUpCase {
+        case allDelete
+        case delete
+        var message: String {
+            switch self {
+            case .allDelete:
+                return Const.allDeleteMent
+            case .delete:
+                return Const.deleteMent
+            }
+        }
+        
+        var title: String { return "삭제"}
     }
     
     enum Action {
@@ -35,6 +51,7 @@ struct SearchFeature: GuideUReducer {
         /// Binding
         case currentText(String)
         case delegate(Delegate)
+        case popUpCase(popUpCase?)
         enum Delegate {
             case closeButtonTapped
             case openToResultView(searchText: String)
@@ -91,9 +108,23 @@ extension SearchFeature {
                 switch result {
                 case .success(_):
                     state.searchHistory.remove(at: index)
+                    
+                    state.popUpCase = .delete
                 case .failure(let error):
                     return .send(.dataTransType(.errorInfo(error.description)))
                 }
+                
+            case .viewEventType(.deleteAll):
+                let result = realmRepository.deleteAll()
+                state.popUpCase = .allDelete
+                
+                switch result {
+                case .success():
+                    state.searchHistory.removeAll()
+                case .failure(let error):
+                    return .send(.dataTransType(.errorInfo(error.description)))
+                }
+                
                 
             case let .viewEventType(.onSubmit(text)):
                 return .run { send in
@@ -119,15 +150,7 @@ extension SearchFeature {
                     }
                 }
                 
-            case .viewEventType(.deleteAll):
-                let result = realmRepository.deleteAll()
-                
-                switch result {
-                case .success():
-                    state.searchHistory.removeAll()
-                case .failure(let error):
-                    return .send(.dataTransType(.errorInfo(error.description)))
-                }
+           
                 
             case .viewEventType(.closeButtonTapped):
                 return .run { send in
@@ -165,6 +188,9 @@ extension SearchFeature {
                         await send(.networkType(.search(text)))
                     }.debounce(id: CancelId.searchID, for: 1, scheduler: RunLoop.main)
                 }
+                
+            case let .popUpCase(caseOf):
+                state.popUpCase = caseOf
                 
             default:
                 break

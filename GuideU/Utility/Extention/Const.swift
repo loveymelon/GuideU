@@ -353,6 +353,9 @@ extension Const {
     
     static let noResultMent = "검색 결과가 없습니다."
     
+    static let deleteMent = "검색어를 삭제하였습니다."
+    static let allDeleteMent = "전체 검색어를 삭제하였습니다."
+    
     enum noResultReason: CaseIterable {
         case check
         case other

@@ -28,7 +28,7 @@ struct SearchResultFeature: GuideUReducer {
         case delegate(Delegate)
         
         enum Delegate {
-            
+            case backButtonTapped
         }
     }
     
@@ -37,7 +37,7 @@ struct SearchResultFeature: GuideUReducer {
     }
     
     enum ViewEventType {
-        
+        case backButtonTapped
     }
     
     enum DataTransType {
@@ -92,6 +92,9 @@ extension SearchResultFeature {
                 print("result", state.searchResultEntity)
             case let .dataTransType(.errorInfo(error)):
                 print(error)
+                
+            case .viewEventType(.backButtonTapped):
+                return .send(.delegate(.backButtonTapped))
                 
             default:
                 break
