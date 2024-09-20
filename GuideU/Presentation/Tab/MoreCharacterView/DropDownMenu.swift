@@ -20,8 +20,8 @@ struct DropDownMenu: View {
     @Binding
     var selectedOptionIndex: Int
     
-    @State
-    private var showDropdown: Bool = false
+    @Binding
+    var showDropdown: Bool
     
     var body: some  View {
         VStack {
