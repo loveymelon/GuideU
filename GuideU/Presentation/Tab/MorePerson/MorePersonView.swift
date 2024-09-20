@@ -81,7 +81,9 @@ struct MorePersonView: View {
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Image(.backBlack)
-                                .aspectRatio(1, contentMode: .fit)
+                                .asButton {
+                                    store.send(.viewEventType(.backButtonTapped))
+                                }
                         }
                     }
             }

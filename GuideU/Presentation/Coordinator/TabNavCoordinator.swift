@@ -72,17 +72,17 @@ extension TabNavCoordinator {
                 
                 if let url = UserDefaultsManager.sharedURL {
                     state.routes.push(.detail(PersonFeature.State(identifierURL: url)))
-                }
-                
-            case .viewLifeCycle(.onAppear):
-                if let url = UserDefaultsManager.sharedURL {
-                    state.routes.push(.detail(PersonFeature.State(identifierURL: url)))
                     
                     return .run { send in
                         await send(.router(.routeAction(id: .detail, action: .detail(.parentAction(.sharedURL(url))))))
                     }
                 }
                 
+            case .viewLifeCycle(.onAppear):
+                if let url = UserDefaultsManager.sharedURL {
+                    state.routes.push(.detail(PersonFeature.State(identifierURL: url)))
+                    
+                }
                 
             case .router(.routeAction(id: .detail, action: .detail(.delegate(.backButtonTapped)))):
                 state.routes.pop()
