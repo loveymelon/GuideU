@@ -83,12 +83,12 @@ extension MoreCharacterView {
             
         }
         .background(Color(GuideUColor.ViewBaseColor.light.backColor))
-        .simultaneousGesture(
-            DragGesture()
-                .onChanged({ _ in
-                    dropdown = false
-                })
-        )
+//        .simultaneousGesture(
+//            DragGesture()
+//                .onChanged({ _ in
+//                    dropdown = false
+//                })
+//        )
     }
     
     private func listContentView() -> some View {

@@ -141,15 +141,8 @@ extension MoreCharacterFeature {
                 }
                 
             case .viewEventType(.detailButtonTapped):
-                let videoInfo = state.videoInfos[state.selectedIndex]
-                
-                let result = realmRepository.videoHistoryCreate(videoData: videoInfo)
-                
-                return .run { send in
-                    if case let .failure(error) = result {
-                        await send(.dataTransType(.errorInfo(error.description)))
-                    }
-                    await send(.delegate(.detailButtonTapped(videoInfo.identifier)))
+                return .run { [state = state] send in
+                    await send(.delegate(.detailButtonTapped(state.videoInfos[state.selectedIndex].identifier)))
                 }
                 
             case .viewEventType(.successOpenURL):

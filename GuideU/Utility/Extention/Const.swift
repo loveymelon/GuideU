@@ -123,6 +123,30 @@ enum Const {
             
             return URL(string: urlString)
         }
+        
+        static func findURL(channelId: String) -> URL? {
+            let base = Const.channelImageBaseString
+            let urlString: String
+            
+            if let wakURL = Const.Wakgood.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                urlString = base + wakURL
+            } else if let ineURL = Const.INE.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                urlString = base + ineURL
+            } else if let jingURL = Const.JINGBURGER.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                urlString = base + jingURL
+            } else if let lilpaURL = Const.Lilpa.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                urlString = base + lilpaURL
+            } else if let jururuURL = Const.JURURU.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                urlString = base + jururuURL
+            } else if let goseURL = Const.GOSEGU.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                urlString = base + goseURL
+            } else if let viichanURL = Const.VIichan.allCases.first(where: { $0.id == channelId })?.imageURLString {
+                urlString = base + viichanURL
+            } else {
+                urlString = ""
+            }
+            return URL(string: urlString)
+        }
     }
     
     enum Wakgood: CaseIterable {

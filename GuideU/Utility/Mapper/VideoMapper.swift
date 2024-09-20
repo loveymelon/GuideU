@@ -39,7 +39,7 @@ extension VideoMapper {
                 string: dto.thumbnailUrl
             ),
             updatedAt: dto.updatedAt.toDate ?? Date(),
-            channelImageURL: channel.getChannelImageURL(channelId: dto.channelId),
+            channelImageURL: openImageURL(Const.Channel.findURL(channelId: dto.channelId)),
             title: dto.title
         )
     }
@@ -52,6 +52,19 @@ extension VideoMapper {
             thumImage: URL(string: dto.thumbnailUrl),
             updatedAt: dto.updatedAt.toDate ?? Date()
         )
+    }
+}
+
+extension VideoMapper {
+    private func openImageURL(_ url: URL?) -> URL? {
+        let validExtensions = ["jpg", "jpeg", "png"]  // 허용할 이미지 파일 확장자 목록
+        
+        guard let fileExtension = url?.pathExtension.lowercased() else { return nil }
+        
+        if validExtensions.contains(fileExtension) {
+            return url
+        }
+        return nil
     }
 }
 

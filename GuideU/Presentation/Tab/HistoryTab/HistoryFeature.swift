@@ -74,7 +74,6 @@ extension HistoryFeature {
             switch action {
             case .viewCycleType(.viewOnAppear):
                 state.videosEntity = realmRepository.fetchVideoHistory()
-                print("실행함 \(state.videosEntity)")
                 
             case let .viewEventType(.videoTapped(entity)):
                 state.selectedVideoData = entity

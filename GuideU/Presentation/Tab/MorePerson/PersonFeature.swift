@@ -195,9 +195,10 @@ extension PersonFeature {
                 
                 state.videoState = .content
                 
+                print("videoInfo", state.videoInfo)
+                
                 let result = realmRepository.videoHistoryCreate(videoData: state.videoInfo)
                 
-           
                 if case let .failure(error) = result {
                     return .run { send in
                         await send(.dataTransType(.errorInfo(error.description)))
