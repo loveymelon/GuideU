@@ -30,6 +30,7 @@ struct PersonFeature: GuideUReducer {
     enum ViewState {
         case loading
         case content
+        case severError
         case none
     }
     
@@ -213,6 +214,7 @@ extension PersonFeature {
                 }
                 
             case let .dataTransType(.errorInfo(error)):
+                state.memeState = .severError
                 print(error)
                 
             case let .dataTransType(.youtubeURL(urlString)):

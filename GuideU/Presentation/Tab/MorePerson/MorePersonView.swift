@@ -75,6 +75,8 @@ struct MorePersonView: View {
                     openURLManager.openAppUrl(urlCase: openURL)
                 }
                 .toolbar(.hidden, for: .navigationBar)
+            case .severError:
+                errorView(imageType: .notWak, errorType: .serverError)
             case .none:
                 errorView(imageType: .notWak, errorType: .noWak)
                     .navigationBarBackButtonHidden()
@@ -131,6 +133,8 @@ struct MorePersonView: View {
                                 characterSectionView()
                                 Color.white.frame(maxWidth: .infinity)
                                     .frame(height: 80)
+                            case .severError:
+                                errorView(imageType: .notWak, errorType: .serverError)
                             case .none:
                                 errorView(imageType: .noData, errorType: .noData)
                             }
@@ -143,6 +147,8 @@ struct MorePersonView: View {
                                 memeSectionView()
                                 Color.white.frame(maxWidth: .infinity)
                                     .frame(height: 80)
+                            case .severError:
+                                errorView(imageType: .notWak, errorType: .serverError)
                             case .none:
                                 errorView(imageType: .noData, errorType: .noData)
                             }
