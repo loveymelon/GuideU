@@ -141,8 +141,6 @@ final class ShareViewController: UIViewController {
     private func iOS18ECCEPT(url : URL) {
         if !self.openURL2(url) {
             print( "NOT RUN : APP")
-        } else {
-            
         }
     }
     

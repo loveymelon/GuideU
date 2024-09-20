@@ -26,6 +26,7 @@ struct SearchHistoryCellView: View {
                 
                 Text(name)
                     .font(Font(WantedFont.regularFont.font(size: 16)))
+                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
                 Spacer()
                 
                 Image.close
@@ -34,7 +35,7 @@ struct SearchHistoryCellView: View {
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 22)
                     .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
-                    .asButton {
+                    .onTapGesture {
                         removeTapped()
                     }
             }

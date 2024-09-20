@@ -58,6 +58,9 @@ extension SearchView {
                     /// RemoveButtonTapped
                     store.send(.viewEventType(.deleteHistory(index: index)))
                 }
+                .asButton {
+                    store.send(.viewEventType(.historyTapped(text: text)))
+                }
                     .padding(.trailing, 10)
                     .padding(.leading, 8)
             }

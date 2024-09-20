@@ -27,10 +27,7 @@ enum SettingCase: CaseIterable {
     var subTitle: String {
         switch self {
         case .appInfo:
-            var version = "1.0.0"
-            if let reactVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
-                version = reactVersion
-            }
+            let version = Const.appShortVersion
             return "v" + version
         case .credit:
             return ""

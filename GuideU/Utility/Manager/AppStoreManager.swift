@@ -9,7 +9,7 @@ import UIKit
 
 final class AppStoreManager {
     
-    private let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+    private let buildNumber = Const.appVersion
     private let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/" + Const.appID
     
     static let shared = AppStoreManager()
