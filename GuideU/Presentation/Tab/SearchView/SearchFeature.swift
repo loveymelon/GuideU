@@ -182,6 +182,7 @@ extension SearchFeature {
                 
                 // MARK: Binding
             case let .currentText(text):
+                if state.currentText == text { return .none }
                 state.currentText = text
                 state.isSearchResEmpty = false
                 

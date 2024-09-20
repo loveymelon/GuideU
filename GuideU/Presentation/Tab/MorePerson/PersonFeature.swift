@@ -39,12 +39,17 @@ struct PersonFeature: GuideUReducer {
         case networkType(NetworkType)
         
         case delegate(Delegate)
+        case parentAction(ParentAction)
         
         //binding
         case bindingURL(IdentifiableURLEntity?)
         
         enum Delegate {
             case backButtonTapped
+        }
+        
+        enum ParentAction {
+            case sharedURL(String)
         }
     }
     
@@ -77,7 +82,7 @@ struct PersonFeature: GuideUReducer {
     }
     
     enum CancelId: Hashable {
-        
+        case sharedURL
     }
     
     enum MoreType: CaseIterable {
@@ -204,9 +209,18 @@ extension PersonFeature {
                         await send(.networkType(.fetchMemes(identifier)))
                         UserDefaultsManager.sharedURL = nil
                     }
+                    .debounce(id: CancelId.sharedURL, for: 1, scheduler: RunLoop.main)
                 } else {
                     UserDefaultsManager.sharedURL = nil
-                    print("notFound")
+                    state.videoState = .none
+                }
+                
+            case let .parentAction(.sharedURL(identifierURL)):
+                state.videoState = .loading
+                state.identifierURL = identifierURL
+                
+                return .run { [state = state] send in
+                    await send(.dataTransType(.youtubeURL(state.identifierURL)))
                 }
                 
             case let .bindingURL(socialURL):

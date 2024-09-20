@@ -32,9 +32,14 @@ struct TabNavCoordinator {
 
         /// 상위뷰에게 전달
         case delegate(Delegate)
+        case parentAction(ParentAction)
         
         enum Delegate {
 
+        }
+        
+        enum ParentAction {
+            case sharedURL(String)
         }
     }
     
@@ -72,6 +77,10 @@ extension TabNavCoordinator {
             case .viewLifeCycle(.onAppear):
                 if let url = UserDefaultsManager.sharedURL {
                     state.routes.push(.detail(PersonFeature.State(identifierURL: url)))
+                    
+                    return .run { send in
+                        await send(.router(.routeAction(id: .detail, action: .detail(.parentAction(.sharedURL(url))))))
+                    }
                 }
                 
                 

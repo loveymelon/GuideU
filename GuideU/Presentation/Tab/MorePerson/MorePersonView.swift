@@ -25,6 +25,7 @@ struct MorePersonView: View {
             switch store.videoState {
             case .loading:
                 ProgressView()
+                    .navigationBarBackButtonHidden()
                     .onAppear {
                         store.send(.viewCycleType(.onAppear))
                     }
@@ -76,6 +77,13 @@ struct MorePersonView: View {
                 .toolbar(.hidden, for: .navigationBar)
             case .none:
                 errorView(imageType: .notWak, errorType: .noWak)
+                    .navigationBarBackButtonHidden()
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Image(.backBlack)
+                                .aspectRatio(1, contentMode: .fit)
+                        }
+                    }
             }
         }
     }
