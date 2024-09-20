@@ -90,8 +90,14 @@ extension DropDownMenu {
             } label: {
                 VStack(spacing: 0) {
                     HStack(spacing: nil) {
-                        Text(options[selectedOptionIndex] + " 님")
-                            .font(Font(WantedFont.boldFont.font(size: 21)))
+                        if options[selectedOptionIndex] == Const.Channel.all.name {
+                            Text(options[selectedOptionIndex])
+                                .font(Font(WantedFont.boldFont.font(size: 21)))
+                        } else {
+                            Text(options[selectedOptionIndex] + " 님")
+                                .font(Font(WantedFont.boldFont.font(size: 21)))
+                        }
+                        
                         Spacer()
                         Image.dropDown
                             .rotationEffect(.degrees((showDropdown ?  -180 : 0)))
