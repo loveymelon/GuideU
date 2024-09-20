@@ -14,6 +14,8 @@ struct MoreCharacterView: View {
     
     @Environment(\.openURLManager) var openURLManager
     
+    @State var dropdown: Bool = false
+    
     var body: some View {
         WithPerceptionTracking {
             VStack {
@@ -81,6 +83,12 @@ extension MoreCharacterView {
             
         }
         .background(Color(GuideUColor.ViewBaseColor.light.backColor))
+        .simultaneousGesture(
+            DragGesture()
+                .onChanged({ _ in
+                    dropdown = false
+                })
+        )
     }
     
     private func listContentView() -> some View {
@@ -116,10 +124,19 @@ extension MoreCharacterView {
             )
             
             HStack(alignment: .top, spacing: 4) {
-                DropDownMenu(options: store.dropDownOptions.map({ $0.name }), selectedOptionIndex: $store.currentIndex.sending(\.currentIndex))
-                    .frame(width: 110)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .zIndex(100)
+                DropDownMenu(
+                    options: store.dropDownOptions.map(
+                        {
+                            $0.name
+                        }),
+                    selectedOptionIndex: $store.currentIndex.sending(
+                        \.currentIndex
+                    ),
+                    showDropdown: $dropdown
+                )
+                .frame(width: 110)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .zIndex(100)
                 
                 Text(store.constViewState.sub)
                     .font(Font(WantedFont.regularFont.font(size: 22)))
