@@ -13,15 +13,16 @@ struct VideoRepository {
     @Dependency(\.videoMapper) var videoMapper
     @Dependency(\.errorMapper) var errorMapper
     
-    func fetchVideoHeader(identifier: String) async -> Result<HeaderEntity?, String> {
+    func fetchVideoHeader(identifier: String) async -> Result<(header: HeaderEntity, video: VideosEntity)?, String> {
         let result = await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos(identifier: identifier))
         
         switch result {
         case .success(let data):
-            guard let result = videoMapper.dtoToEntityToHeader(data.videos).first else {
+            guard let headerData = videoMapper.dtoToEntityToHeader(data.videos).first,
+                  let videoData = videoMapper.dtoToEntity(data.videos).first else {
                 return .success(nil)
             }
-            return .success(result)
+            return .success((headerData, videoData))
         case .failure(let error):
             return .failure(catchError(error))
         }

@@ -14,6 +14,7 @@ struct PersonFeature: GuideUReducer {
     @ObservableState
     struct State: Equatable {
         var headerState = HeaderEntity.initialSelf
+        var videoInfo: VideosEntity = VideosEntity()
         var sharedURL: String = ""
         var charactersInfo: [YoutubeCharacterEntity] = []
         var bookElementsInfo: [BookElementsEntity] = []
@@ -68,7 +69,7 @@ struct PersonFeature: GuideUReducer {
     enum DataTransType {
         case characters([YoutubeCharacterEntity])
         case booksElements([BookElementsEntity])
-        case videodatas(HeaderEntity?)
+        case videodatas((header: HeaderEntity, video: VideosEntity)?)
         case youtubeURL(String)
         case checkURL(String)
         case errorInfo(String)
@@ -168,7 +169,7 @@ extension PersonFeature {
                     
                     switch result {
                     case let .success(data):
-                        await send(.dataTransType(.videodatas(data)))
+                        await send(.dataTransType(.videodatas((data))))
                     case let .failure(error):
                         await send(.dataTransType(.errorInfo(error)))
                     }
@@ -183,13 +184,25 @@ extension PersonFeature {
                 state.memeState = state.bookElementsInfo.isEmpty ? .none : .content
                 
             case let .dataTransType(.videodatas(entity)):
-                guard let headerData = entity else {
+                guard let headerData = entity?.header,
+                      let videoData = entity?.video else {
                     state.videoState = .none
                     return .none
                 }
                 
                 state.headerState = headerData
+                state.videoInfo = videoData
+                
                 state.videoState = .content
+                
+                let result = realmRepository.videoHistoryCreate(videoData: state.videoInfo)
+                
+           
+                if case let .failure(error) = result {
+                    return .run { send in
+                        await send(.dataTransType(.errorInfo(error.description)))
+                    }
+                }
                 
             case let .dataTransType(.checkURL(identifierURL)):
                 if identifierURL.contains(Const.youtubeBaseURL) {
