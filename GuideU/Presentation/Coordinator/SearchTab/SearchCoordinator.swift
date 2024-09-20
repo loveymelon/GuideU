@@ -38,6 +38,8 @@ struct SearchCoordinator {
             case let .router(.routeAction(id: .search, action: .search(.delegate(.openToResultView(searchText))))):
                 state.routes.push(.searchResult(SearchResultFeature.State(currentSearchKeyword: searchText)))
                 
+            case .router(.routeAction(id: .searchResult, action: .searchResult(.delegate(.backButtonTapped)))):
+                state.routes.pop()
             default:
                 break
             }

@@ -69,6 +69,7 @@ struct SearchFeature: GuideUReducer {
         case deleteAll
         case closeButtonTapped
         case searchResultTapped(String)
+        case historyTapped(text: String)
     }
     
     enum DataTransType {
@@ -150,7 +151,8 @@ extension SearchFeature {
                     }
                 }
                 
-           
+            case let .viewEventType(.historyTapped(text)):
+                return.send(.currentText(text))
                 
             case .viewEventType(.closeButtonTapped):
                 return .run { send in
