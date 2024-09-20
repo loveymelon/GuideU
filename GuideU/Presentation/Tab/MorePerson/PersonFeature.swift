@@ -21,9 +21,16 @@ struct PersonFeature: GuideUReducer {
         var currentMoreType: MoreType = .characters
         var identifierURL: String
         var openURLCase: OpenURLCase? = nil
-        var isValidHeader: Bool = true
+        var characterState: ViewState = .loading
+        var memeState: ViewState = .loading
+        var videoState: ViewState = .loading
     }
     
+    enum ViewState {
+        case loading
+        case content
+        case none
+    }
     
     enum Action {
         case viewCycleType(ViewCycleType)
@@ -164,18 +171,20 @@ extension PersonFeature {
                 
             case let .dataTransType(.characters(entitys)):
                 state.charactersInfo = entitys
-                print("characters", state.charactersInfo)
+                state.characterState = state.charactersInfo.isEmpty ? .none : .content
                 
             case let .dataTransType(.booksElements(entitys)):
                 state.bookElementsInfo = entitys
+                state.memeState = state.bookElementsInfo.isEmpty ? .none : .content
                 
             case let .dataTransType(.videodatas(entity)):
                 guard let headerData = entity else {
-                    state.isValidHeader = false
+                    state.videoState = .none
                     return .none
                 }
                 
                 state.headerState = headerData
+                state.videoState = .content
                 
             case let .dataTransType(.checkURL(identifierURL)):
                 if identifierURL.contains(Const.youtubeBaseURL) {

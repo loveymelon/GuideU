@@ -22,7 +22,13 @@ struct MorePersonView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            if store.isValidHeader {
+            switch store.videoState {
+            case .loading:
+                ProgressView()
+                    .onAppear {
+                        store.send(.viewCycleType(.onAppear))
+                    }
+            case .content:
                 ZStack(alignment: .top) {
                     // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
                     backgroundImage(size: CGSize(
@@ -39,9 +45,6 @@ struct MorePersonView: View {
                                     fakeNavigation(entity: store.headerState, opacity: 1 - opacity)
                                         .frame(maxWidth: .infinity)
                                 }
-                        }
-                        .onAppear {
-                            store.send(.viewCycleType(.onAppear))
                         }
                         .onChange(of: store.currentMoreType) { newValue in
                             moreType = newValue
@@ -71,7 +74,7 @@ struct MorePersonView: View {
                     openURLManager.openAppUrl(urlCase: openURL)
                 }
                 .toolbar(.hidden, for: .navigationBar)
-            } else {
+            case .none:
                 errorView(imageType: .notWak, errorType: .noWak)
             }
         }
@@ -111,19 +114,26 @@ struct MorePersonView: View {
                     VStack {
                         switch moreType {
                         case .characters:
-                            if !store.charactersInfo.isEmpty {
+                            switch store.characterState {
+                            case .loading:
+                                ProgressView()
+                            case .content:
                                 characterSectionView()
                                 Color.white.frame(maxWidth: .infinity)
                                     .frame(height: 80)
-                            } else {
+                            case .none:
                                 errorView(imageType: .noData, errorType: .noData)
                             }
+
                         case .memes:
-                            if !store.bookElementsInfo.isEmpty {
+                            switch store.memeState {
+                            case .loading:
+                                ProgressView()
+                            case .content:
                                 memeSectionView()
                                 Color.white.frame(maxWidth: .infinity)
                                     .frame(height: 80)
-                            } else {
+                            case .none:
                                 errorView(imageType: .noData, errorType: .noData)
                             }
                         }
