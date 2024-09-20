@@ -21,6 +21,11 @@ struct SettingFeature: GuideUReducer {
         case viewEventType(ViewEventType)
         case dataTransType(DataTransType)
         case networkType(NetworkType)
+        case delegate(Delegate)
+        
+        enum Delegate {
+            case sendToAppInfo
+        }
     }
     
     var body: some ReducerOf<Self> {
@@ -53,7 +58,15 @@ extension SettingFeature {
     private func core() -> some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                
+            case let .viewEventType(.selectedSettingCase(caseOf)):
+                switch caseOf {
+                case .theme:
+                    break
+                case .appInfo:
+                    return .send(.delegate(.sendToAppInfo))
+                case .credit:
+                    break
+                }
             default:
                 break
             }

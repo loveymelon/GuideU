@@ -8,7 +8,10 @@
 import Foundation
 
 enum Const {
-    
+    /// EX) 1
+    static let appVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Error"
+    /// EX) 0.1.0
+    static let appShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Error"
     // 출시후 실제 앱 ID
     static let appID = "com.WoowakGuide.GuideU"
     
@@ -17,6 +20,8 @@ enum Const {
     static let channelImageBaseString = "https://photo.waksight.com/channel/"
     
     static let youtubeBaseURL = "https://www.youtube.com/"
+    
+    static let appName = "가이두"
     
     enum Splash {
         static let splashText = "왁타버스를 여행하는\n팬치, 이파리들을\n위한 안내서"
@@ -426,4 +431,10 @@ extension Const {
             }
         }
     }
+}
+
+/// App Info
+extension Const {
+    static let navigationTitle = "앱 정보"
+    static let sectionTitle = "소프트웨어 정보"
 }

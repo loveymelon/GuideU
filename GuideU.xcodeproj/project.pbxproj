@@ -10,6 +10,8 @@
 		7B0D63392C9BFE8C00A9A071 /* SearchResultRelatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63382C9BFE8C00A9A071 /* SearchResultRelatedView.swift */; };
 		7B0D633F2C9C0CC800A9A071 /* AppStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D633E2C9C0CBB00A9A071 /* AppStoreManager.swift */; };
 		7B0D63422C9C25D700A9A071 /* BottomPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63412C9C25D700A9A071 /* BottomPopView.swift */; };
+		7B0D63482C9D1FF700A9A071 /* AppInfoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63472C9D1FF700A9A071 /* AppInfoFeature.swift */; };
+		7B0D634A2C9D1FFF00A9A071 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63492C9D1FFF00A9A071 /* AppInfoView.swift */; };
 		7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581862C6A476200599E7C /* GuideUApp.swift */; };
 		7B15818B2C6A476300599E7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818A2C6A476300599E7C /* Assets.xcassets */; };
 		7B15818E2C6A476300599E7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818D2C6A476300599E7C /* Preview Assets.xcassets */; };
@@ -196,6 +198,8 @@
 		7B0D63382C9BFE8C00A9A071 /* SearchResultRelatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRelatedView.swift; sourceTree = "<group>"; };
 		7B0D633E2C9C0CBB00A9A071 /* AppStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreManager.swift; sourceTree = "<group>"; };
 		7B0D63412C9C25D700A9A071 /* BottomPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPopView.swift; sourceTree = "<group>"; };
+		7B0D63472C9D1FF700A9A071 /* AppInfoFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoFeature.swift; sourceTree = "<group>"; };
+		7B0D63492C9D1FFF00A9A071 /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		7B1581832C6A476200599E7C /* GuideU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B1581862C6A476200599E7C /* GuideUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUApp.swift; sourceTree = "<group>"; };
 		7B15818A2C6A476300599E7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -371,6 +375,15 @@
 				7B0D63412C9C25D700A9A071 /* BottomPopView.swift */,
 			);
 			path = PopUp;
+			sourceTree = "<group>";
+		};
+		7B0D63462C9D1FE900A9A071 /* AppInfo */ = {
+			isa = PBXGroup;
+			children = (
+				7B0D63472C9D1FF700A9A071 /* AppInfoFeature.swift */,
+				7B0D63492C9D1FFF00A9A071 /* AppInfoView.swift */,
+			);
+			path = AppInfo;
 			sourceTree = "<group>";
 		};
 		7B15817A2C6A476200599E7C = {
@@ -786,6 +799,7 @@
 		7BC2CB512C98384600309B9B /* SettingTab */ = {
 			isa = PBXGroup;
 			children = (
+				7B0D63462C9D1FE900A9A071 /* AppInfo */,
 				7BC2CB522C9838AF00309B9B /* SettingView.swift */,
 				7BC2CB562C983CA400309B9B /* SettingListCellView.swift */,
 				7BC2CB582C9840F600309B9B /* SettingFeature.swift */,
@@ -1147,6 +1161,7 @@
 				7BACA4362C8371C3008D4CFC /* SearchHistoryCellView.swift in Sources */,
 				DFB2BE682C8589D200518C7E /* RealmError.swift in Sources */,
 				7B15825D2C74B1DF00599E7C /* CharacterDTO.swift in Sources */,
+				7B0D63482C9D1FF700A9A071 /* AppInfoFeature.swift in Sources */,
 				DF9459202C90BBF00001DDA4 /* TabNavCoordinatorView.swift in Sources */,
 				7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */,
 				7B1581FD2C6CF2AF00599E7C /* MemeDTO.swift in Sources */,
@@ -1165,6 +1180,7 @@
 				7B2665862C93FC22000A483A /* SearchResultEntity.swift in Sources */,
 				7B2665952C940CA8000A483A /* HistoryView.swift in Sources */,
 				DF986E852C7CCACC00F2D52F /* CharacterRouter.swift in Sources */,
+				7B0D634A2C9D1FFF00A9A071 /* AppInfoView.swift in Sources */,
 				7BACA3DA2C7D8FEF008D4CFC /* DropDownMenu.swift in Sources */,
 				7B15820F2C6E20CA00599E7C /* SearchTypeDTO.swift in Sources */,
 				7B2665742C91BC31000A483A /* SearchCoordinator.swift in Sources */,

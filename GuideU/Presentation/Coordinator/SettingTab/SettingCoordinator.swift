@@ -13,6 +13,7 @@ import TCACoordinators
 @Reducer(state: .equatable)
 enum SettingScreen {
     case settingView(SettingFeature)
+    case appInfoView(AppInfoFeature)
 }
 
 @Reducer
@@ -35,8 +36,15 @@ struct SettingCoordinator {
 
 extension SettingCoordinator {
     private func core() -> some ReducerOf<Self> {
-        Reduce{ State, Action in
-            switch Action {
+        Reduce{ state, action in
+            switch action {
+                
+            case .router(.routeAction(id: .root, action: .settingView(.delegate(.sendToAppInfo)))):
+                state.routes.push(.appInfoView(AppInfoFeature.State()))
+                
+            case .router(.routeAction(id: .appInfo, action: .appInfoView(.delegate(.tapBackButton)))):
+                state.routes.pop()
+                
             default:
                 break
             }
