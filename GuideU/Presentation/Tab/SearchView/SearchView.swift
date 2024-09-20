@@ -18,16 +18,18 @@ struct SearchView: View {
             VStack {
                 fakeNavigation()
                     .padding(.horizontal, 10)
-                
-                if store.currentText.isEmpty {
-                    currentListView()
-                } else {
-                    if store.isSearchResEmpty {
-                        noResultView()
+                ScrollView {
+                    if store.currentText.isEmpty {
+                        currentListView()
                     } else {
-                        searchListView()
+                        if store.isSearchResEmpty {
+                            noResultView()
+                        } else {
+                            searchListView()
+                        }
                     }
                 }
+                .scrollDismissesKeyboard(.immediately)
             }
             .onAppear {
                 store.send(.viewCycleType(.onAppear))
@@ -49,7 +51,7 @@ struct SearchView: View {
 extension SearchView {
     
     private func currentListView() -> some View {
-        ScrollView {
+        VStack {
             recentSectionView()
                 .padding(.horizontal, 10)
                 .padding(.top, 10)
@@ -61,8 +63,8 @@ extension SearchView {
                 .asButton {
                     store.send(.viewEventType(.historyTapped(text: text)))
                 }
-                    .padding(.trailing, 10)
-                    .padding(.leading, 8)
+                .padding(.trailing, 10)
+                .padding(.leading, 8)
             }
         }
     }
@@ -70,19 +72,19 @@ extension SearchView {
 // MARK: 검색중인 텍스트가 존재할 경우
 extension SearchView {
     private func searchListView() -> some View {
-        ScrollView {
-            ForEach(store.searchCaseList, id: \.self) { model in
-                SearchResultCaseView(
-                    currentText: store.currentText,
-                    setModel: model
-                )
-                .padding(.horizontal, 10)
-                .padding(.vertical, 10)
-                .asButton {
-                    store.send(.viewEventType(.searchResultTapped(model.keyWord)))
-                }
+        
+        ForEach(store.searchCaseList, id: \.self) { model in
+            SearchResultCaseView(
+                currentText: store.currentText,
+                setModel: model
+            )
+            .padding(.horizontal, 10)
+            .padding(.vertical, 10)
+            .asButton {
+                store.send(.viewEventType(.searchResultTapped(model.keyWord)))
             }
         }
+        
     }
 }
 
