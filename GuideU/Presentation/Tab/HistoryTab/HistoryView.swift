@@ -26,6 +26,8 @@ struct HistoryView: View {
                         Spacer()
                     }
                     .padding(.horizontal, 10)
+                    .padding(.top, 14)
+                    
                     LazyVStack {
                         ForEach(section.videosEntity, id: \.id) { element in
                             MoreCharacterListView(setModel: element)

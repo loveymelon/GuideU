@@ -120,7 +120,7 @@ struct MorePersonView: View {
                     .background(Color.clear)
                 
                 LazyVStack(spacing: 0) {
-                    Color.clear.frame(height: 10)
+                    Color.clear.frame(height: 20)
                     VStack {
                         switch moreType {
                         case .characters:
