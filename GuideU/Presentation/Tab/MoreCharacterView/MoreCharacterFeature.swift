@@ -26,8 +26,15 @@ struct MoreCharacterFeature: GuideUReducer {
         var videoInfos: [VideosEntity] = []
         var onAppearIsValid: Bool = true
         var openURLCase: OpenURLCase? = nil
+        var alertState: AlertState? = nil
         
         let constViewState = ConstViewState()
+    }
+    
+    struct AlertState: Equatable {
+        var title: String = "서버 에러"
+        var message: String = "왁타버스 서버에서 문제가 생겼습니다.\n잠시후에 다시 시도해주세요."
+        var alertActionTitle: String = "확인"
     }
     
     struct ConstViewState: Equatable {
@@ -53,6 +60,7 @@ struct MoreCharacterFeature: GuideUReducer {
         case currentIndex(Int)
         case selectedVideo(VideosEntity?)
         case dialogBinding(Bool)
+        case alertBinding(AlertState?)
     }
     
     enum ViewCycleType {
@@ -186,6 +194,9 @@ extension MoreCharacterFeature {
                 state.openURLCase = OpenURLCase.youtube(identifier: identifier)
                 
             case let .dataTransType(.errorInfo(error)):
+                if error == "unknown" {
+                    state.alertState = AlertState()
+                }
                 print(error)
                 
                 //binding action setting
@@ -201,6 +212,9 @@ extension MoreCharacterFeature {
                 
             case let .dialogBinding(isValid):
                 state.dialogPresent = isValid
+                
+            case let .alertBinding(item):
+                state.alertState = item
                 
             default:
                 break

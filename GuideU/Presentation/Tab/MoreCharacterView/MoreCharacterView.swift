@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import PopupView
 
 struct MoreCharacterView: View {
     
@@ -31,6 +32,17 @@ struct MoreCharacterView: View {
                     .onAppear {
                         store.send(.viewCycleType(.onAppear))
                     }
+            }
+            .popup(item: $store.alertState.sending(\.alertBinding)) { item in
+                CustomAlertView(
+                    alertMode: .onlyCheck,
+                    title: item.title,
+                    message: item.message,
+                    ifMessageCenter: true,
+                    onCancel: { },
+                    onAction: { },
+                    actionTitle: item.alertActionTitle
+                )
             }
             .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
                 Group {

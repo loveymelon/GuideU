@@ -16,8 +16,6 @@ struct CustomAlertView: View {
     
     var alertMode: AlertMode
     
-    @Binding var isShowing: Bool
-    
     var title: String
     var message: String
     var ifMessageCenter : Bool
@@ -51,7 +49,6 @@ struct CustomAlertView: View {
             
             Spacer()
         }
-        .animation(.easeInOut, value: isShowing)
         .zIndex(1)
     }
 }
@@ -66,7 +63,6 @@ extension CustomAlertView {
             HStack {
                 Button(action: {
                     withAnimation {
-                        isShowing = false
                         onCancel()
                     }
                 }) {
@@ -81,7 +77,6 @@ extension CustomAlertView {
                 }
                 Button(action: {
                     withAnimation {
-                        isShowing = false
                         onAction()
                     }
                 }) {
@@ -97,7 +92,6 @@ extension CustomAlertView {
             }
         case .onlyCheck:
             Button(action: {
-                isShowing = false
                 onAction()
             }) {
                 Text(actionTitle)
@@ -111,18 +105,3 @@ extension CustomAlertView {
         }
     }
 }
-
-#if DEBUG
-#if compiler(>=5.9)
-@available(iOS 17.0, *)
-#Preview {
-    @Previewable @State var isShowing: Bool = true
-    
-    return CustomAlertView(alertMode: .onlyCheck, isShowing: $isShowing, title: "김재형", message: "잘생겼다~!", ifMessageCenter: true, onCancel: {
-        
-    }, onAction: {
-        
-    }, actionTitle: "확인이여")
-}
-#endif
-#endif
