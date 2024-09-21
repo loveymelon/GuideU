@@ -15,7 +15,6 @@ struct MorePersonView: View {
     @State private var opacity: CGFloat = 1
     @State private var moreType: PersonFeature.MoreType = .characters
     @State private var titleOffset = UIScreen.main.bounds.width
-    @State private var backGroundTrigger = false
     @Namespace var name
     
     @Environment(\.openURLManager) var openURLManager
@@ -324,9 +323,9 @@ struct MorePersonView: View {
     private func backgroundImage(size: CGSize) -> some View {
         let safeHeight = size.height < 0 ? 0 : size.height
         return Group {
-            /// 조건에 따라 이미지 변경할것.
-            if backGroundTrigger {
-                DownImageView(url: store.headerState.thumImage, option: .mid)
+            /// 조건에 따라 이미지 변경할것
+            if let url = store.headerState.thumImage {
+                DownImageView(url: url, option: .mid)
                     .aspectRatio(contentMode: .fill)
             } else {
                 Image.defaultBack.resizable()
@@ -334,12 +333,6 @@ struct MorePersonView: View {
             }
         }
         .transition(.opacity)
-        .animation(.easeInOut, value: store.headerState.thumImage)
-        .onChange(of: store.headerState.thumImage) { newValue in
-            withAnimation {
-                backGroundTrigger = newValue != nil ? true : false
-            }
-        }
         .frame(width: size.width, height: safeHeight)
         .blur(radius: 20, opaque: false)
         .clipped()
