@@ -13,6 +13,7 @@
 		7B0D63482C9D1FF700A9A071 /* AppInfoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63472C9D1FF700A9A071 /* AppInfoFeature.swift */; };
 		7B0D634A2C9D1FFF00A9A071 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63492C9D1FFF00A9A071 /* AppInfoView.swift */; };
 		7B0D63862C9ED87E00A9A071 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63852C9ED87E00A9A071 /* CustomAlertView.swift */; };
+		7B0D63892C9F07BB00A9A071 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7B0D63882C9F07BB00A9A071 /* ComposableArchitecture */; };
 		7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581862C6A476200599E7C /* GuideUApp.swift */; };
 		7B15818B2C6A476300599E7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818A2C6A476300599E7C /* Assets.xcassets */; };
 		7B15818E2C6A476300599E7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818D2C6A476300599E7C /* Preview Assets.xcassets */; };
@@ -31,7 +32,6 @@
 		7B1581B62C6A560800599E7C /* GuideUTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581B52C6A560800599E7C /* GuideUTabView.swift */; };
 		7B1581B92C6A56EC00599E7C /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581B82C6A56EC00599E7C /* SplashView.swift */; };
 		7B1581BD2C6A58B700599E7C /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581BC2C6A58B700599E7C /* Const.swift */; };
-		7B1581C22C6BBB8C00599E7C /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1581C12C6BBB8C00599E7C /* ComposableArchitecture */; };
 		7B1581C52C6BBD1C00599E7C /* TCACoordinators in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1581C42C6BBD1C00599E7C /* TCACoordinators */; };
 		7B1581C82C6BBD3F00599E7C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1581C72C6BBD3F00599E7C /* Alamofire */; };
 		7B1581CB2C6BBD4F00599E7C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1581CA2C6BBD4F00599E7C /* Kingfisher */; };
@@ -354,10 +354,10 @@
 			files = (
 				7B6B3CD02C85D89D00F643FB /* RealmSwift in Frameworks */,
 				7B1581CB2C6BBD4F00599E7C /* Kingfisher in Frameworks */,
+				7B0D63892C9F07BB00A9A071 /* ComposableArchitecture in Frameworks */,
 				7B1581C82C6BBD3F00599E7C /* Alamofire in Frameworks */,
 				7B1581CE2C6BBD6800599E7C /* PopupView in Frameworks */,
 				7B1581C52C6BBD1C00599E7C /* TCACoordinators in Frameworks */,
-				7B1581C22C6BBB8C00599E7C /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,12 +954,12 @@
 			);
 			name = GuideU;
 			packageProductDependencies = (
-				7B1581C12C6BBB8C00599E7C /* ComposableArchitecture */,
 				7B1581C42C6BBD1C00599E7C /* TCACoordinators */,
 				7B1581C72C6BBD3F00599E7C /* Alamofire */,
 				7B1581CA2C6BBD4F00599E7C /* Kingfisher */,
 				7B1581CD2C6BBD6800599E7C /* PopupView */,
 				7B6B3CCF2C85D89D00F643FB /* RealmSwift */,
+				7B0D63882C9F07BB00A9A071 /* ComposableArchitecture */,
 			);
 			productName = GuideU;
 			productReference = 7B1581832C6A476200599E7C /* GuideU.app */;
@@ -1010,12 +1010,12 @@
 			);
 			mainGroup = 7B15817A2C6A476200599E7C;
 			packageReferences = (
-				7B1581C02C6BBB8C00599E7C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				7B1581C32C6BBD1C00599E7C /* XCRemoteSwiftPackageReference "TCACoordinators" */,
 				7B1581C62C6BBD3F00599E7C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				7B1581C92C6BBD4F00599E7C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				7B1581CC2C6BBD6800599E7C /* XCRemoteSwiftPackageReference "PopupView" */,
 				7B6B3CCE2C85D89D00F643FB /* XCRemoteSwiftPackageReference "realm-swift" */,
+				7B0D63872C9F07BB00A9A071 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 7B1581842C6A476200599E7C /* Products */;
 			projectDirPath = "";
@@ -1382,7 +1382,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1426,7 +1426,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1530,12 +1530,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7B1581C02C6BBB8C00599E7C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+		7B0D63872C9F07BB00A9A071 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.12.1;
+				minimumVersion = 1.15.0;
 			};
 		};
 		7B1581C32C6BBD1C00599E7C /* XCRemoteSwiftPackageReference "TCACoordinators" */ = {
@@ -1581,9 +1581,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7B1581C12C6BBB8C00599E7C /* ComposableArchitecture */ = {
+		7B0D63882C9F07BB00A9A071 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7B1581C02C6BBB8C00599E7C /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			package = 7B0D63872C9F07BB00A9A071 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
 		7B1581C42C6BBD1C00599E7C /* TCACoordinators */ = {

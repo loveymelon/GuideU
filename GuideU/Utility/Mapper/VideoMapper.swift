@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct VideoMapper {
+struct VideoMapper: Sendable {
     /// [VideosDTO] -> [VideosEntity]
     func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [VideosEntity] {
         return dtos.map { dtoToEntity($0, channel: channel, channelID: channelID) }
@@ -93,15 +93,17 @@ extension VideoMapper {
         var result = [HistoryVideosEntity]()
         
         for (date, contents) in datas {
-            let title: String
+            var title: String = ""
             
             if calendar.isDate(date, inSameDayAs: dayOption.now) {
                 title = "오늘"
             } else if calendar.isDate(date, inSameDayAs: dayOption.yesterDay) {
                 title = "어제"
             } else {
-                let trans = DateManager.shared.toString(date: date, format: .fullType)
-                title = trans
+                Task {
+                    let trans = await DateManager.shared.toString(date: date, format: .fullType)
+                    title = trans
+                }
             }
             result.append(HistoryVideosEntity(lastWatched: title, videosEntity: contents))
         }

@@ -28,7 +28,7 @@ extension ErrorMapper {
 }
 
 extension ErrorMapper: DependencyKey {
-    static var liveValue: ErrorMapper = ErrorMapper()
+    static let liveValue: ErrorMapper = ErrorMapper()
 }
 
 extension DependencyValues {

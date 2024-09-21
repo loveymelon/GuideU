@@ -7,7 +7,8 @@
 
 import Foundation
 
-final class CodableManager {
+// MARK: Swift 6 대응
+final class CodableManager: Sendable {
     
     static let shared = CodableManager()
     

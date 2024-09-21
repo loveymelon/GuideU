@@ -7,18 +7,19 @@
 
 import Foundation
 import Network
-import Combine
+import Combine /*-> 싱글톤 패턴에서 사용하기에는 이제 무리인 것 같다 Swift 6*/
 import ComposableArchitecture
 
-final class NWPathMonitorManager {
-    
-    static let shared = NWPathMonitorManager()
+
+final actor NWPathMonitorManager {
     
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue.global(qos: .background)
     
-    let currentConnectionType = PassthroughSubject<ConnectionType, Never>()
-    let currentConnectionTrigger = CurrentValueSubject<Bool, Never> (true)
+    private let connectionTypeSubject = PassthroughSubject<ConnectionType, Never>()
+    private let currentConnectionTrigger = CurrentValueSubject<Bool, Never> (true)
+//    let currentConnectionType = PassthroughSubject<ConnectionType, Never>()
+//    let currentConnectionTrigger = CurrentValueSubject<Bool, Never> (true)
     
     enum ConnectionType {
         case cellular
@@ -34,6 +35,23 @@ final class NWPathMonitorManager {
         print(#function)
     }
     
+    func getToConnectionType() -> AnyPublisher<ConnectionType, Never> {
+        return connectionTypeSubject.eraseToAnyPublisher()
+    }
+    
+    func getToConnectionTrigger() -> AsyncStream<Bool> {
+        return AsyncStream {[ weak self ] continuation in
+            guard let self else { return }
+            
+            monitor.pathUpdateHandler = { path in
+                Task {
+                    let trigger = await self.networkConnectStatus(path: path)
+                    continuation.yield(trigger)
+                }
+            }
+        }
+    }
+    
     func stop() {
         monitor.cancel()
         print(#function)
@@ -42,46 +60,60 @@ final class NWPathMonitorManager {
 }
 
 extension NWPathMonitorManager {
+    
     private func startMonitoring() {
         monitor.start(queue: queue)
-        
-        monitor.pathUpdateHandler = { [weak self] path in
-            guard let self else {
-                print("Lost self: \(self.debugDescription)")
-                return
-            }
-            updateHandler(path: path)
-        }
     }
+    
+    /*  monitor.pathUpdateHandler = { [weak self] path in
+     guard let self = self else {
+         print("Lost self")
+         return
+     }
+     
+     Task {
+         await self.updateHandler(path: path)
+     }
+ }
+     */
     
     private func updateHandler(path: NWPath) {
         getConnectionType(path: path)
-        networkConnectStatus(path: path)
+//        networkConnectStatus(path: path)
         #if DEBUG
         print(#function)
         print(path.status)
         #endif
     }
+//    private func updateHandler(path: NWPath) -> Con {
+//        getConnectionType(path: path)
+//        networkConnectStatus(path: path)
+//        #if DEBUG
+//        print(#function)
+//        print(path.status)
+//        #endif
+//    }
     
     private func getConnectionType(path: NWPath) {
         if path.usesInterfaceType(.wifi) {
-            currentConnectionType.send(.wifi)
+            connectionTypeSubject.send(.wifi)
         } else if path.usesInterfaceType(.cellular) {
-            currentConnectionType.send(.cellular)
+            connectionTypeSubject.send(.cellular)
         } else if path.usesInterfaceType(.wiredEthernet) {
-            currentConnectionType.send(.ethernet)
+            connectionTypeSubject.send(.ethernet)
         } else {
-            currentConnectionType.send(.unknown)
+            connectionTypeSubject.send(.unknown)
         }
     }
     
-    private func networkConnectStatus(path: NWPath) {
-        currentConnectionTrigger.send(path.status == .satisfied)
+    private func networkConnectStatus(path: NWPath) -> Bool {
+        return path.status == .satisfied
     }
 }
 
+
 extension NWPathMonitorManager: DependencyKey {
-    static var liveValue: NWPathMonitorManager = NWPathMonitorManager.shared
+    static let liveValue: NWPathMonitorManager = NWPathMonitorManager()
 }
 
 extension DependencyValues {

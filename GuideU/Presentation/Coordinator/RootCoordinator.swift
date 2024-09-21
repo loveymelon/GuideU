@@ -7,7 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
-import TCACoordinators
+@preconcurrency import TCACoordinators
 
 @Reducer(state: .equatable)
 enum RootScreen {
@@ -19,7 +19,7 @@ enum RootScreen {
 struct RootCoordinator: Reducer {
     
     @ObservableState
-    struct State {
+    struct State: Equatable, Sendable {
         static let initialState = State(routes: [.root(.splash(SplashFeature.State()), embedInNavigationView: true)])
         
         var routes: IdentifiedArrayOf<Route<RootScreen.State>>
@@ -31,7 +31,7 @@ struct RootCoordinator: Reducer {
         var alertMessage: AlertMessage? = nil
     }
     
-    struct AlertMessage: Identifiable {
+    struct AlertMessage: Identifiable, Equatable {
         let id = UUID()
         var title = ""
         var actionTitle = ""
@@ -47,6 +47,7 @@ struct RootCoordinator: Reducer {
         case checkError(Bool)
         case networkError(String)
         case networkErrorType(NetworkErrorType)
+        case networkMonitorStart
         
         // binding
         case bindingMessage(AlertMessage?)
@@ -86,23 +87,38 @@ struct RootCoordinator: Reducer {
                 if state.onAppearTrigger {
                     state.onAppearTrigger = false
                     return .run { send in
-                        await send(.networkErrorType(.nwMonitor))
+//                        await send(.networkErrorType(.nwMonitor))
+                        await send(.networkMonitorStart)
                         await send(.networkErrorType(.timeOut))
                     }
                 }
-            
-            case .networkErrorType(.nwMonitor):
-                nwPathMonitorManager.start()
                 
-                return Effect.publisher {
-                    return nwPathMonitorManager.currentConnectionTrigger
-                        .receive(on: RunLoop.main)
-                        .removeDuplicates()
+            case .networkMonitorStart:
+                return .run { send in
+                    await nwPathMonitorManager.start()
+                    await send(.networkErrorType(.nwMonitor))
                 }
-                .map { isValid -> Action in
-                    return .checkError(isValid)
+            
+//            case .networkErrorType(.nwMonitor):
+//                return Effect.publisher {
+//                    return nwPathMonitorManager.currentConnectionTrigger
+//                        .receive(on: RunLoop.main)
+//                        .removeDuplicates()
+//                }
+//                .map { isValid -> Action in
+//                    return .checkError(isValid)
+//                }
+//                .debounce(id: CancelID.nwMonitor, for: 1, scheduler: RunLoop.main)
+                
+            case .networkErrorType(.nwMonitor):
+                return .run { send in
+                    
+                    let continuation = await nwPathMonitorManager.getToConnectionTrigger()
+                    
+                    for await isValid in continuation {
+                        await send(.checkError(isValid))
+                    }
                 }
-                .debounce(id: CancelID.nwMonitor, for: 1, scheduler: RunLoop.main)
                 
             case .networkErrorType(.timeOut):
                 return Effect.publisher {

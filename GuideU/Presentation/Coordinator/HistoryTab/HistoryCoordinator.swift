@@ -7,7 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
-import TCACoordinators
+@preconcurrency import TCACoordinators
 
 
 @Reducer(state: .equatable)
@@ -18,7 +18,7 @@ enum HistoryScreen {
 @Reducer
 struct HistoryCoordinator {
     @ObservableState
-    struct State: Equatable {
+    struct State: Equatable, Sendable {
         static let initialState = Self(routes: [.root(.root(HistoryFeature.State()), embedInNavigationView: true)])
         var routes: IdentifiedArrayOf<Route<HistoryScreen.State>>
     }

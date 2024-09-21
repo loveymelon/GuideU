@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-final class CharacterRepository {
+final class CharacterRepository: @unchecked Sendable {
     @Dependency(\.networkManager) var network
     @Dependency(\.characterMapper) var mapper
     @Dependency(\.errorMapper) var errorMapper
@@ -63,7 +63,7 @@ extension CharacterRepository {
 }
 
 extension CharacterRepository: DependencyKey {
-    static var liveValue: CharacterRepository = CharacterRepository()
+    static let liveValue: CharacterRepository = CharacterRepository()
 }
 
 extension DependencyValues {

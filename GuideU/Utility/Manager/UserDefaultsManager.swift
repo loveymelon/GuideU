@@ -7,7 +7,9 @@
 
 import Foundation
 
-enum UserDefaultsManager {
+// MARK: Swift 6 대응
+/// enum -> Actor 로 변경 데이터 레이스 발생 가능성이 있다고 판단
+final actor UserDefaultsManager {
     
     enum Key: String {
         case isFirst

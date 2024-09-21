@@ -25,13 +25,13 @@ struct ErrorManager {
     // 이 친구가 유저 에러인지, 개발자 에러인지 체크
 }
 
-extension ErrorManager: DependencyKey {
-    static var liveValue: ErrorManager = Self()
-}
-
-extension DependencyValues {
-    var errorManager: ErrorManager {
-        get { self[ErrorManager.self] }
-        set { self[ErrorManager.self] = newValue }
-    }
-}
+//extension ErrorManager: DependencyKey {
+//    static let liveValue: ErrorManager = Self()
+//}
+//
+//extension DependencyValues {
+//    var errorManager: ErrorManager {
+//        get { self[ErrorManager.self] }
+//        set { self[ErrorManager.self] = newValue }
+//    }
+//}

@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct SearchMapper {
+struct SearchMapper: Sendable {
     
     /// [SuggestDTO] -> [Entity]
     func dtoToEntity(_ dtos: [SuggestDTO]) -> [SuggestEntity] {
@@ -51,7 +51,7 @@ extension SearchMapper {
 }
 
 extension SearchMapper: DependencyKey {
-    static var liveValue: SearchMapper = SearchMapper()
+    static let liveValue = Self()
 }
 
 extension DependencyValues {

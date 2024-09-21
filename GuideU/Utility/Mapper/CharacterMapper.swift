@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct CharacterMapper {
+struct CharacterMapper: Sendable {
     func dtoToEntity(_ dto: [YoutubeCharacterDTO]) -> [YoutubeCharacterEntity] {
         return dto.map { dtoToEntity($0) }
     }
@@ -85,7 +85,7 @@ extension CharacterMapper {
 }
 
 extension CharacterMapper: DependencyKey {
-    static var liveValue: CharacterMapper = CharacterMapper()
+    static let liveValue: CharacterMapper = CharacterMapper()
 }
 
 extension DependencyValues {

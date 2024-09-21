@@ -7,7 +7,8 @@
 
 import Foundation
 
-final class DateManager {
+// MARK: Swift 6 대응 -> 데이터 레이스 현상이 일어날 부분이 보이지가 않는다고 판단.
+final class DateManager: @unchecked Sendable {
     
     private init() {}
     static let shared = DateManager()
@@ -28,7 +29,7 @@ final class DateManager {
         /// "hh시 mm분 a"
         case leftChatType = "hh시 mm분 a"
         
-        var format: String { return self.rawValue}
+        var format: String { return self.rawValue }
     }
     
     func toDate(_ dateString: String) -> Date? {

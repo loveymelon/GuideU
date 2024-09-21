@@ -40,4 +40,4 @@ extension String {
     }
 }
 
-extension String: Error { }
+extension String: @retroactive Error { }

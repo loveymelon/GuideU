@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct URLDividerManager {
+struct URLDividerManager: Sendable {
     
     enum URLTypeCheck {
         case youtubeIdentifier(String)
@@ -39,7 +39,7 @@ extension URLDividerManager {
 }
 
 extension URLDividerManager: DependencyKey {
-    static var liveValue = Self()
+    static let liveValue = Self()
 }
 
 extension DependencyValues {

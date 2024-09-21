@@ -7,7 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
-import TCACoordinators
+@preconcurrency import TCACoordinators
 
 
 @Reducer(state: .equatable)
@@ -20,7 +20,7 @@ enum SettingScreen {
 struct SettingCoordinator {
     
     @ObservableState
-    struct State: Equatable {
+    struct State: Equatable, Sendable {
         static let initialState = Self(routes: [.root(.settingView(SettingFeature.State()), embedInNavigationView: true)])
         var routes: IdentifiedArrayOf<Route<SettingScreen.State>>
     }

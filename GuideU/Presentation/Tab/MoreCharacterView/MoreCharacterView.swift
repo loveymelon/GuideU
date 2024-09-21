@@ -64,7 +64,9 @@ struct MoreCharacterView: View {
                 guard let openURL = newValue else { return }
                 
                 store.send(.viewEventType(.successOpenURL))
-                openURLManager.openAppUrl(urlCase: openURL)
+                Task {
+                   await openURLManager.openAppUrl(urlCase: openURL)
+                }
             }
         }
     }

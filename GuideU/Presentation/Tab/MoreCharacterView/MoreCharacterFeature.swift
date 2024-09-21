@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct MoreCharacterFeature: GuideUReducer {
+struct MoreCharacterFeature: GuideUReducer, Sendable {
     
     @ObservableState
     struct State: Equatable {
@@ -96,7 +96,7 @@ struct MoreCharacterFeature: GuideUReducer {
     
     @Dependency(\.videoRepository) var videoRepository
     @Dependency(\.characterRepository) var characterRepository
-    @Dependency(\.realmRepository) var realmRepository
+    @Dependency(\.realmRepository) var realmRepository 
     @Dependency(\.urlDividerManager) var urlDividerManager
     
     var body: some ReducerOf<Self> {

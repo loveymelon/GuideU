@@ -10,12 +10,13 @@ import ComposableArchitecture
 import Foundation
 import Combine
 
-final class NetworkManager {
+final class NetworkManager: @unchecked Sendable {
     
     typealias ResultContinuation<T: DTO> = CheckedContinuation<Result<T, APIErrorResponse>, Never>
     
     let networkError = PassthroughSubject<String, Never>()
     
+    @MainActor
     func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async -> Result<T, APIErrorResponse> {
         
         return await withCheckedContinuation { [weak self] continuation in
@@ -34,11 +35,12 @@ final class NetworkManager {
                     .responseDecodable(of: T.self) { response in
                         switch response.result {
                         case let .success(data):
-                            continuation.resume(returning: .success(data))
+                            Task {
+                                continuation.resume(returning: .success(data))
+                            }
                         case let .failure(error):
                             continuation.resume(returning: .failure(weakSelf.checkResponseData(response.data, error)))
                         }
-                        
                     }
                 
             } catch {
@@ -88,7 +90,7 @@ extension NetworkManager {
 }
 
 extension NetworkManager: DependencyKey {
-    static var liveValue: NetworkManager = NetworkManager()
+    static let liveValue: NetworkManager = NetworkManager()
 }
 
 extension DependencyValues {

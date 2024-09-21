@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import TCACoordinators
+@preconcurrency import TCACoordinators
 import ComposableArchitecture
 
 @Reducer(state: .equatable)
@@ -19,7 +19,7 @@ enum TabNavSceen {
 struct TabNavCoordinator {
     
     @ObservableState
-    struct State: Equatable {
+    struct State: Equatable, Sendable {
         static let initialState = State(routes: [.root(.tab(TabCoordinator.State()), embedInNavigationView: true)])
         var routes: IdentifiedArrayOf<Route<TabNavSceen.State>>
     }

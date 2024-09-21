@@ -6,13 +6,19 @@
 //
 
 import Foundation
-import RealmSwift
+@preconcurrency import RealmSwift
 import ComposableArchitecture
 
-final class RealmRepository {
+
+final class RealmRepository: Sendable {
     
-    @Dependency(\.searchMapper) var mapper
-    @Dependency(\.videoMapper) var videoMapper
+    private let mapper: SearchMapper
+    private let videoMapper: VideoMapper
+    
+    init() {
+        self.mapper = SearchMapper()
+        self.videoMapper = VideoMapper()
+    }
     
     private let realm = try! Realm()
     
@@ -124,12 +130,12 @@ extension RealmRepository {
                 realm.delete(deleteData)
             }
         }
-        
     }
 }
 
+
 extension RealmRepository: DependencyKey {
-    static var liveValue: RealmRepository = RealmRepository()
+    static let liveValue: RealmRepository = RealmRepository()
 }
 
 extension DependencyValues {

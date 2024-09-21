@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AppStoreManager {
+final actor AppStoreManager {
     
     private let buildNumber = Const.appVersion
     private let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/" + Const.appID
@@ -33,8 +33,10 @@ final class AppStoreManager {
     // 앱 스토어로 이동 -> urlStr 에 appStoreOpenUrlString 넣으면 이동
     func openAppStore() {
         guard let url = URL(string: appStoreOpenUrlString) else { return }
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        Task {
+            if await UIApplication.shared.canOpenURL(url) {
+                await UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }
     }
     

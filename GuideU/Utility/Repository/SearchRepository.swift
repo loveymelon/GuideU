@@ -49,7 +49,7 @@ extension SearchRepository {
 }
 
 extension SearchRepository: DependencyKey {
-    static var liveValue: SearchRepository = SearchRepository()
+    static let liveValue: SearchRepository = SearchRepository()
 }
 
 extension DependencyValues {

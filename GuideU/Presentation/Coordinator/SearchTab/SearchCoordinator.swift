@@ -7,7 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
-import TCACoordinators
+@preconcurrency import TCACoordinators
 
 @Reducer(state: .equatable)
 enum SearchScreen {
@@ -19,7 +19,7 @@ enum SearchScreen {
 struct SearchCoordinator {
     
     @ObservableState
-    struct State: Equatable {
+    struct State: Equatable, Sendable {
         static let initialState = State(routes: [.root(.search(SearchFeature.State()), embedInNavigationView: true)])
         
         var routes: IdentifiedArrayOf<Route<SearchScreen.State>>
