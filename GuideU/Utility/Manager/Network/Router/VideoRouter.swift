@@ -49,8 +49,7 @@ extension VideoRouter {
                 return [
                     "channel_id": channelId,
                     "skip": skip,
-                    "limit": limit,
-                    "status": "aaaa"
+                    "limit": limit
                 ]
             } else if !identifier.isEmpty {
                 return [
