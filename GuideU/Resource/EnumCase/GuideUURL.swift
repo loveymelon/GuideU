@@ -8,5 +8,5 @@
 import Foundation
 
 enum GuideUURL {
-    static let baseURLString = "https://dev.waksight.com"
+    static let baseURLString = "https://gbw.waksight.com"
 }
