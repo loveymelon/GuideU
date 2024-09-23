@@ -16,38 +16,28 @@ final class NetworkManager: @unchecked Sendable {
     
     let networkError = PassthroughSubject<String, Never>()
     
-    @MainActor
     func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async -> Result<T, APIErrorResponse> {
         
-        return await withCheckedContinuation { [weak self] continuation in
+        do {
+            let request = try router.asURLRequest()
             
-            guard let weakSelf = self else {
-                let defaultErrorResponse = APIErrorResponse.simple(SimpleErrorDTO(detail: "unknown"))
-                continuation.resume(returning: .failure(defaultErrorResponse))
-                return
+            let response = await AF.request(request, interceptor: NetworkInterceptor())
+                .cacheResponse(using: .cache)
+                .validate(statusCode: 200..<300)
+                .serializingDecodable(T.self)
+                .response
+            
+            switch response.result {
+            case let .success(data):
+                return .success(data)
+            case let .failure(error):
+                return .failure(checkResponseData(response.data, error))
             }
             
-            do {
-                let request = try router.asURLRequest()
-                print ("Reqeust : ", request)
-                AF.request(request, interceptor: NetworkInterceptor())
-                    .validate(statusCode: 200..<300)
-                    .responseDecodable(of: T.self) { response in
-                        switch response.result {
-                        case let .success(data):
-                            Task {
-                                continuation.resume(returning: .success(data))
-                            }
-                        case let .failure(error):
-                            continuation.resume(returning: .failure(weakSelf.checkResponseData(response.data, error)))
-                        }
-                    }
-                
-            } catch {
-                continuation.resume(returning: .failure(weakSelf.catchUnknownError()))
-            }
-            
+        } catch {
+            return .failure(catchUnknownError())
         }
+        
     }
 }
 
