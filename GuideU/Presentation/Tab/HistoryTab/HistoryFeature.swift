@@ -114,8 +114,8 @@ extension HistoryFeature {
                 }
                 
             case let .dataTransType(.selectVideoURL(selectURL)):
-                guard let youtubeURL = selectURL, let identifier = urlDividerManager.dividerResult(type: .youtubeIdentifier(youtubeURL)) else { return .none }
-                state.openURLCase = OpenURLCase.youtube(identifier: identifier)
+                guard let youtubeURL = selectURL else { return .none }
+                state.openURLCase = urlDividerManager.dividerURLType(url: youtubeURL)
                 
             case .dataTransType(.cleanSelectData):
                 state.selectedVideoData = VideosEntity()

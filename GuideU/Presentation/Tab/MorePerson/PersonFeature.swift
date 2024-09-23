@@ -127,9 +127,12 @@ extension PersonFeature {
                 state.currentMoreType = moreType
                 
             case let .viewEventType(.socialTapped(url)):
-                if let url = URL(string: url) {
-                    state.selectedURL = IdentifiableURLEntity(url: url)
-                }
+                print("url", url)
+                state.openURLCase = urlDividerManager.dividerURLType(url: url)
+                print("openURLCase", state.openURLCase)
+//                if let url = URL(string: url) {
+//                    state.selectedURL = IdentifiableURLEntity(url: url)
+//                }
                 
             case .viewEventType(.moreButtonTapped):
                 let identifierURL = state.identifierURL
@@ -208,9 +211,7 @@ extension PersonFeature {
                 
             case let .dataTransType(.checkURL(identifierURL)):
                 if identifierURL.contains(Const.youtubeBaseURL) {
-                    guard let identifier = urlDividerManager.dividerResult(type: .youtubeIdentifier(identifierURL)) else { return .none }
-                    
-                    state.openURLCase = OpenURLCase.youtube(identifier: identifier)
+                    state.openURLCase = urlDividerManager.dividerURLType(url: identifierURL)
                 }
                 
             case let .dataTransType(.errorInfo(error)):

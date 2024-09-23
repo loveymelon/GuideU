@@ -29,11 +29,11 @@ struct OpenURLManager {
      */
     @MainActor
     @discardableResult
-    private func openAppUrl(url: URL) async -> Bool {
+    private func openAppUrl(url: URL) -> Bool {
         let application = UIApplication.shared
         
         if application.canOpenURL(url) {
-            await application.open(url)
+            application.open(url)
             return true
         } else {
             return false

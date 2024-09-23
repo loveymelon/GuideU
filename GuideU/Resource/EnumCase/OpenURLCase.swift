@@ -9,12 +9,18 @@ import Foundation
 
 enum OpenURLCase: Equatable {
     case youtube(identifier: String)
+    case youtubeChannel(channelURLString: String)
+    case none
     
     // youtube 앱
     var appURL: URL? {
         switch self {
         case .youtube(let identifier):
             return URL(string:"youtube://\(identifier)")
+        case .youtubeChannel(let channelURLString):
+            return URL(string: channelURLString)
+        case .none:
+            return nil
         }
     }
     
@@ -23,6 +29,10 @@ enum OpenURLCase: Equatable {
         switch self {
         case .youtube(let identifier):
             return URL(string: Const.youtubeBaseString + identifier)
+        case .youtubeChannel(let channelURLString):
+            return URL(string: channelURLString)
+        case .none:
+            return nil
         }
     }
 }

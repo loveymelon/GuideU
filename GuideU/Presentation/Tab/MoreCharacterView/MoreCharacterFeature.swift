@@ -204,8 +204,8 @@ extension MoreCharacterFeature {
                 }
                 
             case let .dataTransType(.selectVideoURL(selectURL)):
-                guard let youtubeURL = selectURL, let identifier = urlDividerManager.dividerResult(type: .youtubeIdentifier(youtubeURL)) else { return .none }
-                state.openURLCase = OpenURLCase.youtube(identifier: identifier)
+                guard let youtubeURL = selectURL else { return .none }
+                state.openURLCase = urlDividerManager.dividerURLType(url: youtubeURL)
                 
             case let .dataTransType(.errorInfo(error)):
                 if error == "unknown" {

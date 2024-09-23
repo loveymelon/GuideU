@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct ShimmerAnimation: ViewModifier {
+struct ShimmerAnimation: ViewModifier {
     
     enum Mode {
         case mask

@@ -14,6 +14,21 @@ struct URLDividerManager: Sendable {
         case youtubeIdentifier(String)
     }
     
+    func dividerURLType(url: String) -> OpenURLCase {
+        if url.localizedStandardContains("youtube.com") {
+            if url.localizedStandardContains("channel") {
+                return .youtubeChannel(channelURLString: url)
+            } else if let url = youtube(url) {
+                return .youtube(identifier: url)
+            } else {
+                return .none
+            }
+        } else {
+            return .none
+        }
+    }
+    
+    /// identifier 추출용
     func dividerResult(type: URLTypeCheck) -> String? {
         switch type {
         case .youtubeIdentifier(let string):
