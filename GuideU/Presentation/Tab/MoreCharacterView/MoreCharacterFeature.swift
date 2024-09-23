@@ -169,17 +169,13 @@ extension MoreCharacterFeature {
                 
             case let .networkType(.fetchVideos(channel, skip, limit, isScroll)):
                 return .run { send in
-                    Task.detached(priority: .background) {
-                        let result = await videoRepository.fetchVideos(channel: channel, skip: skip, limit: limit)
-                            
-                        await MainActor.run {
-                            switch result {
-                            case let .success(data):
-                                send(.dataTransType(.videosInfo(data, isScroll: isScroll)))
-                            case let .failure(error):
-                                send(.dataTransType(.errorInfo(error)))
-                            }
-                        }
+                    let result = await videoRepository.fetchVideos(channel: channel, skip: skip, limit: limit)
+                        
+                    switch result {
+                    case let .success(data):
+                        await send(.dataTransType(.videosInfo(data, isScroll: isScroll)))
+                    case let .failure(error):
+                        await send(.dataTransType(.errorInfo(error)))
                     }
                 }
                 
