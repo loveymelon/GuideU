@@ -14,6 +14,7 @@ struct MoreCharacterFeature: GuideUReducer, Sendable {
     @ObservableState
     struct State: Equatable {
         var dropDownOptions = Const.Channel.allCases
+        var currentDropDownOption = Const.Channel.all
         var currentText = ""
         var currentIndex = 0
         var currentStart = 0
@@ -27,6 +28,8 @@ struct MoreCharacterFeature: GuideUReducer, Sendable {
         var onAppearIsValid: Bool = true
         var openURLCase: OpenURLCase? = nil
         var alertState: AlertState? = nil
+        
+        var loadingTrigger = true
         
         let constViewState = ConstViewState()
     }
@@ -186,6 +189,7 @@ extension MoreCharacterFeature {
                     state.currentStart += (state.limit + 1)
                 } else {
                     state.videoInfos = videos
+                    state.loadingTrigger = false
                     state.currentStart += (state.limit + 1)
                 }
                 
@@ -202,8 +206,15 @@ extension MoreCharacterFeature {
                 //binding action setting
             case let .currentIndex(index):
                 state.currentIndex = index
-                state.currentStart = 0
-                state.skipIndex = 0
+                let selected = Const.Channel.allCases[index]
+                if state.currentDropDownOption == selected {
+                    return .none
+                } else {
+                    state.currentDropDownOption = selected
+                    state.currentStart = 0
+                    state.skipIndex = 0
+                    state.loadingTrigger = true
+                }
                 return fetchVideos(state: &state, isScroll: false)
                     .debounce(id: CancelId.categoryID, for: 1, scheduler: RunLoop.main, options: nil)
                 

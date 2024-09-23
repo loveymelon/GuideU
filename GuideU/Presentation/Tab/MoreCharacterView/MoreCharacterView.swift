@@ -79,8 +79,8 @@ extension MoreCharacterView {
             ZStack(alignment: .top) {
                 ZStack {
                     Group {
-                        if store.state.videoInfos.isEmpty {
-                            ProgressView()
+                        if store.state.loadingTrigger {
+                            skeletonView()
                         } else {
                             listContentView()
                         }
@@ -97,12 +97,26 @@ extension MoreCharacterView {
             
         }
         .background(Color(GuideUColor.ViewBaseColor.light.backColor))
-//        .simultaneousGesture(
-//            DragGesture()
-//                .onChanged({ _ in
-//                    dropdown = false
-//                })
-//        )
+    }
+    
+    private func skeletonView() -> some View {
+        VStack {
+            ForEach(0...4, id: \.self) { _ in
+                MoreCharacterSkeletonView()
+                    .padding(.bottom, 10)
+                    .shimmering(
+                        gradient: Gradient(
+                            colors:
+                                [
+                                    Color.black.opacity(0.3),
+                                    Color.black.opacity(0.1),
+                                    Color.black.opacity(0.3)
+                                ]),
+                        mode: .mask
+                    )
+            }
+        }
+        .padding(.horizontal, 12)
     }
     
     private func listContentView() -> some View {
