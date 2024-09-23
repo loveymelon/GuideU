@@ -450,7 +450,7 @@ extension Const {
         var des: String {
             switch self {
             case .noWak:
-                return "우왁굳, 이세돌, 고정 멤버, 아카데미 등의\n공식 채널만 작동하는 앱으로\n유튜브 영상을 확인해 주세요!"
+                return "우왁굳, 이세돌, 고정 멤버, 아카데미 등의\n공식 채널의 앱이 아니거나\n아직 서버에 없는 동영상입니다!"
             case .noVideo:
                 return "여러 문제로 에러가 났을 수 있습니다.\n최대한 빨리 고칠 수 있도록 항상 노력하는\n가이두 팀이 되겠습니다."
             case .serverError:
