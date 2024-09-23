@@ -30,6 +30,7 @@ struct MoreCharacterFeature: GuideUReducer, Sendable {
         var alertState: AlertState? = nil
         
         var loadingTrigger = true
+        var listLoadTrigger = true
         
         let constViewState = ConstViewState()
     }
@@ -78,6 +79,9 @@ struct MoreCharacterFeature: GuideUReducer, Sendable {
         case youtubeButtonTapped
         case detailButtonTapped
         case successOpenURL
+        
+        // Side Effect
+        case sideCheckedIndex(Int)
     }
     
     enum DataTransType {
@@ -119,14 +123,18 @@ extension MoreCharacterFeature {
                 }
                 
             case let .viewEventType(.videoOnAppear(index)):
+                state.listLoadTrigger = false
+                return .run { send in
+                    await send(.viewEventType(.sideCheckedIndex(index)))
+                }
+                
+            case let .viewEventType(.sideCheckedIndex(index)):
                 
                 if state.skipIndex < index {
                     state.skipIndex = index
-                    if (state.videoInfos.count - 1) - index <= 5 {
-                        // .debounce(id: CancelId.scrollID, for: 1, scheduler: RunLoop.main, options: nil)
+                    if (state.videoInfos.count - 1) - index <= 8 {
                         return fetchVideos(state: &state, isScroll: true)
-                            .debounce(id: CancelId.scrollID, for: 1, scheduler: RunLoop.main, options: nil)
-                            
+                            .throttle(id: CancelId.scrollID, for: 2, scheduler: RunLoop.main.eraseToAnyScheduler(), latest: false)
                     }
                 }
                 
@@ -161,13 +169,17 @@ extension MoreCharacterFeature {
                 
             case let .networkType(.fetchVideos(channel, skip, limit, isScroll)):
                 return .run { send in
-                    let result = await videoRepository.fetchVideos(channel: channel, skip: skip, limit: limit)
-                    
-                    switch result {
-                    case let .success(data):
-                        await send(.dataTransType(.videosInfo(data, isScroll: isScroll)))
-                    case let .failure(error):
-                        await send(.dataTransType(.errorInfo(error)))
+                    Task.detached(priority: .background) {
+                        let result = await videoRepository.fetchVideos(channel: channel, skip: skip, limit: limit)
+                            
+                        await MainActor.run {
+                            switch result {
+                            case let .success(data):
+                                send(.dataTransType(.videosInfo(data, isScroll: isScroll)))
+                            case let .failure(error):
+                                send(.dataTransType(.errorInfo(error)))
+                            }
+                        }
                     }
                 }
                 
@@ -186,10 +198,12 @@ extension MoreCharacterFeature {
             case let .dataTransType(.videosInfo(videos, isScroll)):
                 if isScroll {
                     state.videoInfos.append(contentsOf: videos)
+                    state.listLoadTrigger = true
                     state.currentStart += (state.limit + 1)
                 } else {
                     state.videoInfos = videos
                     state.loadingTrigger = false
+                    state.listLoadTrigger = true
                     state.currentStart += (state.limit + 1)
                 }
                 
