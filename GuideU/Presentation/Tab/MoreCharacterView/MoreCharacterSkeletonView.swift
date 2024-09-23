@@ -44,12 +44,17 @@ extension MoreCharacterSkeletonView {
                 HStack {
                     Color.gray.opacity(0.8)
                         .multilineTextAlignment(.leading)
-                        .frame(width: 120, height: 12)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 12)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                        .padding(.trailing, 50)
+                        
                     Spacer()
                 }
                 HStack {
                     Color.gray.opacity(0.8)
                         .frame(width: 120, height: 12)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
                     Spacer()
                 }
                 
