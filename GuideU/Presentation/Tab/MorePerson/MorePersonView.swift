@@ -268,7 +268,7 @@ struct MorePersonView: View {
             MarqueeTextView(
                 text: entity.title,
                 font: WantedFont.boldFont.font(size: 28),
-                leading: 15,
+                leading: 2,
                 trailing: 15,
                 startDelay: 1
             )
