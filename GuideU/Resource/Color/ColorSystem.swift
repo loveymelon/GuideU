@@ -33,6 +33,7 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
         
         NotificationCenter.default
             .publisher(for: UIScreen.brightnessDidChangeNotification, object: nil)
+            .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self else { return }
@@ -44,6 +45,7 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
         
         NotificationCenter.default
             .publisher(for: UIApplication.didBecomeActiveNotification)
+            .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self else { return }
