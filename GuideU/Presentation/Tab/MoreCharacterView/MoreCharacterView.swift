@@ -14,6 +14,7 @@ struct MoreCharacterView: View {
     @Perception.Bindable var store: StoreOf<MoreCharacterFeature>
     
     @Environment(\.openURLManager) var openURLManager
+    @Environment(\.colorSystem) var colorSystem
     
     @State var dropdown: Bool = false
     
@@ -60,6 +61,7 @@ struct MoreCharacterView: View {
                     }
                 }
             }
+            .background(colorSystem.color(colorCase: .background))
             .onChange(of: store.openURLCase) { newValue in
                 guard let openURL = newValue else { return }
                 
@@ -94,9 +96,8 @@ extension MoreCharacterView {
                 }
                 .zIndex(100)
             }
-            
         }
-        .background(Color(GuideUColor.ViewBaseColor.light.backColor))
+        .background(colorSystem.color(colorCase: .background))
     }
     
     private func skeletonView() -> some View {
@@ -179,14 +180,14 @@ extension MoreCharacterView {
             HStack {
                 Text(store.constViewState.placeHolder)
                     .font(Font(WantedFont.regularFont.font(size: 15)))
-                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 Spacer()
             }
             .frame(maxWidth: .infinity)
             .padding(.all, 12)
             .background {
                 RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(Color(GuideUColor.ViewBaseColor.light.primary), lineWidth: 1.4)
+                    .strokeBorder(colorSystem.color(colorCase: .pointColor), lineWidth: 1.4)
             }
         }
     }

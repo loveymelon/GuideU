@@ -16,9 +16,9 @@ enum GuideUColor{
         var color: UIColor {
             switch self {
             case .light:
-                return  UIColor(red: 248 / 255, green: 248 / 255, blue: 248 / 255, alpha: 1)
+                return  UIColor(hexCode: "#FFFFFF", alpha: 1)
             case .dark:
-                return UIColor(red: 76 / 255, green: 75 / 255, blue: 74 / 255, alpha: 1)
+                return UIColor(hexCode: "#252525", alpha: 1)
             }
         }
     }

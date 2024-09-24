@@ -10,6 +10,8 @@ import Alamofire
 
 struct MoreCharacterListView: View {
     
+    @Environment(\.colorSystem) var colorSystem
+    
     let setModel: VideosEntity
     
     var body: some View {
@@ -50,7 +52,7 @@ extension MoreCharacterListView {
                     .foregroundStyle(Color(GuideUColor.ViewBaseColor.dark.textColor))
                     .frame(width: 40, height: 40)
                     .aspectRatio(1, contentMode: .fill)
-                    .background(Color(GuideUColor.ViewBaseColor.light.primary))
+                    .background(colorSystem.color(colorCase: .pointColor))
                     .clipShape(Circle())
             }
             
@@ -59,13 +61,13 @@ extension MoreCharacterListView {
                     Text(setModel.title)
                         .multilineTextAlignment(.leading)
                         .font(Font(WantedFont.boldFont.font(size: 15)))
-                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     Spacer()
                 }
                 HStack {
                     Text(setModel.channelName)
                         .font(Font(WantedFont.midFont.font(size: 12)))
-                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                        .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     Spacer()
                 }
                 
