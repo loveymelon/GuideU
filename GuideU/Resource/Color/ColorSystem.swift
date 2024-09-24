@@ -85,6 +85,9 @@ extension ColorSystem {
         case personSectionTextColor
         case memeSectionColor
         case memeSectionTextColor
+        
+        // 예외적인
+        case settingTextColor
     }
     
     
@@ -179,14 +182,14 @@ extension ColorSystem {
                 return currentColorSet == .light ? light : dark
             }
         case .detailGrayColor:
+            let light = Color(GuideUColor.ViewBaseColor.light.gray1)
+            let dark = Color(GuideUColor.ViewBaseColor.dark.gray1)
             switch currentColorSet {
             case .light:
-                return Color(GuideUColor.ViewBaseColor.light.gray1)
+                return light
             case .dark:
-                return Color(GuideUColor.ViewBaseColor.dark.gray1)
+                return dark
             case .system:
-                let light = Color(GuideUColor.ViewBaseColor.light.gray1)
-                let dark = Color(GuideUColor.ViewBaseColor.dark.gray1)
                 return currentColorSet == .light ? light : dark
             }
         case .subGrayColor:
@@ -211,6 +214,19 @@ extension ColorSystem {
             
         case .memeSectionTextColor:
             return Color(UIColor(hexCode: "#1D3829"))
+            
+        case .settingTextColor:
+            let light = Color(GuideUColor.ViewBaseColor.dark.gray1)
+            let dark = light
+            
+            switch currentColorSet {
+            case .light:
+                return light
+            case .dark:
+                return dark
+            case .system:
+                return currentColorSet == .light ? light : dark
+            }
         }
     }
 }
