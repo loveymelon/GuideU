@@ -24,7 +24,7 @@ struct HistoryView: View {
                     HStack {
                         Text(section.lastWatched)
                             .font(Font(WantedFont.midFont.font(size: 16)))
-                            .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                            .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                         Spacer()
                     }
                     .padding(.horizontal, 10)
