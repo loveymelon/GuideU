@@ -98,8 +98,9 @@ struct MorePersonView: View {
             Image(imageType.rawValue)
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)
-                .frame(width: 260, height: 260)
+                .frame(width: imageType == .notWak ? 260 : 249, height: imageType == .notWak ? 260 : 164)
                 .padding(.bottom, 30)
+                .padding(.top, 40)
             
             Text(errorType.title)
                 .font(Font(WantedFont.boldFont.font(size: 20)))
