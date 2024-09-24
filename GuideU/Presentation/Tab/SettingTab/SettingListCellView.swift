@@ -21,11 +21,11 @@ struct SettingListCellView: View {
                     .renderingMode(.template)
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 22)
-                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
+                    .foregroundStyle(colorSystem.color(colorCase: .detailGrayColor))
             }
             Text(setModel.title)
                 .font(Font(WantedFont.semiFont.font(size: 20)))
-                .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                .foregroundStyle(colorSystem.color(colorCase: .detailGrayColor))
                 Spacer()
             if case let .theme = setModel {
                 // 테마 설정
