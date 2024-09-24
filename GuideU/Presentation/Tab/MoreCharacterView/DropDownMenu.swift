@@ -23,6 +23,9 @@ struct DropDownMenu: View {
     @Binding
     var showDropdown: Bool
     
+//    @Environment(\.colorSystem) var colorSystem
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some  View {
         VStack {
             VStack(spacing: 0) {
@@ -73,6 +76,7 @@ extension DropDownMenu {
         }, label: {
             HStack {
                 Text(options[index])
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
                 if (index == selectedOptionIndex) {
                     Image(systemName: "checkmark.circle.fill")
@@ -96,6 +100,7 @@ extension DropDownMenu {
                         } else {
                             Text(options[selectedOptionIndex] + " 님")
                                 .font(Font(WantedFont.boldFont.font(size: 21)))
+                            
                         }
                         
                         Spacer()
@@ -103,6 +108,8 @@ extension DropDownMenu {
                             .rotationEffect(.degrees((showDropdown ?  -180 : 0)))
                     }
                     .padding(.bottom, 4)
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                    
                     Divider()
                         .frame(height: 2)
                         .overlay(Color(GuideUColor.ViewBaseColor.light.primary))

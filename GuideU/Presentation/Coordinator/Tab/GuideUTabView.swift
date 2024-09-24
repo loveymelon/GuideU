@@ -13,7 +13,7 @@ struct GuideUTabView: View {
     
     @Perception.Bindable var store: StoreOf<TabCoordinator>
     
-    @Environment(\.colorScheme) var scheme
+    @EnvironmentObject var colorSystem: ColorSystem
     
     var body: some View {
         WithPerceptionTracking {
@@ -26,6 +26,7 @@ struct GuideUTabView: View {
                             action: \.homeTabAction
                         )
                     )
+                    .environmentObject(colorSystem)
                     .tabItem {
                         tabItemView(tabItem: .home)
                     }
@@ -37,6 +38,7 @@ struct GuideUTabView: View {
                             action: \.searchTabAction
                         )
                     )
+                    .environmentObject(colorSystem)
                     .tabItem {
                         tabItemView(
                             tabItem: .searchTab
@@ -52,6 +54,7 @@ struct GuideUTabView: View {
                             action: \.historyTabAction
                         )
                     )
+                    .environmentObject(colorSystem)
                     .tabItem {
                         tabItemView(tabItem: .timeLine)
                     }
@@ -64,6 +67,7 @@ struct GuideUTabView: View {
                             action: \.settingTabAction
                         )
                     )
+                    .environmentObject(colorSystem)
                     .tabItem {
                         tabItemView(tabItem: .setting)
                     }
@@ -72,15 +76,7 @@ struct GuideUTabView: View {
                 }
             }
             .onAppear {
-                switch scheme {
-                case .light:
-                    UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.light.color
-                case .dark:
-//                    UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.dark.color
-                    UITabBar.appearance().backgroundColor = GuideUColor.tabbarColor.light.color
-                @unknown default:
-                    break
-                }
+                UITabBar.appearance().backgroundColor = UIColor( colorSystem.color(colorCase: .tabbar))
             }
         }
     }

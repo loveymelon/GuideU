@@ -13,6 +13,8 @@ struct SearchCoordinatorView: View {
     
     @Perception.Bindable var store: StoreOf<SearchCoordinator>
     
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some View {
         WithPerceptionTracking {
             TCARouter(store.scope(state: \.routes, action: \.router)) { screen in

@@ -10,7 +10,8 @@ import Alamofire
 
 struct MoreCharacterListView: View {
     
-    @Environment(\.colorSystem) var colorSystem
+//    @Environment(\.colorSystem) var colorSystem
+    @EnvironmentObject var colorSystem: ColorSystem
     
     let setModel: VideosEntity
     
@@ -27,7 +28,7 @@ extension MoreCharacterListView {
                 .padding(.horizontal, 10)
                 .padding(.bottom, 8)
         }
-        .background()
+        .background(colorSystem.color(colorCase: .cellBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(radius: 6)
     }

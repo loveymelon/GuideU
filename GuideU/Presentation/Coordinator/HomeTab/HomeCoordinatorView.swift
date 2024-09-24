@@ -13,12 +13,15 @@ struct HomeCoordinatorView: View {
     
     @Perception.Bindable var store: StoreOf<HomeCoordinator>
     
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some View {
         WithPerceptionTracking {
             TCARouter(store.scope(state: \.routes, action: \.router)) { screen in
                 switch screen.case {
                 case let .home(store):
                     MoreCharacterView(store: store)
+                        .environmentObject(colorSystem)
                 }
             }
         }

@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 
-
 final class ColorSystem: @unchecked Sendable, ObservableObject {
     
     private var cancellables: Set<AnyCancellable> = []
@@ -35,7 +34,18 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
         NotificationCenter.default
             .publisher(for: UIScreen.brightnessDidChangeNotification, object: nil)
             .receive(on: RunLoop.main)
-            .sink {[weak self] _ in
+            .sink { [weak self] _ in
+                guard let self else { return }
+                Task {
+                   await self.updateColorScheme()
+                }
+            }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default
+            .publisher(for: UIApplication.didBecomeActiveNotification)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
                 guard let self else { return }
                 Task {
                    await self.updateColorScheme()
@@ -177,19 +187,5 @@ extension UserDefaults {
         } set {
             set(newValue, forKey: UserDefaultsManager.Key.currentColorSetting.value)
         }
-    }
-}
-
-
-
-extension ColorSystem: EnvironmentKey {
-    static let defaultValue = ColorSystem()
-}
-
-
-extension EnvironmentValues {
-    var colorSystem: ColorSystem {
-        get { self[ColorSystem.self] }
-        set { self[ColorSystem.self] = newValue }
     }
 }
