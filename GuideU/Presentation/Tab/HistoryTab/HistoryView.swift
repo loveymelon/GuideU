@@ -15,6 +15,8 @@ struct HistoryView: View {
     
     @Environment(\.openURLManager) var openURLManager
     
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some View {
         WithPerceptionTracking {
             ScrollView {
@@ -40,6 +42,7 @@ struct HistoryView: View {
                     .padding(.horizontal, 10)
                 }
             }
+            .background(colorSystem.color(colorCase: .background))
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("최근 알아본")
             .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {

@@ -21,6 +21,7 @@ struct HistoryCoordinatorView: View {
                 switch screen.case {
                 case let .root(store):
                     HistoryView(store: store)
+                        .environmentObject(colorSystem)
                 }
             }
         }

@@ -75,9 +75,7 @@ struct GuideUTabView: View {
                     
                 }
             }
-            .onAppear {
-                UITabBar.appearance().backgroundColor = UIColor( colorSystem.color(colorCase: .tabbar))
-            }
+            .foregroundStyle(colorSystem.color(colorCase: .tabbar))
         }
     }
 }

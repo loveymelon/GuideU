@@ -176,6 +176,7 @@ extension MoreCharacterView {
                 Text(store.constViewState.sub)
                     .font(Font(WantedFont.regularFont.font(size: 22)))
                     .padding(.top, 10)
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
             }
             
         }
