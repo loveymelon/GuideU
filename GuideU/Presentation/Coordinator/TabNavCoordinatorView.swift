@@ -15,6 +15,9 @@ struct TabNavCoordinatorView: View {
     /// Swift UI 적인 방법
     @Environment(\.scenePhase) var phase
     
+    @ObservedObject
+    var colorSystem = ColorSystem()
+    
     var body: some View {
         WithPerceptionTracking {
             Group {
@@ -22,8 +25,10 @@ struct TabNavCoordinatorView: View {
                     switch screen.case {
                     case let .tab(store):
                         GuideUTabView(store: store)
+                            .environmentObject(colorSystem)
                     case let .detail(store):
                         MorePersonView(store: store)
+                            .environmentObject(colorSystem)
                     }
                 }
             }

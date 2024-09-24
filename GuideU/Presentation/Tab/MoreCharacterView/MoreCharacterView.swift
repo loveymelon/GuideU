@@ -14,7 +14,8 @@ struct MoreCharacterView: View {
     @Perception.Bindable var store: StoreOf<MoreCharacterFeature>
     
     @Environment(\.openURLManager) var openURLManager
-    @Environment(\.colorSystem) var colorSystem
+    
+    @EnvironmentObject var colorSystem: ColorSystem
     
     @State var dropdown: Bool = false
     
@@ -61,7 +62,6 @@ struct MoreCharacterView: View {
                     }
                 }
             }
-            .background(colorSystem.color(colorCase: .background))
             .onChange(of: store.openURLCase) { newValue in
                 guard let openURL = newValue else { return }
                 
@@ -77,7 +77,6 @@ struct MoreCharacterView: View {
 extension MoreCharacterView {
     private func contentView() -> some View {
         ScrollView {
-            
             ZStack(alignment: .top) {
                 ZStack {
                     Group {
@@ -87,6 +86,7 @@ extension MoreCharacterView {
                             listContentView()
                         }
                     }
+                    .background(colorSystem.color(colorCase: .background))
                     .padding(.top, 130)
                 }
                 ZStack {
@@ -96,6 +96,7 @@ extension MoreCharacterView {
                 }
                 .zIndex(100)
             }
+            .background(colorSystem.color(colorCase: .background))
         }
         .background(colorSystem.color(colorCase: .background))
     }
@@ -127,6 +128,7 @@ extension MoreCharacterView {
                     .asButton { // 선택되었을때
                         store.send(.viewEventType(.selectedVideoIndex(index)))
                     }
+                    .environmentObject(colorSystem)
                     .padding(.bottom, 10)
                     .onAppear {
                         if index >= store.state.videoInfos.count - 7 {
@@ -138,6 +140,7 @@ extension MoreCharacterView {
             }
         }
         .padding(.horizontal, 12)
+        .background(colorSystem.color(colorCase: .background))
     }
     
     private func wantMoreInfoView() -> some View {
@@ -165,6 +168,7 @@ extension MoreCharacterView {
                 )
                 .frame(width: 110)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                .environmentObject(colorSystem)
                 .zIndex(100)
                 
                 Text(store.constViewState.sub)
