@@ -17,6 +17,8 @@ struct MemeExtendView: View {
     
     let setModel: MemeEntity
     
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some View {
         VStack {
             if !isExtend {
@@ -66,7 +68,7 @@ extension MemeExtendView {
                 Spacer()
                 crossImage()
             }
-            Color(GuideUColor.ViewBaseColor.light.gray3)
+            colorSystem.color(colorCase: .subTextColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: 2)
         }
@@ -80,7 +82,7 @@ extension MemeExtendView {
             ForEach(text, id: \.self) { chunk in
                 Text(chunk)
                     .font(Font(WantedFont.midFont.font(size: 16)))
-                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray1))
+                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
@@ -105,11 +107,11 @@ extension MemeExtendView {
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                             Text(urlEntity.title)
                                 .font(Font(WantedFont.midFont.font(size: 15)))
-                                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
+                                .foregroundStyle(colorSystem.color(colorCase: .textColor))
                                 .lineLimit(1)
                             Text(urlEntity.channel)
                                 .font(Font(WantedFont.midFont.font(size: 15)))
-                                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                                .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                                 .lineLimit(1)
                         }
                         .frame(width: 170)
