@@ -68,7 +68,7 @@ extension MemeExtendView {
                 Spacer()
                 crossImage()
             }
-            colorSystem.color(colorCase: .subTextColor)
+            colorSystem.color(colorCase: .lineColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: 2)
         }
@@ -82,7 +82,7 @@ extension MemeExtendView {
             ForEach(text, id: \.self) { chunk in
                 Text(chunk)
                     .font(Font(WantedFont.midFont.font(size: 16)))
-                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
+                    .foregroundStyle(colorSystem.color(colorCase: .detailGrayColor))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
