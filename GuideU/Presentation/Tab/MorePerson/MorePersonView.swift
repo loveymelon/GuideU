@@ -18,6 +18,7 @@ struct MorePersonView: View {
     @Namespace var name
     
     @Environment(\.openURLManager) var openURLManager
+    @EnvironmentObject var colorSystem: ColorSystem
     
     var body: some View {
         WithPerceptionTracking {
@@ -53,13 +54,12 @@ struct MorePersonView: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.vertical, 14)
                             .font(Font(WantedFont.semiFont.font(size: 20)))
-                            .background(Color(GuideUColor.ViewBaseColor.light.primary))
+                            .background(colorSystem.color(colorCase: .pointColor))
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .asButton {
                                 store.send(.viewEventType(.moreButtonTapped))
-                                print("해당 영상 분석후 ( 유튜브 인지 아닌지 ) 유튜브면 유튜브 앱실행 할수 있도록 짜세요!")
                             }
-                            .foregroundStyle(Color(GuideUColor.ViewBaseColor.dark.textColor))
+                            .foregroundStyle(colorSystem.color(colorCase: .textColor))
                             .padding(.horizontal, 10)
                             .padding(.bottom, 10)
                     }
@@ -104,10 +104,11 @@ struct MorePersonView: View {
             
             Text(errorType.title)
                 .font(Font(WantedFont.boldFont.font(size: 20)))
+                .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 .padding(.bottom, 4)
             Text(errorType.des)
                 .font(Font(WantedFont.semiFont.font(size: 14)))
-                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 .multilineTextAlignment(.center)
             
             Spacer()
@@ -124,7 +125,8 @@ struct MorePersonView: View {
                     .background(Color.clear)
                 
                 LazyVStack(spacing: 0) {
-                    Color.clear.frame(height: 20)
+                    colorSystem.color(colorCase: .background)
+                        .frame(height: 20)
                     VStack {
                         switch moreType {
                         case .characters:
@@ -133,7 +135,8 @@ struct MorePersonView: View {
                                 ProgressView()
                             case .content:
                                 characterSectionView()
-                                Color.white.frame(maxWidth: .infinity)
+                                colorSystem.color(colorCase: .background)
+                                    .frame(maxWidth: .infinity)
                                     .frame(height: 80)
                             case .severError:
                                 errorView(imageType: .notWak, errorType: .serverError)
@@ -147,7 +150,8 @@ struct MorePersonView: View {
                                 ProgressView()
                             case .content:
                                 memeSectionView()
-                                Color.white.frame(maxWidth: .infinity)
+                                colorSystem.color(colorCase: .background)
+                                    .frame(maxWidth: .infinity)
                                     .frame(height: 80)
                             case .severError:
                                 errorView(imageType: .notWak, errorType: .serverError)
@@ -157,7 +161,7 @@ struct MorePersonView: View {
                         }
                     }
                 }
-                .background(.white)
+                .background(colorSystem.color(colorCase: .background))
             }
             .background {
                 ScrollDetector { offset in
@@ -191,7 +195,7 @@ struct MorePersonView: View {
             PersonSectionView(selectedURL: { urlString in
                 store.send(.viewEventType(.socialTapped(urlString)))
             }, setModel: model)
-            .background(.white)
+            .background(colorSystem.color(colorCase: .cellBackground))
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.all, 10)
             .shadow(radius: 4)
@@ -208,6 +212,7 @@ struct MorePersonView: View {
                 
                 Text(model.timestamp)
                     .font(Font(WantedFont.midFont.font(size: 15)))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
             }
             .padding(.horizontal, 10)
@@ -218,7 +223,7 @@ struct MorePersonView: View {
                     MemeExtendView(selectedURL: { urlString in
                         store.send(.viewEventType(.socialTapped(urlString)))
                     }, setModel: model)
-                    .background(.white)
+                    .background(colorSystem.color(colorCase: .cellBackground))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.all, 10)
                     .shadow(radius: 4)
@@ -227,6 +232,7 @@ struct MorePersonView: View {
             .padding(.bottom, 10)
 
         }
+        .background(colorSystem.color(colorCase: .background))
     }
     
     private func fakeNavigation(entity: HeaderEntity, opacity: CGFloat) -> some View {
@@ -235,6 +241,7 @@ struct MorePersonView: View {
                 Image.backBlack
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
+                    .foregroundStyle(colorSystem.color(colorCase: .background))
                     .frame(height: 25)
                     .asButton {
                         store.send(.viewEventType(.backButtonTapped))
@@ -243,13 +250,13 @@ struct MorePersonView: View {
             }
             Text(Const.moreInfoText)
                 .font(Font(WantedFont.boldFont.font(size: 21)))
-                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray1))
+                .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 .frame(maxWidth: .infinity)
                 .opacity(1 - opacity)
             
             Text(entity.title)
                 .font(Font(WantedFont.boldFont.font(size: 23)))
-                .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray1))
+                .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 .frame(maxWidth: .infinity)
                 .opacity(opacity)
                 .frame(maxWidth: .infinity)
@@ -264,6 +271,7 @@ struct MorePersonView: View {
         VStack(alignment: .leading, spacing: 6) {
             Text(entity.sectionTitle)
                 .font(Font(WantedFont.midFont.font(size: 16)))
+                .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 .padding(.bottom, 4)
             
             MarqueeTextView(
@@ -273,7 +281,7 @@ struct MorePersonView: View {
                 trailing: 15,
                 startDelay: 1
             )
-            .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.primary))
+            .foregroundStyle(colorSystem.color(colorCase: .pointColor))
             .padding(.bottom, 4)
             
             HStack {
@@ -285,6 +293,7 @@ struct MorePersonView: View {
             }
             .font(Font(WantedFont.midFont.font(size: 14)))
             .padding(.bottom, 18)
+            .foregroundStyle(colorSystem.color(colorCase: .textColor))
             switchView()
         }
         .padding(.horizontal, 10)
@@ -298,7 +307,7 @@ struct MorePersonView: View {
                 
                 VStack {
                     Text(caseOf.text)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .font(caseOf == store.currentMoreType ? Font(WantedFont.boldFont.font(size: fontSize)) : Font(WantedFont.midFont.font(size: fontSize)))
                         .asButton {
@@ -307,7 +316,7 @@ struct MorePersonView: View {
                     Group {
                         if caseOf == moreType {
                             Capsule()
-                                .foregroundColor(Color(GuideUColor.ViewBaseColor.light.primary))
+                                .foregroundColor(colorSystem.color(colorCase: .pointColor))
                                 .matchedGeometryEffect(id: "Tab", in: name)
                         } else {
                             Capsule()

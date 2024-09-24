@@ -19,6 +19,8 @@ struct PersonSectionView: View {
     
     let setModel: YoutubeCharacterEntity
     
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some View {
         VStack {
             if !isExtend {
@@ -43,13 +45,14 @@ extension PersonSectionView {
                 HStack {
                     Text(setModel.name)
                         .font(Font(WantedFont.boldFont.font(size: 18)))
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     Spacer()
                     crossImage()
                 }
                 // 설명
                 Text(setModel.definition)
                     .font(Font(WantedFont.regularFont.font(size: 14)))
-                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     .lineLimit(1)
             }
         }
@@ -91,7 +94,7 @@ extension PersonSectionView {
         }
         .frame(maxWidth: .infinity)
         .padding(.all, 8)
-        .background(Color(GuideUColor.ViewBaseColor.light.depth1))
+        .background(colorSystem.color(colorCase: .cellBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
     
@@ -108,6 +111,7 @@ extension PersonSectionView {
             HStack {
                 Text("관련 컨텐츠")
                     .font(Font(WantedFont.semiFont.font(size: 20)))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     .padding(.horizontal, 10)
                 Spacer()
             }
@@ -153,6 +157,7 @@ extension PersonSectionView {
             }
         }
         .font(Font(WantedFont.midFont.font(size: 17)))
+        .foregroundStyle(colorSystem.color(colorCase: .textColor))
         .padding(.horizontal, 10)
         .asButton {
             selectedURL(item.link)
