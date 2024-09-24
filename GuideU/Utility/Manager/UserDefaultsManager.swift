@@ -14,6 +14,7 @@ final actor UserDefaultsManager {
     enum Key: String {
         case isFirst
         case sharedURL
+        case currentColorSetting
         
         var value: String {
             return self.rawValue
@@ -25,4 +26,7 @@ final actor UserDefaultsManager {
     
     @UserDefaultsAppGroupWrapper(key: Key.sharedURL.value, placeValue: nil, appGroupType: .youtube)
     static var sharedURL: String?
+    
+    @UserDefaultsWrapper(key: Key.currentColorSetting.value, placeValue: 0)
+    static var colorCase: Int
 }
