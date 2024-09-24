@@ -75,9 +75,9 @@ enum GuideUColor{
         var depth1: UIColor {
             switch self {
             case .light:
-                return UIColor(hexCode: "F8F8F8")
+                return UIColor(hexCode: "#ffffff")
             case .dark:
-                return UIColor(hexCode: "4C4B4A")
+                return UIColor(hexCode: "#191919")
             }
         }
         

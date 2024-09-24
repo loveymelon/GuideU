@@ -34,7 +34,9 @@ struct MoreCharacterView: View {
                     .onAppear {
                         store.send(.viewCycleType(.onAppear))
                     }
+                    .background(colorSystem.color(colorCase: .background))
             }
+            .background(colorSystem.color(colorCase: .background))
             .popup(item: $store.alertState.sending(\.alertBinding)) { item in
                 CustomAlertView(
                     alertMode: .onlyCheck,
@@ -148,7 +150,7 @@ extension MoreCharacterView {
             Text(
                 store.constViewState.main.styledText(
                     fullFont: WantedFont.regularFont.font(size: 22),
-                    fullColor: .black,
+                    fullColor: UIColor(colorSystem.color(colorCase: .textColor)),
                     targetString: store.constViewState.targetString,
                     targetFont: WantedFont.boldFont.font(size: 24),
                     targetColor: GuideUColor.ViewBaseColor.light.primary
