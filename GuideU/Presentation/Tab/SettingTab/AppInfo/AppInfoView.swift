@@ -9,7 +9,10 @@ import SwiftUI
 import ComposableArchitecture
 
 struct AppInfoView: View {
+    
     @Perception.Bindable var store: StoreOf<AppInfoFeature>
+    
+    @EnvironmentObject var colorSystem: ColorSystem
      
     var body: some View {
         WithPerceptionTracking {

@@ -21,8 +21,10 @@ struct SettingCoordinatorView: View {
                 switch screen.case {
                 case let .settingView(store):
                     SettingView(store: store)
+                        .environmentObject(colorSystem)
                 case let .appInfoView(store):
                     AppInfoView(store: store)
+                        .environmentObject(colorSystem)
                 }
             }
         }

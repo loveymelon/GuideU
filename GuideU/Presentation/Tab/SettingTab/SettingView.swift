@@ -12,6 +12,8 @@ struct SettingView: View {
     
     @Perception.Bindable var store: StoreOf<SettingFeature>
     
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some View {
         WithPerceptionTracking {
             contentView()
@@ -36,6 +38,7 @@ extension SettingView {
             .navigationTitle(store.navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .scrollDisabled(true)
+            .background(colorSystem.color(colorCase: .background))
         }
     }
 }
