@@ -78,6 +78,9 @@ extension ColorSystem {
         case cellBackground
         case shadowColor
         case pointColor
+        case lineColor
+        case detailGrayColor
+        case subGrayColor
         case personSectionColor
         case personSectionTextColor
         case memeSectionColor
@@ -163,6 +166,39 @@ extension ColorSystem {
                 let light = Color(GuideUColor.ViewBaseColor.light.primary)
                 let dark = Color(GuideUColor.ViewBaseColor.dark.primary)
                 return currentColorScheme == .light ? light : dark
+            }
+        case .lineColor:
+            switch currentColorSet {
+            case .light:
+                return Color(GuideUColor.ViewBaseColor.light.lineType)
+            case .dark:
+                return Color(GuideUColor.ViewBaseColor.dark.lineType)
+            case .system:
+                let light = Color(GuideUColor.ViewBaseColor.light.lineType)
+                let dark = Color(GuideUColor.ViewBaseColor.dark.lineType)
+                return currentColorSet == .light ? light : dark
+            }
+        case .detailGrayColor:
+            switch currentColorSet {
+            case .light:
+                return Color(GuideUColor.ViewBaseColor.light.gray1)
+            case .dark:
+                return Color(GuideUColor.ViewBaseColor.dark.gray1)
+            case .system:
+                let light = Color(GuideUColor.ViewBaseColor.light.gray1)
+                let dark = Color(GuideUColor.ViewBaseColor.dark.gray1)
+                return currentColorSet == .light ? light : dark
+            }
+        case .subGrayColor:
+            switch currentColorSet {
+            case .light:
+                return Color(GuideUColor.ViewBaseColor.light.gray3)
+            case .dark:
+                return Color(GuideUColor.ViewBaseColor.dark.gray3)
+            case .system:
+                let light = Color(GuideUColor.ViewBaseColor.light.gray3)
+                let dark = Color(GuideUColor.ViewBaseColor.dark.gray3)
+                return currentColorSet == .light ? light : dark
             }
         case .personSectionColor:
             return Color(UIColor(hexCode: "#FFD2CF", alpha: 1))

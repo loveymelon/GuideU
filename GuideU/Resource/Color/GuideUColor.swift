@@ -145,6 +145,15 @@ enum GuideUColor{
                 return UIColor(hexCode: "#1D3829", alpha: 1)
             }
         }
+        
+        var lineType: UIColor {
+            switch self {
+            case .light:
+                return UIColor(hexCode: "E1E1E1", alpha: 1)
+            case .dark:
+                return UIColor(hexCode: "#696969", alpha: 1)
+            }
+        }
     }
     
 }

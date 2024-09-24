@@ -69,6 +69,7 @@ extension PersonSectionView {
                     profileImage(size: CGSize(width: 50, height: 52))
                     Text(setModel.name)
                         .font(Font(WantedFont.midFont.font(size: 19)))
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
                         .padding(.leading, 6)
                     Spacer()
                 }
@@ -76,7 +77,7 @@ extension PersonSectionView {
                     .frame(maxWidth: .infinity)
                     .frame(height: 1)
                     .overlay {
-                        colorSystem.color(colorCase: .subTextColor)
+                        colorSystem.color(colorCase: .lineColor)
                     }
                 textBoxView()
                 
@@ -95,6 +96,7 @@ extension PersonSectionView {
             ForEach(text, id: \.self) { chunk in
                 Text(chunk)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(colorSystem.color(colorCase: .detailGrayColor))
                     .padding(5)
             }
         }
