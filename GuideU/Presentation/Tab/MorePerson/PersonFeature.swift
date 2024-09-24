@@ -186,6 +186,7 @@ extension PersonFeature {
             case let .dataTransType(.booksElements(entitys)):
                 state.bookElementsInfo = entitys
                 state.memeState = state.bookElementsInfo.isEmpty ? .none : .content
+                print(state.bookElementsInfo)
                 
             case let .dataTransType(.videodatas(entity)):
                 guard let headerData = entity?.header,
@@ -198,8 +199,6 @@ extension PersonFeature {
                 state.videoInfo = videoData
                 
                 state.videoState = .content
-                
-                print("videoInfo", state.videoInfo)
                 
                 let result = realmRepository.videoHistoryCreate(videoData: state.videoInfo)
                 

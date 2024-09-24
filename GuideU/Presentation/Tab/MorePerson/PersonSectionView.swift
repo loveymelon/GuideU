@@ -72,6 +72,12 @@ extension PersonSectionView {
                         .padding(.leading, 6)
                     Spacer()
                 }
+                Divider()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 1)
+                    .overlay {
+                        colorSystem.color(colorCase: .subTextColor)
+                    }
                 textBoxView()
                 
                 socialView()

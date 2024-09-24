@@ -63,7 +63,7 @@ extension CharacterMapper {
     
     /// RelatedVideoDTO -> RelatedVideoEntity
     private func dtoToEntity(_ dto: RelatedVideoDTO) -> RelatedVideoEntity {
-        return RelatedVideoEntity(link: dto.link, title: dto.title, thumbnailURL: URL(string: dto.thumbnailURL), channel: dto.channel, type: dto.type)
+        return RelatedVideoEntity(link: dto.link, title: dto.title, thumbnailURL: openImageURL(URL(string: dto.thumbnailURL)), channel: dto.channel, type: dto.type)
     }
     
     /// [DuplicateDTO] -> [DuplicateEntity]
@@ -81,6 +81,19 @@ extension CharacterMapper {
         let sec = time % 60
         
         return String(format: "%02d:%02d", min, sec)
+    }
+}
+
+extension CharacterMapper {
+    private func openImageURL(_ url: URL?) -> URL? {
+        let validExtensions = ["jpg", "jpeg", "png"]  // 허용할 이미지 파일 확장자 목록
+        
+        guard let fileExtension = url?.pathExtension.lowercased() else { return nil }
+        
+        if validExtensions.contains(fileExtension) {
+            return url
+        }
+        return nil
     }
 }
 

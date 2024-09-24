@@ -64,6 +64,7 @@ struct MorePersonView: View {
                             .padding(.bottom, 10)
                     }
                 }
+                .background(colorSystem.color(colorCase: .background))
                 .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
                     WKWebHosting(url: socialURL.url)
                 }
@@ -199,6 +200,7 @@ struct MorePersonView: View {
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.all, 10)
             .shadow(radius: 4)
+            .environmentObject(colorSystem)
         }
     }
     
@@ -227,6 +229,7 @@ struct MorePersonView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.all, 10)
                     .shadow(radius: 4)
+                    .environmentObject(colorSystem)
                 }
             }
             .padding(.bottom, 10)
@@ -240,9 +243,11 @@ struct MorePersonView: View {
             HStack {
                 Image.backBlack
                     .resizable()
+                    .renderingMode(.template)
                     .aspectRatio(1, contentMode: .fit)
-                    .foregroundStyle(colorSystem.color(colorCase: .background))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     .frame(height: 25)
+                    .padding(.leading, 10)
                     .asButton {
                         store.send(.viewEventType(.backButtonTapped))
                     }
@@ -259,12 +264,10 @@ struct MorePersonView: View {
                 .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 .frame(maxWidth: .infinity)
                 .opacity(opacity)
-                .frame(maxWidth: .infinity)
                 .padding(.horizontal, 80)
         }
-        .padding(.leading, 10)
         .frame(height: 50)
-        .background(.white.opacity(opacity))
+        .background(colorSystem.color(colorCase: .background).opacity(opacity))
     }
     
     private func headerContentView(entity: HeaderEntity) -> some View {
