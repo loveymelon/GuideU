@@ -59,7 +59,7 @@ extension DropDownMenu {
                 .scrollDisabled(options.count <=  3)
                 .frame(height: scrollViewHeight)
                 .zIndex(103)
-                .background(Color.white)
+                .background(colorSystem.color(colorCase: .cellBackground))
                 .onAppear {
                     proxy.scrollTo(selectedOptionIndex)
                 }
@@ -75,12 +75,10 @@ extension DropDownMenu {
             }
         }, label: {
             HStack {
+                Spacer()
                 Text(options[index])
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
-                if (index == selectedOptionIndex) {
-                    Image(systemName: "checkmark.circle.fill")
-                }
             }
         })
     }
