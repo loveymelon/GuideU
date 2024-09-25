@@ -467,3 +467,13 @@ extension Const {
     static let navigationTitle = "앱 정보"
     static let sectionTitle = "소프트웨어 정보"
 }
+
+// Setting View
+extension Const {
+    
+    static let appInfo = "앱 정보"
+    
+    static let theme = "테마 설정"
+    
+    static let credit = "크레딧"
+}

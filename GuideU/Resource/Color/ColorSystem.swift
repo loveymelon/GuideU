@@ -16,7 +16,7 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
     var currentColorSet: CurrentColorModeCase = CurrentColorModeCase(rawValue: UserDefaultsManager.colorCase) ?? .system
     
     @Published
-    private var currentColorScheme: UIUserInterfaceStyle = .light
+    var currentColorScheme: UIUserInterfaceStyle = .light
     
     init () {
         UserDefaults.standard
@@ -33,7 +33,6 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
         
         NotificationCenter.default
             .publisher(for: UIScreen.brightnessDidChangeNotification, object: nil)
-            .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self else { return }
@@ -45,7 +44,6 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
         
         NotificationCenter.default
             .publisher(for: UIApplication.didBecomeActiveNotification)
-            .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self else { return }
@@ -54,6 +52,19 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    func currentColor() -> String {
+        switch currentColorScheme {
+        case .unspecified:
+            "지정되지 않음"
+        case .light:
+            "라이트 모드"
+        case .dark:
+            "다크 모드"
+        @unknown default:
+            "지정되지 않음"
+        }
     }
     
     @MainActor

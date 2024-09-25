@@ -19,6 +19,11 @@ struct AppColorSettingFeature {
     enum Action {
         case viewCycle(ViewCycleType)
         case viewEvent(ViewEventType)
+        case delegate(Delegate)
+        
+        enum Delegate {
+            
+        }
     }
     
     enum ViewCycleType {
@@ -27,6 +32,7 @@ struct AppColorSettingFeature {
 
     enum ViewEventType {
         case selectedCase(CurrentColorModeCase)
+        case backButtonTapped // 네비게이션 백버튼 탭 경우 처리 하셔요
     }
     
     var body: some ReducerOf<Self> {
