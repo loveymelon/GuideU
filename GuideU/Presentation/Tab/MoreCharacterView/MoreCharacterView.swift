@@ -24,10 +24,11 @@ struct MoreCharacterView: View {
             VStack {
                 fakeSearchBar()
                     .padding(.horizontal, 10)
-                    .onTapGesture {
+                    .asButton {
                         /// View Changed
                         store.send(.viewEventType(.searchViewChanged))
                     }
+                
                     .padding(.horizontal, 10)
                 
                 contentView()
