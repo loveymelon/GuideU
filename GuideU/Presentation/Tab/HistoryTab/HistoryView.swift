@@ -45,6 +45,16 @@ struct HistoryView: View {
                         }
                     }
                     .padding(.horizontal, 10)
+                } else {
+                    VStack {
+                        Image("LightNoData")
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fit)
+                            .padding(.bottom, 30)
+                            .padding(.top, 40)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(colorSystem.color(colorCase: .background))
                 }
             }
             .background(colorSystem.color(colorCase: .background))
@@ -85,16 +95,6 @@ struct HistoryView: View {
                         store.send(.viewCycleType(.viewDisAppear))
                     }
                     
-                } else {
-                    VStack {
-                        Image("LightNoData")
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fit)
-                            .padding(.bottom, 30)
-                            .padding(.top, 40)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(colorSystem.color(colorCase: .background))
                 }
             }
         }
