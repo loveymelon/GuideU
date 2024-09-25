@@ -29,8 +29,12 @@ struct AppColorSettingView: View {
                                 store.send(.viewEvent(.backButtonTapped))
                             }
                     }
+                    ToolbarItem(placement: .principal) {
+                        Text(Const.theme)
+                            .font(Font(WantedFont.semiFont.font(size: 20)))
+                            .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                    }
                 }
-                .navigationTitle(Const.theme)
                 .navigationBarTitleDisplayMode(.inline)
                 .onChange(of: store.currentCase) { value in
                     colorSystem.changeColor(type: value)

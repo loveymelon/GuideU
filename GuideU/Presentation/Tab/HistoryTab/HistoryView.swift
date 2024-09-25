@@ -44,21 +44,29 @@ struct HistoryView: View {
                             .padding(.horizontal, 10)
                         }
                     }
-                    .background(colorSystem.color(colorCase: .background))
-                    .navigationBarTitleDisplayMode(.inline)
-                    .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
-                        Group {
-                            ForEach(MoreCharacterDialog.allCases, id: \.self) { caseOf in
-                                switch caseOf {
-                                case .buttonTitle1:
-                                    Button(caseOf.buttonTitle) {
-                                        store.send(.viewEventType(.youtubeButtonTapped))
-                                    }
-                                case .buttonTitle2:
-                                    Button(caseOf.buttonTitle) {
-                                        store.send(.viewEventType(.detailButtonTapped))
-                                    }
-                                }
+                    .padding(.horizontal, 10)
+                }
+            }
+            .background(colorSystem.color(colorCase: .background))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(Const.recentFind)
+                        .font(Font(WantedFont.semiFont.font(size: 20)))
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                }
+            }
+            .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
+                Group {
+                    ForEach(MoreCharacterDialog.allCases, id: \.self) { caseOf in
+                        switch caseOf {
+                        case .buttonTitle1:
+                            Button(caseOf.buttonTitle) {
+                                store.send(.viewEventType(.youtubeButtonTapped))
+                            }
+                        case .buttonTitle2:
+                            Button(caseOf.buttonTitle) {
+                                store.send(.viewEventType(.detailButtonTapped))
                             }
                         }
                     }

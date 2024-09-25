@@ -22,12 +22,15 @@ struct SettingCoordinatorView: View {
                 case let .settingView(store):
                     SettingView(store: store)
                         .environmentObject(colorSystem)
+                        .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
                 case let .appInfoView(store):
                     AppInfoView(store: store)
                         .environmentObject(colorSystem)
+                        .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
                 case let .colorSettingView(store):
                     AppColorSettingView(store: store)
                         .environmentObject(colorSystem)
+                        .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
                 }
             }
         }

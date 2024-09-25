@@ -420,6 +420,7 @@ extension Const {
     static let mean = "뜻"
     static let explain = "설명"
     static let related = "관련 컨텐츠"
+    static let recentFind = "최근 알아본"
 }
 
 extension Const {
