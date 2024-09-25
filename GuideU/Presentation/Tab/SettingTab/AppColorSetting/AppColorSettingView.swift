@@ -20,7 +20,6 @@ struct AppColorSettingView: View {
         WithPerceptionTracking {
             contentView()
                 .background(colorSystem.color(colorCase: .background))
-                .navigationBarBackButtonHidden()
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Image(.backBlack)
@@ -33,6 +32,7 @@ struct AppColorSettingView: View {
                 }
                 .navigationTitle(Const.theme)
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden()
         }
     }
     
