@@ -54,6 +54,7 @@ extension AppColorSettingFeature {
             case let .viewEvent(.selectedCase(caseOf)):
                 state.currentCase = caseOf
                 
+                
             case .viewEvent(.backButtonTapped):
                 return .run { send in
                     await send(.delegate(.backButtonTapped))

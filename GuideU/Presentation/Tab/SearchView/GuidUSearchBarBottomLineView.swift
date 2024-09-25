@@ -19,7 +19,8 @@ struct GuidUSearchBarBottomLineView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(alignment: .center) {
-                TextField(placeHolder, text: $currentText)
+                
+                TextField("search", text: $currentText, prompt: Text(placeHolder).foregroundColor(colorSystem.color(colorCase: .lineColor)))
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     .onSubmit {
                         onSubmit()
@@ -39,6 +40,7 @@ struct GuidUSearchBarBottomLineView: View {
                 .frame(height: lineWidth)
                 .overlay(Color(GuideUColor.ViewBaseColor.light.primary))
         }
+        .background(colorSystem.color(colorCase: .background))
     }
 }
 

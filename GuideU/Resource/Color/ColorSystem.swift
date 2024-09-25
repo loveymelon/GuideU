@@ -62,6 +62,7 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
     
     func changeColor(type: CurrentColorModeCase) {
         currentColorSet = type
+        UserDefaultsManager.colorCase = type.rawValue
     }
     
     @MainActor

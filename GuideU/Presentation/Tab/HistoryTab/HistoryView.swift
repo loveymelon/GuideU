@@ -19,63 +19,76 @@ struct HistoryView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            ScrollView {
-                ForEach(store.videosEntity, id: \.lastWatched) { section in
-                    HStack {
-                        Text(section.lastWatched)
-                            .font(Font(WantedFont.midFont.font(size: 16)))
-                            .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
-                        Spacer()
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.top, 14)
-                    
-                    LazyVStack {
-                        ForEach(section.videosEntity, id: \.id) { element in
-                            MoreCharacterListView(setModel: element)
-                                .padding(.bottom, 8)
-                                .asButton {
-                                    store.send(.viewEventType(.videoTapped(element)))
+            VStack {
+                if !store.videosEntity.isEmpty {
+                    ScrollView {
+                        ForEach(store.videosEntity, id: \.lastWatched) { section in
+                            HStack {
+                                Text(section.lastWatched)
+                                    .font(Font(WantedFont.midFont.font(size: 16)))
+                                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
+                                Spacer()
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.top, 14)
+                            
+                            LazyVStack {
+                                ForEach(section.videosEntity, id: \.id) { element in
+                                    MoreCharacterListView(setModel: element)
+                                        .padding(.bottom, 8)
+                                        .asButton {
+                                            store.send(.viewEventType(.videoTapped(element)))
+                                        }
                                 }
+                            }
+                            .padding(.horizontal, 10)
                         }
                     }
-                    .padding(.horizontal, 10)
-                }
-            }
-            .background(colorSystem.color(colorCase: .background))
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("최근 알아본")
-            .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
-                Group {
-                    ForEach(MoreCharacterDialog.allCases, id: \.self) { caseOf in
-                        switch caseOf {
-                        case .buttonTitle1:
-                            Button(caseOf.buttonTitle) {
-                                store.send(.viewEventType(.youtubeButtonTapped))
-                            }
-                        case .buttonTitle2:
-                            Button(caseOf.buttonTitle) {
-                                store.send(.viewEventType(.detailButtonTapped))
+                    .background(colorSystem.color(colorCase: .background))
+                    .navigationBarTitleDisplayMode(.inline)
+                    .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
+                        Group {
+                            ForEach(MoreCharacterDialog.allCases, id: \.self) { caseOf in
+                                switch caseOf {
+                                case .buttonTitle1:
+                                    Button(caseOf.buttonTitle) {
+                                        store.send(.viewEventType(.youtubeButtonTapped))
+                                    }
+                                case .buttonTitle2:
+                                    Button(caseOf.buttonTitle) {
+                                        store.send(.viewEventType(.detailButtonTapped))
+                                    }
+                                }
                             }
                         }
                     }
+                    .onChange(of: store.openURLCase) { newValue in
+                        guard let openURL = newValue else { return }
+                        
+                        store.send(.viewEventType(.successOpenURL))
+                        Task {
+                            await openURLManager.openAppUrl(urlCase: openURL)
+                        }
+                    }
+                    .onAppear {
+                        store.send(.viewCycleType(.viewOnAppear))
+                    }
+                    .onDisappear {
+                        store.send(.viewCycleType(.viewDisAppear))
+                    }
+                    
+                } else {
+                    VStack {
+                        Image("LightNoData")
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fit)
+                            .padding(.bottom, 30)
+                            .padding(.top, 40)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(colorSystem.color(colorCase: .background))
                 }
             }
-            .onChange(of: store.openURLCase) { newValue in
-                guard let openURL = newValue else { return }
-        
-                store.send(.viewEventType(.successOpenURL))
-                Task {
-                    await openURLManager.openAppUrl(urlCase: openURL)
-                }
-            }
-            .onAppear {
-                store.send(.viewCycleType(.viewOnAppear))
-            }
-            .onDisappear {
-                store.send(.viewCycleType(.viewDisAppear))
-            }
-            
         }
     }
 }

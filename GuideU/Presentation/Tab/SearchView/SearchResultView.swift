@@ -17,13 +17,17 @@ struct SearchResultView: View {
         WithPerceptionTracking {
             VStack {
                 contentView()
+                    .background(colorSystem.color(colorCase: .background))
             }
+            .background(colorSystem.color(colorCase: .background))
             .onAppear {
                 store.send(.viewCycleType(.viewOnAppear))
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Image(.backBlack)
+                        .renderingMode(.template)
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
                         .asButton {
                             store.send(.viewEventType(.backButtonTapped))
                         }
@@ -60,7 +64,8 @@ extension SearchResultView {
                 relatedSection(related: model.relatedVideos)
             }
         } else {
-            EmptyView()
+            colorSystem.color(colorCase: .background)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
     

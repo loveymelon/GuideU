@@ -32,6 +32,7 @@ struct SearchView: View {
                 }
                 .scrollDismissesKeyboard(.immediately)
             }
+            .background(colorSystem.color(colorCase: .background))
             .onAppear {
                 store.send(.viewCycleType(.onAppear))
             }
@@ -98,15 +99,12 @@ extension SearchView {
             Group {
                 Text(store.recentSectionText)
                     .font(Font(WantedFont.midFont.font(size: 15)))
-                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     
                 Text("|")
                     .font(Font(WantedFont.midFont.font(size: 13)))
-                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     .offset(y: -1.5)
                 Text(store.allClearText)
                     .font(Font(WantedFont.midFont.font(size: 15)))
-                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     .asButton {
                         store.send(.viewEventType(.deleteAll))
                     }
@@ -126,15 +124,16 @@ extension SearchView {
                 
                 Text(store.navigationTitle)
                     .font(Font(WantedFont.midFont.font(size: 17)))
-                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     .frame(height: 52)
-                
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
             }
+            
             
             GuidUSearchBarBottomLineView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.placeHolderText, lineWidth: 1.4) {
                 store.send(.viewEventType(.onSubmit(store.currentText)))
             }
+            .foregroundStyle(colorSystem.color(colorCase: .textColor))
             .environmentObject(colorSystem)
         }
     }

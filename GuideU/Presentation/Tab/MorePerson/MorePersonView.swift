@@ -22,75 +22,84 @@ struct MorePersonView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            switch store.videoState {
-            case .loading:
-                ProgressView()
-                    .navigationBarBackButtonHidden()
-                    .onAppear {
-                        store.send(.viewCycleType(.onAppear))
-                    }
-            case .content:
-                ZStack(alignment: .top) {
-                    // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
-                    backgroundImage(size: CGSize(
-                        width: UIScreen.main.bounds.width,
-                        height: 275 + -offsetY )
-                    )
-                    .ignoresSafeArea(edges: .top) // Safe area까지 무시
-                    
-                    ZStack(alignment: .bottom) {
-                        VStack(spacing: 0) {
-                            mainView()
-                                .safeAreaInset(edge: .top) {
-                                    // 네비게이션 바를 고정시킴
-                                    fakeNavigation(entity: store.headerState, opacity: 1 - opacity)
-                                        .frame(maxWidth: .infinity)
-                                }
+            VStack {
+                switch store.videoState {
+                case .loading:
+                    ProgressView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(colorSystem.color(colorCase: .background))
+                        .navigationBarBackButtonHidden()
+                        .onAppear {
+                            store.send(.viewCycleType(.onAppear))
                         }
-                        .onChange(of: store.currentMoreType) { newValue in
-                            moreType = newValue
-                        }
-                        Text(Const.moreCheckText)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .padding(.vertical, 14)
-                            .font(Font(WantedFont.semiFont.font(size: 20)))
-                            .background(colorSystem.color(colorCase: .pointColor))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .asButton {
-                                store.send(.viewEventType(.moreButtonTapped))
+                case .content:
+                    ZStack(alignment: .top) {
+                        // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
+                        backgroundImage(size: CGSize(
+                            width: UIScreen.main.bounds.width,
+                            height: 275 + -offsetY )
+                        )
+                        .ignoresSafeArea(edges: .top) // Safe area까지 무시
+                        
+                        ZStack(alignment: .bottom) {
+                            VStack(spacing: 0) {
+                                mainView()
+                                    .safeAreaInset(edge: .top) {
+                                        // 네비게이션 바를 고정시킴
+                                        fakeNavigation(entity: store.headerState, opacity: 1 - opacity)
+                                            .frame(maxWidth: .infinity)
+                                    }
                             }
-                            .foregroundStyle(colorSystem.color(colorCase: .textColor))
-                            .padding(.horizontal, 10)
-                            .padding(.bottom, 10)
-                    }
-                }
-                .background(colorSystem.color(colorCase: .background))
-                .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
-                    WKWebHosting(url: socialURL.url)
-                }
-                .onChange(of: store.openURLCase) { newValue in
-                    guard let openURL = newValue else { return }
-                    
-                    store.send(.viewEventType(.successOpenURL))
-                    Task {
-                       await openURLManager.openAppUrl(urlCase: openURL)
-                    }
-                }
-                .toolbar(.hidden, for: .navigationBar)
-            case .severError:
-                errorView(imageType: .notWak, errorType: .serverError)
-            case .none:
-                errorView(imageType: .notWak, errorType: .noWak)
-                    .navigationBarBackButtonHidden()
-                    .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            Image(.backBlack)
+                            .onChange(of: store.currentMoreType) { newValue in
+                                moreType = newValue
+                            }
+                            Text(Const.moreCheckText)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .padding(.vertical, 14)
+                                .font(Font(WantedFont.semiFont.font(size: 20)))
+                                .background(colorSystem.color(colorCase: .pointColor))
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .asButton {
-                                    store.send(.viewEventType(.backButtonTapped))
+                                    store.send(.viewEventType(.moreButtonTapped))
                                 }
+                                .foregroundStyle(Color(GuideUColor.ViewBaseColor.dark.textColor))
+                                .padding(.horizontal, 10)
+                                .padding(.bottom, 10)
                         }
                     }
+                    .background(colorSystem.color(colorCase: .background))
+                    .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
+                        WKWebHosting(url: socialURL.url)
+                    }
+                    .onChange(of: store.openURLCase) { newValue in
+                        guard let openURL = newValue else { return }
+                        
+                        store.send(.viewEventType(.successOpenURL))
+                        Task {
+                            await openURLManager.openAppUrl(urlCase: openURL)
+                        }
+                    }
+                    .toolbar(.hidden, for: .navigationBar)
+                case .severError:
+                    errorView(imageType: .notWak, errorType: .serverError)
+                        .background(colorSystem.color(colorCase: .background))
+                case .none:
+                    errorView(imageType: .notWak, errorType: .noWak)
+                        .navigationBarBackButtonHidden()
+                        .toolbar {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Image(.backBlack)
+                                    .renderingMode(.template)
+                                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                                    .asButton {
+                                        store.send(.viewEventType(.backButtonTapped))
+                                    }
+                            }
+                        }
+                        .background(colorSystem.color(colorCase: .background))
+                }
             }
+            .background(colorSystem.color(colorCase: .background))
         }
     }
     
@@ -106,15 +115,15 @@ struct MorePersonView: View {
             Text(errorType.title)
                 .font(Font(WantedFont.boldFont.font(size: 20)))
                 .foregroundStyle(colorSystem.color(colorCase: .textColor))
-                .padding(.bottom, 4)
+                .padding(.bottom, 8)
             Text(errorType.des)
                 .font(Font(WantedFont.semiFont.font(size: 14)))
                 .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 .multilineTextAlignment(.center)
-            
             Spacer()
         }
-        .padding(.horizontal, 5)
+        .frame(maxWidth: .infinity)
+        .background(colorSystem.color(colorCase: .background))
     }
     
     private func mainView() -> some View {
@@ -134,6 +143,7 @@ struct MorePersonView: View {
                             switch store.characterState {
                             case .loading:
                                 ProgressView()
+                                    .background(colorSystem.color(colorCase: .background))
                             case .content:
                                 characterSectionView()
                                 colorSystem.color(colorCase: .background)
@@ -141,14 +151,17 @@ struct MorePersonView: View {
                                     .frame(height: 80)
                             case .severError:
                                 errorView(imageType: .notWak, errorType: .serverError)
+                                    .background(colorSystem.color(colorCase: .background))
                             case .none:
                                 errorView(imageType: .noData, errorType: .noData)
+                                    .background(colorSystem.color(colorCase: .background))
                             }
 
                         case .memes:
                             switch store.memeState {
                             case .loading:
                                 ProgressView()
+                                    .background(colorSystem.color(colorCase: .background))
                             case .content:
                                 memeSectionView()
                                 colorSystem.color(colorCase: .background)
@@ -156,8 +169,10 @@ struct MorePersonView: View {
                                     .frame(height: 80)
                             case .severError:
                                 errorView(imageType: .notWak, errorType: .serverError)
+                                    .background(colorSystem.color(colorCase: .background))
                             case .none:
                                 errorView(imageType: .noData, errorType: .noData)
+                                    .background(colorSystem.color(colorCase: .background))
                             }
                         }
                     }
@@ -226,6 +241,7 @@ struct MorePersonView: View {
                         store.send(.viewEventType(.socialTapped(urlString)))
                     }, setModel: model)
                     .background(colorSystem.color(colorCase: .cellBackground))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.all, 10)
                     .shadow(radius: 4)
