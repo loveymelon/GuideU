@@ -25,6 +25,9 @@ struct SettingCoordinatorView: View {
                 case let .appInfoView(store):
                     AppInfoView(store: store)
                         .environmentObject(colorSystem)
+                case let .colorSettingView(store):
+                    AppColorSettingView(store: store)
+                        .environmentObject(colorSystem)
                 }
             }
         }
@@ -38,11 +41,14 @@ extension SettingScreen.State: Identifiable {
             return .root
         case .appInfoView:
             return .appInfo
+        case .colorSettingView:
+            return .colorSetting
         }
     }
     
     enum ID {
         case root
         case appInfo
+        case colorSetting
     }
 }

@@ -16,7 +16,7 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
     var currentColorSet: CurrentColorModeCase = CurrentColorModeCase(rawValue: UserDefaultsManager.colorCase) ?? .system
     
     @Published
-    private var currentColorScheme: UIUserInterfaceStyle = .light
+    var currentColorScheme: UIUserInterfaceStyle = .light
     
     init () {
         UserDefaults.standard
@@ -54,6 +54,19 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
             .store(in: &cancellables)
     }
     
+    func currentColor() -> String {
+        switch currentColorScheme {
+        case .unspecified:
+            "지정되지 않음"
+        case .light:
+            "라이트 모드"
+        case .dark:
+            "다크 모드"
+        @unknown default:
+            "지정되지 않음"
+        }
+    }
+    
     @MainActor
     private func updateColorScheme() {
         let scenes = UIApplication.shared.connectedScenes
@@ -85,6 +98,9 @@ extension ColorSystem {
         case personSectionTextColor
         case memeSectionColor
         case memeSectionTextColor
+        
+        // 예외적인
+        case settingTextColor
     }
     
     
@@ -179,14 +195,14 @@ extension ColorSystem {
                 return currentColorSet == .light ? light : dark
             }
         case .detailGrayColor:
+            let light = Color(GuideUColor.ViewBaseColor.light.gray1)
+            let dark = Color(GuideUColor.ViewBaseColor.dark.gray1)
             switch currentColorSet {
             case .light:
-                return Color(GuideUColor.ViewBaseColor.light.gray1)
+                return light
             case .dark:
-                return Color(GuideUColor.ViewBaseColor.dark.gray1)
+                return dark
             case .system:
-                let light = Color(GuideUColor.ViewBaseColor.light.gray1)
-                let dark = Color(GuideUColor.ViewBaseColor.dark.gray1)
                 return currentColorSet == .light ? light : dark
             }
         case .subGrayColor:
@@ -211,6 +227,19 @@ extension ColorSystem {
             
         case .memeSectionTextColor:
             return Color(UIColor(hexCode: "#1D3829"))
+            
+        case .settingTextColor:
+            let light = Color(GuideUColor.ViewBaseColor.dark.gray1)
+            let dark = light
+            
+            switch currentColorSet {
+            case .light:
+                return light
+            case .dark:
+                return dark
+            case .system:
+                return currentColorSet == .light ? light : dark
+            }
         }
     }
 }

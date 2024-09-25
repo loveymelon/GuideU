@@ -17,6 +17,8 @@ struct SettingView: View {
     var body: some View {
         WithPerceptionTracking {
             contentView()
+                .navigationTitle(store.navigationTitle)
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -32,14 +34,14 @@ extension SettingView {
                         }
                         .padding(.vertical, 10)
                         .listRowSeparator(.hidden)
+                        .listRowBackground(colorSystem.color(colorCase: .background))
                 }
             }
             .listStyle(.plain)
-            .navigationTitle(store.navigationTitle)
-            .navigationBarTitleDisplayMode(.inline)
+            .scrollContentBackground(.hidden)
             .scrollDisabled(true)
-            .background(colorSystem.color(colorCase: .background))
         }
+        .background(colorSystem.color(colorCase: .background))
     }
 }
 

@@ -22,11 +22,12 @@ struct AppInfoView: View {
                 .navigationTitle(store.navigationTitle)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
+                .background(colorSystem.color(colorCase: .background))
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Image(.backBlack)
                             .renderingMode(.template)
-                            .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
+                            .foregroundStyle(colorSystem.color(colorCase: .textColor))
                             .asButton {
                                 store.send(.didTapBackButton)
                             }
@@ -42,6 +43,7 @@ extension AppInfoView {
             HStack {
                 Text(store.sectionTitle)
                     .font(Font(WantedFont.midFont.font(size: 16)))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
             }
             
@@ -56,11 +58,13 @@ extension AppInfoView {
                     HStack {
                         Text(store.appName)
                             .font(Font(WantedFont.semiFont.font(size: 20)))
+                            .foregroundStyle(colorSystem.color(colorCase: .textColor))
                         Spacer()
                     }
                     HStack {
                         Text(store.appVersion)
                             .font(Font(WantedFont.midFont.font(size: 14)))
+                            .foregroundStyle(colorSystem.color(colorCase: .subGrayColor))
                         Spacer()
                     }
                 }

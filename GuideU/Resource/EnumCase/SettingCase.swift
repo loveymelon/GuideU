@@ -16,11 +16,11 @@ enum SettingCase: CaseIterable {
     var title: String {
         switch self {
         case .appInfo:
-            "앱 정보"
+            Const.appInfo
         case .credit:
-            "크레딧"
+            Const.credit
         case .theme:
-            "테마 설정"
+            Const.theme
         }
     }
     

@@ -25,6 +25,7 @@ struct SettingFeature: GuideUReducer {
         
         enum Delegate {
             case sendToAppInfo
+            case selectedColorSettingCase
         }
     }
     
@@ -61,7 +62,7 @@ extension SettingFeature {
             case let .viewEventType(.selectedSettingCase(caseOf)):
                 switch caseOf {
                 case .theme:
-                    break
+                    return .send(.delegate(.selectedColorSettingCase))
                 case .appInfo:
                     return .send(.delegate(.sendToAppInfo))
                 case .credit:

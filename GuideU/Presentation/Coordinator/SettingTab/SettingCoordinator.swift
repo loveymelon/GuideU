@@ -14,6 +14,7 @@ import ComposableArchitecture
 enum SettingScreen {
     case settingView(SettingFeature)
     case appInfoView(AppInfoFeature)
+    case colorSettingView(AppColorSettingFeature)
 }
 
 @Reducer
@@ -38,13 +39,16 @@ extension SettingCoordinator {
     private func core() -> some ReducerOf<Self> {
         Reduce{ state, action in
             switch action {
-                
+                /// APP Info 뷰 이동
             case .router(.routeAction(id: .root, action: .settingView(.delegate(.sendToAppInfo)))):
                 state.routes.push(.appInfoView(AppInfoFeature.State()))
                 
             case .router(.routeAction(id: .appInfo, action: .appInfoView(.delegate(.tapBackButton)))):
                 state.routes.pop()
                 
+                /// App Color Setting View 이동
+            case .router(.routeAction(id: .root, action: .settingView(.delegate(.selectedColorSettingCase)))):
+                state.routes.push(.colorSettingView(AppColorSettingFeature.State()))
             default:
                 break
             }
