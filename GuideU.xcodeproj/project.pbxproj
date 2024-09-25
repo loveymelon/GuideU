@@ -20,6 +20,7 @@
 		7B0D63952CA271DE00A9A071 /* CurrentColorModeCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63942CA271DE00A9A071 /* CurrentColorModeCase.swift */; };
 		7B0D63982CA305E900A9A071 /* AppColorSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63972CA305E900A9A071 /* AppColorSettingView.swift */; };
 		7B0D639A2CA3060E00A9A071 /* AppColorSettingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63992CA3060E00A9A071 /* AppColorSettingFeature.swift */; };
+		7B0D639D2CA3D49400A9A071 /* GuideULanchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B0D639C2CA3D49400A9A071 /* GuideULanchScreen.storyboard */; };
 		7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1581862C6A476200599E7C /* GuideUApp.swift */; };
 		7B15818B2C6A476300599E7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818A2C6A476300599E7C /* Assets.xcassets */; };
 		7B15818E2C6A476300599E7C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B15818D2C6A476300599E7C /* Preview Assets.xcassets */; };
@@ -214,6 +215,7 @@
 		7B0D63942CA271DE00A9A071 /* CurrentColorModeCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentColorModeCase.swift; sourceTree = "<group>"; };
 		7B0D63972CA305E900A9A071 /* AppColorSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorSettingView.swift; sourceTree = "<group>"; };
 		7B0D63992CA3060E00A9A071 /* AppColorSettingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorSettingFeature.swift; sourceTree = "<group>"; };
+		7B0D639C2CA3D49400A9A071 /* GuideULanchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GuideULanchScreen.storyboard; sourceTree = "<group>"; };
 		7B1581832C6A476200599E7C /* GuideU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B1581862C6A476200599E7C /* GuideUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUApp.swift; sourceTree = "<group>"; };
 		7B15818A2C6A476300599E7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -410,6 +412,14 @@
 			path = AppColorSetting;
 			sourceTree = "<group>";
 		};
+		7B0D639B2CA3D47A00A9A071 /* LanchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7B0D639C2CA3D49400A9A071 /* GuideULanchScreen.storyboard */,
+			);
+			path = LanchScreen;
+			sourceTree = "<group>";
+		};
 		7B15817A2C6A476200599E7C = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +540,7 @@
 		7B1581B32C6A557A00599E7C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				7B0D639B2CA3D47A00A9A071 /* LanchScreen */,
 				7BACA42D2C819D86008D4CFC /* Custom */,
 				7B1581D92C6CB27200599E7C /* Coordinator */,
 				7B1581B72C6A56E100599E7C /* Splash */,
@@ -1068,6 +1079,7 @@
 				7B1581A22C6A50F200599E7C /* WantedSans-ExtraBlack.otf in Resources */,
 				7B1581A42C6A50F200599E7C /* WantedSans-Bold.otf in Resources */,
 				7B15818B2C6A476300599E7C /* Assets.xcassets in Resources */,
+				7B0D639D2CA3D49400A9A071 /* GuideULanchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1396,6 +1408,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = GuideULanchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1439,6 +1452,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = GuideULanchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;

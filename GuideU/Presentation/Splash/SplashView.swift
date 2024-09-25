@@ -12,8 +12,6 @@ struct SplashView: View {
     
     @Perception.Bindable var store: StoreOf<SplashFeature>
     
-//    @Environment(\.colorSystem) var colorSystem // 초기 세팅
-    
     var body: some View {
         WithPerceptionTracking {
             contentView()
