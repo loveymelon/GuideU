@@ -19,9 +19,6 @@ struct AppInfoView: View {
             contentView()
                 .padding(.top, 20)
                 .padding(.horizontal, 16)
-                .navigationTitle(store.navigationTitle)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarBackButtonHidden(true)
                 .background(colorSystem.color(colorCase: .background))
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -33,6 +30,9 @@ struct AppInfoView: View {
                             }
                     }
                 }
+                .navigationTitle(store.navigationTitle)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
         }
     }
 }

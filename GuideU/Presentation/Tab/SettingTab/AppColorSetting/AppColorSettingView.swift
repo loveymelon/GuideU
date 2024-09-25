@@ -20,7 +20,6 @@ struct AppColorSettingView: View {
         WithPerceptionTracking {
             contentView()
                 .background(colorSystem.color(colorCase: .background))
-                .navigationBarBackButtonHidden()
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Image(.backBlack)
@@ -36,6 +35,7 @@ struct AppColorSettingView: View {
                 .onChange(of: store.currentCase) { value in
                     colorSystem.changeColor(type: value)
                 }
+                .navigationBarBackButtonHidden()
         }
     }
     
