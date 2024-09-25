@@ -53,20 +53,6 @@ struct MarqueeTextView: View {
                                 self.animate = geo.size.width < stringWidth
                             })
                             .offset(x: leadingFade )
-                            .mask(
-                                HStack(spacing:0) {
-                                    Rectangle()
-                                        .frame(width:2)
-                                        .opacity(0)
-                                    LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0), Color.black]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/)
-                                        .frame(width: leadingFade)
-                                    LinearGradient(gradient: Gradient(colors: [Color.black, Color.black]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/)
-                                    LinearGradient(gradient: Gradient(colors: [Color.black, Color.black.opacity(0)]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/)
-                                        .frame(width: trailingFade)
-                                    Rectangle()
-                                        .frame(width:2)
-                                        .opacity(0)
-                                })
                             .frame(width: geo.size.width + leadingFade + trailingFade)
                             .offset(x: leadingFade * -1)
                     } else {

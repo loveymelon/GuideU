@@ -12,9 +12,11 @@ struct SearchResultCaseView: View {
     let currentText: String
     let setModel: SuggestEntity
     
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some View {
         HStack {
-            Text(setModel.keyWord.styledText(fullFont: WantedFont.regularFont.font(size: 18), fullColor: GuideUColor.ViewBaseColor.light.textColor, targetString: currentText, targetFont: WantedFont.regularFont.font(size: 18), targetColor: GuideUColor.ViewBaseColor.light.primary))
+            Text(setModel.keyWord.styledText(fullFont: WantedFont.regularFont.font(size: 18), fullColor: UIColor(colorSystem.color(colorCase: .textColor)), targetString: currentText, targetFont: WantedFont.regularFont.font(size: 18), targetColor: UIColor(colorSystem.color(colorCase: .pointColor))))
             
             Spacer()
             

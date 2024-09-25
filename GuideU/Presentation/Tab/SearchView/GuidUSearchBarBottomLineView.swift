@@ -10,6 +10,7 @@ import SwiftUI
 struct GuidUSearchBarBottomLineView: View {
     @Binding
     var currentText: String
+    @EnvironmentObject var colorSystem: ColorSystem
     
     let placeHolder: String
     let lineWidth: CGFloat
@@ -19,6 +20,7 @@ struct GuidUSearchBarBottomLineView: View {
         VStack(spacing: 0) {
             HStack(alignment: .center) {
                 TextField(placeHolder, text: $currentText)
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     .onSubmit {
                         onSubmit()
                     }

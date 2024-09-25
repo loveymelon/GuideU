@@ -14,6 +14,8 @@ struct SearchHistoryCellView: View {
     
     var removeTapped: () -> Void
     
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some View {
         VStack {
             HStack(spacing: 0) {
@@ -22,11 +24,11 @@ struct SearchHistoryCellView: View {
                     .renderingMode(.template)
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 36)
-                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 
                 Text(name)
                     .font(Font(WantedFont.regularFont.font(size: 16)))
-                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
                 
                 Image.close
@@ -34,7 +36,7 @@ struct SearchHistoryCellView: View {
                     .renderingMode(.template)
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 22)
-                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     .onTapGesture {
                         removeTapped()
                     }

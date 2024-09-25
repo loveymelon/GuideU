@@ -10,6 +10,8 @@ import SwiftUI
 struct SearchResultRelatedView: View {
     let setModel: RelatedVideoEntity
     
+    @EnvironmentObject var colorSystem: ColorSystem
+    
     var body: some View {
         contentView()
     }
@@ -43,13 +45,13 @@ extension SearchResultRelatedView {
                     Text(setModel.title)
                         .multilineTextAlignment(.leading)
                         .font(Font(WantedFont.boldFont.font(size: 15)))
-                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     Spacer()
                 }
                 HStack {
                     Text(setModel.channel)
                         .font(Font(WantedFont.midFont.font(size: 12)))
-                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                        .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     Spacer()
                 }
             }

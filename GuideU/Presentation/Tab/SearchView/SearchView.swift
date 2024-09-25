@@ -12,6 +12,7 @@ import PopupView
 struct SearchView: View {
     
     @Perception.Bindable var store: StoreOf<SearchFeature>
+    @EnvironmentObject var colorSystem: ColorSystem
     
     var body: some View {
         WithPerceptionTracking {
@@ -60,6 +61,7 @@ extension SearchView {
                     /// RemoveButtonTapped
                     store.send(.viewEventType(.deleteHistory(index: index)))
                 }
+                .environmentObject(colorSystem)
                 .asButton {
                     store.send(.viewEventType(.historyTapped(text: text)))
                 }
@@ -78,6 +80,7 @@ extension SearchView {
                 currentText: store.currentText,
                 setModel: model
             )
+            .environmentObject(colorSystem)
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .asButton {
@@ -95,17 +98,20 @@ extension SearchView {
             Group {
                 Text(store.recentSectionText)
                     .font(Font(WantedFont.midFont.font(size: 15)))
+                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     
                 Text("|")
                     .font(Font(WantedFont.midFont.font(size: 13)))
+                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     .offset(y: -1.5)
                 Text(store.allClearText)
                     .font(Font(WantedFont.midFont.font(size: 15)))
+                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     .asButton {
                         store.send(.viewEventType(.deleteAll))
                     }
             }
-            .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+            .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
             Spacer()
         }
     }
@@ -116,37 +122,40 @@ extension SearchView {
     private func fakeNavigation()  -> some View {
         VStack {
             HStack {
-                Image.appLogo
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fit)
-                    .frame(height: 52)
+//                Image.appLogo
+//                    .resizable()
+//                    .aspectRatio(1, contentMode: .fit)
+//
                 
                 Spacer()
                 
                 Text(store.navigationTitle)
                     .font(Font(WantedFont.midFont.font(size: 17)))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                    .frame(height: 52)
                 
                 Spacer()
-                if !store.backButtonHidden {
-                    VStack {
-                        Image.close
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fit)
-                            .asButton {
-                                store.send(.viewEventType(.closeButtonTapped))
-                            }
-                            .frame(height: 32)
-                    }
-                    .frame(width: 52)
-                } else {
-                    Color.clear
-                        .frame(width: 52, height: 52)
-                }
+//                if !store.backButtonHidden {
+//                    VStack {
+//                        Image.close
+//                            .resizable()
+//                            .aspectRatio(1, contentMode: .fit)
+//                            .asButton {
+//                                store.send(.viewEventType(.closeButtonTapped))
+//                            }
+//                            .frame(height: 32)
+//                    }
+//                    .frame(width: 52)
+//                } else {
+//                    Color.clear
+//                        .frame(width: 52, height: 52)
+//                }
             }
+            
             GuidUSearchBarBottomLineView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.placeHolderText, lineWidth: 1.4) {
-                /// onSubmit
                 store.send(.viewEventType(.onSubmit(store.currentText)))
             }
+            .environmentObject(colorSystem)
         }
     }
     
@@ -165,7 +174,7 @@ extension SearchView {
                 ForEach(Const.noResultReason.allCases, id: \.self) { caseOf in
                     Text(caseOf.text)
                         .font(Font(WantedFont.regularFont.font(size: 14)))
-                        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray2))
+                        .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 }
             }
             Spacer()

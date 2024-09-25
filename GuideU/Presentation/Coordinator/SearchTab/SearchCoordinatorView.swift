@@ -21,8 +21,10 @@ struct SearchCoordinatorView: View {
                 switch screen.case {
                 case let .search(store):
                     SearchView(store: store)
+                        .environmentObject(colorSystem)
                 case let .searchResult(store):
                     SearchResultView(store: store)
+                        .environmentObject(colorSystem)
                 }
             }
         }

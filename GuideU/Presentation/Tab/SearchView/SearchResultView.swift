@@ -11,6 +11,7 @@ import ComposableArchitecture
 struct SearchResultView: View {
     
     @Perception.Bindable var store: StoreOf<SearchResultFeature>
+    @EnvironmentObject var colorSystem: ColorSystem
     
     var body: some View {
         WithPerceptionTracking {
@@ -54,7 +55,7 @@ extension SearchResultView {
                 
                 Divider()
                     .frame(height: 1)
-                    .overlay(Color(GuideUColor.ViewBaseColor.light.gray3))
+                    .overlay(colorSystem.color(colorCase: .lineColor))
                     .padding(.horizontal, 16)
                 relatedSection(related: model.relatedVideos)
             }
@@ -67,7 +68,9 @@ extension SearchResultView {
         VStack {
             HStack {
                 MarqueeTextView(text: model.name, font: WantedFont.semiFont.font(size: 24), leading: 10, trailing: 10, startDelay: 1, alignment: .leading)
+                    .environmentObject(colorSystem)
                     .padding(.horizontal, 4)
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 
                 caseOfView(model: model)
                 Spacer()
@@ -75,7 +78,7 @@ extension SearchResultView {
             .padding(.bottom, 8)
             Divider()
                 .frame(height: 1)
-                .overlay(Color(GuideUColor.ViewBaseColor.light.gray3))
+                .overlay(colorSystem.color(colorCase: .lineColor))
                 .padding(.horizontal, 8)
         }
     }
@@ -86,13 +89,14 @@ extension SearchResultView {
             HStack {
                 Text(store.meanText)
                     .font(Font(WantedFont.semiFont.font(size: 22)))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
             }
             HStack {
                 
                 Text(mean)
                     .font(Font(WantedFont.midFont.font(size: 16)))
-                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray1))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 
                 Spacer()
             }
@@ -104,12 +108,13 @@ extension SearchResultView {
             HStack {
                 Text(store.descriptionText)
                     .font(Font(WantedFont.semiFont.font(size: 22)))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
             }
             HStack {
                 Text(description)
                     .font(Font(WantedFont.regularFont.font(size: 16)))
-                    .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.gray1))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
             }
         }
@@ -120,6 +125,7 @@ extension SearchResultView {
             LazyVStack {
                 ForEach(related, id: \.link) { model in
                     SearchResultRelatedView(setModel: model)
+                        .environmentObject(colorSystem)
                 }
             }
         }
