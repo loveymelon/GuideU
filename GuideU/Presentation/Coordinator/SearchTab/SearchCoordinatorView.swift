@@ -22,9 +22,11 @@ struct SearchCoordinatorView: View {
                 case let .search(store):
                     SearchView(store: store)
                         .environmentObject(colorSystem)
+                        .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
                 case let .searchResult(store):
                     SearchResultView(store: store)
                         .environmentObject(colorSystem)
+                        .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
                 }
             }
         }

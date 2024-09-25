@@ -17,7 +17,13 @@ struct SettingView: View {
     var body: some View {
         WithPerceptionTracking {
             contentView()
-                .navigationTitle(store.navigationTitle)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text(store.navigationTitle)
+                            .font(Font(WantedFont.semiFont.font(size: 20)))
+                            .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                    }
+                }
                 .navigationBarTitleDisplayMode(.inline)
         }
     }

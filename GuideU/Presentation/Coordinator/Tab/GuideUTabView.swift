@@ -31,7 +31,8 @@ struct GuideUTabView: View {
                         tabItemView(tabItem: .home)
                     }
                     .tag(TabCase.home)
-
+                    .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .tabBar)
+                    
                     SearchCoordinatorView(
                         store: store.scope(
                             state: \.searchTabState,
@@ -47,6 +48,7 @@ struct GuideUTabView: View {
                     .tag(
                         TabCase.searchTab
                     )
+                    .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .tabBar)
                     
                     HistoryCoordinatorView(
                         store: store.scope(
@@ -59,7 +61,7 @@ struct GuideUTabView: View {
                         tabItemView(tabItem: .timeLine)
                     }
                     .tag(TabCase.timeLine)
-                    
+                    .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .tabBar)
                     
                     SettingCoordinatorView(
                         store: store.scope(
@@ -72,10 +74,9 @@ struct GuideUTabView: View {
                         tabItemView(tabItem: .setting)
                     }
                     .tag(TabCase.setting)
-                    
+                    .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .tabBar)
                 }
             }
-            .foregroundStyle(colorSystem.color(colorCase: .tabbar))
         }
     }
 }

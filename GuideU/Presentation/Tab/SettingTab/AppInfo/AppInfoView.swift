@@ -29,8 +29,12 @@ struct AppInfoView: View {
                                 store.send(.didTapBackButton)
                             }
                     }
+                    ToolbarItem(placement: .principal) {
+                        Text(store.navigationTitle)
+                            .font(Font(WantedFont.semiFont.font(size: 20)))
+                            .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                    }
                 }
-                .navigationTitle(store.navigationTitle)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
         }

@@ -44,7 +44,13 @@ struct HistoryView: View {
             }
             .background(colorSystem.color(colorCase: .background))
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("최근 알아본")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(Const.recentFind)
+                        .font(Font(WantedFont.semiFont.font(size: 20)))
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                }
+            }
             .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
                 Group {
                     ForEach(MoreCharacterDialog.allCases, id: \.self) { caseOf in

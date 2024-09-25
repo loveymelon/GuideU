@@ -22,6 +22,7 @@ struct HomeCoordinatorView: View {
                 case let .home(store):
                     MoreCharacterView(store: store)
                         .environmentObject(colorSystem)
+                        .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.4), for: .navigationBar)
                 }
             }
         }

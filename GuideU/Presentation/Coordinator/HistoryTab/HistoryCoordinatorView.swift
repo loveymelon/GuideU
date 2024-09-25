@@ -22,6 +22,7 @@ struct HistoryCoordinatorView: View {
                 case let .root(store):
                     HistoryView(store: store)
                         .environmentObject(colorSystem)
+                        .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
                 }
             }
         }
