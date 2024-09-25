@@ -96,7 +96,7 @@ extension SearchResultView {
                 
                 Text(mean)
                     .font(Font(WantedFont.midFont.font(size: 16)))
-                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 
                 Spacer()
             }
@@ -114,7 +114,7 @@ extension SearchResultView {
             HStack {
                 Text(description)
                     .font(Font(WantedFont.regularFont.font(size: 16)))
-                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 Spacer()
             }
         }
