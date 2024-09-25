@@ -33,6 +33,9 @@ struct AppColorSettingView: View {
                 }
                 .navigationTitle(Const.theme)
                 .navigationBarTitleDisplayMode(.inline)
+                .onChange(of: store.currentCase) { value in
+                    colorSystem.changeColor(type: value)
+                }
         }
     }
     

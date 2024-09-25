@@ -19,13 +19,6 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
     var currentColorScheme: UIUserInterfaceStyle = .light
     
     init () {
-        UserDefaults.standard
-            .publisher(for: \.colorCase)
-            .sink {[weak self] num in
-                guard let self else { return }
-                self.currentColorSet = CurrentColorModeCase(rawValue: num) ?? .system
-            }
-            .store(in: &cancellables)
         
         Task {
             await updateColorScheme()
@@ -65,6 +58,10 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
         @unknown default:
             "지정되지 않음"
         }
+    }
+    
+    func changeColor(type: CurrentColorModeCase) {
+        currentColorSet = type
     }
     
     @MainActor
@@ -240,17 +237,6 @@ extension ColorSystem {
             case .system:
                 return currentColorSet == .light ? light : dark
             }
-        }
-    }
-}
-
-
-extension UserDefaults {
-    @objc var colorCase: Int {
-        get {
-            return integer(forKey: UserDefaultsManager.Key.currentColorSetting.value)
-        } set {
-            set(newValue, forKey: UserDefaultsManager.Key.currentColorSetting.value)
         }
     }
 }

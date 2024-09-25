@@ -49,6 +49,10 @@ extension SettingCoordinator {
                 /// App Color Setting View 이동
             case .router(.routeAction(id: .root, action: .settingView(.delegate(.selectedColorSettingCase)))):
                 state.routes.push(.colorSettingView(AppColorSettingFeature.State()))
+                
+            case .router(.routeAction(id: .colorSetting, action: .colorSettingView(.delegate(.backButtonTapped)))):
+                state.routes.pop()
+                
             default:
                 break
             }

@@ -22,7 +22,7 @@ struct AppColorSettingFeature {
         case delegate(Delegate)
         
         enum Delegate {
-            
+            case backButtonTapped
         }
     }
     
@@ -32,7 +32,7 @@ struct AppColorSettingFeature {
 
     enum ViewEventType {
         case selectedCase(CurrentColorModeCase)
-        case backButtonTapped // 네비게이션 백버튼 탭 경우 처리 하셔요
+        case backButtonTapped
     }
     
     var body: some ReducerOf<Self> {
@@ -52,13 +52,11 @@ extension AppColorSettingFeature {
                 
                 
             case let .viewEvent(.selectedCase(caseOf)):
-                switch caseOf {
-                case .system:
-                    break
-                case .light:
-                    break
-                case .dark:
-                    break
+                state.currentCase = caseOf
+                
+            case .viewEvent(.backButtonTapped):
+                return .run { send in
+                    await send(.delegate(.backButtonTapped))
                 }
                 
             default:
