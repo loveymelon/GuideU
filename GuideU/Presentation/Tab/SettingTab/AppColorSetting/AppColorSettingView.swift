@@ -36,6 +36,9 @@ struct AppColorSettingView: View {
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
+                .onAppear {
+                    store.send(.viewCycle(.onAppear))
+                }
                 .onChange(of: store.currentCase) { value in
                     colorSystem.changeColor(type: value)
                 }

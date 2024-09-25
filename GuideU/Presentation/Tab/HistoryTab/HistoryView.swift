@@ -57,6 +57,9 @@ struct HistoryView: View {
                     .background(colorSystem.color(colorCase: .background))
                 }
             }
+            .onAppear {
+                store.send(.viewCycleType(.viewOnAppear))
+            }
             .background(colorSystem.color(colorCase: .background))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -87,9 +90,6 @@ struct HistoryView: View {
                         Task {
                             await openURLManager.openAppUrl(urlCase: openURL)
                         }
-                    }
-                    .onAppear {
-                        store.send(.viewCycleType(.viewOnAppear))
                     }
                     .onDisappear {
                         store.send(.viewCycleType(.viewDisAppear))
