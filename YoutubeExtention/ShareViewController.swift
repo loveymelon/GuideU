@@ -55,17 +55,21 @@ final class ShareViewController: UIViewController {
                 for provider in attachments {
                     // URL을 처리하기 위한 타입 확인
                     if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-                        provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { (item, error) in
+                        provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) {[ weak self ] (item, error) in
                             if let url = item as? URL {
                                 // YouTube URL 확인 및 처리
-                                self.processYouTubeURL(url)
+                                DispatchQueue.main.async {
+                                    self?.processYouTubeURL(url)
+                                }
                             }
                         }
                     } else if provider.hasItemConformingToTypeIdentifier(UTType.text.identifier) {
-                        provider.loadItem(forTypeIdentifier: UTType.text.identifier, options: nil) { (item, error) in
+                        provider.loadItem(forTypeIdentifier: UTType.text.identifier, options: nil) {[ weak self ] (item, error) in
                             if let url = item as? String {
                                 // YouTube URL 확인 및 처리
-                                self.processYouTubeURL(url)
+                                DispatchQueue.main.async {
+                                    self?.processYouTubeURL(url)
+                                }
                             }
                         }
                     }
