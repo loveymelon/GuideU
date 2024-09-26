@@ -123,7 +123,7 @@ extension SearchView {
                 Spacer()
                 
                 Text(store.navigationTitle)
-                    .font(Font(WantedFont.midFont.font(size: 17)))
+                    .font(Font(WantedFont.semiFont.font(size: 20)))
                     .frame(height: 52)
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
