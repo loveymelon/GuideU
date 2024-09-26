@@ -15,8 +15,7 @@ struct TabNavCoordinatorView: View {
     /// Swift UI 적인 방법
     @Environment(\.scenePhase) var phase
     
-    @ObservedObject
-    var colorSystem = ColorSystem()
+    @EnvironmentObject var colorSystem: ColorSystem
     
     var body: some View {
         WithPerceptionTracking {

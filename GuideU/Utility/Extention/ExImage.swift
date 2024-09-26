@@ -21,7 +21,7 @@ extension Image {
     enum TabbarImage {
         enum noneTab {
             static let homeTab = Image(.homeTab)
-            static let searchTab = Image(.searchTabDis)
+            static let searchTab = Image(.searchTab2)
             static let historyTab = history
             static let settingTab = Image(.settingTab)
         }
