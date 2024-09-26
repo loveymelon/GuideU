@@ -17,8 +17,11 @@ struct GuideUTabView: View {
     
     private var rows: [GridItem] = Array(repeating: GridItem(.flexible()), count: TabCase.allCases.count)
     
+    private let hapticManager: HapticFeedbackManager
+    
     init(store: StoreOf<TabCoordinator>) {
         self.store = store
+        self.hapticManager = HapticFeedbackManager()
     }
     
     var body: some View {
@@ -45,8 +48,10 @@ extension GuideUTabView {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .fixedSize()
                         .asButton {
+                            hapticManager.impact(style: .soft)
                             store.send(.tabCase(caseOf))
                         }
+                        
                 }
             }
         }
