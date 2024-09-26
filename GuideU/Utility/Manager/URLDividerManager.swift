@@ -12,6 +12,8 @@ struct URLDividerManager: Sendable {
     
     enum URLTypeCheck {
         case youtubeIdentifier(String)
+        case instagramURL(String)
+        case twitterURL(String)
     }
     
     func dividerURLType(url: String) -> OpenURLCase {
@@ -23,6 +25,10 @@ struct URLDividerManager: Sendable {
             } else {
                 return .none
             }
+        } else if url.localizedStandardContains("instagram.com") {
+            return .instagram(instagramURL: url)
+        } else if url.localizedStandardContains("twitter.com") {
+            return .twitter(twitterURL: url)
         } else {
             return .none
         }
@@ -33,6 +39,10 @@ struct URLDividerManager: Sendable {
         switch type {
         case .youtubeIdentifier(let string):
             return youtube(string)
+        case .instagramURL(_):
+            return nil
+        case .twitterURL(_):
+            return nil
         }
     }
 }
