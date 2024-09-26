@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TabCase: Hashable {
+enum TabCase: Hashable, CaseIterable {
     case home
     /// meme -> Search Tab 변경
     case searchTab
