@@ -39,9 +39,7 @@ struct URLDividerManager: Sendable {
         switch type {
         case .youtubeIdentifier(let string):
             return youtube(string)
-        case .instagramURL(_):
-            return nil
-        case .twitterURL(_):
+        case .instagramURL(_), .twitterURL(_):
             return nil
         }
     }

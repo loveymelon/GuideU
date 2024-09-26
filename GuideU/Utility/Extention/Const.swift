@@ -434,6 +434,7 @@ extension Const {
         case noVideo
         case serverError
         case noData
+        case searchNoData
         
         var title: String {
             switch self {
@@ -445,6 +446,8 @@ extension Const {
                 return "왁타버스 서버에러입니다"
             case .noData:
                 return "영상에서 검출된 정보가 없습니다!"
+            case .searchNoData:
+                return "열심히 찾아봤지만 정보가 없습니다!"
             }
         }
         
@@ -458,6 +461,8 @@ extension Const {
                 return "여러 문제로 에러가 났을 수 있습니다.\n최대한 빨리 고칠 수 있도록 항상 노력하는\n가이두 팀이 되겠습니다."
             case .noData:
                 return "영상을 찾아봤지만.. 정보가 존재 하지 않네요..\n만약 오류가 발생 한것 같으면\n가이두 팀에게 문의를 남겨주세요!"
+            case .searchNoData:
+                return "검색 정보를 찾아봤지만 정보가 존재 하지 않네요..\n만약 오류가 발생 한것 같으면\n가이두 팀에게 문의를 남겨주세요!"
             }
         }
     }

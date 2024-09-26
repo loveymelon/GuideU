@@ -32,8 +32,16 @@ struct SearchResultView: View {
                             store.send(.viewEventType(.backButtonTapped))
                         }
                 }
+                
+                ToolbarItem(placement: .principal) {
+                    Text(Const.navTitle)
+                        .font(Font(WantedFont.midFont.font(size: 17)))
+                        .frame(height: 52)
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                }
             }
             .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -42,30 +50,43 @@ extension SearchResultView {
     
     @ViewBuilder
     private func contentView() -> some View {
-        if let model = store.searchResultEntity {
+        switch store.currentViewState {
+        case .loading:
+            ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(colorSystem.color(colorCase: .background))
+        case .success:
             VStack {
-                titleSection(model: model)
+                titleSection(model: store.searchResultEntity)
                     .padding(.horizontal, 8)
-                if let mean = model.mean {
+                if store.meanIsvalid, let mean = store.searchResultEntity.mean {
                     meanSection(mean: mean)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 8)
                 }
-                if !model.description.isEmpty {
-                    descriptionSection(description: model.description)
+                if store.desIsvalid {
+                    descriptionSection(description: store.searchResultEntity.description)
                         .padding(.horizontal, 15)
                         .padding(.vertical, 8)
                 }
                 
-                Divider()
-                    .frame(height: 1)
-                    .overlay(colorSystem.color(colorCase: .lineColor))
-                    .padding(.horizontal, 16)
-                relatedSection(related: model.relatedVideos)
+                if store.meanIsvalid || store.desIsvalid {
+                    Divider()
+                        .frame(height: 1)
+                        .overlay(colorSystem.color(colorCase: .lineColor))
+                        .padding(.horizontal, 16)
+                }
+                
+                if store.videoIsvalid {
+                    relatedSection(related: store.searchResultEntity.relatedVideos)
+                }
+                
+                if !store.meanIsvalid && !store.desIsvalid && !store.videoIsvalid {
+                    errorView()
+                }
             }
-        } else {
-            colorSystem.color(colorCase: .background)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .failure:
+            errorView()
         }
     }
     
@@ -134,6 +155,29 @@ extension SearchResultView {
                 }
             }
         }
+    }
+    
+    private func errorView() -> some View {
+        VStack {
+            Image("NoData")
+                .resizable()
+                .frame(width: 266, height: 266)
+                .padding(.bottom, 20)
+            
+            Text(Const.ErrorDes.searchNoData.title)
+                .font(Font(WantedFont.boldFont.font(size: 24)))
+                .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                .padding(.bottom, 8)
+            
+            Text(Const.ErrorDes.searchNoData.des)
+                .font(Font(WantedFont.blackFont.font(size: 16)))
+                .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
+                .multilineTextAlignment(.center)
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(colorSystem.color(colorCase: .background))
     }
 }
 
