@@ -14,6 +14,8 @@ struct RootCoordinatorView: View {
     
     @Perception.Bindable var store: StoreOf<RootCoordinator>
     
+    @StateObject private var colorSystem = ColorSystem()
+    
     var body: some View {
         WithPerceptionTracking {
             VStack {
@@ -31,6 +33,7 @@ struct RootCoordinatorView: View {
                     
                 case .tab:
                     TabNavCoordinatorView(store: store.scope(state: \.tabNavCoordinator, action: \.tabNavCoordinatorAction))
+                        .environmentObject(colorSystem)
                 }
             }
             .onAppear {
@@ -49,7 +52,7 @@ struct RootCoordinatorView: View {
                         print(item)
                     }
             }
-            
+            .background(colorSystem.color(colorCase: .tabbar))
         }
     }
 }
@@ -76,4 +79,10 @@ extension RootScreen.State: Identifiable {
         }
     }
     
+}
+
+#Preview {
+    RootCoordinatorView(store: Store(initialState: RootCoordinator.State.initialState, reducer: {
+        RootCoordinator()
+    }))
 }

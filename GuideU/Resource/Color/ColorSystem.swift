@@ -19,7 +19,7 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
     var currentColorScheme: UIUserInterfaceStyle = .light
     
     init () {
-        
+        print("이닛 ")
         Task {
             await updateColorScheme()
         }
@@ -61,6 +61,7 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
     }
     
     func changeColor(type: CurrentColorModeCase) {
+        print("current : \(type)")
         currentColorSet = type
         UserDefaultsManager.colorCase = type.rawValue
     }
