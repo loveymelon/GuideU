@@ -84,7 +84,10 @@ extension SearchResultView {
                 if !store.meanIsvalid && !store.desIsvalid && !store.videoIsvalid {
                     errorView()
                 }
+                
+                Spacer()
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         case .failure:
             errorView()
         }
