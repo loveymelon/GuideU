@@ -10,6 +10,9 @@ import ComposableArchitecture
 
 @main
 struct GuideUApp: App {
+    
+    @UIApplicationDelegateAdaptor(GuideUAppDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
             RootCoordinatorView(store: Store(initialState: RootCoordinator.State.initialState, reducer: {
