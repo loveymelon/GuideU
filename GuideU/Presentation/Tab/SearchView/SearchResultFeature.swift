@@ -48,6 +48,7 @@ struct SearchResultFeature: GuideUReducer {
     
     enum ViewEventType {
         case backButtonTapped
+        case selectedRelatedModel(RelatedVideoEntity) // 관련 영상 선택
     }
     
     enum DataTransType {

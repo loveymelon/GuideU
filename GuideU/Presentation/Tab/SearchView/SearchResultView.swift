@@ -155,6 +155,12 @@ extension SearchResultView {
                 ForEach(related, id: \.link) { model in
                     SearchResultRelatedView(setModel: model)
                         .environmentObject(colorSystem)
+                        .asButton {
+                            
+                        }
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 10)
+                        
                 }
             }
         }
