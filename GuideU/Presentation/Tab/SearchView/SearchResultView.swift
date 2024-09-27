@@ -18,8 +18,11 @@ struct SearchResultView: View {
     var body: some View {
         WithPerceptionTracking {
             VStack {
-                contentView()
-                    .background(colorSystem.color(colorCase: .background))
+                ScrollView(.vertical, showsIndicators: false) {
+                    contentView()
+                        .background(colorSystem.color(colorCase: .background))
+                        .padding(.top, 10)
+                }
             }
             .background(colorSystem.color(colorCase: .background))
             .onChange(of: store.openURLCase) { newValue in
@@ -90,6 +93,7 @@ extension SearchResultView {
                 
                 if store.videoIsvalid {
                     relatedSection(related: store.searchResultEntity.relatedVideos)
+                        .padding(.horizontal, 16)
                 }
                 
                 if !store.meanIsvalid && !store.desIsvalid && !store.videoIsvalid {
@@ -161,7 +165,15 @@ extension SearchResultView {
     }
     
     private func relatedSection(related: [RelatedVideoEntity]) -> some View {
-        ScrollView(.vertical, showsIndicators: false) {
+        VStack {
+            if !related.isEmpty {
+                HStack {
+                    Text(Const.related)
+                        .font(Font(WantedFont.semiFont.font(size: 22)))
+                    Spacer()
+                }
+                .padding(.top, 8)
+            }
             LazyVStack {
                 ForEach(related, id: \.link) { model in
                     SearchResultRelatedView(setModel: model)
@@ -169,9 +181,7 @@ extension SearchResultView {
                         .asButton {
                             store.send(.viewEventType(.selectedRelatedModel(model)))
                         }
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 10)
-                        
+                        .padding(.bottom, 8)
                 }
             }
         }
