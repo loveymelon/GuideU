@@ -19,9 +19,11 @@ struct SearchResultFeature: GuideUReducer {
         let descriptionText = Const.explain
         let relatedText = Const.related
         var currentViewState: ViewState = .loading
+        var openURLCase: OpenURLCase? = nil
         var meanIsvalid: Bool = false
         var desIsvalid: Bool = false
         var videoIsvalid: Bool = false
+        var dialogPresent: Bool = false
     }
     
     enum ViewState {
@@ -49,6 +51,7 @@ struct SearchResultFeature: GuideUReducer {
     enum ViewEventType {
         case backButtonTapped
         case selectedRelatedModel(RelatedVideoEntity) // 관련 영상 선택
+        case successOpenURL
     }
     
     enum DataTransType {
@@ -65,6 +68,7 @@ struct SearchResultFeature: GuideUReducer {
     }
     
     @Dependency(\.searchRepository) var searchRepository
+    @Dependency(\.urlDividerManager) var urlDividerManager
     
     var body: some ReducerOf<Self> {
         core()
@@ -79,6 +83,12 @@ extension SearchResultFeature {
                 return .run { send in
                     await send(.networkType(.fetchSearch))
                 }
+                
+            case let .viewEventType(.selectedRelatedModel(model)):
+                state.openURLCase = OpenURLCase.youtubeChannel(channelURLString: model.link)
+                
+            case .viewEventType(.successOpenURL):
+                state.openURLCase = nil
                 
             case .networkType(.fetchSearch):
                 return .run { [state = state] send in

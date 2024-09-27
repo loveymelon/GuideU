@@ -11,7 +11,9 @@ import ComposableArchitecture
 struct SearchResultView: View {
     
     @Perception.Bindable var store: StoreOf<SearchResultFeature>
+    
     @EnvironmentObject var colorSystem: ColorSystem
+    @Environment(\.openURLManager) var openURLManager
     
     var body: some View {
         WithPerceptionTracking {
@@ -20,6 +22,15 @@ struct SearchResultView: View {
                     .background(colorSystem.color(colorCase: .background))
             }
             .background(colorSystem.color(colorCase: .background))
+            .onChange(of: store.openURLCase) { newValue in
+                guard let openURL = newValue else { return }
+                print("change")
+                
+                store.send(.viewEventType(.successOpenURL))
+                Task {
+                   await openURLManager.openAppUrl(urlCase: openURL)
+                }
+            }
             .onAppear {
                 store.send(.viewCycleType(.viewOnAppear))
             }
@@ -156,7 +167,7 @@ extension SearchResultView {
                     SearchResultRelatedView(setModel: model)
                         .environmentObject(colorSystem)
                         .asButton {
-                            
+                            store.send(.viewEventType(.selectedRelatedModel(model)))
                         }
                         .padding(.vertical, 6)
                         .padding(.horizontal, 10)
