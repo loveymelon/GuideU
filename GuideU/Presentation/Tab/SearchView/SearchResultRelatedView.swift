@@ -26,7 +26,7 @@ extension SearchResultRelatedView {
                 .padding(.horizontal, 10)
                 .padding(.bottom, 8)
         }
-        .background()
+        .background(colorSystem.color(colorCase: .cellBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(radius: 6)
     }
