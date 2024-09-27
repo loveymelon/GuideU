@@ -14,7 +14,7 @@ struct SearchResultFeature: GuideUReducer {
     @ObservableState
     struct State: Equatable {
         var searchResultEntity: SearchResultEntity = SearchResultEntity()
-        let currentSearchKeyword: String
+        let suggestEntity: SuggestEntity
         let meanText = Const.mean
         let descriptionText = Const.explain
         let relatedText = Const.related
@@ -82,8 +82,8 @@ extension SearchResultFeature {
                 
             case .networkType(.fetchSearch):
                 return .run { [state = state] send in
-                    print(state.currentSearchKeyword)
-                    let result = await searchRepository.fetchSearch(state.currentSearchKeyword)
+                    print(state.suggestEntity)
+                    let result = await searchRepository.fetchSearch(state.suggestEntity)
                     
                     switch result {
                     case let .success(data):
@@ -106,28 +106,13 @@ extension SearchResultFeature {
                 // 해당 값에 따라서 어떤 뷰를 보여줄지 판단해주는 로직
                 // 만약 세개다 없다면 오류뷰를 띄어준다.
                 if let mean = searchResult.mean {
-                    if mean.isEmpty && searchResult.description.isEmpty {
-                        state.meanIsvalid = false
-                        state.desIsvalid = false
-                    } else {
-                        state.meanIsvalid = true
-                        state.desIsvalid = true
-                    }
+                    state.meanIsvalid = !mean.isEmpty
                 } else {
-                    if searchResult.description.isEmpty {
-                        state.meanIsvalid = false
-                        state.desIsvalid = false
-                    } else {
-                        state.meanIsvalid = false
-                        state.desIsvalid = true
-                    }
+                    state.meanIsvalid = false
                 }
                 
-                if searchResult.relatedVideos.isEmpty {
-                    state.videoIsvalid = false
-                } else {
-                    state.videoIsvalid = true
-                }
+                state.desIsvalid = !searchResult.description.isEmpty
+                state.videoIsvalid = !searchResult.relatedVideos.isEmpty
                 
             case let .dataTransType(.errorInfo(error)):
                 state.currentViewState = .failure

@@ -24,8 +24,8 @@ struct SearchRepository {
         }
     }
     
-    func fetchSearch(_ searchText: String) async -> Result<[SearchResultEntity], String> {
-        let result = await network.requestNetwork(dto: SearchListDTO.self, router: SearchRouter.search(searchText: searchText))
+    func fetchSearch(_ suggestEntity: SuggestEntity) async -> Result<[SearchResultEntity], String> {
+        let result = await network.requestNetwork(dto: SearchListDTO.self, router: SearchRouter.search(suggestEntity: suggestEntity))
         
         switch result {
         case .success(let data):

@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum SearchRouter: Router {
-    case search(searchText: String)
+    case search(suggestEntity: SuggestEntity)
     case suggest(searchText: String)
 }
 
@@ -45,8 +45,11 @@ extension SearchRouter {
     
     var parameters: Parameters? {
         switch self {
-        case let .search(searchText):
-            return ["query": searchText]
+        case let .search(suggestEntity):
+            return [
+                "query": suggestEntity.keyWord,
+                "type": suggestEntity.type.rawValue
+            ]
         case let .suggest(searchText):
             return ["query": searchText]
         }

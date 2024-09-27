@@ -54,7 +54,7 @@ struct SearchFeature: GuideUReducer {
         case popUpCase(popUpCase?)
         enum Delegate {
             case closeButtonTapped
-            case openToResultView(searchText: String)
+            case openToResultView(suggestEntity: SuggestEntity)
         }
     }
     
@@ -68,7 +68,7 @@ struct SearchFeature: GuideUReducer {
         case deleteHistory(index: Int)
         case deleteAll
         case closeButtonTapped
-        case searchResultTapped(String)
+        case searchResultTapped(SuggestEntity)
         case historyTapped(text: String)
     }
     
@@ -132,11 +132,11 @@ extension SearchFeature {
                     await send(.networkType(.search(text)))
                 }
                 
-            case let .viewEventType(.searchResultTapped(text)):
+            case let .viewEventType(.searchResultTapped(model)):
                 let currentText = state.currentText.trimmingCharacters(in: .whitespaces)
                 if !currentText.isEmpty {
                     
-                    let result = realmRepository.searchCreate(history: text)
+                    let result = realmRepository.searchCreate(history: model.keyWord)
                     
                     switch result {
                     case .success(_):
@@ -144,7 +144,7 @@ extension SearchFeature {
                         state.currentText = ""
                         
                         return .run { send in
-                            await send(.delegate(.openToResultView(searchText: text)))
+                            await send(.delegate(.openToResultView(suggestEntity: model)))
                         }
                     case .failure(let error):
                         return .send(.dataTransType(.errorInfo(error.description)))

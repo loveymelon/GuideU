@@ -220,9 +220,9 @@ extension SearchResultView {
 }
 
 #if DEBUG
-#Preview {
-    SearchResultView(store: Store(initialState: SearchResultFeature.State(currentSearchKeyword: "우왁굳"), reducer: {
-        SearchResultFeature()
-    }))
-}
+//#Preview {
+//    SearchResultView(store: Store(initialState: SearchResultFeature.State(currentSearchKeyword: "우왁굳"), reducer: {
+//        SearchResultFeature()
+//    }))
+//}
 #endif

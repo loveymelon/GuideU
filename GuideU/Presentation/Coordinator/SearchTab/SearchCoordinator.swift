@@ -35,8 +35,8 @@ struct SearchCoordinator {
         Reduce { state, action in
             switch action {
                 
-            case let .router(.routeAction(id: .search, action: .search(.delegate(.openToResultView(searchText))))):
-                state.routes.push(.searchResult(SearchResultFeature.State(currentSearchKeyword: searchText)))
+            case let .router(.routeAction(id: .search, action: .search(.delegate(.openToResultView(suggestEntity))))):
+                state.routes.push(.searchResult(SearchResultFeature.State(suggestEntity: suggestEntity)))
                 
             case .router(.routeAction(id: .searchResult, action: .searchResult(.delegate(.backButtonTapped)))):
                 state.routes.pop()

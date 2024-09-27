@@ -85,7 +85,7 @@ extension SearchView {
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .asButton {
-                store.send(.viewEventType(.searchResultTapped(model.keyWord)))
+                store.send(.viewEventType(.searchResultTapped(model)))
             }
         }
         
