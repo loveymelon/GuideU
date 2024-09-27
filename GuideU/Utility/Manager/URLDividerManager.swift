@@ -14,6 +14,7 @@ struct URLDividerManager: Sendable {
         case youtubeIdentifier(String)
         case instagramURL(String)
         case twitterURL(String)
+        case afreecaURL(String)
     }
     
     func dividerURLType(url: String) -> OpenURLCase {
@@ -29,6 +30,8 @@ struct URLDividerManager: Sendable {
             return .instagram(instagramURL: url)
         } else if url.localizedStandardContains("twitter.com") {
             return .twitter(twitterURL: url)
+        } else if url.localizedStandardContains("afreecatv.com") {
+            return .afreecatv(afreecatv: url)
         } else {
             return .none
         }
@@ -39,7 +42,7 @@ struct URLDividerManager: Sendable {
         switch type {
         case .youtubeIdentifier(let string):
             return youtube(string)
-        case .instagramURL(_), .twitterURL(_):
+        case .instagramURL(_), .twitterURL(_), .afreecaURL(_):
             return nil
         }
     }
@@ -47,10 +50,33 @@ struct URLDividerManager: Sendable {
 
 extension URLDividerManager {
     private func youtube(_ urlString: String) -> String? {
+        if let shorts = youtubeShorts(urlString) {
+            return shorts
+        } else {
+            return originalYoutube(urlString)
+        }
+    }
+    
+    private func youtubeShorts(_ urlString: String) -> String? {
+        if let range = urlString.range(of: "shorts/") {
+            let videoId = urlString[range.upperBound...]
+            
+            if let endRange = videoId.range(of: "?") {
+                let finalVideoId = videoId[..<endRange.lowerBound]
+                return String(finalVideoId)
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    private func originalYoutube(_ urlString: String) -> String? {
         guard let url = URL(string: urlString),
               let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else { return nil }
-
+        
         if let vValue = queryItems.first(where: { $0.name == "v" })?.value {
             return vValue
         } else if let siValue = queryItems.first(where: { $0.name == "si" })?.value {
