@@ -112,12 +112,13 @@ extension PersonSectionView {
                 socialElementView(item: item)
             }
         }
+        .padding(.bottom, 4)
     }
     
     private func relative() -> some View {
         VStack {
             HStack {
-                Text("관련 컨텐츠")
+                Text(Const.related)
                     .font(Font(WantedFont.semiFont.font(size: 20)))
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     .padding(.horizontal, 10)
@@ -135,28 +136,28 @@ extension PersonSectionView {
             case .afreeca:
                 HStack {
                     Image.SocialImages.soop.img
-                    Text("숲(아프리카tv)")
+                    Text(Const.soopSection)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .instagram:
                 HStack {
                     Image.SocialImages.instagram.img
-                    Text("인스타 그램")
+                    Text(Const.instagramSection)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .twitter:
                 HStack {
                     Image.SocialImages.twitterX.img
-                    Text("X(트위터)")
+                    Text(Const.xTwitterSection)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .youtube:
                 HStack {
                     Image.SocialImages.youtube.img
-                    Text("메인 유튜브")
+                    Text(Const.youtubeSection)
                         .padding(.leading, 8)
                     Spacer()
                 }

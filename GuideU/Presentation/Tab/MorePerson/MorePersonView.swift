@@ -136,7 +136,7 @@ struct MorePersonView: View {
                 
                 LazyVStack(spacing: 0) {
                     colorSystem.color(colorCase: .background)
-                        .frame(height: 20)
+                        .frame(height: 15)
                     VStack {
                         switch moreType {
                         case .characters:
@@ -213,11 +213,13 @@ struct MorePersonView: View {
             }, setModel: model)
             .background(colorSystem.color(colorCase: .cellBackground))
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .padding(.all, 10)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 4)
             .shadow(radius: 4)
             .environmentObject(colorSystem)
         }
     }
+    
     
     private func memeSectionView() -> some View {
         ForEach(store.bookElementsInfo, id: \.id) { model in
@@ -243,7 +245,8 @@ struct MorePersonView: View {
                     .background(colorSystem.color(colorCase: .cellBackground))
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .padding(.all, 10)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
                     .shadow(radius: 4)
                     .environmentObject(colorSystem)
                 }

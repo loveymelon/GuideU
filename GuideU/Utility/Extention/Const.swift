@@ -483,3 +483,12 @@ extension Const {
     
     static let credit = "크레딧"
 }
+
+// MARK: 왁타버스 알아보기
+extension Const {
+    static let youtubeSection = "메인 유튜브"
+    static let soopSection = "숲(아프리카TV)"
+    static let xTwitterSection = "X(트위터)"
+    static let instagramSection = "인스타그램"
+    
+}
