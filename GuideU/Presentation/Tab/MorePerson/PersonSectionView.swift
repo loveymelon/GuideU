@@ -41,10 +41,10 @@ extension PersonSectionView {
             // 프로필 이미지
             profileImage(size: CGSize(width: 40, height: 42))
             
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 2) {
                 HStack {
                     Text(setModel.name)
-                        .font(Font(WantedFont.boldFont.font(size: 18)))
+                        .font(Font(WantedFont.boldFont.font(size: 16)))
                         .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     Spacer()
                     crossImage()
@@ -54,6 +54,7 @@ extension PersonSectionView {
                     .font(Font(WantedFont.regularFont.font(size: 14)))
                     .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     .lineLimit(1)
+                    .padding(.trailing, 24)
             }
         }
     }
@@ -101,7 +102,7 @@ extension PersonSectionView {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.all, 8)
+        .padding(.horizontal, 8)
         .background(colorSystem.color(colorCase: .cellBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
