@@ -70,42 +70,46 @@ extension SearchResultView {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(colorSystem.color(colorCase: .background))
         case .success:
-            VStack {
-                titleSection(model: store.searchResultEntity)
-                    .padding(.horizontal, 8)
-                if store.meanIsvalid, let mean = store.searchResultEntity.mean {
-                    meanSection(mean: mean)
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 8)
-                }
-                if store.desIsvalid {
-                    descriptionSection(description: store.searchResultEntity.description)
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 8)
-                }
-                
-                if store.meanIsvalid || store.desIsvalid {
-                    Divider()
-                        .frame(height: 1)
-                        .overlay(colorSystem.color(colorCase: .lineColor))
-                        .padding(.horizontal, 16)
-                }
-                
-                if store.videoIsvalid {
-                    relatedSection(related: store.searchResultEntity.relatedVideos)
-                        .padding(.horizontal, 16)
-                }
-                
-                if !store.meanIsvalid && !store.desIsvalid && !store.videoIsvalid {
-                    errorView()
-                }
-                
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            memeView()
         case .failure:
             errorView()
         }
+    }
+    
+    private func memeView() -> some View {
+        VStack {
+            titleSection(model: store.searchResultEntity)
+                .padding(.horizontal, 8)
+            if store.meanIsvalid, let mean = store.searchResultEntity.mean {
+                meanSection(mean: mean)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 8)
+            }
+            if store.desIsvalid {
+                descriptionSection(description: store.searchResultEntity.description)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 8)
+            }
+            
+            if store.meanIsvalid || store.desIsvalid {
+                Divider()
+                    .frame(height: 1)
+                    .overlay(colorSystem.color(colorCase: .lineColor))
+                    .padding(.horizontal, 16)
+            }
+            
+            if store.videoIsvalid {
+                relatedSection(related: store.searchResultEntity.relatedVideos, links: store.searchResultEntity.links)
+                    .padding(.horizontal, 16)
+            }
+            
+            if !store.meanIsvalid && !store.desIsvalid && !store.videoIsvalid {
+                errorView()
+            }
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     private func titleSection(model: SearchResultEntity) -> some View {
@@ -164,24 +168,42 @@ extension SearchResultView {
         }
     }
     
-    private func relatedSection(related: [RelatedVideoEntity]) -> some View {
-        VStack {
-            if !related.isEmpty {
+    @ViewBuilder
+    private func relatedSection(related: [RelatedVideoEntity], links: [LinkEntity]) -> some View {
+        
+        if store.suggestEntity.type == .character {
+            var rows: [GridItem] = Array(repeating: GridItem(.flexible()), count: 2)
+            VStack {
+                HStack {
+                    Text(Const.relatedURL)
+                        .font(Font(WantedFont.semiFont.font(size: 22)))
+                    Spacer()
+                }
+                .padding(.top, 8)
+                LazyVGrid(columns: rows) {
+                    ForEach(links, id: \.self) { item in
+                        socialElementView(item: item)
+                    }
+                }
+                .padding(.bottom, 4)
+            }
+        } else {
+            VStack {
                 HStack {
                     Text(Const.related)
                         .font(Font(WantedFont.semiFont.font(size: 22)))
                     Spacer()
                 }
                 .padding(.top, 8)
-            }
-            LazyVStack {
-                ForEach(related, id: \.link) { model in
-                    SearchResultRelatedView(setModel: model)
-                        .environmentObject(colorSystem)
-                        .asButton {
-                            store.send(.viewEventType(.selectedRelatedModel(model)))
-                        }
-                        .padding(.bottom, 8)
+                LazyVStack {
+                    ForEach(related, id: \.link) { model in
+                        SearchResultRelatedView(setModel: model)
+                            .environmentObject(colorSystem)
+                            .asButton {
+                                store.send(.viewEventType(.selectedRelatedModel(model)))
+                            }
+                            .padding(.bottom, 8)
+                    }
                 }
             }
         }
@@ -208,6 +230,50 @@ extension SearchResultView {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(colorSystem.color(colorCase: .background))
+    }
+    
+    private func socialElementView(item: LinkEntity) -> some View {
+        VStack {
+            switch item.type {
+            case .afreeca:
+                HStack {
+                    Image.SocialImages.soop.img
+                    Text(Const.soopSection)
+                        .padding(.leading, 8)
+                    Spacer()
+                }
+            case .instagram:
+                HStack {
+                    Image.SocialImages.instagram.img
+                    Text(Const.instagramSection)
+                        .padding(.leading, 8)
+                    Spacer()
+                }
+            case .twitter:
+                HStack {
+                    Image.SocialImages.twitterX.img
+                    Text(Const.xTwitterSection)
+                        .padding(.leading, 8)
+                    Spacer()
+                }
+            case .youtube:
+                HStack {
+                    Image.SocialImages.youtube.img
+                    Text(Const.youtubeSection)
+                        .padding(.leading, 8)
+                    Spacer()
+                }
+            default :
+                EmptyView()
+            }
+        }
+        .font(Font(WantedFont.midFont.font(size: 17)))
+        .foregroundStyle(colorSystem.color(colorCase: .textColor))
+        .padding(.horizontal, 10)
+        .asButton {
+            store.send(.viewEventType(.socialTapped(item.link)))
+        }
+        .foregroundStyle(Color(GuideUColor.ViewBaseColor.light.textColor))
     }
 }
 

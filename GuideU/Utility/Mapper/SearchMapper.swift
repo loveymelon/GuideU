@@ -32,7 +32,7 @@ struct SearchMapper: Sendable {
 
 extension SearchMapper {
     private func dtoToEntity(_ dto: SearchDTO) -> SearchResultEntity {
-        return SearchResultEntity(name: dto.name, resultType: ResultCase(rawValue: dto.type.rawValue) ?? .character, mean: dto.definition, description: dto.description ?? "", relatedVideos: dto.relatedVideos?.compactMap{ dtoToEntity($0) } ?? [])
+        return SearchResultEntity(name: dto.name, resultType: ResultCase(rawValue: dto.type.rawValue) ?? .character, mean: dto.definition, description: dto.description ?? "", relatedVideos: dto.relatedVideos?.compactMap{ dtoToEntity($0) } ?? [], links: dtoToEntity(dto.links ?? []))
     }
     
     /// SuggestDTO -> SuggestEntity
@@ -47,6 +47,14 @@ extension SearchMapper {
     
     private func dtoToEntity(_ dto: RelatedVideoDTO) -> RelatedVideoEntity {
         return RelatedVideoEntity(link: dto.link, title: dto.title, thumbnailURL: URL(string: dto.thumbnailURL), channel: dto.channel, type: dto.type)
+    }
+    
+    private func dtoToEntity(_ dto: [LinkDTO]) -> [LinkEntity] {
+        return dto.map { dtoToEntity($0) }
+    }
+    
+    private func dtoToEntity(_ dto: LinkDTO) -> LinkEntity {
+        return LinkEntity(link: dto.link, title: dto.title, thumbnailURL: dto.thumbnailURL, channel: dto.channel, type: dto.type, description: dto.description, createdAt: dto.createdAt)
     }
 }
 

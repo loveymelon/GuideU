@@ -19,7 +19,7 @@ struct URLDividerManager: Sendable {
     
     func dividerURLType(url: String) -> OpenURLCase {
         if url.localizedStandardContains("youtube.com") {
-            if url.localizedStandardContains("channel") {
+            if url.localizedStandardContains("channel") || url.localizedStandardContains("user") {
                 return .youtubeChannel(channelURLString: url)
             } else if let url = youtube(url) {
                 return .youtube(identifier: url)

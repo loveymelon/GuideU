@@ -13,12 +13,14 @@ struct SearchResultEntity: Entity {
     let mean: String?
     let description: String
     let relatedVideos: [RelatedVideoEntity]
+    let links: [LinkEntity]
     
-    init(name: String = "", resultType: ResultCase = .character, mean: String? = nil, description: String = "", relatedVideos: [RelatedVideoEntity] = []) {
+    init(name: String = "", resultType: ResultCase = .character, mean: String? = nil, description: String = "", relatedVideos: [RelatedVideoEntity] = [], links: [LinkEntity] = []) {
         self.name = name
         self.resultType = resultType
         self.mean = mean
         self.description = description
         self.relatedVideos = relatedVideos
+        self.links = links
     }
 }

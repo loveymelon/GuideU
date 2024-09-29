@@ -52,6 +52,7 @@ struct SearchResultFeature: GuideUReducer {
         case backButtonTapped
         case selectedRelatedModel(RelatedVideoEntity) // 관련 영상 선택
         case successOpenURL
+        case socialTapped(String)
     }
     
     enum DataTransType {
@@ -90,6 +91,9 @@ extension SearchResultFeature {
             case .viewEventType(.successOpenURL):
                 state.openURLCase = nil
                 
+            case let .viewEventType(.socialTapped(url)):
+                state.openURLCase = urlDividerManager.dividerURLType(url: url)
+                
             case .networkType(.fetchSearch):
                 return .run { [state = state] send in
                     print(state.suggestEntity)
@@ -122,7 +126,7 @@ extension SearchResultFeature {
                 }
                 
                 state.desIsvalid = !searchResult.description.isEmpty
-                state.videoIsvalid = !searchResult.relatedVideos.isEmpty
+                state.videoIsvalid = state.suggestEntity.type == .character ? !searchResult.links.isEmpty : !searchResult.relatedVideos.isEmpty
                 
             case let .dataTransType(.errorInfo(error)):
                 state.currentViewState = .failure
