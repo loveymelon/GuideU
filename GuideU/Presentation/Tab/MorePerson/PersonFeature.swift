@@ -127,7 +127,9 @@ extension PersonFeature {
                 state.currentMoreType = moreType
                 
             case let .viewEventType(.socialTapped(url)):
+                print("tap", url)
                 state.openURLCase = urlDividerManager.dividerURLType(url: url)
+                print("final", state.openURLCase?.appURL)
                 
             case .viewEventType(.moreButtonTapped):
                 let identifierURL = state.identifierURL

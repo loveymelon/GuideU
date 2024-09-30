@@ -18,19 +18,13 @@ struct URLDividerManager: Sendable {
     }
     
     func dividerURLType(url: String) -> OpenURLCase {
-        if url.localizedStandardContains("youtube.com") {
-            if url.localizedStandardContains("channel") || url.localizedStandardContains("user") {
-                return .youtubeChannel(channelURLString: url)
-            } else if let url = youtube(url) {
-                return .youtube(identifier: url)
-            } else {
-                return .none
-            }
-        } else if url.localizedStandardContains("instagram.com") {
+        if let youtubeResult = youtubeURLChecker(url) {
+            return youtubeResult
+        } else if url.contains("instagram.com") {
             return .instagram(instagramURL: url)
-        } else if url.localizedStandardContains("twitter.com") {
+        } else if url.contains("twitter.com") {
             return .twitter(twitterURL: url)
-        } else if url.localizedStandardContains("afreecatv.com") {
+        } else if url.contains("afreecatv.com") {
             return .afreecatv(afreecatv: url)
         } else {
             return .none
@@ -49,9 +43,25 @@ struct URLDividerManager: Sendable {
 }
 
 extension URLDividerManager {
+    private func youtubeURLChecker(_ url: String) -> OpenURLCase? {
+        if url.contains("youtube.com") || url.contains("youtu.be"){
+            if url.contains("channel") || url.contains("user") {
+                return .youtubeChannel(channelURLString: url)
+            } else if let url = youtube(url) {
+                return .youtube(identifier: url)
+            } else {
+                return OpenURLCase.none
+            }
+        } else {
+            return nil
+        }
+    }
+    
     private func youtube(_ urlString: String) -> String? {
         if let shorts = youtubeShorts(urlString) {
             return shorts
+        } else if let moreVideo = moreYoutube(urlString) {
+            return moreVideo
         } else {
             return originalYoutube(urlString)
         }
@@ -70,6 +80,25 @@ extension URLDividerManager {
         } else {
             return nil
         }
+    }
+    
+    private func moreYoutube(_ urlString: String) -> String? {
+        
+        if let range = urlString.range(of: "be/") {
+            
+            let videoId = urlString[range.upperBound...]
+            
+            if let endRange = videoId.range(of: "?") {
+                let finalVidoeId = videoId[..<endRange.lowerBound]
+                return String(finalVidoeId)
+            } else {
+                return String(videoId)
+            }
+            
+        } else {
+            return nil
+        }
+        
     }
     
     private func originalYoutube(_ urlString: String) -> String? {
