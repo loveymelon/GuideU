@@ -51,7 +51,9 @@ struct MorePersonView: View {
                                     }
                             }
                             .onChange(of: store.currentMoreType) { newValue in
-                                moreType = newValue
+                                withAnimation {
+                                    moreType = newValue
+                                }
                             }
                             Text(Const.moreCheckText)
                                 .frame(maxWidth: .infinity, alignment: .center)
@@ -131,7 +133,7 @@ struct MorePersonView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
                 headerView()
-                    .frame(height: 155)
+                    .frame(height: 160)
                     .background(Color.clear)
                 
                 LazyVStack(spacing: 0) {
@@ -314,9 +316,11 @@ struct MorePersonView: View {
                 Spacer()
             }
             .font(Font(WantedFont.midFont.font(size: 14)))
-            .padding(.bottom, 18)
             .foregroundStyle(colorSystem.color(colorCase: .textColor))
+            .padding(.bottom, 10)
+            
             switchView()
+                .padding(.bottom, 10)
         }
         .padding(.horizontal, 10)
     }
@@ -328,13 +332,16 @@ struct MorePersonView: View {
             ForEach(PersonFeature.MoreType.allCases, id: \.self) { caseOf in
                 
                 VStack {
+                    Spacer()
                     Text(caseOf.text)
                         .foregroundStyle(colorSystem.color(colorCase: .textColor))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .font(caseOf == store.currentMoreType ? Font(WantedFont.boldFont.font(size: fontSize)) : Font(WantedFont.midFont.font(size: fontSize)))
+                        .padding(.top, 10)
                         .asButton {
                             store.send(.viewEventType(.switchCurrentType(caseOf)))
                         }
+                    
                     Group {
                         if caseOf == moreType {
                             Capsule()
@@ -351,7 +358,7 @@ struct MorePersonView: View {
                 }
             }
         }
-        .frame(height: 30)
+        .frame(height: 35)
     }
     
     private func backgroundImage(size: CGSize) -> some View {
