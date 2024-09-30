@@ -90,7 +90,7 @@ extension MoreCharacterView {
                         }
                     }
                     .background(colorSystem.color(colorCase: .background))
-                    .padding(.top, 130)
+                    .padding(.top, 120)
                 }
                 ZStack {
                     wantMoreInfoView()
