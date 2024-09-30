@@ -121,12 +121,21 @@ struct RootCoordinator: Reducer {
                 }
                 
             case .networkErrorType(.timeOut):
-                return Effect.publisher {
-                    return networkManager.networkError
-                        .receive(on: RunLoop.main)
-                }
-                .map { isValid -> Action in
-                    return .networkError("네트워크 시간 초과입니다 잠시후에 다시 시작해주세요")
+//                return Effect.publisher {
+//                    return networkManager.networkError
+//                        .receive(on: RunLoop.main)
+//                }
+//                .map { isValid -> Action in
+//                    return .networkError("네트워크 시간 초과입니다 잠시후에 다시 시작해주세요")
+//                }
+//                .debounce(id: CancelID.networkManager, for: 1, scheduler: RunLoop.main)
+                
+                // 결과가 반환이 안되고 다른 쓰레드에서 작업이 끝날때까지의 신호만 기다렸다가
+                // 작업이 끝나면 에러를 던져주는 방식이다
+                return .run { send in
+                    for await text in await networkManager.getNetworkError() {
+                        await send(.networkError("네트워크 시간 초과입니다 잠시후에 다시 시작해주세요"))
+                    }
                 }
                 .debounce(id: CancelID.networkManager, for: 1, scheduler: RunLoop.main)
                 
