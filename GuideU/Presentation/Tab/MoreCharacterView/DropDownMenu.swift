@@ -60,6 +60,7 @@ extension DropDownMenu {
                 .frame(height: scrollViewHeight)
                 .zIndex(103)
                 .background(colorSystem.color(colorCase: .cellBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
                 .onAppear {
                     proxy.scrollTo(selectedOptionIndex)
                 }

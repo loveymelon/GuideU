@@ -170,7 +170,6 @@ extension MoreCharacterView {
                     showDropdown: $dropdown
                 )
                 .frame(width: 110)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
                 .environmentObject(colorSystem)
                 .zIndex(100)
                 
