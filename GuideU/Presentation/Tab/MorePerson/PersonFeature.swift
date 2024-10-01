@@ -129,7 +129,6 @@ extension PersonFeature {
             case let .viewEventType(.socialTapped(url)):
                 print("tap", url)
                 state.openURLCase = urlDividerManager.dividerURLType(url: url)
-                print("final", state.openURLCase?.appURL)
                 
             case .viewEventType(.moreButtonTapped):
                 let identifierURL = state.identifierURL
@@ -237,7 +236,7 @@ extension PersonFeature {
                 }
                 
             case let .bindingURL(socialURL):
-                print("binding")
+                print("binding", socialURL)
                 state.selectedURL = socialURL
                 
                 /// 뒤로가기 이벤트

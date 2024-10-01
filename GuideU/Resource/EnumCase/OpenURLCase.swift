@@ -13,7 +13,8 @@ enum OpenURLCase: Equatable {
     case instagram(instagramURL: String)
     case twitter(twitterURL: String)
     case afreecatv(afreecatv: String)
-    case none
+    case naverCafe(cafeURL: String)
+    case none(url: String)
     
     // youtube 앱
     var appURL: URL? {
@@ -26,7 +27,9 @@ enum OpenURLCase: Equatable {
             return URL(string: instagramURL)
         case .twitter(let twitterURL):
             return URL(string: twitterURL)
-        case .afreecatv(let afreecatvURL):
+        case .afreecatv(_):
+            return nil
+        case .naverCafe(_):
             return nil
         case .none:
             return nil
@@ -46,8 +49,10 @@ enum OpenURLCase: Equatable {
             return URL(string: twitterURL)
         case .afreecatv(let affrecatvURL):
             return URL(string: affrecatvURL)
-        case .none:
-            return nil
+        case .naverCafe(let naverCafeURL):
+            return URL(string: naverCafeURL)
+        case .none(let url):
+            return URL(string: url)
         }
     }
 }

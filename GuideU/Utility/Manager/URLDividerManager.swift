@@ -15,6 +15,7 @@ struct URLDividerManager: Sendable {
         case instagramURL(String)
         case twitterURL(String)
         case afreecaURL(String)
+        case naverCafeURL(String)
     }
     
     func dividerURLType(url: String) -> OpenURLCase {
@@ -26,8 +27,10 @@ struct URLDividerManager: Sendable {
             return .twitter(twitterURL: url)
         } else if url.contains("afreecatv.com") {
             return .afreecatv(afreecatv: url)
+        } else if url.contains("naver.com") {
+            return .naverCafe(cafeURL: url)
         } else {
-            return .none
+            return .none(url: url)
         }
     }
     
@@ -36,7 +39,7 @@ struct URLDividerManager: Sendable {
         switch type {
         case .youtubeIdentifier(let string):
             return youtube(string)
-        case .instagramURL(_), .twitterURL(_), .afreecaURL(_):
+        case .instagramURL(_), .twitterURL(_), .afreecaURL(_), .naverCafeURL(_):
             return nil
         }
     }
@@ -50,7 +53,7 @@ extension URLDividerManager {
             } else if let url = youtube(url) {
                 return .youtube(identifier: url)
             } else {
-                return OpenURLCase.none
+                return OpenURLCase.none(url: url)
             }
         } else {
             return nil
