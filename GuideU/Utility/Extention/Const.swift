@@ -440,7 +440,7 @@ extension Const {
         var title: String {
             switch self {
             case .noWak:
-                return "왁타버스의 관련 채널이 아닌 것 같습니다!"
+                return "데이터를 찾을수가 없습니다."
             case .noVideo:
                 return "영상이 감지 되지 않았습니다!"
             case .serverError:
