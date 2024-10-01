@@ -109,8 +109,9 @@ struct MorePersonView: View {
         VStack(spacing: 0) {
             Image(imageType.rawValue)
                 .resizable()
-                .aspectRatio(1, contentMode: .fit)
-                .frame(width: imageType == .notWak ? 260 : 249, height: imageType == .notWak ? 260 : 164)
+                .scaledToFit()
+//                .frame(width: imageType == .notWak ? 260 : 249, height: imageType == .notWak ? 260 : 164)
+                .padding(.horizontal, 20)
                 .padding(.bottom, 30)
                 .padding(.top, 40)
             
