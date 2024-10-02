@@ -63,6 +63,7 @@ extension MoreCharacterListView {
                         .multilineTextAlignment(.leading)
                         .font(Font(WantedFont.boldFont.font(size: 15)))
                         .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                        .lineLimit(2)
                     Spacer()
                 }
                 HStack {

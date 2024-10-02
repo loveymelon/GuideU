@@ -83,8 +83,8 @@ extension VideoMapper {
                 groupedData[startOfDay]?.append(requestDTOToEntity(item))
             }
         }
-        
-        return sortedVideo(datas: groupedData.sorted { $0.key > $1.key })
+        let result = groupedData.sorted { $0.key > $1.key }
+        return sortedVideo(datas: result)
     }
     
     private func sortedVideo(datas: [Dictionary<Date, [VideosEntity]>.Element]) -> [HistoryVideosEntity] {
@@ -100,10 +100,8 @@ extension VideoMapper {
             } else if calendar.isDate(date, inSameDayAs: dayOption.yesterDay) {
                 title = "어제"
             } else {
-                Task {
-                    let trans = await DateManager.shared.toString(date: date, format: .fullType)
-                    title = trans
-                }
+                let trans = DateManager.shared.toString(date: date, format: .fullType)
+                title = trans
             }
             result.append(HistoryVideosEntity(lastWatched: title, videosEntity: contents))
         }

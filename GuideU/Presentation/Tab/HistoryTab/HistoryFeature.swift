@@ -14,7 +14,8 @@ struct HistoryFeature {
     @ObservableState
     struct State: Equatable {
         var videosEntity: [HistoryVideosEntity] = []
-        var selectedVideoData: VideosEntity = VideosEntity()
+//        var selectedVideoData: VideosEntity = VideosEntity() // 이지랄이 원인인것 같은데
+        var selectedVideoData: VideosEntity? = nil
         var dialogPresent: Bool = false
         var openURLCase: OpenURLCase? = nil
     }
@@ -57,7 +58,7 @@ struct HistoryFeature {
     }
     
     enum CancelId: Hashable {
-        
+        case test
     }
     
     @Dependency(\.realmRepository) var realmRepository
@@ -73,16 +74,26 @@ extension HistoryFeature {
         Reduce { state, action in
             switch action {
             case .viewCycleType(.viewOnAppear):
+                state.videosEntity = []
                 state.videosEntity = realmRepository.fetchVideoHistory()
+                
+                dump(state.videosEntity)
+                
+                return .none
+                    .throttle(id: CancelId.test, for: 2, scheduler: RunLoop.main.eraseToAnyScheduler(), latest: false)
                 
             case let .viewEventType(.videoTapped(entity)):
                 state.selectedVideoData = entity
                 return .send(.dialogBinding(true))
 
             case .viewEventType(.youtubeButtonTapped):
-                let videoURL = state.selectedVideoData.videoURL?.absoluteString
                 
-                let result = realmRepository.videoHistoryCreate(videoData: state.selectedVideoData)
+                guard let selectedVideoData = state.selectedVideoData else {
+                    return .none
+                }
+                
+                let videoURL = selectedVideoData.videoURL?.absoluteString
+                let result = realmRepository.videoHistoryCreate(videoData: selectedVideoData)
                 
                 return .run { send in
                     switch result {
@@ -100,9 +111,11 @@ extension HistoryFeature {
                 state.openURLCase = nil
                 
             case .viewEventType(.detailButtonTapped):
-                let videoInfo = state.selectedVideoData
+                guard let selectedVideoData = state.selectedVideoData else {
+                    return .none
+                }
                 
-                let result = realmRepository.videoHistoryCreate(videoData: videoInfo)
+                let result = realmRepository.videoHistoryCreate(videoData: selectedVideoData)
                 
                 return .run { send in
                     if case let .failure(error) = result {
@@ -110,7 +123,7 @@ extension HistoryFeature {
                         await send(.dataTransType(.errorInfo(error.description)))
                     }
                     await send(.dataTransType(.cleanSelectData))
-                    await send(.delegate(.detailButtonTapped(videoInfo.identifier)))
+                    await send(.delegate(.detailButtonTapped(selectedVideoData.identifier)))
                 }
                 
             case let .dataTransType(.selectVideoURL(selectURL)):
@@ -118,7 +131,7 @@ extension HistoryFeature {
                 state.openURLCase = urlDividerManager.dividerURLType(url: youtubeURL)
                 
             case .dataTransType(.cleanSelectData):
-                state.selectedVideoData = VideosEntity()
+                state.selectedVideoData = nil
                 
             case let .dataTransType(.errorInfo(error)):
                 state.videosEntity = []

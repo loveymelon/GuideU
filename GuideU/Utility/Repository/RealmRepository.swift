@@ -26,7 +26,9 @@ final class RealmRepository: Sendable {
         do {
             
             try realm.write {
+//                #if DEBUG
                 print("dd", realm.configuration.fileURL)
+//                #endif
                 realm.create(
                     SearchHistoryRequestDTO.self,
                     value: [
