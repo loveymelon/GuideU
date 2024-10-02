@@ -40,10 +40,10 @@ enum Const {
         case gosegu
         case viichan
         
-        var name: String {
+        var mainTitle: String {
             switch self {
             case .all:
-                return "모두"
+                return "모든 분들"
             case .wakgood:
                 return Wakgood.name
             case .ine:
@@ -58,6 +58,27 @@ enum Const {
                 return GOSEGU.name
             case .viichan:
                 return VIichan.name
+            }
+        }
+        
+        var menuTitle: String {
+            switch self {
+            case .all:
+                return "모든 분들"
+            case .wakgood:
+                return Wakgood.name + " 님"
+            case .ine:
+                return INE.name + " 님"
+            case .jingburger:
+                return JINGBURGER.name + " 님"
+            case .lilpa:
+                return Lilpa.name + " 님"
+            case .jururu:
+                return JURURU.name + " 님"
+            case .gosegu:
+                return GOSEGU.name + " 님"
+            case .viichan:
+                return VIichan.name + " 님"
             }
         }
         

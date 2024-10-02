@@ -79,6 +79,7 @@ extension DropDownMenu {
                 Spacer()
                 Text(options[index])
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                    .font(Font(WantedFont.semiFont.font(size: 18)))
                 Spacer()
             }
         })
@@ -93,13 +94,12 @@ extension DropDownMenu {
             } label: {
                 VStack(spacing: 0) {
                     HStack(spacing: nil) {
-                        if options[selectedOptionIndex] == Const.Channel.all.name {
+                        if options[selectedOptionIndex] == Const.Channel.all.mainTitle {
                             Text(options[selectedOptionIndex])
                                 .font(Font(WantedFont.boldFont.font(size: 21)))
                         } else {
-                            Text(options[selectedOptionIndex] + " 님")
+                            Text(options[selectedOptionIndex])
                                 .font(Font(WantedFont.boldFont.font(size: 21)))
-                            
                         }
                         
                         Spacer()

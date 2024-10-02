@@ -162,7 +162,7 @@ extension MoreCharacterView {
                 DropDownMenu(
                     options: store.dropDownOptions.map(
                         {
-                            $0.name
+                            $0.menuTitle
                         }),
                     selectedOptionIndex: $store.currentIndex.sending(
                         \.currentIndex
