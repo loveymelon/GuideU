@@ -75,6 +75,10 @@ struct SearchFeature: GuideUReducer {
     enum DataTransType {
         case searchData([SuggestEntity])
         case errorInfo(String)
+        case realmFetch
+        case realmSuccess([String])
+        case removeRealm(Int)
+        case removeAllRealm
     }
     
     enum NetworkType {
@@ -85,8 +89,9 @@ struct SearchFeature: GuideUReducer {
         case searchID
     }
     
+    private let realmRepository = RealmRepository()
+    
     @Dependency(\.searchRepository) var searchRepository
-    @Dependency(\.realmRepository) var realmRepository
     
     var body: some ReducerOf<Self> {
         core()
@@ -100,32 +105,39 @@ extension SearchFeature {
                 // MARK: View Cycle
             case .viewCycleType(.onAppear):
                 /// Realm Search History
-                state.searchHistory = realmRepository.fetch()
+                return .send(.dataTransType(.realmFetch))
                 
                 // MARK: View Event
             case let .viewEventType(.deleteHistory(index)):
-                let result = realmRepository.delete(keyworkd: state.searchHistory[index])
-                
-                switch result {
-                case .success(_):
-                    state.searchHistory.remove(at: index)
+                return .run {[state = state] send in
+                    let result = await realmRepository.delete(keyworkd: state.searchHistory[index])
                     
-                    state.popUpCase = .delete
-                case .failure(let error):
-                    return .send(.dataTransType(.errorInfo(error.description)))
+                    switch result {
+                    case .success(_):
+                        
+                        await send(.dataTransType(.removeRealm(index)))
+                    case .failure(let error):
+                        
+                        await send(.dataTransType(.errorInfo(error.description)))
+                    }
                 }
+                
+            case let .dataTransType(.removeRealm(index)):
+                state.searchHistory.remove(at: index)
+                state.popUpCase = .delete
                 
             case .viewEventType(.deleteAll):
-                let result = realmRepository.deleteAll()
-                state.popUpCase = .allDelete
                 
-                switch result {
-                case .success():
-                    state.searchHistory.removeAll()
-                case .failure(let error):
-                    return .send(.dataTransType(.errorInfo(error.description)))
+                return .run { send in
+                    let result = await realmRepository.deleteAll()
+                    
+                    switch result {
+                    case .success():
+                        await send(.dataTransType(.removeAllRealm))
+                    case .failure(let error):
+                        await send(.dataTransType(.errorInfo(error.description)))
+                    }
                 }
-                
                 
             case let .viewEventType(.onSubmit(text)):
                 return .run { send in
@@ -136,20 +148,21 @@ extension SearchFeature {
                 let currentText = state.currentText.trimmingCharacters(in: .whitespaces)
                 if !currentText.isEmpty {
                     
-                    let result = realmRepository.searchCreate(history: model.keyWord)
+                    state.currentText = ""
                     
-                    switch result {
-                    case .success(_):
-                        state.searchHistory = realmRepository.fetch()
-                        state.currentText = ""
-                        
-                        return .run { send in
+                    return .run { send in
+                        let result = await realmRepository.searchCreate(history: model.keyWord)
+                        switch result {
+                        case .success(_):
+                            await send(.dataTransType(.realmFetch))
                             await send(.delegate(.openToResultView(suggestEntity: model)))
+                            
+                        case .failure(let error):
+                            await send(.dataTransType(.errorInfo(error.description)))
                         }
-                    case .failure(let error):
-                        return .send(.dataTransType(.errorInfo(error.description)))
                     }
                 }
+                
                 
             case let .viewEventType(.historyTapped(text)):
                 return.send(.currentText(text))
@@ -179,6 +192,19 @@ extension SearchFeature {
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
+                
+            case .dataTransType(.realmFetch):
+                return .run { send in
+                    let result = await realmRepository.fetch()
+                    await send(.dataTransType(.realmSuccess(result)))
+                }
+                
+            case let .dataTransType(.realmSuccess(texts)):
+                state.searchHistory = texts
+                
+            case .dataTransType(.removeAllRealm):
+                state.popUpCase = .allDelete
+                state.searchHistory.removeAll()
                 
                 // MARK: Binding
             case let .currentText(text):

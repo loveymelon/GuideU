@@ -6,30 +6,47 @@
 //
 
 import Foundation
-@preconcurrency import RealmSwift
-import ComposableArchitecture
+import RealmSwift
 
-
-final class RealmRepository: Sendable {
+final actor RealmRepository {
+    
+    private var realm: Realm?
     
     private let mapper: SearchMapper
     private let videoMapper: VideoMapper
     
-    init() {
+    init() { // None Async
         self.mapper = SearchMapper()
         self.videoMapper = VideoMapper()
+        Task { // 타쓰레드
+            /*
+             do {
+                 self.realm = try await Realm.open()
+             } catch {
+                 realm = nil
+             }
+             */
+            await self.setup() // 타쓰레드가 내쓰레드 쓰는 함수 호출
+        }
+        
     }
     
-    private let realm = try! Realm()
+    private func setup() async { // 내쓰레드
+        do {
+            realm = try await Realm.open()
+        } catch {
+            realm = nil
+        }
+    }
     
-    func searchCreate(history: String) -> Result<Void, RealmError> {
+    func searchCreate(history: String) async -> Result<Void, RealmError> {
         do {
             
-            try realm.write {
+            try await realm?.asyncWrite {
 //                #if DEBUG
-                print("dd", realm.configuration.fileURL)
+                print("dd", realm?.configuration.fileURL)
 //                #endif
-                realm.create(
+                realm?.create(
                     SearchHistoryRequestDTO.self,
                     value: [
                         "history": history,
@@ -45,14 +62,14 @@ final class RealmRepository: Sendable {
         }
     }
     
-    func videoHistoryCreate(videoData: VideosEntity) -> Result<Void, RealmError> {
+    func videoHistoryCreate(videoData: VideosEntity) async -> Result<Void, RealmError> {
         do {
-            try checkRealmCount()
+            try await checkRealmCount()
             
-            try realm.write {
-                print("dd", realm.configuration.fileURL)
+            try await realm?.asyncWrite {
+                print("dd", realm?.configuration.fileURL)
                 
-                realm.create(
+                realm?.create(
                     VideoHistoryRequestDTO.self,
                     value: [
                         "identifier": videoData.identifier,
@@ -74,6 +91,8 @@ final class RealmRepository: Sendable {
     }
     
     func fetch() -> [String] {
+        guard let realm else { return [] }
+        
         let searchDatas = mapper.requestDTOToString(Array(realm.objects(SearchHistoryRequestDTO.self).sorted(by: \.date, ascending: false)))
         
         if searchDatas.count > 5 {
@@ -84,6 +103,8 @@ final class RealmRepository: Sendable {
     }
     
     func fetchVideoHistory() -> [HistoryVideosEntity] {
+        guard let realm else { return [] }
+        
         let realmData = Array(realm.objects(VideoHistoryRequestDTO.self).sorted(by: \.watchedAt, ascending: false))
         
         let mapping = videoMapper.dtoToEntity(dtos: realmData)
@@ -91,13 +112,15 @@ final class RealmRepository: Sendable {
         return mapping
     }
     
-    func delete(keyworkd: String) -> Result<Void, RealmError> {
+    func delete(keyworkd: String) async -> Result<Void, RealmError> {
+        guard let realm else { return .failure(.deleteFail) }
+        
         guard let data = realm.object(ofType: SearchHistoryRequestDTO.self, forPrimaryKey: keyworkd) else {
             return .failure(.deleteFail)
         }
     
         do {
-            try realm.write {
+            try await realm.asyncWrite {
                 realm.delete(data)
             }
             return .success(())
@@ -106,11 +129,12 @@ final class RealmRepository: Sendable {
         }
     }
     
-    func deleteAll() -> Result<Void, RealmError> {
+    func deleteAll() async -> Result<Void, RealmError> {
+        guard let realm else { return .failure(.deleteFail) }
         let datas = realm.objects(SearchHistoryRequestDTO.self)
         
         do {
-            try realm.write {
+            try await realm.asyncWrite {
                 realm.delete(datas)
             }
             return .success(())
@@ -122,27 +146,17 @@ final class RealmRepository: Sendable {
 }
 
 extension RealmRepository {
-    private func checkRealmCount() throws {
+    private func checkRealmCount() async throws {
+        guard let realm else { throw RealmError.unknownError }
+        
         let realmDatas = realm.objects(VideoHistoryRequestDTO.self)
         
         if realmDatas.count == 30 {
             guard let deleteData = realmDatas.sorted(by: \.watchedAt, ascending: true).first else { return }
             
-            try realm.write {
+            try await realm.asyncWrite {
                 realm.delete(deleteData)
             }
         }
-    }
-}
-
-
-extension RealmRepository: DependencyKey {
-    static let liveValue: RealmRepository = RealmRepository()
-}
-
-extension DependencyValues {
-    var realmRepository: RealmRepository {
-        get { self[RealmRepository.self] }
-        set { self[RealmRepository.self] = newValue }
     }
 }

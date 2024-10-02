@@ -101,9 +101,11 @@ struct MoreCharacterFeature: GuideUReducer, Sendable {
         case searchID
     }
     
+    private let realmRepository = RealmRepository()
+    
     @Dependency(\.videoRepository) var videoRepository
     @Dependency(\.characterRepository) var characterRepository
-    @Dependency(\.realmRepository) var realmRepository 
+
     @Dependency(\.urlDividerManager) var urlDividerManager
     
     var body: some ReducerOf<Self> {
@@ -148,15 +150,17 @@ extension MoreCharacterFeature {
             case .viewEventType(.youtubeButtonTapped):
                 let videoURL = state.videoInfos[state.selectedIndex].videoURL?.absoluteString
                 
-                let result = realmRepository.videoHistoryCreate(videoData: state.videoInfos[state.selectedIndex])
-                
-                switch result {
-                case .success(_):
-                    return .run { send in
+                return .run { [state = state] send in
+                    let result = await realmRepository.videoHistoryCreate(videoData: state.videoInfos[state.selectedIndex])
+                    
+                    switch result {
+                    case .success(_):
+                        
                         await send(.dataTransType(.selectVideoURL(videoURL)))
+                    case .failure(let error):
+                        
+                        await send(.dataTransType(.errorInfo(error.description)))
                     }
-                case .failure(let error):
-                    return .send(.dataTransType(.errorInfo(error.description)))
                 }
                 
             case .viewEventType(.detailButtonTapped):

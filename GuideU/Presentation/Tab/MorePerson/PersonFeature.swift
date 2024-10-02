@@ -101,10 +101,11 @@ struct PersonFeature: GuideUReducer {
         }
     }
     
+    private let realmRepository = RealmRepository()
+    
     @Dependency(\.characterRepository) var repository
     @Dependency(\.videoRepository) var videoRepository
     @Dependency(\.urlDividerManager) var urlDividerManager
-    @Dependency(\.realmRepository) var realmRepository
     
     var body: some ReducerOf<Self> {
         core()
@@ -195,15 +196,15 @@ extension PersonFeature {
                 state.videoInfo = videoData
                 
                 state.videoState = .content
+                return .run {[ state = state ] send in
+                    let result = await realmRepository.videoHistoryCreate(videoData: state.videoInfo)
+                    
+                    if case let .failure(error) = result {
                 
-                let result = realmRepository.videoHistoryCreate(videoData: state.videoInfo)
-                
-                if case let .failure(error) = result {
-                    return .run { send in
                         await send(.dataTransType(.errorInfo(error.description)))
                     }
                 }
-                
+
             case let .dataTransType(.checkURL(identifierURL)):
                 if identifierURL.contains(Const.youtubeBaseURL) {
                     state.openURLCase = urlDividerManager.dividerURLType(url: identifierURL)

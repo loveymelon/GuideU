@@ -11,6 +11,8 @@ import ComposableArchitecture
 @Reducer
 struct HistoryFeature {
     
+    private let realmRepository = RealmRepository()
+    
     @ObservableState
     struct State: Equatable {
         var videosEntity: [HistoryVideosEntity] = []
@@ -51,6 +53,7 @@ struct HistoryFeature {
         case selectVideoURL(String?)
         case cleanSelectData
         case errorInfo(String)
+        case successRealmData([HistoryVideosEntity])
     }
     
     enum NetworkType {
@@ -61,7 +64,8 @@ struct HistoryFeature {
         case test
     }
     
-    @Dependency(\.realmRepository) var realmRepository
+    
+    
     @Dependency(\.urlDividerManager) var urlDividerManager
     
     var body: some ReducerOf<Self> {
@@ -75,13 +79,12 @@ extension HistoryFeature {
             switch action {
             case .viewCycleType(.viewOnAppear):
                 state.videosEntity = []
-                state.videosEntity = realmRepository.fetchVideoHistory()
-                
-                dump(state.videosEntity)
-                
-                return .none
-                    .throttle(id: CancelId.test, for: 2, scheduler: RunLoop.main.eraseToAnyScheduler(), latest: false)
-                
+                return .run { send in
+                    let result = await realmRepository.fetchVideoHistory()
+                    await send(.dataTransType(.successRealmData(result)))
+                }
+                .throttle(id: CancelId.test, for: 2, scheduler: RunLoop.main.eraseToAnyScheduler(), latest: false)
+                   
             case let .viewEventType(.videoTapped(entity)):
                 state.selectedVideoData = entity
                 return .send(.dialogBinding(true))
@@ -93,9 +96,10 @@ extension HistoryFeature {
                 }
                 
                 let videoURL = selectedVideoData.videoURL?.absoluteString
-                let result = realmRepository.videoHistoryCreate(videoData: selectedVideoData)
                 
                 return .run { send in
+                    let result = await realmRepository.videoHistoryCreate(videoData: selectedVideoData)
+                    
                     switch result {
                     case .success(_):
                         await send(.dataTransType(.cleanSelectData))
@@ -115,9 +119,9 @@ extension HistoryFeature {
                     return .none
                 }
                 
-                let result = realmRepository.videoHistoryCreate(videoData: selectedVideoData)
-                
                 return .run { send in
+                    let result = await realmRepository.videoHistoryCreate(videoData: selectedVideoData)
+                    
                     if case let .failure(error) = result {
                         await send(.dataTransType(.cleanSelectData))
                         await send(.dataTransType(.errorInfo(error.description)))
@@ -136,6 +140,9 @@ extension HistoryFeature {
             case let .dataTransType(.errorInfo(error)):
                 state.videosEntity = []
                 print(error)
+                
+            case let .dataTransType(.successRealmData(datas)):
+                state.videosEntity = datas
                 
             case let .dialogBinding(isValid):
                 state.dialogPresent = isValid
