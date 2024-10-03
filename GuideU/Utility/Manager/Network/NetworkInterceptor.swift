@@ -20,7 +20,7 @@ final class NetworkInterceptor: RequestInterceptor {
     func retry(_ request: Request, for session: Session, dueTo error: any Error, completion: @escaping (RetryResult) -> Void) {
         retryLimit -= 1
         
-        if retryLimit >= 0 {
+        if retryLimit > 0 {
             completion(.retryWithDelay(1))
         } else {
             completion(.doNotRetry)

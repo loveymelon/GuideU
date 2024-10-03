@@ -15,11 +15,8 @@ final actor NWPathMonitorManager {
     
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue.global(qos: .background)
-    
     private let connectionTypeSubject = PassthroughSubject<ConnectionType, Never>()
     private let currentConnectionTrigger = CurrentValueSubject<Bool, Never> (true)
-//    let currentConnectionType = PassthroughSubject<ConnectionType, Never>()
-//    let currentConnectionTrigger = CurrentValueSubject<Bool, Never> (true)
     
     enum ConnectionType {
         case cellular
@@ -65,18 +62,6 @@ extension NWPathMonitorManager {
         monitor.start(queue: queue)
     }
     
-    /*  monitor.pathUpdateHandler = { [weak self] path in
-     guard let self = self else {
-         print("Lost self")
-         return
-     }
-     
-     Task {
-         await self.updateHandler(path: path)
-     }
- }
-     */
-    
     private func updateHandler(path: NWPath) {
         getConnectionType(path: path)
 //        networkConnectStatus(path: path)
@@ -85,14 +70,7 @@ extension NWPathMonitorManager {
         print(path.status)
         #endif
     }
-//    private func updateHandler(path: NWPath) -> Con {
-//        getConnectionType(path: path)
-//        networkConnectStatus(path: path)
-//        #if DEBUG
-//        print(#function)
-//        print(path.status)
-//        #endif
-//    }
+
     
     private func getConnectionType(path: NWPath) {
         if path.usesInterfaceType(.wifi) {

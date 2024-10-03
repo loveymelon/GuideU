@@ -26,10 +26,6 @@ extension Router {
         return GuideUURL.baseURLString
     }
     
-//    var defaultHeader: HTTPHeaders {
-//        return [HeaderType.secretHeader : APIKey.secretKey]
-//    }
-    
     var headers: HTTPHeaders {
         var combine = HTTPHeaders()
         if let optionalHeaders {

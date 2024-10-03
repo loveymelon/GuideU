@@ -15,20 +15,12 @@ final actor RealmRepository {
     private let mapper: SearchMapper
     private let videoMapper: VideoMapper
     
-    init() { // None Async
+    init() {
         self.mapper = SearchMapper()
         self.videoMapper = VideoMapper()
-        Task { // 타쓰레드
-            /*
-             do {
-                 self.realm = try await Realm.open()
-             } catch {
-                 realm = nil
-             }
-             */
-            await self.setup() // 타쓰레드가 내쓰레드 쓰는 함수 호출
+        Task {
+            await self.setup()
         }
-        
     }
     
     private func setup() async { // 내쓰레드

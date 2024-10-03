@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-/// NO Dependency TCA PLZ 알겠죠? 이건 UI 관할 입니다.
-
 struct OpenURLManager {
     
     func openAppUrl(urlCase: OpenURLCase) async {

@@ -16,8 +16,6 @@ final class CodableManager: Sendable {
     
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
-    
-    
 }
 
 extension CodableManager {
