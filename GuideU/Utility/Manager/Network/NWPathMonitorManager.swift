@@ -7,9 +7,8 @@
 
 import Foundation
 import Network
-import Combine /*-> 싱글톤 패턴에서 사용하기에는 이제 무리인 것 같다 Swift 6*/
+import Combine
 import ComposableArchitecture
-
 
 final actor NWPathMonitorManager {
     
@@ -37,12 +36,13 @@ final actor NWPathMonitorManager {
     }
     
     func getToConnectionTrigger() -> AsyncStream<Bool> {
-        return AsyncStream {[ weak self ] continuation in
+        return AsyncStream { [weak self] continuation in
             guard let self else { return }
             
             monitor.pathUpdateHandler = { path in
                 Task {
                     let trigger = await self.networkConnectStatus(path: path)
+                    print(trigger)
                     continuation.yield(trigger)
                 }
             }
@@ -64,7 +64,6 @@ extension NWPathMonitorManager {
     
     private func updateHandler(path: NWPath) {
         getConnectionType(path: path)
-//        networkConnectStatus(path: path)
         #if DEBUG
         print(#function)
         print(path.status)

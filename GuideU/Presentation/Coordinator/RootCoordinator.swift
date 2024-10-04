@@ -113,9 +113,7 @@ struct RootCoordinator: Reducer {
             case .networkErrorType(.nwMonitor):
                 return .run { send in
                     
-                    let continuation = await nwPathMonitorManager.getToConnectionTrigger()
-                    
-                    for await isValid in continuation {
+                    for await isValid in await  nwPathMonitorManager.getToConnectionTrigger() {
                         await send(.checkError(isValid))
                     }
                 }
