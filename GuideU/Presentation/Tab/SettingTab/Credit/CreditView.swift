@@ -53,6 +53,7 @@ struct CreditView: View {
                     store.send(.viewEvent(.selectedCase(credit)))
                 }
                 .listRowBackground(colorSystem.color(colorCase: .background))
+                .listRowSeparator(.hidden)
             }
         }
         .listStyle(.plain)

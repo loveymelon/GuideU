@@ -177,6 +177,7 @@ extension SearchResultView {
                 HStack {
                     Text(Const.relatedURL)
                         .font(Font(WantedFont.semiFont.font(size: 22)))
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     Spacer()
                 }
                 .padding(.top, 8)
@@ -192,6 +193,7 @@ extension SearchResultView {
                 HStack {
                     Text(Const.related)
                         .font(Font(WantedFont.semiFont.font(size: 22)))
+                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
                     Spacer()
                 }
                 .padding(.top, 8)
