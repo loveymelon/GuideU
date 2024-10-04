@@ -17,19 +17,25 @@ extension String {
         return DateManager.shared.toDate(self, format: dateFormat)
     }
     
-    func styledText(fullFont: UIFont, fullColor: UIColor, targetString: String, targetFont: UIFont, targetColor: UIColor) -> AttributedString {
+    func styledText(fullFont: UIFont, fullColor: UIColor, targetTexts: [String], targetFont: UIFont, targetColor: UIColor) -> AttributedString {
+        
         var attributedString = AttributedString(self)
         
-        // 전체 문자열의 기본 폰트와 색상 설정
         attributedString.font = fullFont
         attributedString.foregroundColor = fullColor
         
-        // 특정 문자열에 대한 폰트와 색상 설정
-        if let range = attributedString.range(of: targetString) {
-            attributedString[range].font = targetFont
-            attributedString[range].foregroundColor = targetColor
+        targetTexts.forEach { targetString in
+            if let range = attributedString.range(of: targetString) {
+                attributedString[range].font = targetFont
+                attributedString[range].foregroundColor = targetColor
+            }
         }
+        
         return attributedString
+    }
+    
+    func styledText(fullFont: UIFont, fullColor: UIColor, targetString: String, targetFont: UIFont, targetColor: UIColor) -> AttributedString {
+        return styledText(fullFont: fullFont, fullColor: fullColor, targetTexts: [targetString], targetFont: targetFont, targetColor: targetColor)
     }
     
     /// 문자열(폰트에 따른) 의 전체 사이즈를 계산합니다.

@@ -529,4 +529,92 @@ extension Const {
             }
         }
     }
+    
+    enum FirstTealmRole: CaseIterable {
+        case teamLeader // TeamLeader
+        case pm
+        case planning
+        case developer
+        case fe
+        case be
+        case ai
+        case uiUx
+        case infra
+        case info
+        case labelling
+        case specialThanks
+        
+        static var mainTitle: String {return "1차 유공자"}
+        
+        var title: String {
+            switch self {
+            case .teamLeader: return "팀장"
+            case .pm: return "PM"
+            case .planning: return "기획"
+            case .developer: return "개발"
+            case .fe: return "FE"
+            case .be: return "BE"
+            case .ai: return "AI"
+            case .uiUx: return "UI/UX"
+            case .infra: return "인프라"
+            case .info: return "정보팀"
+            case .labelling: return "라벨링"
+            case .specialThanks: return "Special Thanks"
+            }
+        }
+        
+        var member: String {
+            switch self {
+            case .teamLeader: return "강아지는 개과"
+            case .pm: return "애교"
+            case .planning: return "팀장 다이노소어\n기록자 영고"
+            case .developer: return "리드 텔콘타르"
+            case .fe: return "팀장 오영로크\n젤리마요, 차뫼"
+            case .be: return "팀장 앙쓰\n반개, 트렌비, 애교"
+            case .ai: return "팀장 Korshort\n러디, 이플(epl), 텔콘타르"
+            case .uiUx: return "팀장 상헌\n하찐, 마넌"
+            case .infra: return "식용뚤기, 민하쿠"
+            case .info: return """
+팀장 완전세균입니다
+우왁굳 뉴누, 양사유, 김커일, 카레향연어
+아이네 미식이, 나모링
+징버거 빠나, 콩붕어
+릴파 익스플로어, 애애
+주르르 뮤 런, 루더, 르릇당, 주반
+고세구 완전세균입니다, 구독금연
+비챤 바람곰도리, 새벽밤하늘
+"""
+            case .labelling: return "그적미적, Sanyang"
+            case .specialThanks: return "감람스톤\n유입가이드\n하벤하이드"
+            }
+        }
+        
+        static var textGrayOptions: [String] {
+            return [
+                "팀장",
+                "리드",
+                "우왁굳",
+                "아이네",
+                "징버거",
+                "릴파",
+                "주르르",
+                "고세구",
+                "비챤",
+                "감람스톤",
+                "유입가이드",
+                "하벤하이드"
+            ]
+        }
+        
+        var paddingOptions: Bool {
+            switch self {
+                
+            case .fe:
+                return true
+                
+            default:
+                return false
+            }
+        }
+    }
 }
