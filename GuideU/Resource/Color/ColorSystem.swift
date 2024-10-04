@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
-@preconcurrency import Combine
+import Combine
 
-final class ColorSystem: @unchecked Sendable, ObservableObject {
+@MainActor
+final class ColorSystem: ObservableObject {
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -19,19 +20,13 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
     var currentColorScheme: UIUserInterfaceStyle = .light
     
     init () {
-        print("이닛 ")
-        Task {
-            await updateColorScheme()
-        }
+        updateColorScheme()
         
         NotificationCenter.default
             .publisher(for: UIScreen.brightnessDidChangeNotification, object: nil)
             .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
-                guard let self else { return }
-                Task {
-                   await self.updateColorScheme()
-                }
+            .sink {[weak self] _ in
+                self?.updateColorScheme()
             }
             .store(in: &cancellables)
         
@@ -39,10 +34,7 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
             .publisher(for: UIApplication.didBecomeActiveNotification)
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
-                guard let self else { return }
-                Task {
-                   await self.updateColorScheme()
-                }
+                self?.updateColorScheme()
             }
             .store(in: &cancellables)
     }
@@ -66,7 +58,6 @@ final class ColorSystem: @unchecked Sendable, ObservableObject {
         UserDefaultsManager.colorCase = type.rawValue
     }
     
-    @MainActor
     private func updateColorScheme() {
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene

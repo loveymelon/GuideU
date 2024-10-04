@@ -8,10 +8,10 @@
 import Combine
 
 final actor CancellableStore {
-    private var cancellables: [AnyCancellable] = []
+    private var cancellables: Set<AnyCancellable> = []
     
     func append(_ cancellable: AnyCancellable) {
-        cancellables.append(cancellable)
+        cancellables.insert(cancellable)
     }
     
     func removeAll() {
