@@ -5,18 +5,18 @@
 //  Created by 김진수 on 8/26/24.
 //
 
-@preconcurrency import Alamofire
+import Alamofire
 import ComposableArchitecture
 import Foundation
-import Combine
+@preconcurrency import Combine
 
-final actor NetworkManager {
+final class NetworkManager: Sendable {
     
     typealias ResultContinuation<T: DTO> = CheckedContinuation<Result<T, APIErrorResponse>, Never>
     
     private let networkError = PassthroughSubject<String, Never>()
     
-    private var store = Array<AnyCancellable> ()
+    private let store = CancellableStore()
     
     func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async -> Result<T, APIErrorResponse> {
         
@@ -44,11 +44,19 @@ final actor NetworkManager {
     func getNetworkError() -> AsyncStream<String> {
         
         return AsyncStream<String> { contin in
-            networkError
-                .sink { text in
-                    contin.yield(text)
+            Task {
+                let subscribe = networkError
+                    .sink { text in
+                        contin.yield(text)
+                    }
+                await store.append(subscribe)
+            }
+            
+            contin.onTermination = { @Sendable [weak self] _ in
+                Task {
+                    await self?.store.removeAll()
                 }
-                .store(in: &store)
+            }
         }
     }
 }

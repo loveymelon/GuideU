@@ -96,6 +96,7 @@
 		7BA3F7C72CAF937F003EF15A /* CreditViewFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */; };
 		7BA3F7CA2CAFA010003EF15A /* FirstMeritView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C92CAFA010003EF15A /* FirstMeritView.swift */; };
 		7BA3F7CC2CAFA88A003EF15A /* FirstMeritViewFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7CB2CAFA88A003EF15A /* FirstMeritViewFeature.swift */; };
+		7BA3F7CF2CAFD567003EF15A /* CancellableStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7CE2CAFD567003EF15A /* CancellableStore.swift */; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
 		7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */; };
 		7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D22C7C49D9008D4CFC /* Entity.swift */; };
@@ -295,6 +296,7 @@
 		7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewFeature.swift; sourceTree = "<group>"; };
 		7BA3F7C92CAFA010003EF15A /* FirstMeritView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMeritView.swift; sourceTree = "<group>"; };
 		7BA3F7CB2CAFA88A003EF15A /* FirstMeritViewFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMeritViewFeature.swift; sourceTree = "<group>"; };
+		7BA3F7CE2CAFD567003EF15A /* CancellableStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellableStore.swift; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
 		7BACA3D22C7C49D9008D4CFC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 		7B1581962C6A500200599E7C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7BA3F7CD2CAFD557003EF15A /* Actor */,
 				DF1DECCF2C7D791B0098F761 /* Mapper */,
 				DF1DECCE2C7D78FE0098F761 /* Repository */,
 				7B15824C2C73073B00599E7C /* Representable */,
@@ -802,6 +805,14 @@
 				7BA3F7CB2CAFA88A003EF15A /* FirstMeritViewFeature.swift */,
 			);
 			path = FirstMerit;
+			sourceTree = "<group>";
+		};
+		7BA3F7CD2CAFD557003EF15A /* Actor */ = {
+			isa = PBXGroup;
+			children = (
+				7BA3F7CE2CAFD567003EF15A /* CancellableStore.swift */,
+			);
+			path = Actor;
 			sourceTree = "<group>";
 		};
 		7BACA3CD2C7C4192008D4CFC /* HomeTab */ = {
@@ -1182,6 +1193,7 @@
 				7B26659A2C94203F000A483A /* HistoryVideosEntity.swift in Sources */,
 				DF92787B2C90774C00507207 /* VideoDTO.swift in Sources */,
 				DF92787A2C90774300507207 /* VideoMapper.swift in Sources */,
+				7BA3F7CF2CAFD567003EF15A /* CancellableStore.swift in Sources */,
 				DF9278792C90772300507207 /* SearchRouter.swift in Sources */,
 				DF9278782C90770900507207 /* VideoRepository.swift in Sources */,
 				DF9278772C9076BD00507207 /* DateManager.swift in Sources */,
