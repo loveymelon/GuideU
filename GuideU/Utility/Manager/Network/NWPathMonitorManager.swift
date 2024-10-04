@@ -17,14 +17,16 @@ final class NWPathMonitorManager: Sendable {
     private let connectionTypeSubject = PassthroughSubject<ConnectionType, Never>()
     private let currentConnectionTrigger = CurrentValueSubject<Bool, Never> (true)
     
+    // TCA 안쓰는 뷰가 있다 가정하면 이닛할 가능성 높음
+    static let shared = NWPathMonitorManager()
+    private init () {}
+    
     enum ConnectionType {
         case cellular
         case ethernet
         case wifi
         case unknown
     }
-    
-    private init() {}
     
     func start() {
         startMonitoring()
@@ -90,7 +92,7 @@ extension NWPathMonitorManager {
 
 
 extension NWPathMonitorManager: DependencyKey {
-    static let liveValue: NWPathMonitorManager = NWPathMonitorManager()
+    static let liveValue: NWPathMonitorManager = NWPathMonitorManager.shared
 }
 
 extension DependencyValues {
