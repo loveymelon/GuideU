@@ -514,3 +514,19 @@ extension Const {
     static let instagramSection = "인스타그램"
     
 }
+
+// MARK: 유공자
+extension Const {
+    
+    enum CreditCase: CaseIterable {
+        case firstMerit
+        case secondMerit
+        
+        var title: String {
+            switch self {
+            case .firstMerit: return "⓵  1차 유공자"
+            case .secondMerit: return "⓶  2차 유공자"
+            }
+        }
+    }
+}

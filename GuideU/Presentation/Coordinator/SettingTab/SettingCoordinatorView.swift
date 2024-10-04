@@ -31,6 +31,11 @@ struct SettingCoordinatorView: View {
                     AppColorSettingView(store: store)
                         .environmentObject(colorSystem)
                         .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
+                    
+                case let .creditView(store):
+                    CreditView(store: store)
+                        .environmentObject(colorSystem)
+                        .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
                 }
             }
         }
@@ -46,6 +51,8 @@ extension SettingScreen.State: Identifiable {
             return .appInfo
         case .colorSettingView:
             return .colorSetting
+        case .creditView:
+            return .credit
         }
     }
     
@@ -53,5 +60,6 @@ extension SettingScreen.State: Identifiable {
         case root
         case appInfo
         case colorSetting
+        case credit
     }
 }

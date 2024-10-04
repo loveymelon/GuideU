@@ -92,6 +92,8 @@
 		7B69BF1C2CA551B500578021 /* HapticFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B69BF1B2CA551B500578021 /* HapticFeedbackManager.swift */; };
 		7B6B3CD02C85D89D00F643FB /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; };
 		7B6B3CD12C85D8EB00F643FB /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		7BA3F7C52CAF92FC003EF15A /* CreditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C42CAF92FC003EF15A /* CreditView.swift */; };
+		7BA3F7C72CAF937F003EF15A /* CreditViewFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
 		7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */; };
 		7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D22C7C49D9008D4CFC /* Entity.swift */; };
@@ -287,6 +289,8 @@
 		7B69BF192CA51ADA00578021 /* GuideUAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUAppDelegate.swift; sourceTree = "<group>"; };
 		7B69BF1B2CA551B500578021 /* HapticFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackManager.swift; sourceTree = "<group>"; };
 		7B6B3CD62C85E16000F643FB /* GuideU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideU.entitlements; sourceTree = "<group>"; };
+		7BA3F7C42CAF92FC003EF15A /* CreditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditView.swift; sourceTree = "<group>"; };
+		7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewFeature.swift; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
 		7BACA3D22C7C49D9008D4CFC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -777,6 +781,15 @@
 			path = AppRoot;
 			sourceTree = "<group>";
 		};
+		7BA3F7C32CAF92ED003EF15A /* Credit */ = {
+			isa = PBXGroup;
+			children = (
+				7BA3F7C42CAF92FC003EF15A /* CreditView.swift */,
+				7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */,
+			);
+			path = Credit;
+			sourceTree = "<group>";
+		};
 		7BACA3CD2C7C4192008D4CFC /* HomeTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -859,6 +872,7 @@
 		7BC2CB512C98384600309B9B /* SettingTab */ = {
 			isa = PBXGroup;
 			children = (
+				7BA3F7C32CAF92ED003EF15A /* Credit */,
 				7B0D63962CA305D700A9A071 /* AppColorSetting */,
 				7B0D63462C9D1FE900A9A071 /* AppInfo */,
 				7BC2CB522C9838AF00309B9B /* SettingView.swift */,
@@ -1235,6 +1249,7 @@
 				DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */,
 				7BACA41C2C7EE7FE008D4CFC /* MoreCharacterView.swift in Sources */,
 				DF1DECD92C7D7EB10098F761 /* DetailErrorEntity.swift in Sources */,
+				7BA3F7C52CAF92FC003EF15A /* CreditView.swift in Sources */,
 				DF5879572C7F0A0E009F9171 /* SimpleErrorEntity.swift in Sources */,
 				7B1581EA2C6CBEDF00599E7C /* ButtonWrapper.swift in Sources */,
 				DFB2BE6C2C858C0F00518C7E /* SearchMapper.swift in Sources */,
@@ -1280,6 +1295,7 @@
 				7B2665952C940CA8000A483A /* HistoryView.swift in Sources */,
 				7B0D638D2CA1370000A9A071 /* MoreCharacterSkeletonView.swift in Sources */,
 				DF986E852C7CCACC00F2D52F /* CharacterRouter.swift in Sources */,
+				7BA3F7C72CAF937F003EF15A /* CreditViewFeature.swift in Sources */,
 				7B0D639A2CA3060E00A9A071 /* AppColorSettingFeature.swift in Sources */,
 				7B0D634A2C9D1FFF00A9A071 /* AppInfoView.swift in Sources */,
 				7BACA3DA2C7D8FEF008D4CFC /* DropDownMenu.swift in Sources */,

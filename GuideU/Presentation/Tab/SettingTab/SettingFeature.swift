@@ -26,6 +26,7 @@ struct SettingFeature: GuideUReducer {
         enum Delegate {
             case sendToAppInfo
             case selectedColorSettingCase
+            case sendToCredit
         }
     }
     
@@ -66,7 +67,7 @@ extension SettingFeature {
                 case .appInfo:
                     return .send(.delegate(.sendToAppInfo))
                 case .credit:
-                    break
+                    return .send(.delegate(.sendToCredit))
                 }
             default:
                 break

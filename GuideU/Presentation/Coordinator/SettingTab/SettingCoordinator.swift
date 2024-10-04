@@ -15,6 +15,7 @@ enum SettingScreen {
     case settingView(SettingFeature)
     case appInfoView(AppInfoFeature)
     case colorSettingView(AppColorSettingFeature)
+    case creditView(CreditViewFeature)
 }
 
 @Reducer
@@ -51,6 +52,13 @@ extension SettingCoordinator {
                 state.routes.push(.colorSettingView(AppColorSettingFeature.State()))
                 
             case .router(.routeAction(id: .colorSetting, action: .colorSettingView(.delegate(.backButtonTapped)))):
+                state.routes.pop()
+                
+                /// Credit View 이동
+            case .router(.routeAction(id: .root, action: .settingView(.delegate(.sendToCredit)))):
+                state.routes.push(.creditView(CreditViewFeature.State()))
+                
+            case .router(.routeAction(id: .credit, action: .creditView(.delegate(.backButtonTapped)))):
                 state.routes.pop()
                 
             default:
