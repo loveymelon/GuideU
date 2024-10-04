@@ -7,13 +7,13 @@
 
 import Foundation
 import Network
-import Combine
+@preconcurrency import Combine
 import ComposableArchitecture
 
-final actor NWPathMonitorManager {
+final class NWPathMonitorManager: Sendable {
     
     private let monitor = NWPathMonitor()
-    private let queue = DispatchQueue.global(qos: .background)
+    private let queue = DispatchQueue(label: "NetworkManager")
     private let connectionTypeSubject = PassthroughSubject<ConnectionType, Never>()
     private let currentConnectionTrigger = CurrentValueSubject<Bool, Never> (true)
     
@@ -41,7 +41,7 @@ final actor NWPathMonitorManager {
             
             monitor.pathUpdateHandler = { path in
                 Task {
-                    let trigger = await self.networkConnectStatus(path: path)
+                    let trigger = self.networkConnectStatus(path: path)
                     print(trigger)
                     continuation.yield(trigger)
                 }
