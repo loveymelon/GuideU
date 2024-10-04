@@ -172,7 +172,7 @@ extension SearchResultView {
     private func relatedSection(related: [RelatedVideoEntity], links: [LinkEntity]) -> some View {
         
         if store.suggestEntity.type == .character {
-            var rows: [GridItem] = Array(repeating: GridItem(.flexible()), count: 2)
+            let rows: [GridItem] = Array(repeating: GridItem(.flexible()), count: 2)
             VStack {
                 HStack {
                     Text(Const.relatedURL)
@@ -222,7 +222,7 @@ extension SearchResultView {
                 .padding(.bottom, 8)
             
             Text(Const.ErrorDes.searchNoData.des)
-                .font(Font(WantedFont.blackFont.font(size: 16)))
+                .font(Font(WantedFont.midFont.font(size: 16)))
                 .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 .multilineTextAlignment(.center)
             
