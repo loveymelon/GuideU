@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct MoreCharacterFeature: GuideUReducer, Sendable {
+struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     
     @ObservableState
     struct State: Equatable {

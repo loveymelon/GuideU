@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct SearchFeature: GuideUReducer {
+struct SearchFeature: GuideUReducer, GuideUReducerOptional {
     
     @ObservableState
     struct State: Equatable {

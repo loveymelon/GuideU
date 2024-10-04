@@ -42,14 +42,6 @@ struct FirstMeritViewFeature: GuideUReducer {
     enum DataTransType {
         
     }
-    
-    enum NetworkType {
-        
-    }
-    
-    enum CancelId: Hashable {
-        
-    }
 }
 
 extension FirstMeritViewFeature {

@@ -14,7 +14,9 @@ protocol GuideUReducer {
     associatedtype ViewEventType
     
     associatedtype DataTransType
-    
+}
+
+protocol GuideUReducerOptional {
     associatedtype NetworkType
     
     associatedtype CancelId: Hashable

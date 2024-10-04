@@ -9,14 +9,13 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct HistoryFeature {
+struct HistoryFeature: GuideUReducer, GuideUReducerOptional {
     
     private let realmRepository = RealmRepository()
     
     @ObservableState
     struct State: Equatable {
         var videosEntity: [HistoryVideosEntity] = []
-//        var selectedVideoData: VideosEntity = VideosEntity() // 이지랄이 원인인것 같은데
         var selectedVideoData: VideosEntity? = nil
         var dialogPresent: Bool = false
         var openURLCase: OpenURLCase? = nil

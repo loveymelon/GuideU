@@ -20,7 +20,6 @@ struct SettingFeature: GuideUReducer {
         case viewCycleType(ViewCycleType)
         case viewEventType(ViewEventType)
         case dataTransType(DataTransType)
-        case networkType(NetworkType)
         case delegate(Delegate)
         
         enum Delegate {
@@ -45,15 +44,6 @@ struct SettingFeature: GuideUReducer {
     enum DataTransType {
         
     }
-    
-    enum NetworkType {
-        
-    }
-    
-    enum CancelId: Hashable {
-        
-    }
-    
 }
 
 extension SettingFeature {

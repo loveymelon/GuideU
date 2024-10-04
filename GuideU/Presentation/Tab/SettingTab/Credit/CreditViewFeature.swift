@@ -46,14 +46,6 @@ struct CreditViewFeature: GuideUReducer {
     enum DataTransType {
         
     }
-    
-    enum NetworkType {
-        
-    }
-    
-    enum CancelId: Hashable {
-        
-    }
 }
 
 extension CreditViewFeature {

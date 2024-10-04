@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct AppColorSettingFeature {
+struct AppColorSettingFeature: GuideUReducer {
     
     @ObservableState
     struct State: Equatable {
@@ -33,6 +33,10 @@ struct AppColorSettingFeature {
     enum ViewEventType {
         case selectedCase(CurrentColorModeCase)
         case backButtonTapped
+    }
+    
+    enum DataTransType {
+        
     }
     
     var body: some ReducerOf<Self> {
