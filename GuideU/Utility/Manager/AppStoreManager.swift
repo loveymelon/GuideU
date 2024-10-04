@@ -7,28 +7,31 @@
 
 import UIKit
 
-final actor AppStoreManager {
+struct AppStoreManager {
     
     private let buildNumber = Const.appVersion
     private let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/" + Const.appID
     
-    static let shared = AppStoreManager()
-    
-    private init() {}
-    
-    // 앱 스토어 최신 정보 확인
-    func latestVersion() -> String? {
-        let appleID = Const.appID
-        
-        guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(appleID)&country=kr"),
-              let data = try? Data(contentsOf: url),
-              let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
-              let results = json["results"] as? [[String: Any]],
-              let appStoreVersion = results[0]["version"] as? String else {
+    func latestVersion() async -> String? {
+        guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(Const.appID)&country=kr") else {
             return nil
         }
-        return appStoreVersion
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            guard let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any],
+                  let results = json["results"] as? [[String: Any]],
+                  let appStoreVersion = results.first?["version"] as? String else {
+                return nil
+            }
+            return appStoreVersion
+            
+        } catch {
+            return nil
+        }
     }
+    
     
     // 앱 스토어로 이동 -> urlStr 에 appStoreOpenUrlString 넣으면 이동
     func openAppStore() {
@@ -41,8 +44,8 @@ final actor AppStoreManager {
     }
     
     // 업데이트가 필요한지 확인 후 업데이트 얼럿을 띄우는 메소드
-    func isAppStoreVersionHigherThan(_ version: String) -> Bool {
-        guard let latestVersion = latestVersion(),
+    func isAppStoreVersionHigherThan(_ version: String) async -> Bool {
+        guard let latestVersion = await latestVersion(),
               let currentProjectVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
             return false
         }
