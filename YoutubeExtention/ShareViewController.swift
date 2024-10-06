@@ -8,30 +8,34 @@
 import SwiftUI
 import Social
 import Combine
-import UniformTypeIdentifiers
 import AppIntents
 
 final class ShareViewController: UIViewController {
     
-    private var viewModel = SharedViewModel()
+    private let viewModel = ShareViewModel()
     
+//    init(viewModel: ShareViewModel = ShareViewModel()) {
+//        self.viewModel = viewModel
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setting()
-        handleSharedURL()
+        setting() // UI Setting
+        handleSharedURL() // URL Logic Start
+        subscribe() // Combine Sink
     }
     
     private func setting() {
         // Swift UI
-        let sharedView = SharedForYoutubeView(viewModel: viewModel) { [ weak self ] in
-            self?.openMainApp()
-        } justClose: { [weak self] in
-            self?.close()
-        }
+        let sharedView = SharedForYoutubeView(viewModel: viewModel)
         
         let hostingController = UIHostingController(rootView: sharedView)
         hostingController.view.backgroundColor = UIColor(white: 0, alpha: 0.23)
-//        view.backgroundColor = .clear
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hostingController.view)
@@ -51,115 +55,42 @@ final class ShareViewController: UIViewController {
     private func handleSharedURL() {
         // 공유된 항목 가져오기
         if let item = extensionContext?.inputItems.first as? NSExtensionItem {
-            if let attachments = item.attachments {
-                for provider in attachments {
-                    // URL을 처리하기 위한 타입 확인
-                    if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-                        provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) {[ weak self ] (item, error) in
-                            if let url = item as? URL {
-                                // YouTube URL 확인 및 처리
-                                DispatchQueue.main.async {
-                                    self?.processYouTubeURL(url)
-                                }
-                            }
-                        }
-                    } else if provider.hasItemConformingToTypeIdentifier(UTType.text.identifier) {
-                        provider.loadItem(forTypeIdentifier: UTType.text.identifier, options: nil) {[ weak self ] (item, error) in
-                            if let url = item as? String {
-                                // YouTube URL 확인 및 처리
-                                DispatchQueue.main.async {
-                                    self?.processYouTubeURL(url)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            viewModel.send(.ifNSExtensionItemToUrl(item))
         }
     }
-    
-    private func processYouTubeURL(_ url: URL) {
-        // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube"),
-           let encode = encoding(string: url.absoluteString) {
-            
-            userDefaults.setValue(encode, forKey: "sharedURL")
-            print("공유받은 YouTube URL: \(url.absoluteString)")
+}
 
-            userDefaults.synchronize()
-            
-            DispatchQueue.main.async { [weak self] in
-                self?.viewModel.trigger = true
+extension ShareViewController {
+    private func subscribe() {
+        viewModel.closeTrigger
+            .sink { [weak self] in
+                self?.close()
             }
-        } else {
-            close()
-        }
-    }
-    
-    private func processYouTubeURL(_ string: String) {
+            .store(in: &viewModel.cancellables)
         
-        // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube"),
-           let encode = encoding(string: string) {
-            
-            userDefaults.setValue(encode, forKey: "sharedURL")
-            print("공유받은 YouTube URL: \(string)")
-
-            userDefaults.synchronize()
-            
-            DispatchQueue.main.async { [weak self] in
-                self?.viewModel.trigger = true
+        viewModel.openTrigger
+            .sink { [weak self] in
+                self?.openMainApp()
             }
-        } else {
-            close()
-        }
+            .store(in: &viewModel.cancellables)
     }
-    
-    private func encoding(string: String) -> Data? {
-        return try? JSONEncoder().encode(string)
-    }
-    
-    private func close() {
-        // Share Extension 종료 및 앱 이동
-        self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
-    }
-    
+}
+
+// MARK: Open App
+extension ShareViewController {
     private func openMainApp() {
         let urlScheme = "GuideU://"
         if let url = URL(string: urlScheme) {
             // 앱 실행
             if self.openURL(url) {
-                print( "RUN : APP")
-            } else {
-                if let url = (URL(string: urlScheme)) {
-                    if #available(iOS 17, *) {
-                        iOS18ECCEPT(url: url)
-                    }
-                }
+                print("RUN : APP")
             }
             close()
         }
     }
-    
-    @available(iOS 17, *)
-    private func iOS18ECCEPT(url : URL) {
-        if !self.openURL2(url) {
-            print( "NOT RUN : APP")
-        }
-    }
+      
     
     @objc private func openURL(_ url: URL) -> Bool {
-        var responder: UIResponder? = self
-        while responder != nil {
-            if let application = responder as? UIApplication {
-                return application.perform(#selector(openURL(_:)), with: url) != nil
-            }
-            responder = responder?.next
-        }
-        return false
-    }
-    
-    @objc private func openURL2(_ url: URL) -> Bool {
         var responder: UIResponder? = self
         while responder != nil {
             if let application = responder as? UIApplication {
@@ -170,9 +101,12 @@ final class ShareViewController: UIViewController {
         }
         return false
     }
-
 }
 
-final class SharedViewModel: ObservableObject {
-    @Published var trigger = false
+// MARK: Close
+extension ShareViewController {
+    private func close() {
+        // Share Extension 종료 및 앱 이동
+        self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+    }
 }

@@ -10,10 +10,7 @@ import SwiftUI
 struct SharedForYoutubeView: View {
     
     @ObservedObject
-    var viewModel: SharedViewModel
-    
-    var onClose: () -> Void
-    var justClose: () -> Void
+    var viewModel: ShareViewModel
     
     var body: some View {
         ZStack {
@@ -22,7 +19,7 @@ struct SharedForYoutubeView: View {
                 .ignoresSafeArea()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .onTapGesture {
-                    justClose()
+                    viewModel.send(.justClose)
                 }
             
             VStack {
@@ -30,7 +27,7 @@ struct SharedForYoutubeView: View {
                 Spacer()
                 
                 Group {
-                    if !viewModel.trigger {
+                    if !viewModel.state.trigger {
                         Text("불러오는 중입니다.")
                             .font(.headline)
                             .frame(maxWidth: .infinity)
@@ -40,7 +37,7 @@ struct SharedForYoutubeView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     } else {
                         Button {
-                            onClose()
+                            viewModel.send(.moveToMainApp)
                         } label: {
                             Text("가이두에서 확인하기")
                                 .font(.headline)
