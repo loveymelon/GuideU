@@ -1,13 +1,13 @@
 //
-//  SharedForYoutubeView.swift
-//  YoutubeExtention
+//  ShareView.swift
+//  GuideUShareExtension
 //
-//  Created by Jae hyung Kim on 9/7/24.
+//  Created by Jae hyung Kim on 10/6/24.
 //
 
 import SwiftUI
 
-struct SharedForYoutubeView: View {
+struct ShareView: View {
     
     @ObservedObject
     var viewModel: ShareViewModel

@@ -1,28 +1,17 @@
 //
 //  ShareViewController.swift
-//  YoutubeExtention
+//  GuideUShareExtension
 //
-//  Created by Jae hyung Kim on 9/6/24.
+//  Created by Jae hyung Kim on 10/6/24.
 //
 
 import SwiftUI
-import Social
 import Combine
-import AppIntents
 
 final class ShareViewController: UIViewController {
     
     private let viewModel = ShareViewModel()
-    
-//    init(viewModel: ShareViewModel = ShareViewModel()) {
-//        self.viewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setting() // UI Setting
@@ -32,7 +21,7 @@ final class ShareViewController: UIViewController {
     
     private func setting() {
         // Swift UI
-        let sharedView = SharedForYoutubeView(viewModel: viewModel)
+        let sharedView = ShareView(viewModel: viewModel)
         
         let hostingController = UIHostingController(rootView: sharedView)
         hostingController.view.backgroundColor = UIColor(white: 0, alpha: 0.23)

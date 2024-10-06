@@ -1,6 +1,6 @@
 //
 //  ShareViewModel.swift
-//  YoutubeExtention
+//  GuideUShareExtension
 //
 //  Created by Jae hyung Kim on 10/6/24.
 //
@@ -145,7 +145,6 @@ extension ShareViewModel {
      https://github.com/swiftlang/swift-evolution/blob/main/proposals/0414-region-based-isolation.md
      SE-0414 (지역 기반 격리) 현재 미출시
      */
-    @MainActor
     private func checkExtensionItemToURL(attachments: [NSItemProvider]) async -> URL? {
         for provider in attachments {
             if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
@@ -161,7 +160,6 @@ extension ShareViewModel {
         return nil
     }
     
-    @MainActor
     private func checkExtensionItemToString(attachments: [NSItemProvider]) async -> String? {
         for provider in attachments {
             do {
