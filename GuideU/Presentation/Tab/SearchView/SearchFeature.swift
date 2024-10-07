@@ -93,7 +93,7 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
     
     enum NetworkType {
         case searchSuggest(String)
-        case searchResultList(SuggestEntity)
+        case searchResultList(String)
     }
     
     enum CancelId: Hashable {
@@ -152,7 +152,7 @@ extension SearchFeature {
                 
             case let .viewEventType(.onSubmit(text)):
                 return .run { send in
-                    await send(.networkType(.searchSuggest(text)))
+                    await send(.networkType(.searchResultList(text)))
                 }
                 
             case let .viewEventType(.suggestResultTapped(model)):
@@ -162,7 +162,7 @@ extension SearchFeature {
                     state.currentText = model.keyWord
                     
                     return .run { send in
-                        await send(.networkType(.searchResultList(model)))
+                        await send(.networkType(.searchResultList(model.keyWord)))
                     }
                 }
                 
@@ -202,9 +202,9 @@ extension SearchFeature {
                     }
                 }
                 
-            case let .networkType(.searchResultList(suggest)):
+            case let .networkType(.searchResultList(text)):
                 return .run { send in
-                    let result = await searchRepository.fetchSearchResults(suggest)
+                    let result = await searchRepository.fetchSearchResults(text)
                     
                     switch result {
                     case .success(let data):
