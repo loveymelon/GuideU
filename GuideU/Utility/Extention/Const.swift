@@ -609,7 +609,7 @@ extension Const {
         var paddingOptions: Bool {
             switch self {
                 
-            case .fe:
+            case .fe, .be:
                 return true
                 
             default:

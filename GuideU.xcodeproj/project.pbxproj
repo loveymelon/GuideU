@@ -98,6 +98,8 @@
 		7BA3F7CC2CAFA88A003EF15A /* FirstMeritViewFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7CB2CAFA88A003EF15A /* FirstMeritViewFeature.swift */; };
 		7BA3F7CF2CAFD567003EF15A /* CancellableStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7CE2CAFD567003EF15A /* CancellableStore.swift */; };
 		7BA3F80A2CB2A87B003EF15A /* GuideUShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7BA3F8002CB2A87B003EF15A /* GuideUShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7BA3F8332CB38F67003EF15A /* SearchResultListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F8322CB38F67003EF15A /* SearchResultListView.swift */; };
+		7BA3F8352CB38FC9003EF15A /* SearchResultListEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F8342CB38FC9003EF15A /* SearchResultListEntity.swift */; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
 		7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */; };
 		7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D22C7C49D9008D4CFC /* Entity.swift */; };
@@ -295,6 +297,8 @@
 		7BA3F7CB2CAFA88A003EF15A /* FirstMeritViewFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMeritViewFeature.swift; sourceTree = "<group>"; };
 		7BA3F7CE2CAFD567003EF15A /* CancellableStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellableStore.swift; sourceTree = "<group>"; };
 		7BA3F8002CB2A87B003EF15A /* GuideUShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GuideUShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BA3F8322CB38F67003EF15A /* SearchResultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultListView.swift; sourceTree = "<group>"; };
+		7BA3F8342CB38FC9003EF15A /* SearchResultListEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultListEntity.swift; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
 		7BACA3D22C7C49D9008D4CFC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -867,6 +871,7 @@
 				7B2665892C93FEF6000A483A /* SearchResultFeature.swift */,
 				7B26658B2C940441000A483A /* SearchResultView.swift */,
 				7B0D63382C9BFE8C00A9A071 /* SearchResultRelatedView.swift */,
+				7BA3F8322CB38F67003EF15A /* SearchResultListView.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -876,6 +881,7 @@
 			children = (
 				7BACA4432C857186008D4CFC /* SuggestEntity.swift */,
 				7B2665852C93FC22000A483A /* SearchResultEntity.swift */,
+				7BA3F8342CB38FC9003EF15A /* SearchResultListEntity.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1209,6 +1215,7 @@
 				7B1581FF2C6CF2C400599E7C /* DTO.swift in Sources */,
 				7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */,
 				7BACA4322C83662F008D4CFC /* SearchView.swift in Sources */,
+				7BA3F8352CB38FC9003EF15A /* SearchResultListEntity.swift in Sources */,
 				7B1581B92C6A56EC00599E7C /* SplashView.swift in Sources */,
 				7B1582032C6CF33400599E7C /* RelatedVideoDTO.swift in Sources */,
 				7B26658A2C93FEF6000A483A /* SearchResultFeature.swift in Sources */,
@@ -1219,6 +1226,7 @@
 				7B1582642C74B52A00599E7C /* DetailErrorDTO.swift in Sources */,
 				DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */,
 				7BB233462C8EC7B300CE4D39 /* MorePersonCoordinator.swift in Sources */,
+				7BA3F8332CB38F67003EF15A /* SearchResultListView.swift in Sources */,
 				DF8F72172C9015F400B8C7BA /* VideoHistoryRequestDTO.swift in Sources */,
 				7B1581D82C6C823900599E7C /* UserDefaultsManager.swift in Sources */,
 				7B1581D32C6C811100599E7C /* UserDefaultsWrapper.swift in Sources */,
