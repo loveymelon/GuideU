@@ -17,91 +17,95 @@ final class ShareViewModel: ObservableObject {
     
     var cancellables: Set<AnyCancellable> = []
     
-    // 익스텐션 종료와 메인앱 이동 관련 트리거 => UIKit
-    let closeTrigger = PassthroughSubject<Void, Never> ()
-    let openTrigger = PassthroughSubject<Void, Never> ()
-    
     // MARK: Init
     init(state: State = State()) {
         self.state = state
     }
     
+    struct Input {
+        let nsExtensionItem: PassthroughSubject<NSExtensionItem, Never>
+        let moveToMainApp = PassthroughSubject<Void, Never>()
+    }
+    
+    struct Output {
+        let closeTrigger: PassthroughSubject<Void, Never>
+        let openTrigger: PassthroughSubject<Void, Never>
+    }
+    
     struct State {
         var trigger = false
-        var urlString: String? = nil
         var url: URL? = nil
+        var string: String? = nil
     }
     
-    enum Action {
-        // View Action
-        case ChangedTriggerState(Bool)
-        case ifNSExtensionItemToUrl(NSExtensionItem)
-        case justClose
-        case moveToMainApp
+    func body(_ input: Input) -> Output {
+        let resultUrl = PassthroughSubject<URL, Never> ()
+        let resultString = PassthroughSubject<String, Never> ()
+        let resultFail = PassthroughSubject<Void, Never> ()
         
-        // binding
-        case resultUrl(URL)
-        case resultString(String)
-        case resultFail
-    }
-    
-    func send(_ action: Action) {
-        switch action {
-        case let .ChangedTriggerState(bool):
-            state.trigger = bool
-            
-        case let .ifNSExtensionItemToUrl(item):
-            if let items = item.attachments {
-                Task {
-                    if let url = await checkExtensionItemToURL(attachments: items) {
-                        send(.resultUrl(url))
-                    } else if let string = await checkExtensionItemToString(attachments: items) {
-                        send(.resultString(string))
-                    } else {
-                        send(.resultFail)
+        
+        //output
+        let closeOutput = PassthroughSubject<Void, Never> ()
+        let openOutput = PassthroughSubject<Void, Never> ()
+        
+        input.nsExtensionItem
+            .sink { [weak self] item in
+                guard let self else { return }
+                if let items = item.attachments {
+                    Task {
+                        if let url = await self.checkExtensionItemToURL(attachments: items) {
+                            resultUrl.send(url)
+                        } else if let string = await self.checkExtensionItemToString(attachments: items) {
+                            resultString.send(string)
+                        } else {
+                            resultFail.send(())
+                        }
                     }
                 }
-            }
-        case .resultFail:
-            // 종료
-            print("fail")
-            close()
-            
-        case let .resultUrl(url):
+            }.store(in: &cancellables)
+        
+        input.moveToMainApp
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                if let url = state.url {
+                    if !processYouTubeURL(url) {
+                        closeOutput.send(())
+                    } else {
+                        openOutput.send(())
+                    }
+                } else if let string = state.string {
+                    if !processYouTubeURL(string) {
+                        closeOutput.send(())
+                    } else {
+                        openOutput.send(())
+                    }
+                } else {
+                    closeOutput.send(())
+                }
+            }.store(in: &cancellables)
+        
+        resultUrl.sink { [weak self] url in
+            guard let self else { return }
             state.url = url
             state.trigger = true
             
-        case let .resultString(string):
-            state.urlString = string
+        }.store(in: &cancellables)
+        
+        resultString.sink { [weak self] string in
+            guard let self else { return }
+            
+            state.string = string
             state.trigger = true
+        }.store(in: &cancellables)
+        
+        resultFail.sink { [weak self] _ in
+            guard let self else { return }
             
-        case .justClose:
-            close()
-            
-        case .moveToMainApp:
-            if let url = state.url {
-                if processYouTubeURL(url) {
-                    moveToMainApp()
-                } else {
-                    close()
-                }
-            } else if let string = state.urlString {
-                if processYouTubeURL(string) {
-                    moveToMainApp()
-                } else {
-                    close()
-                }
-            }
-        }
-    }
-    
-    // 종료
-    private func close() {
-        closeTrigger.send(())
-    }
-    // mainApp 이동
-    private func moveToMainApp() {
-        openTrigger.send(())
+            closeOutput.send(())
+        }.store(in: &cancellables)
+        
+        return Output(closeTrigger: closeOutput, openTrigger: openOutput)
     }
     
     private func processYouTubeURL(_ url: URL) -> Bool {

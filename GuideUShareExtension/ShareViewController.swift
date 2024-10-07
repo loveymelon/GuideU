@@ -11,17 +11,26 @@ import Combine
 final class ShareViewController: UIViewController {
     
     private let viewModel = ShareViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setting() // UI Setting
-        handleSharedURL() // URL Logic Start
-        subscribe() // Combine Sink
+        let input = makeInput()
+        
+        setting(input: input) // UI Setting
+        subscribe(input: input)
+        
     }
     
-    private func setting() {
+    private func setting(input: ShareViewModel.Input) {
         // Swift UI
-        let sharedView = ShareView(viewModel: viewModel)
+        let sharedView = ShareView(moveToMainApp: {
+            input.moveToMainApp
+                .send(())
+        }, justClose: { [weak self] in
+            guard let self else { return }
+            close()
+        })
+            .environmentObject(viewModel)
         
         let hostingController = UIHostingController(rootView: sharedView)
         hostingController.view.backgroundColor = UIColor(white: 0, alpha: 0.23)
@@ -40,28 +49,37 @@ final class ShareViewController: UIViewController {
         ])
         viewCon.didMove(toParent: self)
     }
-    
-    private func handleSharedURL() {
-        // 공유된 항목 가져오기
-        if let item = extensionContext?.inputItems.first as? NSExtensionItem {
-            viewModel.send(.ifNSExtensionItemToUrl(item))
-        }
-    }
 }
 
 extension ShareViewController {
-    private func subscribe() {
-        viewModel.closeTrigger
-            .sink { [weak self] in
-                self?.close()
-            }
-            .store(in: &viewModel.cancellables)
+    
+    private func makeInput() -> ShareViewModel.Input {
+        let nsExtensionItem = PassthroughSubject<NSExtensionItem, Never> ()
         
-        viewModel.openTrigger
+        let input = ShareViewModel.Input(nsExtensionItem: nsExtensionItem)
+        
+        return input
+    }
+    
+    private func subscribe(input: ShareViewModel.Input) {
+        let output = viewModel.body(input)
+        
+        if let item = extensionContext?.inputItems.first as? NSExtensionItem {
+            input.nsExtensionItem
+                .send(item)
+        }
+        
+        output.openTrigger
             .sink { [weak self] in
-                self?.openMainApp()
-            }
-            .store(in: &viewModel.cancellables)
+                guard let self else { return }
+                openMainApp()
+            }.store(in: &viewModel.cancellables)
+        
+        output.closeTrigger
+            .sink { [weak self] in
+                guard let self else { return }
+                close()
+            }.store(in: &viewModel.cancellables)
     }
 }
 

@@ -9,8 +9,11 @@ import SwiftUI
 
 struct ShareView: View {
     
-    @ObservedObject
+    @EnvironmentObject
     var viewModel: ShareViewModel
+    
+    var moveToMainApp: () -> Void
+    var justClose: () -> Void
     
     var body: some View {
         ZStack {
@@ -19,7 +22,7 @@ struct ShareView: View {
                 .ignoresSafeArea()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .onTapGesture {
-                    viewModel.send(.justClose)
+                    justClose()
                 }
             
             VStack {
@@ -37,7 +40,7 @@ struct ShareView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     } else {
                         Button {
-                            viewModel.send(.moveToMainApp)
+                            moveToMainApp()
                         } label: {
                             Text("가이두에서 확인하기")
                                 .font(.headline)
