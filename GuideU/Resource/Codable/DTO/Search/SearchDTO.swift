@@ -19,7 +19,7 @@ struct SearchDTO: DTO {
     let id: Int
     let type: SearchTypeDTO
     let description: String?
-    let synonyms: [String?]?
+    let synonyms: [String]?
     let relatedVideos: [RelatedVideoDTO]?
     let isDetectable: Bool?
 
@@ -34,18 +34,18 @@ struct SearchDTO: DTO {
         case isDetectable = "is_detectable"
     }
 }
-
-struct SearchListDTO: DTO {
-    let searchListDTO: [SearchDTO]
-    
-    init(from decoder: any Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        var searchList = [SearchDTO] ()
-        while !container.isAtEnd {
-            let searchData = try container.decode(SearchDTO.self)
-            searchList.append(searchData)
-        }
-        self.searchListDTO = searchList
-    }
-}
+//
+//struct SearchListDTO: DTO {
+//    let searchListDTO: [SearchDTO]
+//    
+//    init(from decoder: any Decoder) throws {
+//        var container = try decoder.unkeyedContainer()
+//        var searchList = [SearchDTO] ()
+//        while !container.isAtEnd {
+//            let searchData = try container.decode(SearchDTO.self)
+//            searchList.append(searchData)
+//        }
+//        self.searchListDTO = searchList
+//    }
+//}
 

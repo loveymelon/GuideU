@@ -14,7 +14,7 @@ struct SearchResultFeature: GuideUReducer, GuideUReducerOptional {
     @ObservableState
     struct State: Equatable {
         var searchResultEntity: SearchResultEntity = SearchResultEntity()
-        let suggestEntity: SuggestEntity
+        let searchResultListEntity: SearchResultListEntity
         let meanText = Const.mean
         let descriptionText = Const.explain
         let relatedText = Const.related
@@ -96,8 +96,8 @@ extension SearchResultFeature {
                 
             case .networkType(.fetchSearch):
                 return .run { [state = state] send in
-                    print(state.suggestEntity)
-                    let result = await searchRepository.fetchSearch(state.suggestEntity)
+//                    print(state.suggestEntity)
+                    let result = await searchRepository.fetchSearch(state.searchResultListEntity)
                     
                     switch result {
                     case let .success(data):
@@ -126,7 +126,7 @@ extension SearchResultFeature {
                 }
                 
                 state.desIsvalid = !searchResult.description.isEmpty
-                state.videoIsvalid = state.suggestEntity.type == .character ? !searchResult.links.isEmpty : !searchResult.relatedVideos.isEmpty
+                state.videoIsvalid = searchResult.resultType == .character ? !searchResult.links.isEmpty : !searchResult.relatedVideos.isEmpty
                 
             case let .dataTransType(.errorInfo(error)):
                 state.currentViewState = .failure

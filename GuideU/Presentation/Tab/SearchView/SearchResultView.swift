@@ -171,7 +171,7 @@ extension SearchResultView {
     @ViewBuilder
     private func relatedSection(related: [RelatedVideoEntity], links: [LinkEntity]) -> some View {
         
-        if store.suggestEntity.type == .character {
+        if store.searchResultEntity.resultType == .character {
             let rows: [GridItem] = Array(repeating: GridItem(.flexible()), count: 2)
             VStack {
                 HStack {

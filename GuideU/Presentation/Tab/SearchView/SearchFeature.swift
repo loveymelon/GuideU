@@ -16,6 +16,8 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         var currentText = ""
         var searchHistory: [String] = []
         var searchCaseList: [SuggestEntity] = []
+        var searchResultList: [SearchResultListEntity] = []
+        var viewCase: SearchViewType = SearchViewType.searchHistoryMode
         var isSearchResEmpty: Bool = false
         var backButtonHidden: Bool = true
         var popUpCase: popUpCase? = nil
@@ -25,6 +27,12 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         let navigationTitle = Const.navTitle
         let allClearText = Const.allClear
         let recentSectionText = Const.recentSection
+    }
+    
+    enum SearchViewType {
+        case searchHistoryMode
+        case suggestMode
+        case resultListMode
     }
     
     enum popUpCase {
@@ -54,7 +62,7 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         case popUpCase(popUpCase?)
         enum Delegate {
             case closeButtonTapped
-            case openToResultView(suggestEntity: SuggestEntity)
+            case openToResultView(suggestEntity: SearchResultListEntity)
         }
     }
     
@@ -68,12 +76,14 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         case deleteHistory(index: Int)
         case deleteAll
         case closeButtonTapped
-        case searchResultTapped(SuggestEntity)
+        case suggestResultTapped(SuggestEntity)
+        case searchResultTapped(SearchResultListEntity)
         case historyTapped(text: String)
     }
     
     enum DataTransType {
         case searchData([SuggestEntity])
+        case searchResultData([SearchResultListEntity])
         case errorInfo(String)
         case realmFetch
         case realmSuccess([String])
@@ -82,7 +92,8 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
     }
     
     enum NetworkType {
-        case search(String)
+        case searchSuggest(String)
+        case searchResultList(SuggestEntity)
     }
     
     enum CancelId: Hashable {
@@ -141,28 +152,34 @@ extension SearchFeature {
                 
             case let .viewEventType(.onSubmit(text)):
                 return .run { send in
-                    await send(.networkType(.search(text)))
+                    await send(.networkType(.searchSuggest(text)))
                 }
                 
-            case let .viewEventType(.searchResultTapped(model)):
+            case let .viewEventType(.suggestResultTapped(model)):
                 let currentText = state.currentText.trimmingCharacters(in: .whitespaces)
                 if !currentText.isEmpty {
                     
-                    state.currentText = ""
+                    state.currentText = model.keyWord
                     
                     return .run { send in
-                        let result = await realmRepository.searchCreate(history: model.keyWord)
-                        switch result {
-                        case .success(_):
-                            await send(.dataTransType(.realmFetch))
-                            await send(.delegate(.openToResultView(suggestEntity: model)))
-                            
-                        case .failure(let error):
-                            await send(.dataTransType(.errorInfo(error.description)))
-                        }
+                        await send(.networkType(.searchResultList(model)))
                     }
                 }
                 
+            case let .viewEventType(.searchResultTapped(model)):
+                return .run { send in
+                    let result = await realmRepository.searchCreate(history: model.name)
+                    
+                    switch result {
+                    case .success(_):
+                        await send(.dataTransType(.realmFetch))
+                        await send(.delegate(.openToResultView(suggestEntity: model)))
+                        
+                    case .failure(let error):
+                        await send(.dataTransType(.errorInfo(error.description)))
+                    }
+                    
+                }
                 
             case let .viewEventType(.historyTapped(text)):
                 return.send(.currentText(text))
@@ -173,7 +190,7 @@ extension SearchFeature {
                 }
                 
                 // MARK: Network
-            case let .networkType(.search(search)):
+            case let .networkType(.searchSuggest(search)):
                 return .run { send in
                     let result = await searchRepository.fetchSuggest(search)
                     
@@ -181,6 +198,19 @@ extension SearchFeature {
                     case .success(let data):
                         await send(.dataTransType(.searchData(data)))
                     case .failure(let error):
+                        await send(.dataTransType(.errorInfo(error)))
+                    }
+                }
+                
+            case let .networkType(.searchResultList(suggest)):
+                return .run { send in
+                    let result = await searchRepository.fetchSearchResults(suggest)
+                    
+                    switch result {
+                    case .success(let data):
+                        await send(.dataTransType(.searchResultData(data)))
+                    case .failure(let error):
+                        print("errorrororororoo")
                         await send(.dataTransType(.errorInfo(error)))
                     }
                 }
@@ -206,17 +236,13 @@ extension SearchFeature {
                 state.popUpCase = .allDelete
                 state.searchHistory.removeAll()
                 
+            case let .dataTransType(.searchResultData(datas)):
+                state.searchResultList = datas
+                state.viewCase = .resultListMode
+                
                 // MARK: Binding
             case let .currentText(text):
-                if state.currentText == text { return .none }
-                state.currentText = text
-                state.isSearchResEmpty = false
-                
-                if !text.isEmpty {
-                    return .run { send in
-                        await send(.networkType(.search(text)))
-                    }.debounce(id: CancelId.searchID, for: 1, scheduler: RunLoop.main)
-                }
+                return currentTextTester(text: text, state: &state)
                 
             case let .popUpCase(caseOf):
                 state.popUpCase = caseOf
@@ -227,5 +253,25 @@ extension SearchFeature {
             
             return .none
         }
+    }
+}
+
+extension SearchFeature {
+    private func currentTextTester(text: String, state: inout State) -> Effect<Action>  {
+        if state.currentText == text { return .none }
+        state.currentText = text
+        state.isSearchResEmpty = false
+        state.searchResultList = []
+        
+        if text != "" {
+            state.viewCase = .suggestMode
+            
+            return .run { send in
+                await send(.networkType(.searchSuggest(text)))
+            }.debounce(id: CancelId.searchID, for: 1, scheduler: RunLoop.main)
+        } else {
+            state.viewCase = .searchHistoryMode
+        }
+        return .none
     }
 }

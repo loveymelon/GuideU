@@ -14,7 +14,7 @@ struct SearchResultListView: View {
     @EnvironmentObject var colorSystem: ColorSystem
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading ,spacing: 0) {
             HStack {
                 Text(setModel.name)
                     .font(Font(WantedFont.semiFont.font(size: 20)))
@@ -22,7 +22,6 @@ struct SearchResultListView: View {
                 caseOfView()
                 Spacer()
             }
-            .padding(.leading, 4)
             .padding(.bottom, 6)
             Text(setModel.definition)
                 .font(Font(WantedFont.midFont.font(size: 14)))

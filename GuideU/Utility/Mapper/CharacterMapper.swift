@@ -63,7 +63,7 @@ extension CharacterMapper {
     
     /// RelatedVideoDTO -> RelatedVideoEntity
     private func dtoToEntity(_ dto: RelatedVideoDTO) -> RelatedVideoEntity {
-        return RelatedVideoEntity(link: dto.link, title: dto.title, thumbnailURL: openImageURL(URL(string: dto.thumbnailURL)), channel: dto.channel, type: dto.type)
+        return RelatedVideoEntity(link: dto.link, title: dto.title ?? "", thumbnailURL: openImageURL(URL(string: dto.thumbnailURL ?? "")), channel: dto.channel ?? "", type: dto.type ?? .afreeca)
     }
     
     /// [DuplicateDTO] -> [DuplicateEntity]

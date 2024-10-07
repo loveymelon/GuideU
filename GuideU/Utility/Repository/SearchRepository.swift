@@ -14,24 +14,46 @@ struct SearchRepository {
     @Dependency(\.errorMapper) var errorMapper
     
     func fetchSuggest(_ searchText: String) async -> Result<[SuggestEntity], String> {
-        let result = await network.requestNetwork(dto: SuggestListDTO.self, router: SearchRouter.suggest(searchText: searchText))
+        let result = await network.requestNetwork(dto: DTOList<SuggestDTO>.self, router: SearchRouter.suggest(searchText: searchText))
         
         switch result {
         case .success(let data):
-            return .success(searchMapper.dtoToEntity(data.suggestDTO))
+            return .success(searchMapper.dtoToEntity(data.elements))
         case .failure(let error):
             return .failure(catchError(error))
         }
     }
     
     func fetchSearch(_ suggestEntity: SuggestEntity) async -> Result<[SearchResultEntity], String> {
-        let result = await network.requestNetwork(dto: SearchListDTO.self, router: SearchRouter.search(suggestEntity: suggestEntity))
+        let result = await network.requestNetwork(dto: DTOList<SearchDTO>.self, router: SearchRouter.search(title: suggestEntity.keyWord, type: suggestEntity.type))
         
         switch result {
         case .success(let data):
-            return .success(searchMapper.dtoToEntity(data.searchListDTO))
+            return .success(searchMapper.dtoToEntity(data.elements))
         case .failure(let error):
             return .failure(catchError(error)) 
+        }
+    }
+    
+    func fetchSearchResults(_ suggestEntity: SuggestEntity) async -> Result<[SearchResultListEntity], String> {
+        let result = await network.requestNetwork(dto: DTOList<SearchDTO>.self, router: SearchRouter.search(title: suggestEntity.keyWord, type: nil))
+        
+        switch result {
+        case .success(let data):
+            return .success(searchMapper.dtoToEntity(data.elements))
+        case .failure(let error):
+            return .failure(catchError(error))
+        }
+    }
+    
+    func fetchSearch(_ searchResultList: SearchResultListEntity) async -> Result<[SearchResultEntity], String> {
+        let result = await network.requestNetwork(dto: DTOList<SearchDTO>.self, router: SearchRouter.search(title: searchResultList.name, type: searchResultList.type))
+        
+        switch result {
+        case .success(let data):
+            return .success(searchMapper.dtoToEntity(data.elements))
+        case .failure(let error):
+            return .failure(catchError(error))
         }
     }
 }

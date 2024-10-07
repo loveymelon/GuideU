@@ -20,13 +20,18 @@ struct SearchView: View {
                 fakeNavigation()
                     .padding(.horizontal, 10)
                 ScrollView {
-                    if store.currentText.isEmpty {
+                    switch store.state.viewCase {
+                    case .resultListMode:
+                        SearchResultView()
+                        
+                    case .searchHistoryMode:
                         currentListView()
-                    } else {
+                        
+                    case .suggestMode:
                         if store.isSearchResEmpty {
                             noResultView()
                         } else {
-                            searchListView()
+                            searchSuggestListView()
                         }
                     }
                 }
@@ -44,6 +49,22 @@ struct SearchView: View {
                     .position(.top)
                     .animation(.spring())
                     .autohideIn(1.5)
+            }
+        }
+    }
+}
+extension SearchView {
+    private func SearchResultView() -> some View {
+        VStack {
+            ForEach(store.searchResultList, id: \.self) { model in
+                
+                SearchResultListView(setModel: model)
+                .environmentObject(colorSystem)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 10)
+                .asButton {
+                    store.send(.viewEventType(.searchResultTapped(model)))
+                }
             }
         }
     }
@@ -74,7 +95,7 @@ extension SearchView {
 }
 // MARK: 검색중인 텍스트가 존재할 경우
 extension SearchView {
-    private func searchListView() -> some View {
+    private func searchSuggestListView() -> some View {
         
         ForEach(store.searchCaseList, id: \.self) { model in
             SearchResultCaseView(
@@ -85,7 +106,7 @@ extension SearchView {
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .asButton {
-                store.send(.viewEventType(.searchResultTapped(model)))
+                store.send(.viewEventType(.suggestResultTapped(model)))
             }
         }
         
