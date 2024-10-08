@@ -18,27 +18,39 @@ final class NetworkManager: Sendable {
     
     private let store = CancellableStore()
     
+    private let retryActor = RetryCountActor()
+    
     func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async -> Result<T, APIErrorResponse> {
         
-        do {
-            let request = try router.asURLRequest()
-            
-            let response = await AF.request(request, interceptor: NetworkInterceptor())
-                .cacheResponse(using: .cache)
-                .validate(statusCode: 200..<300)
-                .serializingDecodable(T.self)
-                .response
-            
-            switch response.result {
-            case let .success(data):
-                return .success(data)
-            case let .failure(error):
-                return .failure(checkResponseData(response.data, error))
+        
+            do {
+                let request = try router.asURLRequest()
+                
+                let response = await AF.request(request)
+                    .cacheResponse(using: .cache)
+                    .validate(statusCode: 200..<300)
+                    .serializingDecodable(T.self)
+                    .response
+                
+                switch response.result {
+                case let .success(data):
+                    await retryActor.reset()
+                    return .success(data)
+                case let .failure(guideError):
+                    
+                    do {
+                        let retryResult = try await retryNetwork(dto: dto, router: router)
+                        
+                        return .success(retryResult)
+                    } catch {
+                        return .failure(checkResponseData(response.data, guideError))
+                    }
+                }
+                
+            } catch {
+                return .failure(catchUnknownError())
             }
-            
-        } catch {
-            return .failure(catchUnknownError())
-        }
+        
     }
     
     func getNetworkError() -> AsyncStream<String> {
@@ -62,6 +74,22 @@ final class NetworkManager: Sendable {
 }
 
 extension NetworkManager {
+    private func retryNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async throws -> T {
+        if await retryActor.ifRetry() {
+            let result = await requestNetwork(dto: dto, router: router)
+            
+            switch result {
+            case let .success(data):
+                return data
+            case .failure(_):
+                await retryActor.restry()
+                return try await retryNetwork(dto: dto, router: router)
+            }
+        } else {
+            throw NSError()
+        }
+    }
+    
     private func checkResponseData(_ responseData: Data?, _ error: AFError) -> APIErrorResponse {
         if let data = responseData {
             do {
