@@ -82,7 +82,7 @@ extension NetworkManager {
             case let .success(data):
                 return data
             case .failure(_):
-                await retryActor.restry()
+                await retryActor.retry()
                 return try await retryNetwork(dto: dto, router: router)
             }
         } else {

@@ -103,6 +103,7 @@
 		7BA3F8412CB50464003EF15A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA3F8402CB50464003EF15A /* Lottie */; };
 		7BA3F8462CB5051E003EF15A /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BA3F8452CB5051E003EF15A /* Loading.json */; };
 		7BA3F84A2CB50920003EF15A /* LottieEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F8492CB50920003EF15A /* LottieEntry.swift */; };
+		7BA3F8602CB5264E003EF15A /* NetworkRetryActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F85F2CB5264E003EF15A /* NetworkRetryActor.swift */; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
 		7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */; };
 		7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D22C7C49D9008D4CFC /* Entity.swift */; };
@@ -166,7 +167,6 @@
 		DF9459202C90BBF00001DDA4 /* TabNavCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF94591F2C90BBF00001DDA4 /* TabNavCoordinatorView.swift */; };
 		DF9459222C90BBFB0001DDA4 /* TabNavCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9459212C90BBFB0001DDA4 /* TabNavCoordinator.swift */; };
 		DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */; };
-		DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */; };
 		DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */; };
 		DF986E852C7CCACC00F2D52F /* CharacterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E842C7CCACC00F2D52F /* CharacterRouter.swift */; };
 		DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */; };
@@ -304,6 +304,7 @@
 		7BA3F8342CB38FC9003EF15A /* SearchResultListEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultListEntity.swift; sourceTree = "<group>"; };
 		7BA3F8452CB5051E003EF15A /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		7BA3F8492CB50920003EF15A /* LottieEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieEntry.swift; sourceTree = "<group>"; };
+		7BA3F85F2CB5264E003EF15A /* NetworkRetryActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRetryActor.swift; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
 		7BACA3D22C7C49D9008D4CFC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -367,7 +368,6 @@
 		DF94591F2C90BBF00001DDA4 /* TabNavCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavCoordinatorView.swift; sourceTree = "<group>"; };
 		DF9459212C90BBFB0001DDA4 /* TabNavCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavCoordinator.swift; sourceTree = "<group>"; };
 		DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
 		DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDTO.swift; sourceTree = "<group>"; };
 		DF986E842C7CCACC00F2D52F /* CharacterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRouter.swift; sourceTree = "<group>"; };
 		DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUURL.swift; sourceTree = "<group>"; };
@@ -828,6 +828,7 @@
 			isa = PBXGroup;
 			children = (
 				7BA3F7CE2CAFD567003EF15A /* CancellableStore.swift */,
+				7BA3F85F2CB5264E003EF15A /* NetworkRetryActor.swift */,
 			);
 			path = Actor;
 			sourceTree = "<group>";
@@ -1013,7 +1014,6 @@
 			children = (
 				DF986E832C7CCABE00F2D52F /* Router */,
 				DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */,
-				DF986E7F2C7CC89800F2D52F /* NetworkInterceptor.swift */,
 				DF57E1602C93643700E094D1 /* NWPathMonitorManager.swift */,
 			);
 			path = Network;
@@ -1241,6 +1241,7 @@
 				7B26658A2C93FEF6000A483A /* SearchResultFeature.swift in Sources */,
 				DFB2BE6A2C858A2F00518C7E /* SearchHistoryRequestDTO.swift in Sources */,
 				7B1581DD2C6CB34900599E7C /* RootCoordinatorView.swift in Sources */,
+				7BA3F8602CB5264E003EF15A /* NetworkRetryActor.swift in Sources */,
 				7B15820D2C6E207100599E7C /* RelatedVideoTypeDTO.swift in Sources */,
 				7B15820A2C6E1F6D00599E7C /* SearchDTO.swift in Sources */,
 				7B1582642C74B52A00599E7C /* DetailErrorDTO.swift in Sources */,
@@ -1299,7 +1300,6 @@
 				7B0D63932CA26BCC00A9A071 /* ColorSystem.swift in Sources */,
 				7B0D63392C9BFE8C00A9A071 /* SearchResultRelatedView.swift in Sources */,
 				7B1581AF2C6A53A800599E7C /* GuideUColor.swift in Sources */,
-				DF986E802C7CC89800F2D52F /* NetworkInterceptor.swift in Sources */,
 				7BACA41C2C7EE7FE008D4CFC /* MoreCharacterView.swift in Sources */,
 				DF1DECD92C7D7EB10098F761 /* DetailErrorEntity.swift in Sources */,
 				7BA3F7C52CAF92FC003EF15A /* CreditView.swift in Sources */,
