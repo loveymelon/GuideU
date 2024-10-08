@@ -261,7 +261,8 @@ extension SearchFeature {
         if state.currentText == text { return .none }
         state.currentText = text
         state.isSearchResEmpty = false
-        state.searchResultList = []
+        
+        resetList(state: &state)
         
         if text != "" {
             state.viewCase = .suggestMode
@@ -273,5 +274,10 @@ extension SearchFeature {
             state.viewCase = .searchHistoryMode
         }
         return .none
+    }
+    
+    private func resetList(state: inout State) {
+        state.searchResultList = []
+        state.searchCaseList = []
     }
 }
