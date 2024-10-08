@@ -302,7 +302,7 @@ struct MorePersonView: View {
     }
     
     private func headerContentView(entity: HeaderEntity) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading) {
             Text(entity.sectionTitle)
                 .font(Font(WantedFont.midFont.font(size: 16)))
                 .foregroundStyle(colorSystem.color(colorCase: .textColor))
@@ -316,7 +316,7 @@ struct MorePersonView: View {
                 startDelay: 1
             )
             .foregroundStyle(colorSystem.color(colorCase: .pointColor))
-            .padding(.bottom, 4)
+            .padding(.bottom, 6)
             
             HStack {
                 Text(entity.channelName)
@@ -339,12 +339,14 @@ struct MorePersonView: View {
         
         return HStack(spacing: 0) {
             ForEach(PersonFeature.MoreType.allCases, id: \.self) { caseOf in
-                VStack {
+                VStack(spacing: 0) {
+                    
                     Text(caseOf.text)
                         .foregroundStyle(colorSystem.color(colorCase: .textColor))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .frame(maxWidth: .infinity)
                         .font(caseOf == store.currentMoreType ? Font(WantedFont.boldFont.font(size: fontSize)) : Font(WantedFont.midFont.font(size: fontSize)))
                         .padding(.top, 10)
+                        .padding(.bottom, 6)
                         .asButton {
                             store.send(.viewEventType(.switchCurrentType(caseOf)))
                         }
@@ -368,7 +370,7 @@ struct MorePersonView: View {
     }
     
     private func backgroundImage(size: CGSize) -> some View {
-        let safeHeight = size.height < 0 ? 0 : size.height
+        let safeHeight = size.height < 0 ? 0 : size.height + 20
         return Group {
             /// 조건에 따라 이미지 변경할것
             if let url = store.headerState.thumImage {
