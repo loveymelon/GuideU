@@ -27,3 +27,20 @@ final class NetworkInterceptor: RequestInterceptor {
         }
     }
 }
+
+final actor RetryCountActor {
+    
+    private var retryLimit = 7
+    
+    func restry() {
+        retryLimit -= 1
+    }
+    
+    func reset() {
+        retryLimit = 7
+    }
+    
+    func ifRetry() -> Bool {
+        return retryLimit > 0
+    }
+}
