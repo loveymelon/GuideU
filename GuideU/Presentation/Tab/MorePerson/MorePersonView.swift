@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 
+
 struct MorePersonView: View {
     @Perception.Bindable var store: StoreOf<PersonFeature>
     
@@ -25,13 +26,21 @@ struct MorePersonView: View {
             VStack {
                 switch store.videoState {
                 case .loading:
-                    ProgressView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(colorSystem.color(colorCase: .background))
-                        .navigationBarBackButtonHidden()
-                        .onAppear {
-                            store.send(.viewCycleType(.onAppear))
-                        }
+                    VStack {
+                        Spacer()
+                        
+                        LottieEntry(setAnimation: .loading, setLoopMode: .autoReverse)
+                            .frame(maxWidth: .infinity)
+                            .background(colorSystem.color(colorCase: .background))
+                            .navigationBarBackButtonHidden()
+                            .onAppear {
+                                store.send(.viewCycleType(.onAppear))
+                            }
+
+                        
+                        Spacer()
+                    }
+                    .background(colorSystem.color(colorCase: .background))
                 case .content:
                     ZStack(alignment: .top) {
                         // 배경 이미지가 네비게이션 바까지 침범하도록 ZStack에 위치
@@ -134,7 +143,7 @@ struct MorePersonView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
                 headerView()
-                    .frame(height: 160)
+                    .frame(height: 164)
                     .background(Color.clear)
                 
                 LazyVStack(spacing: 0) {
@@ -321,7 +330,6 @@ struct MorePersonView: View {
             .padding(.bottom, 10)
             
             switchView()
-                .padding(.bottom, 10)
         }
         .padding(.horizontal, 10)
     }
@@ -331,9 +339,7 @@ struct MorePersonView: View {
         
         return HStack(spacing: 0) {
             ForEach(PersonFeature.MoreType.allCases, id: \.self) { caseOf in
-                
                 VStack {
-                    Spacer()
                     Text(caseOf.text)
                         .foregroundStyle(colorSystem.color(colorCase: .textColor))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -359,7 +365,6 @@ struct MorePersonView: View {
                 }
             }
         }
-        .frame(height: 35)
     }
     
     private func backgroundImage(size: CGSize) -> some View {
