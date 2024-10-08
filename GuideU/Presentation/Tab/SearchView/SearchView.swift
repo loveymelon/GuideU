@@ -56,12 +56,15 @@ struct SearchView: View {
 extension SearchView {
     private func SearchResultView() -> some View {
         VStack {
+            
+            Color.clear.frame(height: 10)
+            
             ForEach(store.searchResultList, id: \.self) { model in
                 
                 SearchResultListView(setModel: model)
                 .environmentObject(colorSystem)
                 .padding(.horizontal, 10)
-                .padding(.vertical, 10)
+                .padding(.vertical, 6)
                 .asButton {
                     store.send(.viewEventType(.searchResultTapped(model)))
                 }
