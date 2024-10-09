@@ -36,6 +36,9 @@ final class ShareViewModel: ObservableObject {
         var trigger = false
         var url: URL? = nil
         var string: String? = nil
+        let guideUUrlScheme = GuideUShareConst.urlScheme
+        let loadingText = GuideUShareConst.ShareViewText.loading
+        let checkedText = GuideUShareConst.ShareViewText.checkedGuide
     }
     
     func body(_ input: Input) -> Output {
@@ -99,10 +102,9 @@ final class ShareViewModel: ObservableObject {
             state.trigger = true
         }.store(in: &cancellables)
         
-        resultFail.sink { [weak self] _ in
-            guard let self else { return }
-            
+        resultFail.sink { _ in
             closeOutput.send(())
+            
         }.store(in: &cancellables)
         
         return Output(closeTrigger: closeOutput, openTrigger: openOutput)
@@ -110,10 +112,10 @@ final class ShareViewModel: ObservableObject {
     
     private func processYouTubeURL(_ url: URL) -> Bool {
         // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube"),
+        if let userDefaults = UserDefaults(suiteName: GuideUShareConst.appGroupID),
            let encode = encoding(string: url.absoluteString) {
             
-            userDefaults.setValue(encode, forKey: "sharedURL")
+            userDefaults.setValue(encode, forKey: GuideUShareConst.userDefaultKey)
             print("공유받은 YouTube URL: \(url.absoluteString)")
             userDefaults.synchronize()
             
@@ -126,10 +128,10 @@ final class ShareViewModel: ObservableObject {
     private func processYouTubeURL(_ string: String) -> Bool {
         
         // 앱 그룹을 통해 메인 앱에 전달
-        if let userDefaults = UserDefaults(suiteName: "group.guideu.youtube"),
+        if let userDefaults = UserDefaults(suiteName: GuideUShareConst.appGroupID),
            let encode = encoding(string: string) {
             
-            userDefaults.setValue(encode, forKey: "sharedURL")
+            userDefaults.setValue(encode, forKey: GuideUShareConst.userDefaultKey)
             print("공유받은 YouTube URL: \(string)")
 
             userDefaults.synchronize()

@@ -31,18 +31,20 @@ struct ShareView: View {
                 
                 Group {
                     if !viewModel.state.trigger {
-                        Text("불러오는 중입니다.")
+                        Text(viewModel.state.loadingText)
                             .font(.headline)
                             .frame(maxWidth: .infinity)
-                            .background(.blue)
                             .foregroundStyle(.white)
                             .padding(.horizontal, 40)
+                            .padding(.vertical, 20)
+                            .background(.blue)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .padding(.horizontal, 40)
                     } else {
                         Button {
                             moveToMainApp()
                         } label: {
-                            Text("가이두에서 확인하기")
+                            Text(viewModel.state.checkedText)
                                 .font(.headline)
                                 .frame(maxWidth: .infinity)
                                 .foregroundStyle(.white)
