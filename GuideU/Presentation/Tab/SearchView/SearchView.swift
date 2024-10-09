@@ -28,11 +28,10 @@ struct SearchView: View {
                         currentListView()
                         
                     case .suggestMode:
-                        if store.isSearchResEmpty {
-                            noResultView()
-                        } else {
-                            searchSuggestListView()
-                        }
+                        searchSuggestListView()
+                        
+                    case .noResultMode:
+                        noResultView()
                     }
                 }
                 .scrollDismissesKeyboard(.immediately)

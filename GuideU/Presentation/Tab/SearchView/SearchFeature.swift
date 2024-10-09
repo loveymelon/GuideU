@@ -18,7 +18,6 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         var searchCaseList: [SuggestEntity] = []
         var searchResultList: [SearchResultListEntity] = []
         var viewCase: SearchViewType = SearchViewType.searchHistoryMode
-        var isSearchResEmpty: Bool = false
         var backButtonHidden: Bool = true
         var popUpCase: popUpCase? = nil
         
@@ -33,6 +32,7 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         case searchHistoryMode
         case suggestMode
         case resultListMode
+        case noResultMode
     }
     
     enum popUpCase {
@@ -111,7 +111,9 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
 
 extension SearchFeature {
     private func core() -> some ReducerOf<Self> {
-        Reduce { state, action in
+        Reduce {
+            state,
+            action in
             switch action {
                 // MARK: View Cycle
             case .viewCycleType(.onAppear):
@@ -151,9 +153,23 @@ extension SearchFeature {
                 }
                 
             case let .viewEventType(.onSubmit(text)):
-                return .run { send in
-                    await send(.networkType(.searchResultList(text)))
-                }
+                return .concatenate(
+                    [
+                        .cancel(
+                            id: CancelId.searchID
+                        ),
+                        .run(
+                            operation: { send in
+                                await send(
+                                    .networkType(
+                                        .searchResultList(
+                                            text
+                                        )
+                                    )
+                                )
+                            })
+                    ]
+                )
                 
             case let .viewEventType(.suggestResultTapped(model)):
                 let currentText = state.currentText.trimmingCharacters(in: .whitespaces)
@@ -218,7 +234,6 @@ extension SearchFeature {
                 // MARK: DataTrans
             case let .dataTransType(.searchData(suggestEntity)):
                 state.searchCaseList = suggestEntity
-                state.isSearchResEmpty = state.searchCaseList.isEmpty
                 
             case let .dataTransType(.errorInfo(error)):
                 print(error)
@@ -238,7 +253,7 @@ extension SearchFeature {
                 
             case let .dataTransType(.searchResultData(datas)):
                 state.searchResultList = datas
-                state.viewCase = .resultListMode
+                state.viewCase = datas.isEmpty ? .noResultMode : .resultListMode
                 
                 // MARK: Binding
             case let .currentText(text):
@@ -260,7 +275,6 @@ extension SearchFeature {
     private func currentTextTester(text: String, state: inout State) -> Effect<Action>  {
         if state.currentText == text { return .none }
         state.currentText = text
-        state.isSearchResEmpty = false
         
         resetList(state: &state)
         
@@ -269,11 +283,12 @@ extension SearchFeature {
             
             return .run { send in
                 await send(.networkType(.searchSuggest(text)))
-            }.debounce(id: CancelId.searchID, for: 1, scheduler: RunLoop.main)
+            }
+            .debounce(id: CancelId.searchID, for: 1, scheduler: RunLoop.main)
         } else {
             state.viewCase = .searchHistoryMode
+            return .cancel(id: CancelId.searchID)
         }
-        return .none
     }
     
     private func resetList(state: inout State) {
