@@ -86,7 +86,7 @@ extension ShareViewController {
 // MARK: Open App
 extension ShareViewController {
     private func openMainApp() {
-        let urlScheme = "GuideU://"
+        let urlScheme = viewModel.state.guideUUrlScheme
         if let url = URL(string: urlScheme) {
             // 앱 실행
             if self.openURL(url) {
