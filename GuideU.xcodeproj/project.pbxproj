@@ -104,6 +104,7 @@
 		7BA3F8462CB5051E003EF15A /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BA3F8452CB5051E003EF15A /* Loading.json */; };
 		7BA3F84A2CB50920003EF15A /* LottieEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F8492CB50920003EF15A /* LottieEntry.swift */; };
 		7BA3F8602CB5264E003EF15A /* NetworkRetryActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F85F2CB5264E003EF15A /* NetworkRetryActor.swift */; };
+		7BA3F86F2CB69572003EF15A /* CustomIsolated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F86E2CB69572003EF15A /* CustomIsolated.swift */; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
 		7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */; };
 		7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D22C7C49D9008D4CFC /* Entity.swift */; };
@@ -305,6 +306,7 @@
 		7BA3F8452CB5051E003EF15A /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		7BA3F8492CB50920003EF15A /* LottieEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieEntry.swift; sourceTree = "<group>"; };
 		7BA3F85F2CB5264E003EF15A /* NetworkRetryActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRetryActor.swift; sourceTree = "<group>"; };
+		7BA3F86E2CB69572003EF15A /* CustomIsolated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIsolated.swift; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
 		7BACA3D22C7C49D9008D4CFC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -829,6 +831,7 @@
 			children = (
 				7BA3F7CE2CAFD567003EF15A /* CancellableStore.swift */,
 				7BA3F85F2CB5264E003EF15A /* NetworkRetryActor.swift */,
+				7BA3F86E2CB69572003EF15A /* CustomIsolated.swift */,
 			);
 			path = Actor;
 			sourceTree = "<group>";
@@ -1310,6 +1313,7 @@
 				DF5879632C7F1701009F9171 /* LinkEntity.swift in Sources */,
 				DF57E15D2C931DB100E094D1 /* URLDividerManager.swift in Sources */,
 				7B2665932C940C9E000A483A /* HistoryCoordinatorView.swift in Sources */,
+				7BA3F86F2CB69572003EF15A /* CustomIsolated.swift in Sources */,
 				7BA3F7CA2CAFA010003EF15A /* FirstMeritView.swift in Sources */,
 				7B1582012C6CF30000599E7C /* DuplicateDTO.swift in Sources */,
 				DFB2BE662C85897300518C7E /* RealmRepository.swift in Sources */,

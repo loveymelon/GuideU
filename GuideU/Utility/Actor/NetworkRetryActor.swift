@@ -9,7 +9,11 @@ import Foundation
 
 final actor RetryCountActor {
     
-    private var retryLimit = 7
+    private var retryLimit: Int
+    
+    init(retryLimit: Int = 3) {
+        self.retryLimit = retryLimit
+    }
     
     func retry() {
         retryLimit -= 1

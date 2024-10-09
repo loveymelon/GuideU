@@ -18,7 +18,7 @@ final class NetworkManager: Sendable {
     
     private let store = CancellableStore()
     
-    private let retryActor = RetryCountActor()
+    private let retryActor = RetryCountActor(retryLimit: 7)
     
     func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async -> Result<T, APIErrorResponse> {
         
