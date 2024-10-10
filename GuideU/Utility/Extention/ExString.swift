@@ -24,10 +24,20 @@ extension String {
         attributedString.font = fullFont
         attributedString.foregroundColor = fullColor
         
+        let lowerCaseSelf = self.lowercased()
+        
         targetTexts.forEach { targetString in
-            if let range = attributedString.range(of: targetString) {
-                attributedString[range].font = targetFont
-                attributedString[range].foregroundColor = targetColor
+            let lowerCaseTarget = targetString.lowercased()
+            var searchRange = lowerCaseSelf.startIndex..<lowerCaseSelf.endIndex
+            
+            while let foundRange = lowerCaseSelf.range(of: lowerCaseTarget, range: searchRange) {
+                
+                if let attributedRange = Range(foundRange, in: attributedString) {
+                    attributedString[attributedRange].font = targetFont
+                    attributedString[attributedRange].foregroundColor = targetColor
+                }
+                
+                searchRange = foundRange.upperBound..<lowerCaseSelf.endIndex
             }
         }
         
