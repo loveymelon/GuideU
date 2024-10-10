@@ -21,29 +21,8 @@ struct HistoryView: View {
         WithPerceptionTracking {
             VStack {
                 if !store.videosEntity.isEmpty {
-                    ScrollView {
-                        ForEach(store.videosEntity, id: \.lastWatched) { section in
-                            HStack {
-                                Text(section.lastWatched)
-                                    .font(Font(WantedFont.midFont.font(size: 16)))
-                                    .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
-                                Spacer()
-                            }
-                            .padding(.horizontal, 10)
-                            .padding(.top, 14)
-                            
-                            LazyVStack {
-                                ForEach(section.videosEntity, id: \.id) { element in
-                                    MoreCharacterListView(setModel: element)
-                                        .padding(.bottom, 8)
-                                        .asButton {
-                                            store.send(.viewEventType(.videoTapped(element)))
-                                        }
-                                }
-                            }
-                            .padding(.horizontal, 10)
-                        }
-                    }
+                    
+                    contentView()
                     .padding(.horizontal, 10)
                 } else {
                     VStack {
@@ -95,6 +74,44 @@ struct HistoryView: View {
                         store.send(.viewCycleType(.viewDisAppear))
                     }
                     
+                }
+            }
+        }
+    }
+}
+
+extension HistoryView {
+    
+    private func contentView() -> some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                Color.clear.frame(height: 0)
+                    .id(store.scrollID)
+                ForEach(store.videosEntity, id: \.lastWatched) { section in
+                    HStack {
+                        Text(section.lastWatched)
+                            .font(Font(WantedFont.midFont.font(size: 16)))
+                            .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
+                        Spacer()
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.top, 14)
+                    
+                    LazyVStack {
+                        ForEach(section.videosEntity, id: \.id) { element in
+                            MoreCharacterListView(setModel: element)
+                                .padding(.bottom, 8)
+                                .asButton {
+                                    store.send(.viewEventType(.videoTapped(element)))
+                                }
+                        }
+                    }
+                    .padding(.horizontal, 10)
+                }
+            }
+            .onChange(of: store.scrollToTopTrigger) { newValue in
+                withAnimation {
+                    proxy.scrollTo(store.scrollID)
                 }
             }
         }

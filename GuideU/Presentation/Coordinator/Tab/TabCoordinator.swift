@@ -76,7 +76,7 @@ extension TabCoordinator {
                     case .searchTab:
                         return .send(.searchTabAction(.parent(.resetToSearchView)))
                     case .timeLine:
-                        print("")
+                        return .send(.historyTabAction(.parent(.resetToHistory)))
                     case .setting:
                         print("")
                     }
