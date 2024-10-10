@@ -64,6 +64,12 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
             case closeButtonTapped
             case openToResultView(suggestEntity: SearchResultListEntity)
         }
+        
+        case parent(ParentAction)
+        
+        enum ParentAction {
+            case resetToSearchView
+        }
     }
     
     
@@ -262,6 +268,10 @@ extension SearchFeature {
             case let .popUpCase(caseOf):
                 state.popUpCase = caseOf
                 
+                
+            case .parent(.resetToSearchView):
+                resetList(state: &state)
+                state.viewCase = .searchHistoryMode
             default:
                 break
             }

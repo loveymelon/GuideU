@@ -28,6 +28,12 @@ struct SearchCoordinator {
     
     enum Action {
         case router(IdentifiedRouterActionOf<SearchScreen>)
+        
+        case parent(ParentAction)
+        
+        enum ParentAction {
+            case resetToSearchView
+        }
     }
     
     
@@ -40,6 +46,10 @@ struct SearchCoordinator {
                 
             case .router(.routeAction(id: .searchResult, action: .searchResult(.delegate(.backButtonTapped)))):
                 state.routes.pop()
+                
+            case .parent(.resetToSearchView):
+                state.routes.popToRoot()
+                return .send(.router(.routeAction(id: .search, action: .search(.parent(.resetToSearchView)))))
             default:
                 break
             }

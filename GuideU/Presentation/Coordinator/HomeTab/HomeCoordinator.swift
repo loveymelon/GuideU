@@ -63,6 +63,7 @@ extension HomeCoordinator {
                 
                 
             case .parent(.resetToHome):
+                state.routes.popToRoot()
                 return .send(.router(.routeAction(id: .home, action: .home(.parent(.resetToHome)))))
             default:
                 break;
