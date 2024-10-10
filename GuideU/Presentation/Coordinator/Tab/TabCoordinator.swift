@@ -78,7 +78,7 @@ extension TabCoordinator {
                     case .timeLine:
                         return .send(.historyTabAction(.parent(.resetToHistory)))
                     case .setting:
-                        print("")
+                        return .send(.settingTabAction(.parent(.resetToRoot)))
                     }
                 } else {
                     state.currentTab = tabCase
