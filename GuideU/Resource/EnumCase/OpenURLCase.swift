@@ -27,8 +27,8 @@ enum OpenURLCase: Equatable {
             return URL(string: instagramURL)
         case .twitter(let twitterURL):
             return URL(string: twitterURL)
-        case .afreecatv(_):
-            return nil
+        case .afreecatv(let afreecatvURL):
+            return URL(string: afreecatvURL)
         case .naverCafe(_):
             return nil
         case .none:
