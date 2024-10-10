@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchResultListView: View {
     
-    let setModel: SearchResultListEntity
+    let setModel: SearchResultEntity
     
     @EnvironmentObject var colorSystem: ColorSystem
     
@@ -23,7 +23,7 @@ struct SearchResultListView: View {
                 Spacer()
             }
             .padding(.bottom, 6)
-            Text(setModel.definition)
+            Text(setModel.mean ?? "")
                 .font(Font(WantedFont.midFont.font(size: 14)))
                 .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 .lineLimit(1)
@@ -31,11 +31,11 @@ struct SearchResultListView: View {
     }
     
     private func caseOfView() -> some View {
-        Text(setModel.type.title)
+        Text(setModel.resultType.title)
             .padding(.horizontal, 12)
             .padding(.vertical, 4)
             .background {
-                switch setModel.type {
+                switch setModel.resultType {
                 case .character:
                     Color(GuideUColor.ViewBaseColor.light.pinkType)
                 case .meme:
@@ -51,7 +51,7 @@ struct SearchResultListView: View {
 extension SearchResultListView {
     
     private func colorSet() -> Color {
-        switch setModel.type {
+        switch setModel.resultType {
         case .character:
             return Color(GuideUColor.ViewBaseColor.light.darkPinkType)
         case .meme:
@@ -61,9 +61,9 @@ extension SearchResultListView {
 }
 
 #if DEBUG
-#Preview {
-    SearchResultListView(setModel: .init(name: "우왁굳", type: .character, definition: "우왁굳은 대한민국의 트위치 파트너 스트리머, 유튜브 크리에이터, 작사가 임과 동시에 이세계아이돌의 총괄 프로듀서이자 왁 엔터테인먼트의 설립자이다."))
-        .environmentObject(ColorSystem())
-}
+//#Preview {
+//    SearchResultListView(setModel: .init(name: "우왁굳", type: .character, definition: "우왁굳은 대한민국의 트위치 파트너 스트리머, 유튜브 크리에이터, 작사가 임과 동시에 이세계아이돌의 총괄 프로듀서이자 왁 엔터테인먼트의 설립자이다."))
+//        .environmentObject(ColorSystem())
+//}
 
 #endif

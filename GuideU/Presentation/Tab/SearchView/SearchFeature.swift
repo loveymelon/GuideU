@@ -16,7 +16,7 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         var currentText = ""
         var searchHistory: [String] = []
         var searchCaseList: [SuggestEntity] = []
-        var searchResultList: [SearchResultListEntity] = []
+        var searchResult: [SearchResultEntity] = []
         var viewCase: SearchViewType = SearchViewType.searchHistoryMode
         var backButtonHidden: Bool = true
         var popUpCase: popUpCase? = nil
@@ -62,7 +62,7 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         case popUpCase(popUpCase?)
         enum Delegate {
             case closeButtonTapped
-            case openToResultView(suggestEntity: SearchResultListEntity)
+            case openToResultView(searchResultEntity: SearchResultEntity)
         }
         
         case parent(ParentAction)
@@ -83,13 +83,13 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         case deleteAll
         case closeButtonTapped
         case suggestResultTapped(SuggestEntity)
-        case searchResultTapped(SearchResultListEntity)
+        case searchResultTapped(SearchResultEntity)
         case historyTapped(text: String)
     }
     
     enum DataTransType {
         case searchData([SuggestEntity])
-        case searchResultData([SearchResultListEntity])
+        case searchResultData([SearchResultEntity])
         case errorInfo(String)
         case realmFetch
         case realmSuccess([String])
@@ -99,7 +99,7 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
     
     enum NetworkType {
         case searchSuggest(String)
-        case searchResultList(String)
+        case searchResult(String)
     }
     
     enum CancelId: Hashable {
@@ -146,7 +146,6 @@ extension SearchFeature {
                 state.popUpCase = .delete
                 
             case .viewEventType(.deleteAll):
-                
                 return .run { send in
                     let result = await realmRepository.deleteAll()
                     
@@ -168,7 +167,7 @@ extension SearchFeature {
                             operation: { send in
                                 await send(
                                     .networkType(
-                                        .searchResultList(
+                                        .searchResult(
                                             text
                                         )
                                     )
@@ -184,7 +183,7 @@ extension SearchFeature {
                     state.currentText = model.keyWord
                     
                     return .run { send in
-                        await send(.networkType(.searchResultList(model.keyWord)))
+                        await send(.networkType(.searchResult(model.keyWord)))
                     }
                 }
                 
@@ -195,7 +194,7 @@ extension SearchFeature {
                     switch result {
                     case .success(_):
                         await send(.dataTransType(.realmFetch))
-                        await send(.delegate(.openToResultView(suggestEntity: model)))
+                        await send(.delegate(.openToResultView(searchResultEntity: model)))
                         
                     case .failure(let error):
                         await send(.dataTransType(.errorInfo(error.description)))
@@ -224,7 +223,7 @@ extension SearchFeature {
                     }
                 }
                 
-            case let .networkType(.searchResultList(text)):
+            case let .networkType(.searchResult(text)):
                 return .run { send in
                     let result = await searchRepository.fetchSearchResults(text)
                     
@@ -258,7 +257,7 @@ extension SearchFeature {
                 state.searchHistory.removeAll()
                 
             case let .dataTransType(.searchResultData(datas)):
-                state.searchResultList = datas
+                state.searchResult = datas
                 state.viewCase = datas.isEmpty ? .noResultMode : .resultListMode
                 
                 // MARK: Binding
@@ -271,7 +270,9 @@ extension SearchFeature {
                 
             case .parent(.resetToSearchView):
                 resetList(state: &state)
+                state.currentText = ""
                 state.viewCase = .searchHistoryMode
+                
             default:
                 break
             }
@@ -302,7 +303,7 @@ extension SearchFeature {
     }
     
     private func resetList(state: inout State) {
-        state.searchResultList = []
+        state.searchResult = []
         state.searchCaseList = []
     }
 }

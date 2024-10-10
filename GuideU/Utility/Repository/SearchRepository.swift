@@ -35,7 +35,7 @@ struct SearchRepository {
         }
     }
     
-    func fetchSearchResults(_ text: String) async -> Result<[SearchResultListEntity], String> {
+    func fetchSearchResults(_ text: String) async -> Result<[SearchResultEntity], String> {
         let result = await network.requestNetwork(dto: DTOList<SearchDTO>.self, router: SearchRouter.search(title: text, type: nil))
         
         switch result {
@@ -46,16 +46,16 @@ struct SearchRepository {
         }
     }
     
-    func fetchSearch(_ searchResultList: SearchResultListEntity) async -> Result<[SearchResultEntity], String> {
-        let result = await network.requestNetwork(dto: DTOList<SearchDTO>.self, router: SearchRouter.search(title: searchResultList.name, type: searchResultList.type))
-        
-        switch result {
-        case .success(let data):
-            return .success(searchMapper.dtoToEntity(data.elements))
-        case .failure(let error):
-            return .failure(catchError(error))
-        }
-    }
+//    func fetchSearch(_ searchResultList: SearchResultListEntity) async -> Result<[SearchResultEntity], String> {
+//        let result = await network.requestNetwork(dto: DTOList<SearchDTO>.self, router: SearchRouter.search(title: searchResultList.name, type: searchResultList.type))
+//        
+//        switch result {
+//        case .success(let data):
+//            return .success(searchMapper.dtoToEntity(data.elements))
+//        case .failure(let error):
+//            return .failure(catchError(error))
+//        }
+//    }
 }
 
 extension SearchRepository {

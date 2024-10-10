@@ -13,8 +13,7 @@ struct SearchResultFeature: GuideUReducer, GuideUReducerOptional {
     
     @ObservableState
     struct State: Equatable {
-        var searchResultEntity: SearchResultEntity = SearchResultEntity()
-        let searchResultListEntity: SearchResultListEntity
+        var searchResultEntity: SearchResultEntity
         let meanText = Const.mean
         let descriptionText = Const.explain
         let relatedText = Const.related
@@ -56,12 +55,12 @@ struct SearchResultFeature: GuideUReducer, GuideUReducerOptional {
     }
     
     enum DataTransType {
-        case searchDatas([SearchResultEntity])
+        case searchDatas(SearchResultEntity)
         case errorInfo(String)
     }
     
     enum NetworkType {
-        case fetchSearch
+        
     }
     
     enum CancelId: Hashable {
@@ -81,8 +80,8 @@ extension SearchResultFeature {
         Reduce { state, action in
             switch action {
             case .viewCycleType(.viewOnAppear):
-                return .run { send in
-                    await send(.networkType(.fetchSearch))
+                return .run { [state = state] send in
+                    await send(.dataTransType(.searchDatas(state.searchResultEntity)))
                 }
                 
             case let .viewEventType(.selectedRelatedModel(model)):
@@ -94,39 +93,20 @@ extension SearchResultFeature {
             case let .viewEventType(.socialTapped(url)):
                 state.openURLCase = urlDividerManager.dividerURLType(url: url)
                 
-            case .networkType(.fetchSearch):
-                return .run { [state = state] send in
-//                    print(state.suggestEntity)
-                    let result = await searchRepository.fetchSearch(state.searchResultListEntity)
-                    
-                    switch result {
-                    case let .success(data):
-                        await send(.dataTransType(.searchDatas(data)))
-                    case let .failure(error):
-                        await send(.dataTransType(.errorInfo(error)))
-                    }
-                }
-                
-            case let .dataTransType(.searchDatas(entitys)):
-                guard let searchResult = entitys.first else {
-                    state.currentViewState = .failure
-                    return .none
-                }
-                
-                state.searchResultEntity = searchResult
+            case let .dataTransType(.searchDatas(entity)):
                 state.currentViewState = .success
                 
                 // 뜻, 설명, 관련 동영상이 있는지 여부를 파악하여
                 // 해당 값에 따라서 어떤 뷰를 보여줄지 판단해주는 로직
                 // 만약 세개다 없다면 오류뷰를 띄어준다.
-                if let mean = searchResult.mean {
+                if let mean = entity.mean {
                     state.meanIsvalid = !mean.isEmpty
                 } else {
                     state.meanIsvalid = false
                 }
                 
-                state.desIsvalid = !searchResult.description.isEmpty
-                state.videoIsvalid = searchResult.resultType == .character ? !searchResult.links.isEmpty : !searchResult.relatedVideos.isEmpty
+                state.desIsvalid = !entity.description.isEmpty
+                state.videoIsvalid = entity.resultType == .character ? !entity.links.isEmpty : !entity.relatedVideos.isEmpty
                 
             case let .dataTransType(.errorInfo(error)):
                 state.currentViewState = .failure

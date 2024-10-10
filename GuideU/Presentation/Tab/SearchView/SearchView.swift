@@ -58,7 +58,7 @@ extension SearchView {
             
             Color.clear.frame(height: 10)
             
-            ForEach(store.searchResultList, id: \.self) { model in
+            ForEach(store.searchResult, id: \.self) { model in
                 
                 SearchResultListView(setModel: model)
                 .environmentObject(colorSystem)
