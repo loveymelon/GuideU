@@ -30,6 +30,12 @@ struct SettingCoordinator {
     
     enum Action {
         case router(IdentifiedRouterActionOf<SettingScreen>)
+        
+        case parent(ParentAction)
+        
+        enum ParentAction {
+            case resetToRoot
+        }
     }
     
     var body: some ReducerOf<Self> {
@@ -68,6 +74,9 @@ extension SettingCoordinator {
                 
             case .router(.routeAction(id: .firstMerit, action: .firstMeritView(.delegate(.backButtonTapped)))):
                 state.routes.pop()
+                
+            case .parent(.resetToRoot):
+                state.routes.popToRoot()
                 
             default:
                 break

@@ -27,9 +27,14 @@ struct HistoryCoordinator {
         case router(IdentifiedRouterActionOf<HistoryScreen>)
         
         case delegate(Delegate)
+        case parent(ParentAction)
         
         enum Delegate {
             case detailButtonTapped(String)
+        }
+        
+        enum ParentAction {
+            case resetToHistory
         }
     }
     
@@ -48,6 +53,10 @@ extension HistoryCoordinator {
                 return .run { send in
                     await send(.delegate(.detailButtonTapped(identifier)))
                 }
+                
+            case .parent(.resetToHistory):
+                state.routes.popToRoot()
+                return .send(.router(.routeAction(id: .historyView, action: .root(.parent(.resetToHistory)))))
                 
             default:
                 break

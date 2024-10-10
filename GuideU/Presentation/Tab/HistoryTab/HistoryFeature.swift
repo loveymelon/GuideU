@@ -19,6 +19,9 @@ struct HistoryFeature: GuideUReducer, GuideUReducerOptional {
         var selectedVideoData: VideosEntity? = nil
         var dialogPresent: Bool = false
         var openURLCase: OpenURLCase? = nil
+        
+        var scrollToTopTrigger = false
+        let scrollID = UUID()
     }
     
     enum Action {
@@ -27,12 +30,17 @@ struct HistoryFeature: GuideUReducer, GuideUReducerOptional {
         case dataTransType(DataTransType)
         case networkType(NetworkType)
         case delegate(Delegate)
+        case parent(ParentAction)
         
         // bindingAction
         case dialogBinding(Bool)
         
         enum Delegate {
             case detailButtonTapped(String)
+        }
+        
+        enum ParentAction {
+            case resetToHistory
         }
     }
     
@@ -146,10 +154,17 @@ extension HistoryFeature {
             case let .dialogBinding(isValid):
                 state.dialogPresent = isValid
                 
+            case .parent(.resetToHistory):
+                scrollUP(&state)
+                
             default:
                 break
             }
             return .none
         }
+    }
+    
+    private func scrollUP(_ state: inout State) {
+        state.scrollToTopTrigger.toggle()
     }
 }
