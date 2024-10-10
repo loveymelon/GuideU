@@ -28,8 +28,10 @@ struct URLDividerManager: Sendable {
         } else if url.contains("afreecatv.com") {
             return .afreecatv(afreecatv: url)
         } else if url.contains("naver.com") {
+            // navercafe://read?cafeUrl=steamindiegame&articleId=9068425&appId=com.WoowakGuide.GuideU 네이버 카페로 이동하기
             return .naverCafe(cafeURL: url)
         } else {
+            print("other", url)
             return .none(url: url)
         }
     }
