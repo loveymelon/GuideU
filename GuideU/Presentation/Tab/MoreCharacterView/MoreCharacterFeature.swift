@@ -33,6 +33,8 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var listLoadTrigger = true
         
         let constViewState = ConstViewState()
+        let scrollViewTopID = UUID()
+        var scrollToTop = false
     }
     
     struct AlertState: Equatable {
@@ -65,6 +67,13 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         case selectedVideo(VideosEntity?)
         case dialogBinding(Bool)
         case alertBinding(AlertState?)
+        
+        
+        case parent(ParentAction)
+        
+        enum ParentAction {
+            case resetToHome
+        }
     }
     
     enum ViewCycleType {
@@ -240,6 +249,9 @@ extension MoreCharacterFeature {
                 
             case let .alertBinding(item):
                 state.alertState = item
+                
+            case .parent(.resetToHome):
+                state.scrollToTop.toggle()
                 
             default:
                 break

@@ -67,8 +67,22 @@ extension TabCoordinator {
             switch action {
                 
             case let .tabCase(tabCase):
-                state.currentTab = tabCase
-                
+                // 같은 탭일 경우
+                if state.currentTab == tabCase {
+                    state.currentTab = tabCase
+                    switch tabCase {
+                    case .home:
+                        return .send(.homeTabAction(.parent(.resetToHome)))
+                    case .searchTab:
+                        print("")
+                    case .timeLine:
+                        print("")
+                    case .setting:
+                        print("")
+                    }
+                } else {
+                    state.currentTab = tabCase
+                }
             case let .homeTabAction(.delegate(.detailButtonTapped(identifier))):
                 return .run { send in
                     await send(.delegate(.detailButtonTapped(identifier)))

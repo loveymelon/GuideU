@@ -79,29 +79,38 @@ struct MoreCharacterView: View {
 
 extension MoreCharacterView {
     private func contentView() -> some View {
-        ScrollView {
-            ZStack(alignment: .top) {
-                ZStack {
-                    Group {
-                        if store.state.loadingTrigger {
-                            skeletonView()
-                        } else {
-                            listContentView()
+        ScrollViewReader { proxy in
+            ScrollView {
+                Color.clear.frame(height: 0)
+                    .id(store.scrollViewTopID)
+                ZStack(alignment: .top) {
+                    ZStack {
+                        Group {
+                            if store.state.loadingTrigger {
+                                skeletonView()
+                            } else {
+                                listContentView()
+                            }
                         }
+                        .background(colorSystem.color(colorCase: .background))
+                        .padding(.top, 120)
                     }
-                    .background(colorSystem.color(colorCase: .background))
-                    .padding(.top, 120)
+                    ZStack {
+                        wantMoreInfoView()
+                            .padding(.top, 20)
+                            .padding(.vertical, 4)
+                    }
+                    .zIndex(100)
                 }
-                ZStack {
-                    wantMoreInfoView()
-                        .padding(.top, 20)
-                        .padding(.vertical, 4)
-                }
-                .zIndex(100)
+                .background(colorSystem.color(colorCase: .background))
             }
             .background(colorSystem.color(colorCase: .background))
+            .onChange(of: store.scrollToTop) { newValue in
+                withAnimation {
+                    proxy.scrollTo(store.scrollViewTopID)
+                }
+            }
         }
-        .background(colorSystem.color(colorCase: .background))
     }
     
     private func skeletonView() -> some View {

@@ -30,10 +30,17 @@ struct HomeCoordinator {
         
         /// 상위뷰에게 전달
         case delegate(Delegate)
+
+        /// 상위뷰에게서 전달받음
+        case parent(ParentAction)
         
         enum Delegate {
             case detailButtonTapped(String)
             case searchBarTapped
+        }
+        
+        enum ParentAction {
+            case resetToHome
         }
     }
     
@@ -53,6 +60,10 @@ extension HomeCoordinator {
                 }
             case .router(.routeAction(id: .home, action: .home(.delegate(.searchBarTapped)))):
                 return .send(.delegate(.searchBarTapped))
+                
+                
+            case .parent(.resetToHome):
+                return .send(.router(.routeAction(id: .home, action: .home(.parent(.resetToHome)))))
             default:
                 break;
             }
