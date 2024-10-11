@@ -5,6 +5,7 @@
 //  Created by Jae hyung Kim on 8/28/24.
 //
 
+import Foundation
 import SwiftUI
 import ComposableArchitecture
 import PopupView
@@ -143,9 +144,11 @@ extension MoreCharacterView {
                     .environmentObject(colorSystem)
                     .padding(.bottom, 10)
                     .onAppear {
-                        if index >= store.state.videoInfos.count - 7 {
-                            if store.state.listLoadTrigger {
-                                store.send(.viewEventType(.videoOnAppear(index)))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            if index >= store.state.videoInfos.count - 7 {
+                                if store.state.listLoadTrigger {
+                                    store.send(.viewEventType(.videoOnAppear(index)))
+                                }
                             }
                         }
                     }
