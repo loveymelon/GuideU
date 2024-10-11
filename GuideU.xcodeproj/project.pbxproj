@@ -90,6 +90,7 @@
 		7B69BF172CA51A9700578021 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 7B69BF162CA51A9700578021 /* FirebaseCrashlytics */; };
 		7B69BF1A2CA51ADA00578021 /* GuideUAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B69BF192CA51ADA00578021 /* GuideUAppDelegate.swift */; };
 		7B69BF1C2CA551B500578021 /* HapticFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B69BF1B2CA551B500578021 /* HapticFeedbackManager.swift */; };
+		7B6A07022CB93B9600D7BBAE /* SecretConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A07012CB93B9600D7BBAE /* SecretConst.swift */; };
 		7B6B3CD02C85D89D00F643FB /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; };
 		7B6B3CD12C85D8EB00F643FB /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		7BA3F7C52CAF92FC003EF15A /* CreditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C42CAF92FC003EF15A /* CreditView.swift */; };
@@ -295,6 +296,7 @@
 		7B69BF112CA519D100578021 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7B69BF192CA51ADA00578021 /* GuideUAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUAppDelegate.swift; sourceTree = "<group>"; };
 		7B69BF1B2CA551B500578021 /* HapticFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackManager.swift; sourceTree = "<group>"; };
+		7B6A07012CB93B9600D7BBAE /* SecretConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretConst.swift; sourceTree = "<group>"; };
 		7B6B3CD62C85E16000F643FB /* GuideU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideU.entitlements; sourceTree = "<group>"; };
 		7BA3F7C42CAF92FC003EF15A /* CreditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditView.swift; sourceTree = "<group>"; };
 		7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewFeature.swift; sourceTree = "<group>"; };
@@ -482,6 +484,7 @@
 		7B1581852C6A476200599E7C /* GuideU */ = {
 			isa = PBXGroup;
 			children = (
+				7B6A06FE2CB93B6400D7BBAE /* Secret */,
 				7B6B3CD62C85E16000F643FB /* GuideU.entitlements */,
 				7B1581A82C6A513300599E7C /* Info.plist */,
 				7B1581B32C6A557A00599E7C /* Presentation */,
@@ -809,6 +812,14 @@
 				7B69BF192CA51ADA00578021 /* GuideUAppDelegate.swift */,
 			);
 			path = AppRoot;
+			sourceTree = "<group>";
+		};
+		7B6A06FE2CB93B6400D7BBAE /* Secret */ = {
+			isa = PBXGroup;
+			children = (
+				7B6A07012CB93B9600D7BBAE /* SecretConst.swift */,
+			);
+			path = Secret;
 			sourceTree = "<group>";
 		};
 		7BA3F7C32CAF92ED003EF15A /* Credit */ = {
@@ -1307,6 +1318,7 @@
 				7B1581AF2C6A53A800599E7C /* GuideUColor.swift in Sources */,
 				7BACA41C2C7EE7FE008D4CFC /* MoreCharacterView.swift in Sources */,
 				DF1DECD92C7D7EB10098F761 /* DetailErrorEntity.swift in Sources */,
+				7B6A07022CB93B9600D7BBAE /* SecretConst.swift in Sources */,
 				7BA3F7C52CAF92FC003EF15A /* CreditView.swift in Sources */,
 				DF5879572C7F0A0E009F9171 /* SimpleErrorEntity.swift in Sources */,
 				7B1581EA2C6CBEDF00599E7C /* ButtonWrapper.swift in Sources */,
@@ -1620,9 +1632,13 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "GuideU SharedExtension Debug";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1652,9 +1668,13 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "GuideU Shared Extension Release";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
