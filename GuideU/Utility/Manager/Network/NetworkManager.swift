@@ -16,41 +16,27 @@ final class NetworkManager: Sendable {
     
     private let networkError = PassthroughSubject<String, Never>()
     
-    private let store = CancellableStore()
-    
-    private let retryActor = RetryCountActor(retryLimit: 7)
-    
+    private let cancelStoreActor = AnyValueActor(Set<AnyCancellable>())
+    private let retryActor = AnyValueActor(7)
+   
     func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async -> Result<T, APIErrorResponse> {
-        
-        
             do {
                 let request = try router.asURLRequest()
                 
+                // MARK: 요청담당
                 let response = await AF.request(request)
                     .cacheResponse(using: .cache)
                     .validate(statusCode: 200..<300)
                     .serializingDecodable(T.self)
                     .response
                 
-                switch response.result {
-                case let .success(data):
-                    await retryActor.reset()
-                    return .success(data)
-                case let .failure(guideError):
-                    
-                    do {
-                        let retryResult = try await retryNetwork(dto: dto, router: router)
-                        
-                        return .success(retryResult)
-                    } catch {
-                        return .failure(checkResponseData(response.data, guideError))
-                    }
-                }
                 
+                let result = await getResponse(dto: dto, router: router, response: response)
+                
+                return result
             } catch {
                 return .failure(catchUnknownError())
             }
-        
     }
     
     func getNetworkError() -> AsyncStream<String> {
@@ -61,12 +47,16 @@ final class NetworkManager: Sendable {
                     .sink { text in
                         contin.yield(text)
                     }
-                await store.append(subscribe)
+              
+                await cancelStoreActor.withValue { value in
+                    value.insert(subscribe)
+                }
             }
             
             contin.onTermination = { @Sendable [weak self] _ in
+                guard let self else { return }
                 Task {
-                    await self?.store.removeAll()
+                    await cancelStoreActor.resetValue()
                 }
             }
         }
@@ -74,19 +64,52 @@ final class NetworkManager: Sendable {
 }
 
 extension NetworkManager {
+    
+    // MARK: RE스폰스 담당
+    private func getResponse<T:DTO>(dto: T.Type, router: Router, response: DataResponse<T, AFError>) async -> Result<T,APIErrorResponse> {
+        switch response.result {
+        case let .success(data):
+            await retryActor.resetValue()
+            
+            return .success(data)
+        case let .failure(guideError):
+            
+            do {
+                let retryResult = try await retryNetwork(dto: dto, router: router)
+                
+                // 성공시 초기화
+                await retryActor.resetValue()
+                
+                return .success(retryResult)
+            } catch {
+                return .failure(checkResponseData(response.data, guideError))
+            }
+        }
+    }
+
     private func retryNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async throws -> T {
-        if await retryActor.ifRetry() {
+        let ifRetry = await retryActor.withValue { value in
+            return value > 0
+        }
+        if ifRetry {
             let result = await requestNetwork(dto: dto, router: router)
             
             switch result {
             case let .success(data):
                 return data
             case .failure(_):
-                await retryActor.retry()
+                
+                await downRetryCount()
                 return try await retryNetwork(dto: dto, router: router)
             }
         } else {
             throw NSError()
+        }
+    }
+    
+    private func downRetryCount() async {
+        await retryActor.withValue { value in
+            value -= 1
         }
     }
     
