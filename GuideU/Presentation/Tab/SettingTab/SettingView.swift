@@ -28,6 +28,7 @@ struct SettingView: View {
         }
     }
 }
+
 // MARK: ContentView MAIN
 extension SettingView {
     private func contentView() -> some View {
