@@ -52,60 +52,64 @@ final class ShareViewModel: ObservableObject {
         let openOutput = PassthroughSubject<Void, Never> ()
         
         input.nsExtensionItem
-            .sink { [weak self] item in
-                guard let self else { return }
+            .guardSelf(self)
+            .sinkTask { owner, item in // 내꺼임. ?????
                 if let items = item.attachments {
-                    Task {
-                        if let url = await self.checkExtensionItemToURL(attachments: items) {
-                            resultUrl.send(url)
-                        } else if let string = await self.checkExtensionItemToString(attachments: items) {
-                            resultString.send(string)
-                        } else {
-                            resultFail.send(())
-                        }
+                    if let url = await owner.checkExtensionItemToURL(attachments: items) {
+                        resultUrl.send(url)
+                    } else if let string = await owner.checkExtensionItemToString(attachments: items) {
+                        resultString.send(string)
+                    } else {
+                        resultFail.send(())
                     }
                 }
             }.store(in: &cancellables)
         
         input.moveToMainApp
-            .sink { [weak self] _ in
-                guard let self else { return }
+            .guardSelf(self)
+            .sinkTask { owner, _ in
                 
-                if let url = state.url {
-                    if !processYouTubeURL(url) {
-                        closeOutput.send(())
+                if let url = owner.state.url {
+                    if let url = owner.state.url {
+                        if !owner.processYouTubeURL(url) {
+                            closeOutput.send(())
+                        } else {
+                            openOutput.send(())
+                        }
+                    } else if let string = owner.state.string {
+                        if !owner.processYouTubeURL(string) {
+                            closeOutput.send(())
+                        } else {
+                            openOutput.send(())
+                        }
                     } else {
-                        openOutput.send(())
-                    }
-                } else if let string = state.string {
-                    if !processYouTubeURL(string) {
                         closeOutput.send(())
-                    } else {
-                        openOutput.send(())
                     }
-                } else {
-                    closeOutput.send(())
                 }
+                
             }.store(in: &cancellables)
         
-        resultUrl.sink { [weak self] url in
-            guard let self else { return }
-            state.url = url
-            state.trigger = true
-            
-        }.store(in: &cancellables)
         
-        resultString.sink { [weak self] string in
-            guard let self else { return }
-            
-            state.string = string
-            state.trigger = true
-        }.store(in: &cancellables)
+        resultUrl
+            .guardSelf(self)
+            .sink { owner, url in
+                owner.state.url = url
+                owner.state.trigger = true
+            }
+            .store(in: &cancellables)
+        
+        resultString
+            .guardSelf(self)
+            .sink { owner, string in
+                owner.state.string = string
+                owner.state.trigger = true
+            }
+            .store(in: &cancellables)
         
         resultFail.sink { _ in
             closeOutput.send(())
-            
-        }.store(in: &cancellables)
+        }
+        .store(in: &cancellables)
         
         return Output(closeTrigger: closeOutput, openTrigger: openOutput)
     }
@@ -133,7 +137,7 @@ final class ShareViewModel: ObservableObject {
             
             userDefaults.setValue(encode, forKey: GuideUShareConst.userDefaultKey)
             print("공유받은 YouTube URL: \(string)")
-
+            
             userDefaults.synchronize()
             return true
         } else {

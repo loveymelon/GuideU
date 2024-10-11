@@ -79,9 +79,6 @@ struct MorePersonView: View {
                         }
                     }
                     .background(colorSystem.color(colorCase: .background))
-                    .sheet(item: $store.selectedURL.sending(\.bindingURL)) { socialURL in
-                        WKWebHosting(url: socialURL.url)
-                    }
                     .onChange(of: store.openURLCase) { newValue in
                         guard let openURL = newValue else { return }
                         

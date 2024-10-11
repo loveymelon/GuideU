@@ -85,7 +85,7 @@ extension SearchResultFeature {
                 }
                 
             case let .viewEventType(.selectedRelatedModel(model)):
-                state.openURLCase = OpenURLCase.youtubeChannel(channelURLString: model.link)
+                state.openURLCase = urlDividerManager.dividerURLType(url: model.link)
                 
             case .viewEventType(.successOpenURL):
                 state.openURLCase = nil
