@@ -64,22 +64,37 @@ extension ShareViewController {
     private func subscribe(input: ShareViewModel.Input) {
         let output = viewModel.body(input)
         
+        sendAction(input: input)
+        getAction(output: output)
+    }
+    
+    private func sendAction(input: ShareViewModel.Input) {
+        
+        // MARK: 공유하기를 통해 item을 받음을 감지
         if let item = extensionContext?.inputItems.first as? NSExtensionItem {
             input.nsExtensionItem
                 .send(item)
         }
+    }
+    
+    private func getAction(output: ShareViewModel.Output) {
         
-        output.openTrigger
-            .sink { [weak self] in
-                guard let self else { return }
-                openMainApp()
-            }.store(in: &viewModel.cancellables)
+        // MARK: mainApp 오픈 트리거
+        output
+            .openTrigger
+            .guardSelf(self)
+            .sink { owner, _ in
+                owner.openMainApp()
+            }
+            .store(in: &viewModel.cancellables)
         
+        // MARK: 공유하기 닫기 트리거
         output.closeTrigger
-            .sink { [weak self] in
-                guard let self else { return }
-                close()
-            }.store(in: &viewModel.cancellables)
+            .guardSelf(self)
+            .sink { owner, _ in
+                owner.close()
+            }
+            .store(in: &viewModel.cancellables)
     }
 }
 
