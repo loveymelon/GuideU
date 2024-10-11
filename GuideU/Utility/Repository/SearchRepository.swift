@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-final class SearchRepository {
+struct SearchRepository {
     @Dependency(\.networkManager) var network
     @Dependency(\.searchMapper) var searchMapper
     @Dependency(\.errorMapper) var errorMapper
