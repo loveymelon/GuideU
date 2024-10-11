@@ -41,31 +41,3 @@ struct CharacterDTO: DTO {
         case id
     }
 }
-
-struct CharactersDTO: DTO {
-    let charactersDTO: [CharacterDTO]
-    
-    init(from decoder: any Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        var characterList = [CharacterDTO] ()
-        while !container.isAtEnd {
-            let character = try container.decode(CharacterDTO.self)
-            characterList.append(character)
-        }
-        self.charactersDTO = characterList
-    }
-}
-
-struct YoutubeCharactersDTO: DTO {
-    let charactersDTO: [YoutubeCharacterDTO]
-    
-    init(from decoder: any Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        var characterList = [YoutubeCharacterDTO] ()
-        while !container.isAtEnd {
-            let character = try container.decode(YoutubeCharacterDTO.self)
-            characterList.append(character)
-        }
-        self.charactersDTO = characterList
-    }
-}

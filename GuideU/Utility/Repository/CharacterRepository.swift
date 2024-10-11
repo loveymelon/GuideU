@@ -28,22 +28,22 @@ extension CharacterRepository {
     }
     
     func fetchCharacters(id: String) async -> Result<[YoutubeCharacterEntity], String> {
-        let result = await network.requestNetwork(dto: YoutubeCharactersDTO.self, router: VideoRouter.fetchCharacters(id))
+        let result = await network.requestNetwork(dto: DTOList<YoutubeCharacterDTO>.self, router: VideoRouter.fetchCharacters(id))
         
         switch result {
         case .success(let data):
-            return .success(mapper.dtoToEntity(data.charactersDTO))
+            return .success(mapper.dtoToEntity(data.elements))
         case .failure(let error):
             return .failure(catchError(error))
         }
     }
     
     func fetchMemes(id: String) async -> Result<[BookElementsEntity], String> {
-        let result = await network.requestNetwork(dto: BooksDTO.self, router: VideoRouter.fetchMemes(id))
+        let result = await network.requestNetwork(dto: DTOList<BookElementDTO>.self, router: VideoRouter.fetchMemes(id))
         
         switch result {
         case .success(let data):
-            return .success(mapper.dtoToEntity(data.bookListDTO))
+            return .success(mapper.dtoToEntity(data.elements))
         case .failure(let error):
             return .failure(catchError(error))
         }
