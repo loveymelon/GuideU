@@ -239,28 +239,28 @@ extension SearchResultView {
             switch item.type {
             case .afreeca:
                 HStack {
-                    Image.SocialImages.soop.img
+                    Image(ImageType.SocialImage.soop.rawValue)
                     Text(Const.soopSection)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .instagram:
                 HStack {
-                    Image.SocialImages.instagram.img
+                    Image(ImageType.SocialImage.instagram.rawValue)
                     Text(Const.instagramSection)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .twitter:
                 HStack {
-                    Image.SocialImages.twitterX.img
+                    Image(ImageType.SocialImage.x.rawValue)
                     Text(Const.xTwitterSection)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .youtube:
                 HStack {
-                    Image.SocialImages.youtube.img
+                    Image(ImageType.SocialImage.youtube.rawValue)
                     Text(Const.youtubeSection)
                         .padding(.leading, 8)
                     Spacer()

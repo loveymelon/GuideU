@@ -12,7 +12,7 @@ struct OnBoardPageView: View {
     
     @Perception.Bindable var store: StoreOf<OnboardPageFeature>
     
-    @State var currentImage: Image.OnBoardImage = .first
+    @State var currentImage: ImageType.OnBoardingImage = .first
     @State var currentButtonState = false
     
     var body: some View {
@@ -34,8 +34,8 @@ extension OnBoardPageView {
     
     private func pageView() -> some View {
         TabView(selection: $currentImage) {
-            ForEach(Image.OnBoardImage.allCases, id: \.self) { caseOf in
-                caseOf.img
+            ForEach(ImageType.OnBoardingImage.allCases, id: \.self) { caseOf in
+                Image(caseOf.rawValue)
                     .resizable()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .ignoresSafeArea(edges: .bottom)
