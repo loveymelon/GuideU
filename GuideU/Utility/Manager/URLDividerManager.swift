@@ -22,9 +22,10 @@ struct URLDividerManager: Sendable {
         guard let social = SocialType.getCase(url) else {
             return .none(url: url)
         }
+        
         switch social {
         case .youtube:
-            return youtubeURLChecker(url)
+            return .originalYoutube(originURL: url)
         case .instagram:
             return .instagram(instagramURL: url)
         case .twitter:
@@ -50,7 +51,7 @@ struct URLDividerManager: Sendable {
 extension URLDividerManager {
     private func youtubeURLChecker(_ url: String) -> OpenURLCase {
         if url.contains("channel") || url.contains("user") {
-            return .youtubeChannel(channelURLString: url)
+            return .originalYoutube(originURL: url)
         } else if let url = youtubeChecker(url) {
             return .youtube(identifier: url)
         } else {

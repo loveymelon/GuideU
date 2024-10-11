@@ -9,7 +9,7 @@ import Foundation
 
 enum OpenURLCase: Equatable {
     case youtube(identifier: String)
-    case youtubeChannel(channelURLString: String)
+    case originalYoutube(originURL: String)
     case instagram(instagramURL: String)
     case twitter(twitterURL: String)
     case afreecatv(afreecatv: String)
@@ -21,8 +21,8 @@ enum OpenURLCase: Equatable {
         switch self {
         case .youtube(let identifier):
             return URL(string:"youtube://\(identifier)")
-        case .youtubeChannel(let channelURLString):
-            return URL(string: channelURLString)
+        case .originalYoutube(let originURL):
+            return URL(string: originURL)
         case .instagram(let instagramURL):
             return URL(string: instagramURL)
         case .twitter(let twitterURL):
@@ -41,8 +41,8 @@ enum OpenURLCase: Equatable {
         switch self {
         case .youtube(let identifier):
             return URL(string: Const.youtubeBaseString + identifier)
-        case .youtubeChannel(let channelURLString):
-            return URL(string: channelURLString)
+        case .originalYoutube(let originURL):
+            return URL(string: originURL)
         case .instagram(let instagramURL):
             return URL(string: instagramURL)
         case .twitter(let twitterURL):
