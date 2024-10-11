@@ -104,6 +104,7 @@
 		7BA3F84A2CB50920003EF15A /* LottieEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F8492CB50920003EF15A /* LottieEntry.swift */; };
 		7BA3F86F2CB69572003EF15A /* CustomIsolated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F86E2CB69572003EF15A /* CustomIsolated.swift */; };
 		7BA3F88B2CB8F3AB003EF15A /* AnyValueActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F88A2CB8F3AB003EF15A /* AnyValueActor.swift */; };
+		7BA3F88D2CB90D5B003EF15A /* SocialType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F88C2CB90D5B003EF15A /* SocialType.swift */; };
 		7BACA3CF2C7C41A2008D4CFC /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */; };
 		7BACA3D12C7C4463008D4CFC /* HomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */; };
 		7BACA3D32C7C49D9008D4CFC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACA3D22C7C49D9008D4CFC /* Entity.swift */; };
@@ -305,6 +306,7 @@
 		7BA3F8492CB50920003EF15A /* LottieEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieEntry.swift; sourceTree = "<group>"; };
 		7BA3F86E2CB69572003EF15A /* CustomIsolated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIsolated.swift; sourceTree = "<group>"; };
 		7BA3F88A2CB8F3AB003EF15A /* AnyValueActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValueActor.swift; sourceTree = "<group>"; };
+		7BA3F88C2CB90D5B003EF15A /* SocialType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialType.swift; sourceTree = "<group>"; };
 		7BACA3CE2C7C41A2008D4CFC /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7BACA3D02C7C4463008D4CFC /* HomeCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorView.swift; sourceTree = "<group>"; };
 		7BACA3D22C7C49D9008D4CFC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 				DF57E15A2C9319B700E094D1 /* OpenURLCase.swift */,
 				7BC2CB542C9839B300309B9B /* SettingCase.swift */,
 				7B0D63942CA271DE00A9A071 /* CurrentColorModeCase.swift */,
+				7BA3F88C2CB90D5B003EF15A /* SocialType.swift */,
 			);
 			path = EnumCase;
 			sourceTree = "<group>";
@@ -1296,6 +1299,7 @@
 				7BACA4442C857186008D4CFC /* SuggestEntity.swift in Sources */,
 				DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */,
 				7B0D63932CA26BCC00A9A071 /* ColorSystem.swift in Sources */,
+				7BA3F88D2CB90D5B003EF15A /* SocialType.swift in Sources */,
 				7B0D63392C9BFE8C00A9A071 /* SearchResultRelatedView.swift in Sources */,
 				7B1581AF2C6A53A800599E7C /* GuideUColor.swift in Sources */,
 				7BACA41C2C7EE7FE008D4CFC /* MoreCharacterView.swift in Sources */,

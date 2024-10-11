@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct URLDividerManager: Sendable {
     
-    enum URLTypeCheck {
+    enum URLTypeCheck { // 이건좀 고민해보셈. 이게더 이상함.
         case youtubeIdentifier(String)
         case instagramURL(String)
         case twitterURL(String)
@@ -19,20 +19,20 @@ struct URLDividerManager: Sendable {
     }
     
     func dividerURLType(url: String) -> OpenURLCase {
-        if let youtubeResult = youtubeURLChecker(url) {
-            return youtubeResult
-        } else if url.contains("instagram.com") {
-            return .instagram(instagramURL: url)
-        } else if url.contains("twitter.com") {
-            return .twitter(twitterURL: url)
-        } else if url.contains("afreecatv.com") {
-            return .afreecatv(afreecatv: url)
-        } else if url.contains("naver.com") {
-            // navercafe://read?cafeUrl=steamindiegame&articleId=9068425&appId=com.WoowakGuide.GuideU 네이버 카페로 이동하기
-            return .naverCafe(cafeURL: url)
-        } else {
-            print("other", url)
+        guard let social = SocialType.getCase(url) else {
             return .none(url: url)
+        }
+        switch social {
+        case .youtube:
+            return youtubeURLChecker(url)
+        case .instagram:
+            return .instagram(instagramURL: url)
+        case .twitter:
+            return .twitter(twitterURL: url)
+        case .afreeca:
+            return .afreecatv(afreecatv: url)
+        case .naverCafe:
+            return .naverCafe(cafeURL: url)
         }
     }
     
@@ -40,7 +40,7 @@ struct URLDividerManager: Sendable {
     func dividerResult(type: URLTypeCheck) -> String? {
         switch type {
         case .youtubeIdentifier(let string):
-            return youtube(string)
+            return youtubeChecker(string)
         case .instagramURL(_), .twitterURL(_), .afreecaURL(_), .naverCafeURL(_):
             return nil
         }
@@ -48,31 +48,27 @@ struct URLDividerManager: Sendable {
 }
 
 extension URLDividerManager {
-    private func youtubeURLChecker(_ url: String) -> OpenURLCase? {
-        if url.contains("youtube.com") || url.contains("youtu.be"){
-            if url.contains("channel") || url.contains("user") {
-                return .youtubeChannel(channelURLString: url)
-            } else if let url = youtube(url) {
-                return .youtube(identifier: url)
-            } else {
-                return OpenURLCase.none(url: url)
-            }
+    private func youtubeURLChecker(_ url: String) -> OpenURLCase {
+        if url.contains("channel") || url.contains("user") {
+            return .youtubeChannel(channelURLString: url)
+        } else if let url = youtubeChecker(url) {
+            return .youtube(identifier: url)
         } else {
-            return nil
+            return OpenURLCase.none(url: url)
         }
     }
     
-    private func youtube(_ urlString: String) -> String? {
-        if let shorts = youtubeShorts(urlString) {
+    private func youtubeChecker(_ urlString: String) -> String? {
+        if let shorts = ifYoutubeShorts(urlString) {
             return shorts
-        } else if let moreVideo = moreYoutube(urlString) {
-            return moreVideo
+        } else if let beYoutube = ifBEYoutube(urlString) {
+            return beYoutube
         } else {
-            return originalYoutube(urlString)
+            return ifOriginalYoutube(urlString)
         }
     }
     
-    private func youtubeShorts(_ urlString: String) -> String? {
+    private func ifYoutubeShorts(_ urlString: String) -> String? {
         if let range = urlString.range(of: "shorts/") {
             let videoId = urlString[range.upperBound...]
             
@@ -87,8 +83,7 @@ extension URLDividerManager {
         }
     }
     
-    private func moreYoutube(_ urlString: String) -> String? {
-        
+    private func ifBEYoutube(_ urlString: String) -> String? {
         if let range = urlString.range(of: "be/") {
             
             let videoId = urlString[range.upperBound...]
@@ -106,7 +101,7 @@ extension URLDividerManager {
         
     }
     
-    private func originalYoutube(_ urlString: String) -> String? {
+    private func ifOriginalYoutube(_ urlString: String) -> String? {
         guard let url = URL(string: urlString),
               let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else { return nil }
