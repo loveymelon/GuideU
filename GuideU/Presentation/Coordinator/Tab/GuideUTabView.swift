@@ -31,7 +31,7 @@ struct GuideUTabView: View {
                     tabContentView()
                 }
                 .overlay(alignment: .bottom) {
-                    CustomTabBarView()
+                    customTabBarView()
                 }
             }
         }
@@ -40,7 +40,7 @@ struct GuideUTabView: View {
 
 extension GuideUTabView {
 
-    private func CustomTabBarView() -> some View {
+    private func customTabBarView() -> some View {
         VStack {
             LazyVGrid(columns: rows) {
                 ForEach(TabCase.allCases, id: \.self) { caseOf in
@@ -67,19 +67,19 @@ extension GuideUTabView {
         return Group {
             switch tabItem {
             case .home:
-               Image.TabbarImage.noneTab.homeTab
+                Image(ImageType.TabImage.NormalImage.home.rawValue)
                     .renderingMode(.template)
                     .resizable()
             case .searchTab:
-                Image.TabbarImage.noneTab.searchTab
+                Image(ImageType.TabImage.NormalImage.search.rawValue)
                     .renderingMode(.template)
                     .resizable()
             case .timeLine:
-                Image.TabbarImage.noneTab.historyTab
+                Image(ImageType.TabImage.NormalImage.history.rawValue)
                     .renderingMode(.template)
                     .resizable()
             case .setting:
-                Image.TabbarImage.noneTab.settingTab
+                Image(ImageType.TabImage.NormalImage.setting.rawValue)
                     .renderingMode(.template)
                     .resizable()
             }

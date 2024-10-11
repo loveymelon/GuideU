@@ -103,7 +103,7 @@ extension DropDownMenu {
                         }
                         
                         Spacer()
-                        Image.dropDown
+                        Image(ImageType.OtherImage.dropDownButton.rawValue)
                             .rotationEffect(.degrees((showDropdown ?  -180 : 0)))
                     }
                     .padding(.bottom, 4)

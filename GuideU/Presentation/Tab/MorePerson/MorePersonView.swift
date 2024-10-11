@@ -89,7 +89,7 @@ struct MorePersonView: View {
                     }
                     .toolbar(.hidden, for: .navigationBar)
                 case .severError:
-                    errorView(imageType: .notWak, errorType: .serverError)
+                    errorView(imageType: .noData, errorType: .serverError)
                         .background(colorSystem.color(colorCase: .background))
                 case .none:
                     errorView(imageType: .notWak, errorType: .noWak)
@@ -105,13 +105,14 @@ struct MorePersonView: View {
                             }
                         }
                         .background(colorSystem.color(colorCase: .background))
+
                 }
             }
             .background(colorSystem.color(colorCase: .background))
         }
     }
     
-    private func errorView(imageType: Image.ErrorImages, errorType: Const.ErrorDes) -> some View {
+    private func errorView(imageType: ImageType.ErrorImage, errorType: Const.ErrorDes) -> some View {
         VStack(spacing: 0) {
             Image(imageType.rawValue)
                 .resizable()
@@ -233,7 +234,7 @@ struct MorePersonView: View {
     private func memeSectionView() -> some View {
         ForEach(store.bookElementsInfo, id: \.id) { model in
             HStack {
-                Image.clock
+                Image(ImageType.OtherImage.clock.rawValue)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 25)
@@ -269,7 +270,7 @@ struct MorePersonView: View {
     private func fakeNavigation(entity: HeaderEntity, opacity: CGFloat) -> some View {
         ZStack {
             HStack {
-                Image.backBlack
+                Image(ImageType.ButtonImage.backButton.rawValue)
                     .resizable()
                     .renderingMode(.template)
                     .aspectRatio(1, contentMode: .fit)
@@ -374,7 +375,8 @@ struct MorePersonView: View {
                 DownImageView(url: url, option: .mid)
                     .aspectRatio(contentMode: .fill)
             } else {
-                Image.defaultBack.resizable()
+                Image(ImageType.backImage.defaultBack.rawValue)
+                    .resizable()
                     .aspectRatio(contentMode: .fill)
             }
         }

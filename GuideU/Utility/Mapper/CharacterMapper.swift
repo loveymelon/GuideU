@@ -21,22 +21,17 @@ struct CharacterMapper: Sendable {
     func dtoToEntity(_ dto: CharacterDTO) -> CharacterEntity {
         return CharacterEntity(name: dto.name, engName: dto.engName, definition: dto.definition, smallImageUrl: URL(string: dto.smallImageUrl), largeImageUrl: URL(string: dto.largeImageUrl), links: dtoToEntity(dto.links ?? []), id: dto.id)
     }
-
-    /// CharactersDTO -> Entity
-    func dtoToEntity(_ dto: [CharacterDTO]) -> [CharacterEntity] {
-        return dto.map { dtoToEntity($0) }
-    }
-    
-    /// MemeDTO -> MemeEntity
-    func dtoToEntity(_ dto: [MemeDTO]) -> [MemeEntity] {
-        return dto.map { dtoToEntity($0) }
-    }
 }
 
 extension CharacterMapper {
     
     private func dtoToEntity(_ dto: YoutubeCharacterDTO) -> YoutubeCharacterEntity {
         return YoutubeCharacterEntity(name: dto.name, engName: dto.engName, definition: dto.definition, smallImageURL: URL(string: dto.smallImageURL), largeImageURL: URL(string: dto.largeImageURL), links: dtoToEntity(dto.links))
+    }
+    
+    /// MemeDTO -> MemeEntity
+    private func dtoToEntity(_ dto: [MemeDTO]) -> [MemeEntity] {
+        return dto.map { dtoToEntity($0) }
     }
     
     private func dtoToEntity(_ dto: BookElementDTO) -> BookElementsEntity {

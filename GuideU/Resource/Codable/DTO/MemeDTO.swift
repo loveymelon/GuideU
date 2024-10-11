@@ -31,17 +31,3 @@ struct MemeDTO: DTO {
         case appearanceTime = "appearance_time"
     }
 }
-
-struct BooksDTO: DTO {
-    let bookListDTO: [BookElementDTO]
-    
-    init(from decoder: any Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        var bookList = [BookElementDTO] ()
-        while !container.isAtEnd {
-            let bookData = try container.decode(BookElementDTO.self)
-            bookList.append(bookData)
-        }
-        self.bookListDTO = bookList
-    }
-}
