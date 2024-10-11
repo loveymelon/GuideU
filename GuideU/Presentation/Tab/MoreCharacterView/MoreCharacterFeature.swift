@@ -20,7 +20,7 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var currentStart = 0
         var skipIndex = 0
         
-        var limit = 20
+        var limit = 30
         var dialogPresent: Bool = false
         var selectedIndex: Int = 0
         
@@ -135,9 +135,7 @@ extension MoreCharacterFeature {
                 
             case let .viewEventType(.videoOnAppear(index)):
                 state.listLoadTrigger = false
-                return .run { send in
-                    await send(.viewEventType(.sideCheckedIndex(index)))
-                }
+                return .send(.viewEventType(.sideCheckedIndex(index)))
                 
             case let .viewEventType(.sideCheckedIndex(index)):
                 
@@ -145,7 +143,7 @@ extension MoreCharacterFeature {
                     state.skipIndex = index
                     if (state.videoInfos.count - 1) - index <= 8 {
                         return fetchVideos(state: &state, isScroll: true)
-                            .throttle(id: CancelId.scrollID, for: 2, scheduler: RunLoop.main.eraseToAnyScheduler(), latest: false)
+                            .throttle(id: CancelId.scrollID, for: 2, scheduler: RunLoop.current.eraseToAnyScheduler(), latest: false)
                     }
                 }
                 

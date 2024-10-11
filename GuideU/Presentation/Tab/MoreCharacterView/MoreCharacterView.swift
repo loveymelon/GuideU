@@ -144,7 +144,7 @@ extension MoreCharacterView {
                     .environmentObject(colorSystem)
                     .padding(.bottom, 10)
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        DispatchQueue.main.asyncAfter(deadline: .now()) {
                             if index >= store.state.videoInfos.count - 7 {
                                 if store.state.listLoadTrigger {
                                     store.send(.viewEventType(.videoOnAppear(index)))
