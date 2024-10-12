@@ -118,9 +118,9 @@ struct MorePersonView: View {
                 .resizable()
                 .scaledToFit()
 //                .frame(width: imageType == .notWak ? 260 : 249, height: imageType == .notWak ? 260 : 164)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 40)
                 .padding(.bottom, 30)
-                .padding(.top, 40)
+                .padding(.top, 30)
             
             Text(errorType.title)
                 .font(Font(WantedFont.boldFont.font(size: 20)))
@@ -152,8 +152,13 @@ struct MorePersonView: View {
                         case .characters:
                             switch store.characterState {
                             case .loading:
-                                ProgressView()
-                                    .background(colorSystem.color(colorCase: .background))
+                                VStack {
+                                    ProgressView()
+                                    colorSystem.color(colorCase: .background)
+                                        .frame(height: 100)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .background(colorSystem.color(colorCase: .background))
                             case .content:
                                 characterSectionView()
                                 colorSystem.color(colorCase: .background)
@@ -170,8 +175,13 @@ struct MorePersonView: View {
                         case .memes:
                             switch store.memeState {
                             case .loading:
-                                ProgressView()
-                                    .background(colorSystem.color(colorCase: .background))
+                                VStack {
+                                    ProgressView()
+                                    colorSystem.color(colorCase: .background)
+                                        .frame(height: 100)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .background(colorSystem.color(colorCase: .background))
                             case .content:
                                 memeSectionView()
                                 colorSystem.color(colorCase: .background)
