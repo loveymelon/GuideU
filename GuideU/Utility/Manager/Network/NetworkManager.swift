@@ -12,8 +12,6 @@ import Foundation
 
 final class NetworkManager: Sendable {
     
-    typealias ResultContinuation<T: DTO> = CheckedContinuation<Result<T, APIErrorResponse>, Never>
-    
     private let networkError = PassthroughSubject<String, Never>()
     
     private let cancelStoreActor = AnyValueActor(Set<AnyCancellable>())
@@ -24,12 +22,7 @@ final class NetworkManager: Sendable {
                 let request = try router.asURLRequest()
                 
                 // MARK: 요청담당
-                let response = await AF.request(request)
-                    .cacheResponse(using: .cache)
-                    .validate(statusCode: 200..<300)
-                    .serializingDecodable(T.self)
-                    .response
-                
+                let response = await getRequest(dto: dto, router: router, request: request)
                 
                 let result = await getResponse(dto: dto, router: router, response: response)
                 
@@ -64,6 +57,14 @@ final class NetworkManager: Sendable {
 }
 
 extension NetworkManager {
+    // MARK: 요청담당
+    private func getRequest<T: DTO, R: Router>(dto: T.Type, router: R, request: URLRequest) async -> DataResponse<T, AFError> {
+        return await AF.request(request)
+            .cacheResponse(using: .cache)
+            .validate(statusCode: 200..<300)
+            .serializingDecodable(T.self)
+            .response
+    }
     
     // MARK: RE스폰스 담당
     private func getResponse<T:DTO>(dto: T.Type, router: Router, response: DataResponse<T, AFError>) async -> Result<T,APIErrorResponse> {
@@ -73,7 +74,7 @@ extension NetworkManager {
             
             return .success(data)
         case let .failure(guideError):
-            
+            print(guideError)
             do {
                 let retryResult = try await retryNetwork(dto: dto, router: router)
                 
@@ -91,18 +92,23 @@ extension NetworkManager {
         let ifRetry = await retryActor.withValue { value in
             return value > 0
         }
-        if ifRetry {
-            let result = await requestNetwork(dto: dto, router: router)
-            
-            switch result {
-            case let .success(data):
-                return data
-            case .failure(_):
+        
+        do {
+            if ifRetry {
+                let response = try await getRequest(dto: dto, router: router, request: router.asURLRequest())
                 
-                await downRetryCount()
-                return try await retryNetwork(dto: dto, router: router)
+                switch response.result {
+                case let .success(data):
+                    return data
+                case .failure(_):
+                    await downRetryCount()
+                    
+                    return try await retryNetwork(dto: dto, router: router)
+                }
+            } else {
+                throw NSError()
             }
-        } else {
+        } catch {
             throw NSError()
         }
     }

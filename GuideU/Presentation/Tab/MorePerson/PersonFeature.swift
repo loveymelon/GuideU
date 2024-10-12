@@ -34,6 +34,13 @@ struct PersonFeature: GuideUReducer, GuideUReducerOptional {
         case none
     }
     
+    enum DataType {
+        case header
+        case character
+        case meme
+        case other
+    }
+    
     enum Action {
         case viewCycleType(ViewCycleType)
         case viewEventType(ViewEventType)
@@ -73,7 +80,7 @@ struct PersonFeature: GuideUReducer, GuideUReducerOptional {
         case videodatas((header: HeaderEntity, video: VideosEntity)?)
         case youtubeURL(String)
         case checkURL(String)
-        case errorInfo(String)
+        case errorInfo(String, DataType)
     }
     
     enum NetworkType {
@@ -128,7 +135,6 @@ extension PersonFeature {
                 state.currentMoreType = moreType
                 
             case let .viewEventType(.socialTapped(url)):
-                print("tap", url)
                 state.openURLCase = urlDividerManager.dividerURLType(url: url)
                 
             case .viewEventType(.moreButtonTapped):
@@ -148,7 +154,7 @@ extension PersonFeature {
                     case let .success(data):
                         await send(.dataTransType(.characters(data)))
                     case let .failure(error):
-                        await send(.dataTransType(.errorInfo(error)))
+                        await send(.dataTransType(.errorInfo(error, .character)))
                     }
                 }
                 
@@ -160,7 +166,7 @@ extension PersonFeature {
                     case let .success(data):
                         await send(.dataTransType(.booksElements(data)))
                     case let .failure(error):
-                        await send(.dataTransType(.errorInfo(error)))
+                        await send(.dataTransType(.errorInfo(error, .meme)))
                     }
                 }
                 
@@ -172,7 +178,7 @@ extension PersonFeature {
                     case let .success(data):
                         await send(.dataTransType(.videodatas((data))))
                     case let .failure(error):
-                        await send(.dataTransType(.errorInfo(error)))
+                        await send(.dataTransType(.errorInfo(error, .header)))
                     }
                 }
                 
@@ -183,7 +189,6 @@ extension PersonFeature {
             case let .dataTransType(.booksElements(entitys)):
                 state.bookElementsInfo = entitys
                 state.memeState = state.bookElementsInfo.isEmpty ? .none : .content
-                print(state.bookElementsInfo)
                 
             case let .dataTransType(.videodatas(entity)):
                 guard let headerData = entity?.header,
@@ -200,8 +205,7 @@ extension PersonFeature {
                     let result = await realmRepository.videoHistoryCreate(videoData: state.videoInfo)
                     
                     if case let .failure(error) = result {
-                
-                        await send(.dataTransType(.errorInfo(error.description)))
+                        await send(.dataTransType(.errorInfo(error.description, .other)))
                     }
                 }
 
@@ -210,9 +214,17 @@ extension PersonFeature {
                     state.openURLCase = urlDividerManager.dividerURLType(url: identifierURL)
                 }
                 
-            case let .dataTransType(.errorInfo(error)):
-                state.memeState = .severError
-                print(error)
+            case let .dataTransType(.errorInfo(error, dataType)):
+                switch dataType {
+                case .header:
+                    state.videoState = .severError
+                case .character:
+                    state.characterState = .severError
+                case .meme:
+                    state.memeState = .severError
+                case .other:
+                    print(error)
+                }
                 
             case let .dataTransType(.youtubeURL(urlString)):
                 if let identifier = urlDividerManager.dividerResult(type: .youtubeIdentifier(urlString)) {
