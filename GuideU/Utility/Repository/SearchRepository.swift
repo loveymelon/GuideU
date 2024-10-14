@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-final class SearchRepository {
+final class SearchRepository: @unchecked Sendable {
     @Dependency(\.networkManager) var network
     @Dependency(\.searchMapper) var searchMapper
     @Dependency(\.errorMapper) var errorMapper

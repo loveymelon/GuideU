@@ -844,6 +844,7 @@
 		7BA3F7CD2CAFD557003EF15A /* Actor */ = {
 			isa = PBXGroup;
 			children = (
+				DFB2BE652C85897300518C7E /* RealmRepository.swift */,
 				7BA3F86E2CB69572003EF15A /* CustomIsolated.swift */,
 				7BA3F88A2CB8F3AB003EF15A /* AnyValueActor.swift */,
 			);
@@ -967,7 +968,6 @@
 			children = (
 				DF1DECD02C7D79370098F761 /* CharacterRepository.swift */,
 				DF2DBBF02C809464000581F6 /* VideoRepository.swift */,
-				DFB2BE652C85897300518C7E /* RealmRepository.swift */,
 				DFB2BE6D2C858D8F00518C7E /* SearchRepository.swift */,
 			);
 			path = Repository;

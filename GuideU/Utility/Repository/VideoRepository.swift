@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-final class VideoRepository {
+final class VideoRepository: @unchecked Sendable {
     @Dependency(\.networkManager) var network
     @Dependency(\.videoMapper) var videoMapper
     @Dependency(\.errorMapper) var errorMapper
