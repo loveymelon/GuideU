@@ -173,7 +173,6 @@
 		DF986E7E2C7CC82800F2D52F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */; };
 		DF986E822C7CCA3E00F2D52F /* ErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */; };
 		DF986E852C7CCACC00F2D52F /* CharacterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF986E842C7CCACC00F2D52F /* CharacterRouter.swift */; };
-		DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */; };
 		DFABE7302C6E1EA900EF5B81 /* ExColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE72F2C6E1EA900EF5B81 /* ExColor.swift */; };
 		DFB2BE5E2C85773B00518C7E /* SuggestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB2BE5D2C85773B00518C7E /* SuggestDTO.swift */; };
 		DFB2BE662C85897300518C7E /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB2BE652C85897300518C7E /* RealmRepository.swift */; };
@@ -378,7 +377,6 @@
 		DF986E7D2C7CC82800F2D52F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DF986E812C7CCA3E00F2D52F /* ErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDTO.swift; sourceTree = "<group>"; };
 		DF986E842C7CCACC00F2D52F /* CharacterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRouter.swift; sourceTree = "<group>"; };
-		DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideUURL.swift; sourceTree = "<group>"; };
 		DFABE72F2C6E1EA900EF5B81 /* ExColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExColor.swift; sourceTree = "<group>"; };
 		DFB2BE5D2C85773B00518C7E /* SuggestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestDTO.swift; sourceTree = "<group>"; };
 		DFB2BE652C85897300518C7E /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
@@ -577,7 +575,6 @@
 			children = (
 				7B1581B12C6A54E600599E7C /* TabCase.swift */,
 				7B1581F82C6CEF1200599E7C /* EncodingType.swift */,
-				DFABE72D2C6E0A1600EF5B81 /* GuideUURL.swift */,
 				7BACA43E2C856C62008D4CFC /* ResultCase.swift */,
 				DF57E15A2C9319B700E094D1 /* OpenURLCase.swift */,
 				7BC2CB542C9839B300309B9B /* SettingCase.swift */,
@@ -1271,7 +1268,6 @@
 				7B15820D2C6E207100599E7C /* RelatedVideoTypeDTO.swift in Sources */,
 				7B15820A2C6E1F6D00599E7C /* SearchDTO.swift in Sources */,
 				7B1582642C74B52A00599E7C /* DetailErrorDTO.swift in Sources */,
-				DFABE72E2C6E0A1600EF5B81 /* GuideUURL.swift in Sources */,
 				7BB233462C8EC7B300CE4D39 /* MorePersonCoordinator.swift in Sources */,
 				7BA3F8332CB38F67003EF15A /* SearchResultListView.swift in Sources */,
 				DF8F72172C9015F400B8C7BA /* VideoHistoryRequestDTO.swift in Sources */,

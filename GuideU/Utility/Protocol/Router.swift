@@ -23,7 +23,7 @@ protocol Router {
 extension Router {
     
     var baseURL: String {
-        return GuideUURL.baseURLString
+        return SecretConst.baseURLString 
     }
     
     var headers: HTTPHeaders {

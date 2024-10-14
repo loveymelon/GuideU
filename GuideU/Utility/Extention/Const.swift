@@ -12,8 +12,6 @@ enum Const {
     static let appVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Error"
     /// EX) 0.1.0
     static let appShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Error"
-    // 출시후 실제 앱 ID
-    static let appID = "com.WoowakGuide.GuideU"
     
     static let youtubeBaseString = "https://www.youtube.com/watch?v="
     

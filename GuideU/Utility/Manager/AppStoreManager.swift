@@ -10,10 +10,10 @@ import UIKit
 struct AppStoreManager {
     
     private let buildNumber = Const.appVersion
-    private let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/" + Const.appID
+    private let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/" + SecretConst.appID
     
     func latestVersion() async -> String? {
-        guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(Const.appID)&country=kr") else {
+        guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(SecretConst.appID)&country=kr") else {
             return nil
         }
         
