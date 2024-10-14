@@ -57,7 +57,3 @@ extension NSRecursiveLock {
         return try work()
     }
 }
-
-struct Test {
-    let countIsolated = LockIsolated<Int>(0)
-}
