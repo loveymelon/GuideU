@@ -36,19 +36,59 @@ extension Router {
         return combine
     }
     
-    func asURLRequest() throws -> URLRequest {
-        let url = try baseURL.asURL()
+    func asURLRequest() throws(RouterError) -> URLRequest {
+        let url = try baseURLToURL()
         
-        var urlRequest = try URLRequest(url: url.appending(path: path), method: method, headers: headers)
+        var urlRequest = try urlToURLRequest(url: url)
         
         switch encodingType {
         case .url:
-            urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
-            return urlRequest
+            do {
+                urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
+                
+                return urlRequest
+            } catch {
+                throw .encodingFail
+            }
         case .json:
-            let jsonObject = CodableManager.shared.toJSONSerialization(data: body)
-            urlRequest = try JSONEncoding.default.encode(urlRequest, withJSONObject: jsonObject)
+            do {
+                let jsonObject = CodableManager.shared.toJSONSerialization(data: body)
+                urlRequest = try JSONEncoding.default.encode(urlRequest, withJSONObject: jsonObject)
+                return urlRequest
+            } catch {
+                throw .decodingFail
+            }
+        }
+    }
+    
+    private func baseURLToURL() throws(RouterError) -> URL {
+        do {
+            let url = try baseURL.asURL()
+            return url
+        } catch let error as AFError {
+            if case let .invalidURL(url) = error {
+                throw .urlFail(url: baseURL)
+            } else {
+                throw .unknown
+            }
+        }catch {
+            throw .unknown
+        }
+    }
+    
+    private func urlToURLRequest(url: URL) throws(RouterError) -> URLRequest {
+        do {
+            let urlRequest = try URLRequest(url: url.appending(path: path), method: method, headers: headers)
+            
             return urlRequest
+        } catch let error as AFError {
+            if case let .invalidURL(url) = error {
+                throw .urlFail(url: baseURL)
+            } else {
+                throw .unknown
+            }
+        }catch {
+            throw .unknown
         }
     }
 
