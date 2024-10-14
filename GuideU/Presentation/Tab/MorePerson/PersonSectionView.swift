@@ -137,28 +137,28 @@ extension PersonSectionView {
             case .afreeca:
                 HStack {
                     Image(ImageType.SocialImage.soop.rawValue)
-                    Text(Const.soopSection)
+                    Text(item.channel)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .instagram:
                 HStack {
                     Image(ImageType.SocialImage.instagram.rawValue)
-                    Text(Const.instagramSection)
+                    Text(item.channel)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .twitter:
                 HStack {
                     Image(ImageType.SocialImage.x.rawValue)
-                    Text(Const.xTwitterSection)
+                    Text(item.channel)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .youtube:
                 HStack {
                     Image(ImageType.SocialImage.youtube.rawValue)
-                    Text(Const.youtubeSection)
+                    Text(item.channel)
                         .padding(.leading, 8)
                     Spacer()
                 }
@@ -166,7 +166,7 @@ extension PersonSectionView {
                 EmptyView()
             }
         }
-        .font(Font(WantedFont.midFont.font(size: 17)))
+        .font(Font(WantedFont.midFont.font(size: 16)))
         .foregroundStyle(colorSystem.color(colorCase: .textColor))
         .padding(.horizontal, 10)
         .asButton {

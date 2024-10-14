@@ -182,7 +182,7 @@ extension ColorSystem {
             case .system:
                 let light = Color(GuideUColor.ViewBaseColor.light.lineType)
                 let dark = Color(GuideUColor.ViewBaseColor.dark.lineType)
-                return currentColorSet == .light ? light : dark
+                return currentColorScheme == .light ? light : dark
             }
         case .detailGrayColor:
             let light = Color(GuideUColor.ViewBaseColor.light.gray1)
@@ -193,7 +193,8 @@ extension ColorSystem {
             case .dark:
                 return dark
             case .system:
-                return currentColorSet == .light ? light : dark
+                print(currentColorSet == .light)
+                return currentColorScheme == .light ? light : dark
             }
         case .subGrayColor:
             switch currentColorSet {
@@ -204,7 +205,7 @@ extension ColorSystem {
             case .system:
                 let light = Color(GuideUColor.ViewBaseColor.light.gray3)
                 let dark = Color(GuideUColor.ViewBaseColor.dark.gray3)
-                return currentColorSet == .light ? light : dark
+                return currentColorScheme == .light ? light : dark
             }
         case .personSectionColor:
             return Color(UIColor(hexCode: "#FFD2CF", alpha: 1))
@@ -228,7 +229,7 @@ extension ColorSystem {
             case .dark:
                 return dark
             case .system:
-                return currentColorSet == .light ? light : dark
+                return currentColorScheme == .light ? light : dark
             }
         }
     }
