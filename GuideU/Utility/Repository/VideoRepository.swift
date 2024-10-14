@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct VideoRepository {
+final class VideoRepository {
     @Dependency(\.networkManager) var network
     @Dependency(\.videoMapper) var videoMapper
     @Dependency(\.errorMapper) var errorMapper
