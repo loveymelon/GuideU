@@ -17,18 +17,30 @@ final class NetworkManager: Sendable {
     private let cancelStoreActor = AnyValueActor(Set<AnyCancellable>())
     private let retryActor = AnyValueActor(7)
    
-    func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async -> Result<T, APIErrorResponse> {
+    func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async throws(NetworkAPIError) -> T {
             do {
                 let request = try router.asURLRequest()
                 
                 // MARK: 요청담당
                 let response = await getRequest(dto: dto, router: router, request: request)
                 
-                let result = await getResponse(dto: dto, router: router, response: response)
+                let result = try await getResponse(dto: dto, router: router, response: response)
                 
                 return result
+            } catch let routerError as RouterError {
+                throw .routerError(routerError)
+            } catch let apiError as APIErrorResponse {
+                switch apiError {
+                case .simple(let simpleErrorDTO):
+                    throw .viewError(.msg(simpleErrorDTO.detail))
+                case .detailed(let detailedErrorDTO):
+                    print("detail")
+                    dump(detailedErrorDTO)
+                    throw .viewError(.msg(detailedErrorDTO.detail.first?.msg ?? "unknown"))
+                }
             } catch {
-                return .failure(catchUnknownError())
+                print("emergency")
+                throw .viewError(.msg("unknown"))
             }
     }
     
@@ -67,12 +79,12 @@ extension NetworkManager {
     }
     
     // MARK: RE스폰스 담당
-    private func getResponse<T:DTO>(dto: T.Type, router: Router, response: DataResponse<T, AFError>) async -> Result<T,APIErrorResponse> {
+    private func getResponse<T:DTO>(dto: T.Type, router: Router, response: DataResponse<T, AFError>) async throws(APIErrorResponse) -> T {
         switch response.result {
         case let .success(data):
             await retryActor.resetValue()
             
-            return .success(data)
+            return data
         case let .failure(guideError):
             print(guideError)
             do {
@@ -81,14 +93,14 @@ extension NetworkManager {
                 // 성공시 초기화
                 await retryActor.resetValue()
                 
-                return .success(retryResult)
+                return retryResult
             } catch {
-                return .failure(checkResponseData(response.data, guideError))
+                throw checkResponseData(response.data, guideError)
             }
         }
     }
 
-    private func retryNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async throws -> T {
+    private func retryNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async throws(APIErrorResponse) -> T {
         let ifRetry = await retryActor.withValue { value in
             return value > 0
         }
@@ -106,10 +118,10 @@ extension NetworkManager {
                     return try await retryNetwork(dto: dto, router: router)
                 }
             } else {
-                throw NSError()
+                throw APIErrorResponse.simple(SimpleErrorDTO(detail: "retry count over"))
             }
         } catch {
-            throw NSError()
+            throw APIErrorResponse.simple(SimpleErrorDTO(detail: "retry count over"))
         }
     }
     

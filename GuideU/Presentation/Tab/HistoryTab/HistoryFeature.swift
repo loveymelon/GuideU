@@ -11,7 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct HistoryFeature: GuideUReducer, GuideUReducerOptional {
     
-    private let realmRepository = RealmRepository()
+    private let dataSourceActor = DataSourceActor()
     
     @ObservableState
     struct State: Equatable {
@@ -59,7 +59,7 @@ struct HistoryFeature: GuideUReducer, GuideUReducerOptional {
     enum DataTransType {
         case selectVideoURL(String?)
         case cleanSelectData
-        case errorInfo(String)
+        case errorInfo(Error)
         case successRealmData([HistoryVideosEntity])
     }
     
@@ -87,7 +87,7 @@ extension HistoryFeature {
             case .viewCycleType(.viewOnAppear):
                 state.videosEntity = []
                 return .run { send in
-                    let result = await realmRepository.fetchVideoHistory()
+                    let result = await dataSourceActor.fetchVideoHistory()
                     await send(.dataTransType(.successRealmData(result)))
                 }
                 .throttle(id: CancelId.test, for: 2, scheduler: RunLoop.main.eraseToAnyScheduler(), latest: false)
@@ -105,16 +105,14 @@ extension HistoryFeature {
                 let videoURL = selectedVideoData.videoURL?.absoluteString
                 
                 return .run { send in
-                    let result = await realmRepository.videoHistoryCreate(videoData: selectedVideoData)
-                    
-                    switch result {
-                    case .success(_):
+                    do {
+                        try await dataSourceActor.videoHistoryCreate(videoData: selectedVideoData)
+                        
                         await send(.dataTransType(.cleanSelectData))
                         await send(.dataTransType(.selectVideoURL(videoURL)))
-                        
-                    case .failure(let error):
+                    } catch {
                         await send(.dataTransType(.cleanSelectData))
-                        await send(.dataTransType(.errorInfo(error.description)))
+                        await send(.dataTransType(.errorInfo(error)))
                     }
                 }
                 
@@ -127,14 +125,15 @@ extension HistoryFeature {
                 }
                 
                 return .run { send in
-                    let result = await realmRepository.videoHistoryCreate(videoData: selectedVideoData)
-                    
-                    if case let .failure(error) = result {
+                    do {
+                        try await dataSourceActor.videoHistoryCreate(videoData: selectedVideoData)
+                        
                         await send(.dataTransType(.cleanSelectData))
-                        await send(.dataTransType(.errorInfo(error.description)))
+                        await send(.delegate(.detailButtonTapped(selectedVideoData.identifier)))
+                    } catch {
+                        await send(.dataTransType(.cleanSelectData))
+                        await send(.dataTransType(.errorInfo(error)))
                     }
-                    await send(.dataTransType(.cleanSelectData))
-                    await send(.delegate(.detailButtonTapped(selectedVideoData.identifier)))
                 }
                 
             case let .dataTransType(.selectVideoURL(selectURL)):

@@ -90,7 +90,7 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
     enum DataTransType {
         case searchData([SuggestEntity])
         case searchResultData([SearchResultEntity])
-        case errorInfo(String)
+        case errorInfo(Error)
         case realmFetch
         case realmSuccess([String])
         case removeRealm(Int)
@@ -106,7 +106,7 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         case searchID
     }
     
-    private let realmRepository = RealmRepository()
+    private let dataSourceActor = DataSourceActor()
     
     @Dependency(\.searchRepository) var searchRepository
     
@@ -129,15 +129,12 @@ extension SearchFeature {
                 // MARK: View Event
             case let .viewEventType(.deleteHistory(index)):
                 return .run {[state = state] send in
-                    let result = await realmRepository.delete(keyworkd: state.searchHistory[index])
-                    
-                    switch result {
-                    case .success(_):
+                    do {
+                        try await dataSourceActor.delete(keyworkd: state.searchHistory[index])
                         
                         await send(.dataTransType(.removeRealm(index)))
-                    case .failure(let error):
-                        
-                        await send(.dataTransType(.errorInfo(error.description)))
+                    } catch {
+                        await send(.dataTransType(.errorInfo(error)))
                     }
                 }
                 
@@ -147,13 +144,12 @@ extension SearchFeature {
                 
             case .viewEventType(.deleteAll):
                 return .run { send in
-                    let result = await realmRepository.deleteAll()
-                    
-                    switch result {
-                    case .success():
+                    do {
+                        try await dataSourceActor.deleteAll()
+                        
                         await send(.dataTransType(.removeAllRealm))
-                    case .failure(let error):
-                        await send(.dataTransType(.errorInfo(error.description)))
+                    } catch {
+                        await send(.dataTransType(.errorInfo(error)))
                     }
                 }
                 
@@ -189,15 +185,13 @@ extension SearchFeature {
                 
             case let .viewEventType(.searchResultTapped(model)):
                 return .run { send in
-                    let result = await realmRepository.searchCreate(history: model.name)
-                    
-                    switch result {
-                    case .success(_):
+                    do {
+                        try await dataSourceActor.searchCreate(history: model.name)
+                        
                         await send(.dataTransType(.realmFetch))
                         await send(.delegate(.openToResultView(searchResultEntity: model)))
-                        
-                    case .failure(let error):
-                        await send(.dataTransType(.errorInfo(error.description)))
+                    } catch {
+                        await send(.dataTransType(.errorInfo(error)))
                     }
                     
                 }
@@ -213,25 +207,22 @@ extension SearchFeature {
                 // MARK: Network
             case let .networkType(.searchSuggest(search)):
                 return .run { send in
-                    let result = await searchRepository.fetchSuggest(search)
-                    
-                    switch result {
-                    case .success(let data):
+                    do {
+                        let data = try await searchRepository.fetchSuggest(search)
+                        
                         await send(.dataTransType(.searchData(data)))
-                    case .failure(let error):
+                    } catch {
                         await send(.dataTransType(.errorInfo(error)))
                     }
                 }
                 
             case let .networkType(.searchResult(text)):
                 return .run { send in
-                    let result = await searchRepository.fetchSearchResults(text)
-                    
-                    switch result {
-                    case .success(let data):
+                    do {
+                        let data = try await searchRepository.fetchSearchResults(text)
+                        
                         await send(.dataTransType(.searchResultData(data)))
-                    case .failure(let error):
-                        print("errorrororororoo")
+                    } catch {
                         await send(.dataTransType(.errorInfo(error)))
                     }
                 }
@@ -245,7 +236,7 @@ extension SearchFeature {
                 
             case .dataTransType(.realmFetch):
                 return .run { send in
-                    let result = await realmRepository.fetch()
+                    let result = await dataSourceActor.fetch()
                     await send(.dataTransType(.realmSuccess(result)))
                 }
                 

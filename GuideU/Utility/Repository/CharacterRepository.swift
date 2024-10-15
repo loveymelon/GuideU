@@ -16,37 +16,22 @@ final class CharacterRepository: @unchecked Sendable {
 
 extension CharacterRepository {
     
-    func fetchCharacter(id: Int) async -> Result<CharacterEntity, String> {
-        let result = await network.requestNetwork(dto: CharacterDTO.self, router: CharacterRouter.fetchCharacter(id))
+    func fetchCharacter(id: Int) async throws -> CharacterEntity {
+        let data = try await network.requestNetwork(dto: CharacterDTO.self, router: CharacterRouter.fetchCharacter(id))
         
-        switch result {
-        case .success(let data):
-            return .success(mapper.dtoToEntity(data))
-        case .failure(let error):
-            return .failure(catchError(error))
-        }
+        return mapper.dtoToEntity(data)
     }
     
-    func fetchCharacters(id: String) async -> Result<[YoutubeCharacterEntity], String> {
-        let result = await network.requestNetwork(dto: DTOList<YoutubeCharacterDTO>.self, router: VideoRouter.fetchCharacters(id))
+    func fetchCharacters(id: String) async throws -> [YoutubeCharacterEntity] {
+        let data = try await network.requestNetwork(dto: DTOList<YoutubeCharacterDTO>.self, router: VideoRouter.fetchCharacters(id))
         
-        switch result {
-        case .success(let data):
-            return .success(mapper.dtoToEntity(data.elements))
-        case .failure(let error):
-            return .failure(catchError(error))
-        }
+        return mapper.dtoToEntity(data.elements)
     }
     
-    func fetchMemes(id: String) async -> Result<[BookElementsEntity], String> {
-        let result = await network.requestNetwork(dto: DTOList<BookElementDTO>.self, router: VideoRouter.fetchMemes(id))
+    func fetchMemes(id: String) async throws -> [BookElementsEntity] {
+        let data = try await network.requestNetwork(dto: DTOList<BookElementDTO>.self, router: VideoRouter.fetchMemes(id))
         
-        switch result {
-        case .success(let data):
-            return .success(mapper.dtoToEntity(data.elements))
-        case .failure(let error):
-            return .failure(catchError(error))
-        }
+        return mapper.dtoToEntity(data.elements)
     }
 }
 

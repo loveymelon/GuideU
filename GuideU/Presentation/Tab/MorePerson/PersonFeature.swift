@@ -80,7 +80,7 @@ struct PersonFeature: GuideUReducer, GuideUReducerOptional {
         case videodatas((header: HeaderEntity, video: VideosEntity)?)
         case youtubeURL(String)
         case checkURL(String)
-        case errorInfo(String, DataType)
+        case errorInfo(Error, DataType)
     }
     
     enum NetworkType {
@@ -108,7 +108,7 @@ struct PersonFeature: GuideUReducer, GuideUReducerOptional {
         }
     }
     
-    private let realmRepository = RealmRepository()
+    private let dataSourceActor = DataSourceActor()
     
     @Dependency(\.characterRepository) var repository
     @Dependency(\.videoRepository) var videoRepository
@@ -148,36 +148,33 @@ extension PersonFeature {
                 
             case let .networkType(.fetchCharacters(identifier)):
                 return .run { send in
-                    let result = await repository.fetchCharacters(id: identifier)
-                    
-                    switch result {
-                    case let .success(data):
+                    do {
+                        let data = try await repository.fetchCharacters(id: identifier)
+                        
                         await send(.dataTransType(.characters(data)))
-                    case let .failure(error):
+                    } catch {
                         await send(.dataTransType(.errorInfo(error, .character)))
                     }
                 }
                 
             case let .networkType(.fetchMemes(identifier)):
                 return .run { send in
-                    let result = await repository.fetchMemes(id: identifier)
-                    
-                    switch result {
-                    case let .success(data):
+                    do {
+                        let data = try await repository.fetchMemes(id: identifier)
+                        
                         await send(.dataTransType(.booksElements(data)))
-                    case let .failure(error):
+                    } catch {
                         await send(.dataTransType(.errorInfo(error, .meme)))
                     }
                 }
                 
             case let .networkType(.fetchVideo(identifier)):
                 return .run { send in
-                    let result = await videoRepository.fetchVideoHeader(identifier: identifier)
-                    
-                    switch result {
-                    case let .success(data):
+                    do {
+                        let data = try await videoRepository.fetchVideoHeader(identifier: identifier)
+                        
                         await send(.dataTransType(.videodatas((data))))
-                    case let .failure(error):
+                    } catch {
                         await send(.dataTransType(.errorInfo(error, .header)))
                     }
                 }
@@ -202,10 +199,10 @@ extension PersonFeature {
                 
                 state.videoState = .content
                 return .run {[ state = state ] send in
-                    let result = await realmRepository.videoHistoryCreate(videoData: state.videoInfo)
-                    
-                    if case let .failure(error) = result {
-                        await send(.dataTransType(.errorInfo(error.description, .other)))
+                    do {
+                        try await dataSourceActor.videoHistoryCreate(videoData: state.videoInfo)
+                    } catch {
+                        await send(.dataTransType(.errorInfo(error, .other)))
                     }
                 }
 
@@ -215,6 +212,8 @@ extension PersonFeature {
                 }
                 
             case let .dataTransType(.errorInfo(error, dataType)):
+                print(errorHandling(error))
+
                 switch dataType {
                 case .header:
                     state.videoState = .severError
@@ -252,7 +251,6 @@ extension PersonFeature {
                 print("binding", socialURL)
                 state.selectedURL = socialURL
                 
-                /// 뒤로가기 이벤트
             case .viewEventType(.backButtonTapped):
                 return .send(.delegate(.backButtonTapped))
                 

@@ -1,5 +1,5 @@
 //
-//  RealmRepository.swift
+//  DataSourceActor.swift
 //  GuideU
 //
 //  Created by 김진수 on 9/2/24.
@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final actor RealmRepository {
+final actor DataSourceActor {
     
     private var realm: Realm?
     
@@ -31,12 +31,12 @@ final actor RealmRepository {
         }
     }
     
-    func searchCreate(history: String) async -> Result<Void, RealmError> {
+    func searchCreate(history: String) async throws(RealmError) -> Void {
         do {
             
             try await realm?.asyncWrite {
 //                #if DEBUG
-                print("dd", realm?.configuration.fileURL)
+                print("realm", realm?.configuration.fileURL)
 //                #endif
                 realm?.create(
                     SearchHistoryRequestDTO.self,
@@ -47,19 +47,19 @@ final actor RealmRepository {
                     update: .modified)
             }
             
-            return .success(())
+            return ()
             
         } catch {
-            return .failure(.createFail)
+            throw .createFail
         }
     }
     
-    func videoHistoryCreate(videoData: VideosEntity) async -> Result<Void, RealmError> {
+    func videoHistoryCreate(videoData: VideosEntity) async throws(RealmError) -> Void {
         do {
             try await checkRealmCount()
             
             try await realm?.asyncWrite {
-                print("dd", realm?.configuration.fileURL)
+                print("realm", realm?.configuration.fileURL)
                 
                 realm?.create(
                     VideoHistoryRequestDTO.self,
@@ -76,9 +76,9 @@ final actor RealmRepository {
                     update: .modified
                 )
             }
-            return .success(())
+            return ()
         } catch {
-            return .failure(.createFail)
+            throw .createFail
         }
     }
     
@@ -104,51 +104,55 @@ final actor RealmRepository {
         return mapping
     }
     
-    func delete(keyworkd: String) async -> Result<Void, RealmError> {
-        guard let realm else { return .failure(.deleteFail) }
+    func delete(keyworkd: String) async throws(RealmError) -> Void {
+        guard let realm else { throw .deleteFail }
         
         guard let data = realm.object(ofType: SearchHistoryRequestDTO.self, forPrimaryKey: keyworkd) else {
-            return .failure(.deleteFail)
+            throw .deleteFail
         }
     
         do {
             try await realm.asyncWrite {
                 realm.delete(data)
             }
-            return .success(())
+            return ()
         } catch {
-            return .failure(.deleteFail)
+            throw .deleteFail
         }
     }
     
-    func deleteAll() async -> Result<Void, RealmError> {
-        guard let realm else { return .failure(.deleteFail) }
+    func deleteAll() async throws(RealmError) -> Void {
+        guard let realm else { throw .deleteFail }
         let datas = realm.objects(SearchHistoryRequestDTO.self)
         
         do {
             try await realm.asyncWrite {
                 realm.delete(datas)
             }
-            return .success(())
+            return ()
         } catch {
-            return .failure(.deleteFail)
+            throw .deleteFail
         }
     }
     
 }
 
-extension RealmRepository {
-    private func checkRealmCount() async throws {
-        guard let realm else { throw RealmError.unknownError }
+extension DataSourceActor {
+    private func checkRealmCount() async throws(RealmError) {
+        guard let realm else { throw .unknownError }
         
         let realmDatas = realm.objects(VideoHistoryRequestDTO.self)
         
-        if realmDatas.count == 30 {
-            guard let deleteData = realmDatas.sorted(by: \.watchedAt, ascending: true).first else { return }
-            
-            try await realm.asyncWrite {
-                realm.delete(deleteData)
+        do {
+            if realmDatas.count == 30 {
+                guard let deleteData = realmDatas.sorted(by: \.watchedAt, ascending: true).first else { return }
+                
+                try await realm.asyncWrite {
+                    realm.delete(deleteData)
+                }
             }
+        } catch {
+            throw .unknownError
         }
     }
 }

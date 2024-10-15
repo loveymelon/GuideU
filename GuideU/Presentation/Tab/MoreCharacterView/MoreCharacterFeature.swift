@@ -96,12 +96,11 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     enum DataTransType {
         case videosInfo([VideosEntity], isScroll: Bool)
         case selectVideoURL(String?)
-        case errorInfo(String)
+        case errorInfo(Error)
     }
     
     enum NetworkType {
         case fetchVideos(Const.Channel, Int, Int, isScroll: Bool)
-        case fetchCharacter(Int)
     }
     
     enum CancelId: Hashable {
@@ -110,11 +109,10 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         case searchID
     }
     
-    private let realmRepository = RealmRepository()
+    private let dataSourceActor = DataSourceActor()
     
     @Dependency(\.videoRepository) var videoRepository
     @Dependency(\.characterRepository) var characterRepository
-
     @Dependency(\.urlDividerManager) var urlDividerManager
     
     var body: some ReducerOf<Self> {
@@ -158,15 +156,13 @@ extension MoreCharacterFeature {
                 let videoURL = state.videoInfos[state.selectedIndex].videoURL?.absoluteString
                 
                 return .run { [state = state] send in
-                    let result = await realmRepository.videoHistoryCreate(videoData: state.videoInfos[state.selectedIndex])
-                    
-                    switch result {
-                    case .success(_):
+                    do {
+                        try await dataSourceActor.videoHistoryCreate(videoData: state.videoInfos[state.selectedIndex])
                         
                         await send(.dataTransType(.selectVideoURL(videoURL)))
-                    case .failure(let error):
                         
-                        await send(.dataTransType(.errorInfo(error.description)))
+                    } catch {
+                        await send(.dataTransType(.errorInfo(error)))
                     }
                 }
                 
@@ -180,24 +176,11 @@ extension MoreCharacterFeature {
                 
             case let .networkType(.fetchVideos(channel, skip, limit, isScroll)):
                 return .run { send in
-                    let result = await videoRepository.fetchVideos(channel: channel, skip: skip, limit: limit)
+                    do {
+                        let data = try await videoRepository.fetchVideos(channel: channel, skip: skip, limit: limit)
                         
-                    switch result {
-                    case let .success(data):
                         await send(.dataTransType(.videosInfo(data, isScroll: isScroll)))
-                    case let .failure(error):
-                        await send(.dataTransType(.errorInfo(error)))
-                    }
-                }
-                
-            case let .networkType(.fetchCharacter(id)):
-                return .run { send in
-                    let result = await characterRepository.fetchCharacter(id: id)
-                    
-                    switch result {
-                    case let .success(data):
-                        print("character", data)
-                    case let .failure(error):
+                    } catch {
                         await send(.dataTransType(.errorInfo(error)))
                     }
                 }
@@ -219,10 +202,9 @@ extension MoreCharacterFeature {
                 state.openURLCase = urlDividerManager.dividerURLType(url: youtubeURL)
                 
             case let .dataTransType(.errorInfo(error)):
-                if error == "unknown" {
+                if let errorMSG = errorHandling(error) {
                     state.alertState = AlertState()
                 }
-                print(error)
                 
                 //binding action setting
             case let .currentIndex(index):

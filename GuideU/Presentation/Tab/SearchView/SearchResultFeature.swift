@@ -67,7 +67,6 @@ struct SearchResultFeature: GuideUReducer, GuideUReducerOptional {
         
     }
     
-    @Dependency(\.searchRepository) var searchRepository
     @Dependency(\.urlDividerManager) var urlDividerManager
     
     var body: some ReducerOf<Self> {
