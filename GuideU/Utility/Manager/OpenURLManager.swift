@@ -27,7 +27,7 @@ struct OpenURLManager {
      */
     @MainActor
     @discardableResult
-    private func openAppUrl(url: URL) -> Bool {
+    func openAppUrl(url: URL) -> Bool {
         let application = UIApplication.shared
         
         if application.canOpenURL(url) {

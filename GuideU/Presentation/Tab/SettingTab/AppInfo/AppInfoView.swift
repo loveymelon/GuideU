@@ -13,6 +13,7 @@ struct AppInfoView: View {
     @Perception.Bindable var store: StoreOf<AppInfoFeature>
     
     @EnvironmentObject var colorSystem: ColorSystem
+    @Environment(\.openURLManager) var openURLManager
      
     var body: some View {
         WithPerceptionTracking {
@@ -37,6 +38,10 @@ struct AppInfoView: View {
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
+                .onChange(of: store.openURLTrigger) { newValue in
+                    guard let url = newValue else { return }
+                    openURLManager.openAppUrl(url: url)
+                }
         }
     }
 }

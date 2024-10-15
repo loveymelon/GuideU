@@ -19,6 +19,8 @@ struct AppInfoFeature {
         let appName = Const.appName
         let openSourceLicenseTitle = "오픈소스 라이선스"
         let appOpenSourceLicense = Const.openSourceLicense.allCases
+        
+        var openURLTrigger: URL? = nil
     }
     
     enum Action {
@@ -36,6 +38,11 @@ struct AppInfoFeature {
             case .didTapBackButton:
                 return .send(.delegate(.tapBackButton))
                 
+            case let .selectedLicense(item):
+                guard let url = URL(string: item.urlString) else {
+                    return .none
+                }
+                state.openURLTrigger = url
             default:
                 break
             }
