@@ -68,25 +68,21 @@ final class ShareViewModel: ObservableObject {
         input.moveToMainApp
             .guardSelf(self)
             .sinkTask { owner, _ in
-                
                 if let url = owner.state.url {
-                    if let url = owner.state.url {
-                        if !owner.processYouTubeURL(url) {
-                            closeOutput.send(())
-                        } else {
-                            openOutput.send(())
-                        }
-                    } else if let string = owner.state.string {
-                        if !owner.processYouTubeURL(string) {
-                            closeOutput.send(())
-                        } else {
-                            openOutput.send(())
-                        }
-                    } else {
+                    if !owner.processYouTubeURL(url) {
                         closeOutput.send(())
+                    } else {
+                        openOutput.send(())
                     }
+                } else if let string = owner.state.string {
+                    if !owner.processYouTubeURL(string) {
+                        closeOutput.send(())
+                    } else {
+                        openOutput.send(())
+                    }
+                } else {
+                    closeOutput.send(())
                 }
-                
             }.store(in: &cancellables)
         
         
