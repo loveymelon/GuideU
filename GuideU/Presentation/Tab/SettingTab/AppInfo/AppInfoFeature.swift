@@ -17,12 +17,14 @@ struct AppInfoFeature {
         let appVersion = "v"+Const.appShortVersion
         let appLogoImage = "AppLogo"
         let appName = Const.appName
+        let openSourceLicenseTitle = "오픈소스 라이선스"
+        let appOpenSourceLicense = Const.openSourceLicense.allCases
     }
     
     enum Action {
         case didTapBackButton
         case delegate(Delegate)
-        
+        case selectedLicense(Const.openSourceLicense)
         enum Delegate {
             case tapBackButton
         }
