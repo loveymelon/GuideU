@@ -17,12 +17,16 @@ struct AppInfoFeature {
         let appVersion = "v"+Const.appShortVersion
         let appLogoImage = "AppLogo"
         let appName = Const.appName
+        let openSourceLicenseTitle = "오픈소스 라이선스"
+        let appOpenSourceLicense = Const.openSourceLicense.allCases
+        
+        var openURLTrigger: URL? = nil
     }
     
     enum Action {
         case didTapBackButton
         case delegate(Delegate)
-        
+        case selectedLicense(Const.openSourceLicense)
         enum Delegate {
             case tapBackButton
         }
@@ -34,6 +38,11 @@ struct AppInfoFeature {
             case .didTapBackButton:
                 return .send(.delegate(.tapBackButton))
                 
+            case let .selectedLicense(item):
+                guard let url = URL(string: item.urlString) else {
+                    return .none
+                }
+                state.openURLTrigger = url
             default:
                 break
             }

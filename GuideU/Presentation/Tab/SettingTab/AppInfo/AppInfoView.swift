@@ -13,6 +13,7 @@ struct AppInfoView: View {
     @Perception.Bindable var store: StoreOf<AppInfoFeature>
     
     @EnvironmentObject var colorSystem: ColorSystem
+    @Environment(\.openURLManager) var openURLManager
      
     var body: some View {
         WithPerceptionTracking {
@@ -37,20 +38,33 @@ struct AppInfoView: View {
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
+                .onChange(of: store.openURLTrigger) { newValue in
+                    guard let url = newValue else { return }
+                    openURLManager.openAppUrl(url: url)
+                }
         }
     }
 }
 
 extension AppInfoView {
     private func contentView() -> some View {
-        VStack(spacing: 14) {
+        ScrollView {
+            appInfoSection()
+                .padding(.bottom, 20)
+            openSourceView()
+            Spacer()
+        }
+    }
+    
+    private func appInfoSection() -> some View {
+        VStack {
             HStack {
                 Text(store.sectionTitle)
                     .font(Font(WantedFont.midFont.font(size: 16)))
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
             }
-            
+            .padding(.bottom, 6)
             HStack(spacing: 14) {
                 Image(store.appLogoImage)
                     .resizable()
@@ -73,16 +87,57 @@ extension AppInfoView {
                     }
                 }
             }
-            
-            Spacer()
+        }
+    }
+    
+    private func openSourceView() -> some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(store.openSourceLicenseTitle)
+                    .font(Font(WantedFont.midFont.font(size: 16)))
+                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                Spacer()
+            }
+            ForEach(store.appOpenSourceLicense, id: \.self) { item in
+                VStack {
+                    HStack {
+                        Text(item.title)
+                            .font(Font(WantedFont.midFont.font(size: 14)))
+                            .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                        Spacer()
+                    }
+                    .padding(.bottom, 2)
+                    HStack {
+                        if item == .Apache || item == .MIT {
+                            Text(item.subTitle)
+                                .font(Font(WantedFont.midFont.font(size: 14)))
+                                .foregroundStyle(colorSystem.color(colorCase: .subGrayColor))
+                                .multilineTextAlignment(.center)
+                        } else {
+                            Text(item.subTitle)
+                                .font(Font(WantedFont.midFont.font(size: 12)))
+                                .foregroundStyle(colorSystem.color(colorCase: .subGrayColor))
+                                .multilineTextAlignment(.leading)
+                        }
+                        Spacer()
+                    }
+                }
+                .padding(.leading, 4)
+                .asButton {
+                    store.send(.selectedLicense(item))
+                }
+                .padding(.vertical, 5)
+            }
         }
     }
 }
 
 #if DEBUG
 #Preview {
+    let colorSystem = ColorSystem()
     AppInfoView(store: Store(initialState: AppInfoFeature.State(), reducer: {
         AppInfoFeature()
     }))
+    .environmentObject(colorSystem)
 }
 #endif
