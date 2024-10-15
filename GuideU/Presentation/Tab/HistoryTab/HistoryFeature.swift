@@ -19,9 +19,16 @@ struct HistoryFeature: GuideUReducer, GuideUReducerOptional {
         var selectedVideoData: VideosEntity? = nil
         var dialogPresent: Bool = false
         var openURLCase: OpenURLCase? = nil
+        var viewState: ViewState = .loading
         
         var scrollToTopTrigger = false
         let scrollID = UUID()
+    }
+    
+    enum ViewState {
+        case loading
+        case success
+        case failure
     }
     
     enum Action {
@@ -29,6 +36,7 @@ struct HistoryFeature: GuideUReducer, GuideUReducerOptional {
         case viewEventType(ViewEventType)
         case dataTransType(DataTransType)
         case networkType(NetworkType)
+        case realmType(RealmType)
         case delegate(Delegate)
         case parent(ParentAction)
         
@@ -41,6 +49,7 @@ struct HistoryFeature: GuideUReducer, GuideUReducerOptional {
         
         enum ParentAction {
             case resetToHistory
+            case fetchData
         }
     }
     
@@ -61,6 +70,10 @@ struct HistoryFeature: GuideUReducer, GuideUReducerOptional {
         case cleanSelectData
         case errorInfo(Error)
         case successRealmData([HistoryVideosEntity])
+    }
+    
+    enum RealmType {
+        case fetchData
     }
     
     enum NetworkType {
@@ -85,12 +98,9 @@ extension HistoryFeature {
         Reduce { state, action in
             switch action {
             case .viewCycleType(.viewOnAppear):
-                state.videosEntity = []
                 return .run { send in
-                    let result = await dataSourceActor.fetchVideoHistory()
-                    await send(.dataTransType(.successRealmData(result)))
+                    await send(.realmType(.fetchData))
                 }
-                .throttle(id: CancelId.test, for: 2, scheduler: RunLoop.main.eraseToAnyScheduler(), latest: false)
                    
             case let .viewEventType(.videoTapped(entity)):
                 state.selectedVideoData = entity
@@ -136,6 +146,13 @@ extension HistoryFeature {
                     }
                 }
                 
+            case .realmType(.fetchData):
+                return .run { send in
+                    let result = await dataSourceActor.fetchVideoHistory()
+                    await send(.dataTransType(.successRealmData(result)))
+                }
+                .throttle(id: CancelId.test, for: 2, scheduler: RunLoop.main.eraseToAnyScheduler(), latest: false)
+                
             case let .dataTransType(.selectVideoURL(selectURL)):
                 guard let youtubeURL = selectURL else { return .none }
                 state.openURLCase = urlDividerManager.dividerURLType(url: youtubeURL)
@@ -144,10 +161,11 @@ extension HistoryFeature {
                 state.selectedVideoData = nil
                 
             case let .dataTransType(.errorInfo(error)):
+                print(errorHandling(error))
                 state.videosEntity = []
-                print(error)
                 
             case let .dataTransType(.successRealmData(datas)):
+                state.viewState = datas.isEmpty ? .failure : .success
                 state.videosEntity = datas
                 
             case let .dialogBinding(isValid):
@@ -155,6 +173,11 @@ extension HistoryFeature {
                 
             case .parent(.resetToHistory):
                 scrollUP(&state)
+                
+            case .parent(.fetchData):
+                return .run { send in
+                    await send(.realmType(.fetchData))
+                }
                 
             default:
                 break

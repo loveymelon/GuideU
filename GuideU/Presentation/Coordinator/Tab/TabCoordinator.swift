@@ -26,6 +26,7 @@ struct TabCoordinator {
     enum Action {
         case delegate(Delegate)
         case tabCase(TabCase)
+        case checkHistoryTab
         
         /// TabAction
         case homeTabAction(HomeCoordinator.Action)
@@ -82,7 +83,16 @@ extension TabCoordinator {
                     }
                 } else {
                     state.currentTab = tabCase
+                    
+                    if state.currentTab == .timeLine {
+                        return .send(.checkHistoryTab)
+                        
+                    }
                 }
+                
+            case .checkHistoryTab:
+                return .send(.historyTabAction(.parent(.fetchData)))
+                
             case let .homeTabAction(.delegate(.detailButtonTapped(identifier))):
                 return .run { send in
                     await send(.delegate(.detailButtonTapped(identifier)))

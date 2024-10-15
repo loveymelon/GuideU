@@ -19,62 +19,57 @@ struct HistoryView: View {
     
     var body: some View {
         WithPerceptionTracking {
-            VStack {
-                if !store.videosEntity.isEmpty {
-                    
-                    contentView()
-                    .padding(.horizontal, 10)
-                } else {
-                    VStack {
-                        Image("LightNoData")
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fit)
-                            .padding(.bottom, 30)
-                            .padding(.top, 40)
-                    }
+            
+            switch store.viewState {
+            case .loading:
+                ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(colorSystem.color(colorCase: .background))
+            case .success:
+                VStack {
+                    contentView()
+                        .padding(.horizontal, 10)
                 }
-            }
-            .onAppear {
-                store.send(.viewCycleType(.viewOnAppear))
-            }
-            .background(colorSystem.color(colorCase: .background))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(Const.recentFind)
-                        .font(Font(WantedFont.semiFont.font(size: 20)))
-                        .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                .background(colorSystem.color(colorCase: .background))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text(Const.recentFind)
+                            .font(Font(WantedFont.semiFont.font(size: 20)))
+                            .foregroundStyle(colorSystem.color(colorCase: .textColor))
+                    }
                 }
-            }
-            .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
-                Group {
-                    ForEach(MoreCharacterDialog.allCases, id: \.self) { caseOf in
-                        switch caseOf {
-                        case .buttonTitle1:
-                            Button(caseOf.buttonTitle) {
-                                store.send(.viewEventType(.youtubeButtonTapped))
-                            }
-                        case .buttonTitle2:
-                            Button(caseOf.buttonTitle) {
-                                store.send(.viewEventType(.detailButtonTapped))
+                .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
+                    Group {
+                        ForEach(MoreCharacterDialog.allCases, id: \.self) { caseOf in
+                            switch caseOf {
+                            case .buttonTitle1:
+                                Button(caseOf.buttonTitle) {
+                                    store.send(.viewEventType(.youtubeButtonTapped))
+                                }
+                            case .buttonTitle2:
+                                Button(caseOf.buttonTitle) {
+                                    store.send(.viewEventType(.detailButtonTapped))
+                                }
                             }
                         }
-                    }
-                    .onChange(of: store.openURLCase) { newValue in
-                        guard let openURL = newValue else { return }
-                        
-                        store.send(.viewEventType(.successOpenURL))
-                        Task {
-                            await openURLManager.openAppUrl(urlCase: openURL)
+                        .onChange(of: store.openURLCase) { newValue in
+                            guard let openURL = newValue else { return }
+                            
+                            store.send(.viewEventType(.successOpenURL))
+                            Task {
+                                await openURLManager.openAppUrl(urlCase: openURL)
+                            }
+                        }
+                        .onDisappear {
+                            store.send(.viewCycleType(.viewDisAppear))
                         }
                     }
-                    .onDisappear {
-                        store.send(.viewCycleType(.viewDisAppear))
-                    }
-                    
                 }
+            case .failure:
+                errorView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(colorSystem.color(colorCase: .background))
             }
         }
     }
@@ -114,6 +109,16 @@ extension HistoryView {
                     proxy.scrollTo(store.scrollID)
                 }
             }
+        }
+    }
+    
+    private func errorView() -> some View {
+        VStack {
+            Image(ImageType.ErrorImage.lightNoData.rawValue)
+                .resizable()
+                .aspectRatio(1, contentMode: .fit)
+                .padding(.bottom, 30)
+                .padding(.top, 40)
         }
     }
 }

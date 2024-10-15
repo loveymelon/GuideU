@@ -109,7 +109,7 @@ extension SearchResultFeature {
                 
             case let .dataTransType(.errorInfo(error)):
                 state.currentViewState = .failure
-                print(error)
+                print(errorHandling(error))
                 
             case .viewEventType(.backButtonTapped):
                 return .send(.delegate(.backButtonTapped))

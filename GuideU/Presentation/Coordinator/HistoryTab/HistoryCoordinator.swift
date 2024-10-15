@@ -35,6 +35,7 @@ struct HistoryCoordinator {
         
         enum ParentAction {
             case resetToHistory
+            case fetchData
         }
     }
     
@@ -57,6 +58,9 @@ extension HistoryCoordinator {
             case .parent(.resetToHistory):
                 state.routes.popToRoot()
                 return .send(.router(.routeAction(id: .historyView, action: .root(.parent(.resetToHistory)))))
+                
+            case .parent(.fetchData):
+                return .send(.router(.routeAction(id: .historyView, action: .root(.parent(.fetchData)))))
                 
             default:
                 break

@@ -203,6 +203,7 @@ extension MoreCharacterFeature {
                 
             case let .dataTransType(.errorInfo(error)):
                 if let errorMSG = errorHandling(error) {
+                    print(errorMSG)
                     state.alertState = AlertState()
                 }
                 
