@@ -31,6 +31,12 @@ struct PersonSectionView: View {
                     .padding(.all, 10)
             }
         }
+        .asButton {
+            withAnimation {
+                isExtend.toggle()
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
@@ -54,6 +60,7 @@ extension PersonSectionView {
                     .font(Font(WantedFont.regularFont.font(size: 14)))
                     .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                     .lineLimit(1)
+                    .multilineTextAlignment(.leading)
                     .padding(.trailing, 24)
             }
         }
@@ -192,7 +199,7 @@ extension PersonSectionView {
                             ], startPoint: .top, endPoint: .bottom)
                         )
                         .aspectRatio(1, contentMode: .fill)
-                        .frame(width: 44)
+                        .frame(width: size.width, height: size.height)
                         .clipShape(Circle())
                     Text("준비중")
                         .font(Font(WantedFont.blackFont.font(size: 10)))
@@ -215,11 +222,6 @@ extension PersonSectionView {
             }
         }
         .frame(width: 24)
-        .asButton {
-            withAnimation {
-                isExtend.toggle()
-            }
-        }
     }
 }
 

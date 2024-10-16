@@ -31,6 +31,13 @@ struct MemeExtendView: View {
                 }
             }
         }
+        .background(colorSystem.color(colorCase: .cellBackground))
+        .asButton {
+            withAnimation {
+                isExtend.toggle()
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
@@ -138,11 +145,6 @@ extension MemeExtendView {
             }
         }
         .frame(width: 24)
-        .asButton {
-            withAnimation {
-                isExtend.toggle()
-            }
-        }
     }
 }
 
