@@ -34,6 +34,7 @@ struct GuideUTabView: View {
                     customTabBarView()
                 }
             }
+            .ignoresSafeArea(edges: .bottom)
         }
     }
 }
@@ -51,13 +52,27 @@ extension GuideUTabView {
                             hapticManager.impact(style: .soft)
                             store.send(.tabCase(caseOf))
                         }
-                        
                 }
             }
         }
         .frame(maxWidth: .infinity)
         .frame(height: 50)
+        .padding(.bottom, 30)
         .background(colorSystem.color(colorCase: .tabbar))
+        .onAppear {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .clear
+
+            // 경계선(검정색 줄) 제거
+            appearance.shadowImage = UIImage()
+            appearance.backgroundImage = UIImage()
+            appearance.shadowColor = .clear
+
+            // 설정 적용
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
     }
     
     private func tabItemView(tabItem: TabCase) -> some View {
@@ -86,6 +101,7 @@ extension GuideUTabView {
         }
         .aspectRatio(1, contentMode: .fill)
         .foregroundStyle( current == this ? colorSystem.color(colorCase: .pointColor) : colorSystem.color(colorCase: .detailGrayColor))
+        .toolbar(.hidden, for: .bottomBar)
     }
 }
 
