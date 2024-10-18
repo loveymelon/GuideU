@@ -25,8 +25,7 @@ struct CreditViewFeature: GuideUReducer {
         
         enum Delegate {
             case backButtonTapped
-            case sendToFirstMerit
-            case sendToSecondMerit
+            case sendToMerit(Const.CreditCase)
         }
     }
     
@@ -56,12 +55,7 @@ extension CreditViewFeature {
                 return .send(.delegate(.backButtonTapped))
                 
             case let .viewEvent(.selectedCase(caseOf)):
-                switch caseOf {
-                case .firstMerit:
-                    return .send(.delegate(.sendToFirstMerit))
-                case .secondMerit:
-                    return .send(.delegate(.sendToSecondMerit))
-                }
+                return .send(.delegate(.sendToMerit(caseOf)))
                 
             default:
                 break

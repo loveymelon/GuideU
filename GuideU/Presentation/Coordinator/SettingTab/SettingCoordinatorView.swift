@@ -36,8 +36,8 @@ struct SettingCoordinatorView: View {
                     CreditView(store: store)
                         .environmentObject(colorSystem)
                         .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
-                case let .firstMeritView(store):
-                    FirstMeritView(store: store)
+                case let .meritFeature(store):
+                    MeritView(store: store)
                         .environmentObject(colorSystem)
                         .toolbarBackground(colorSystem.color(colorCase: .tabbar).opacity(0.9), for: .navigationBar)
                 }
@@ -57,8 +57,8 @@ extension SettingScreen.State: Identifiable {
             return .colorSetting
         case .creditView:
             return .credit
-        case .firstMeritView:
-            return .firstMerit
+        case .meritFeature:
+            return .merit
         }
     }
     
@@ -67,6 +67,6 @@ extension SettingScreen.State: Identifiable {
         case appInfo
         case colorSetting
         case credit
-        case firstMerit
+        case merit
     }
 }

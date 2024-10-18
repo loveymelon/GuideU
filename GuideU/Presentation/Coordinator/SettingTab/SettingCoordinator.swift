@@ -16,7 +16,7 @@ enum SettingScreen {
     case appInfoView(AppInfoFeature)
     case colorSettingView(AppColorSettingFeature)
     case creditView(CreditViewFeature)
-    case firstMeritView(FirstMeritViewFeature)
+    case meritFeature(MeritFeature)
 }
 
 @Reducer
@@ -64,15 +64,14 @@ extension SettingCoordinator {
                 /// Credit View 이동
             case .router(.routeAction(id: .root, action: .settingView(.delegate(.sendToCredit)))):
                 state.routes.push(.creditView(CreditViewFeature.State()))
-                
             case .router(.routeAction(id: .credit, action: .creditView(.delegate(.backButtonTapped)))):
                 state.routes.pop()
                 
-                /// 1차 유공자 뷰 이동
-            case .router(.routeAction(id: .credit, action: .creditView(.delegate(.sendToFirstMerit)))):
-                state.routes.push(.firstMeritView(FirstMeritViewFeature.State()))
+                /// 유공자 뷰 이동
+            case let .router(.routeAction(id: .credit, action: .creditView(.delegate(.sendToMerit(item))))):
+                state.routes.push(.meritFeature(MeritFeature.State(meritCase: item)))
                 
-            case .router(.routeAction(id: .firstMerit, action: .firstMeritView(.delegate(.backButtonTapped)))):
+            case .router(.routeAction(id: .merit, action: .meritFeature(.delegate(.backButtonTapped)))):
                 state.routes.pop()
                 
             case .parent(.resetToRoot):

@@ -517,7 +517,7 @@ extension Const {
 // MARK: 유공자
 extension Const {
     
-    enum CreditCase: CaseIterable {
+    enum CreditCase: CaseIterable, Equatable {
         case firstMerit
         case secondMerit
         
@@ -529,7 +529,7 @@ extension Const {
         }
     }
     
-    enum FirstTealmRole: CaseIterable {
+    enum FirstTealmRole: CaseIterable, TeamRoleProtocol {
         case teamLeader // TeamLeader
         case pm
         case planning
@@ -609,6 +609,100 @@ extension Const {
             switch self {
                 
             case .fe, .be:
+                return true
+                
+            default:
+                return false
+            }
+        }
+    }
+    
+    enum SecondTealmRole: CaseIterable, TeamRoleProtocol {
+        case teamLeader // TeamLeader
+//        case pm
+        case planning
+        case developer
+        case fe
+        case be
+        case and
+        case iOS
+        case ai
+        case uiUx
+        case infra
+        case info
+        case labelling
+        case specialThanks
+        
+        static var mainTitle: String {return "2차 유공자"}
+        
+        var title: String {
+            switch self {
+            case .teamLeader: return "팀장"
+//            case .pm: return "PM"
+            case .planning: return "기획"
+            case .developer: return "개발"
+            case .fe: return "FE"
+            case .be: return "BE"
+            case .and: return "Android"
+            case .iOS: return "iOS"
+            case .ai: return "AI"
+            case .uiUx: return "UI/UX"
+            case .infra: return "인프라"
+            case .info: return "정보팀"
+            case .labelling: return "라벨링"
+            case .specialThanks: return "Special Thanks"
+            }
+        }
+        
+        var member: String {
+            switch self {
+            case .teamLeader: return "텔콘타르"
+//            case .pm: return "애교"
+            case .planning: return "팀장 기록자 영고"
+            case .developer: return "리드 텔콘타르"
+            case .fe: return "팀장 오영로크\n성빈, 플토"
+            case .be: return "팀장 inspirit\nZFC, 반개, 팡pang"
+            case .and: return "팀장 배부른 아보카도"
+            case .iOS: return "팀장 김진수\nKIMJAEHYUNG"
+            case .ai: return "팀장 Korshort\ninspirit, 러디, 이플(epl),\nTHDP, 효꺵이, 텔콘타르"
+            case .uiUx: return "팀장 파딩\n에이요, Klfn"
+            case .infra: return "유니, 민하쿠, 식용뚤기"
+            case .info: return """
+팀장 완전세균입니다
+우왁굳 뉴누, 양사유, 김커일, 에이시스, 지너너넌이, 레츠, 레모닝
+아이네 미식이, ifYou, 흰뱁새
+징버거 빠나, 콩붕어, 단이비
+릴파 익스플로어, 토토토마토
+주르르 르릇당, 호이06, 물먹는까치, 뮤 런
+고세구 구독금연, 다차원카푸치노, 제로세컨드, 완전세균입니다
+비챤 바람곰도리, 새벽밤하늘, LIGHTRUN, 달짝지근한 달고나
+"""
+            case .labelling: return "권슴도치_, 금붕어, 그적미적"
+            case .specialThanks: return "감람스톤\n유입가이드\n하벤하이드"
+            }
+        }
+        
+        static var textGrayOptions: [String] {
+            return [
+                "팀장",
+                "리드",
+                "우왁굳",
+                "아이네",
+                "징버거",
+                "릴파",
+                "주르르",
+                "고세구",
+                "비챤",
+                "감람스톤",
+                "유입가이드",
+                "하벤하이드"
+            ]
+        }
+        
+        var paddingOptions: Bool {
+            switch self {
+                
+            case .fe, .be, .and, .iOS:
                 return true
                 
             default:
