@@ -212,7 +212,7 @@ extension PersonFeature {
                 }
                 
             case let .dataTransType(.errorInfo(error, dataType)):
-                print(errorHandling(error))
+                print(errorHandling(error ?? "nil"))
 
                 switch dataType {
                 case .header:
@@ -248,7 +248,7 @@ extension PersonFeature {
                 }
                 
             case let .bindingURL(socialURL):
-                print("binding", socialURL)
+                print("binding", socialURL ?? "nil")
                 state.selectedURL = socialURL
                 
             case .viewEventType(.backButtonTapped):

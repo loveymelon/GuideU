@@ -66,7 +66,7 @@ extension Router {
             let url = try baseURL.asURL()
             return url
         } catch let error as AFError {
-            if case let .invalidURL(url) = error {
+            if case .invalidURL = error {
                 throw .urlFail(url: baseURL)
             } else {
                 throw .unknown
@@ -82,7 +82,7 @@ extension Router {
             
             return urlRequest
         } catch let error as AFError {
-            if case let .invalidURL(url) = error {
+            if case .invalidURL = error {
                 throw .urlFail(url: baseURL)
             } else {
                 throw .unknown

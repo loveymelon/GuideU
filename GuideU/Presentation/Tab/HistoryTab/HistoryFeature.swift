@@ -161,7 +161,7 @@ extension HistoryFeature {
                 state.selectedVideoData = nil
                 
             case let .dataTransType(.errorInfo(error)):
-                print(errorHandling(error))
+                print(errorHandling(error ?? "nil"))
                 state.videosEntity = []
                 
             case let .dataTransType(.successRealmData(datas)):

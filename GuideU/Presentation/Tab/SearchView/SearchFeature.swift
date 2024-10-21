@@ -232,7 +232,7 @@ extension SearchFeature {
                 state.searchCaseList = suggestEntity
                 
             case let .dataTransType(.errorInfo(error)):
-                print(errorHandling(error))
+                print(errorHandling(error ?? "nil"))
                 
             case .dataTransType(.realmFetch):
                 return .run { send in
