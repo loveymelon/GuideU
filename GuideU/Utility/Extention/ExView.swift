@@ -45,4 +45,34 @@ extension View {
             self
         }
     }
+    
+    func errorAlert(
+        alertModel: Binding<AlertMessage?>,
+        confirm: @escaping (AlertMessage) -> Void,
+         cancel: @escaping (AlertMessage) -> Void
+    ) -> some View {
+        return self
+            .alert(
+                item: alertModel) { item in
+                    Text(item.title)
+                } actions: { item in
+                    if item.cancelTitle == nil {
+                        Text(item.actionTitle)
+                            .asButton {
+                                confirm(item)
+                            }
+                    } else {
+                        Text(item.actionTitle)
+                            .asButton {
+                                confirm(item)
+                            }
+                        Text(item.cancelTitle!)
+                            .asButton {
+                                cancel(item)
+                            }
+                    }
+                } message: { item in
+                    Text(item.message)
+                }
+    }
 }

@@ -39,19 +39,11 @@ struct RootCoordinatorView: View {
             .onAppear {
                 store.send(.viewCycle(.onAppear))
             }
-            .alert(item: $store.alertMessage.sending(\.bindingMessage)) { item in
-                Text("네트워크 에러")
-            } actions: { _ in
-                Text("확인")
-                    .asButton {
-                        store.send(.bindingMessage(nil))
-                    }
-            } message: { item in
-                Text(item.message)
-                    .onAppear {
-                        print(item)
-                    }
-            }
+            .errorAlert(alertModel: $store.alertMessage.sending(\.bindingMessage), confirm: { item in
+                store.send(.alertAction(.checkAlert(item)))
+            }, cancel: { item in
+                store.send(.alertAction(.cancelAlert(item)))
+            })
             .background(colorSystem.color(colorCase: .tabbar))
         }
     }

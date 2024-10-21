@@ -30,24 +30,16 @@ struct RootCoordinator: Reducer {
         var currentNetworkState = true
         var alertMessage: AlertMessage? = nil
     }
-    
-    struct AlertMessage: Identifiable, Equatable {
-        let id = UUID()
-        var title = ""
-        var actionTitle = ""
-        var cancelTitle = ""
-        var message: String = ""
-    }
-    
+
     enum Action {
         case router(IdentifiedRouterActionOf<RootScreen>)
         
         case tabNavCoordinatorAction(TabNavCoordinator.Action)
         case viewCycle(ViewCycle)
-        case checkError(Bool)
-        case networkError(String)
         case networkErrorType(NetworkErrorType)
         case networkMonitorStart
+        
+        case alertAction(AlertAction)
         
         // binding
         case bindingMessage(AlertMessage?)
@@ -70,6 +62,12 @@ struct RootCoordinator: Reducer {
     enum CancelID {
         case nwMonitor
         case networkManager
+    }
+    
+    enum AlertAction {
+        case showAlert(AlertMessage)
+        case checkAlert(AlertMessage)
+        case cancelAlert(AlertMessage)
     }
     
     @Dependency(\.nwPathMonitorManager) var nwPathMonitorManager
@@ -95,63 +93,29 @@ struct RootCoordinator: Reducer {
                 
             case .networkMonitorStart:
                 return .run { send in
-                    await nwPathMonitorManager.start()
+                    nwPathMonitorManager.start()
                     await send(.networkErrorType(.nwMonitor))
                 }
-            
-//            case .networkErrorType(.nwMonitor):
-//                return Effect.publisher {
-//                    return nwPathMonitorManager.currentConnectionTrigger
-//                        .receive(on: RunLoop.main)
-//                        .removeDuplicates()
-//                }
-//                .map { isValid -> Action in
-//                    return .checkError(isValid)
-//                }
-//                .debounce(id: CancelID.nwMonitor, for: 1, scheduler: RunLoop.main)
                 
             case .networkErrorType(.nwMonitor):
-                return .run { send in
+                return .run { [state = state] send in
                     
-                    for await isValid in await  nwPathMonitorManager.getToConnectionTrigger() {
-                        await send(.checkError(isValid))
+                    for await isValid in  nwPathMonitorManager.getToConnectionTrigger() {
+                        if state.currentNetworkState != isValid {
+                            if !isValid {
+                                await send(.alertAction(.showAlert(.networkPathError(nil))))
+                            }
+                        }
                     }
                 }
                 
             case .networkErrorType(.timeOut):
-//                return Effect.publisher {
-//                    return networkManager.networkError
-//                        .receive(on: RunLoop.main)
-//                }
-//                .map { isValid -> Action in
-//                    return .networkError("네트워크 시간 초과입니다 잠시후에 다시 시작해주세요")
-//                }
-//                .debounce(id: CancelID.networkManager, for: 1, scheduler: RunLoop.main)
-                
-                // 결과가 반환이 안되고 다른 쓰레드에서 작업이 끝날때까지의 신호만 기다렸다가
-                // 작업이 끝나면 에러를 던져주는 방식이다
                 return .run { send in
-                    for await text in await networkManager.getNetworkError() {
-                        await send(.networkError("네트워크 시간 초과입니다 잠시후에 다시 시작해주세요"))
+                    for await text in networkManager.getNetworkError() {
+                        await send(.alertAction(.showAlert(.networkError(text))))
                     }
                 }
                 .debounce(id: CancelID.networkManager, for: 1, scheduler: RunLoop.main)
-                
-            case let .checkError(isValid):
-                if state.currentNetworkState != isValid {
-                    state.currentNetworkState = isValid
-                    if !isValid {
-                        return .run { send in
-                            await send(.networkError("네트워크 연결 상태가 좋지 않습니다. 네트워크 상태를 체크해주세요."))
-                        }
-                    } else {
-                        state.alertMessage = nil
-                    }
-                }
-        
-            case let .networkError(networkMessage):
-                state.alertMessage = AlertMessage(message: networkMessage)
-                print(state.alertMessage?.message)
                 
             case let .router(.routeAction(id: _, action: .splash(.delegate(.isFirstUser(trigger))))):
 
@@ -163,7 +127,26 @@ struct RootCoordinator: Reducer {
                 
             case let .bindingMessage(alert):
                 state.alertMessage = alert
-                
+            
+            case let .alertAction(action):
+                switch action {
+                case let .showAlert(alert):
+                    state.currentNetworkState = true
+                    state.alertMessage = alert
+                case .checkAlert:
+//                    switch alert {
+//                    case .networkPathError(_):
+//
+//                    case .networkError(_):
+//
+//                    }
+                    state.currentNetworkState = false
+                    state.alertMessage = nil
+                case .cancelAlert:
+                    state.currentNetworkState = false
+                    state.alertMessage = nil
+                }
+            
             default:
                 break
             }
