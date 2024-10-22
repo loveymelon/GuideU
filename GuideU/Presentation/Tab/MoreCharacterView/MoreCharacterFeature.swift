@@ -27,7 +27,7 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var videoInfos: [VideosEntity] = []
         var onAppearIsValid: Bool = true
         var openURLCase: OpenURLCase? = nil
-        var alertState: AlertState? = nil
+        var alertMessage: AlertMessage? = nil
         
         var loadingTrigger = true
         var listLoadTrigger = true
@@ -35,12 +35,6 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         let constViewState = ConstViewState()
         let scrollViewTopID = UUID()
         var scrollToTop = false
-    }
-    
-    struct AlertState: Equatable {
-        var title: String = "서버 에러"
-        var message: String = "왁타버스 서버에서 문제가 생겼습니다.\n잠시후에 다시 시도해주세요."
-        var alertActionTitle: String = "확인"
     }
     
     struct ConstViewState: Equatable {
@@ -55,6 +49,7 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         case viewEventType(ViewEventType)
         case dataTransType(DataTransType)
         case networkType(NetworkType)
+        case alertAction(AlertAction)
         
         case delegate(Delegate)
         enum Delegate {
@@ -66,7 +61,7 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         case currentIndex(Int)
         case selectedVideo(VideosEntity?)
         case dialogBinding(Bool)
-        case alertBinding(AlertState?)
+        case alertBinding(AlertMessage?)
         
         
         case parent(ParentAction)
@@ -101,6 +96,12 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     
     enum NetworkType {
         case fetchVideos(Const.Channel, Int, Int, isScroll: Bool)
+    }
+    
+    enum AlertAction {
+        case showAlert(AlertMessage)
+        case checkAlert(AlertMessage)
+        case cancelAlert(AlertMessage)
     }
     
     enum CancelId: Hashable {
@@ -204,7 +205,7 @@ extension MoreCharacterFeature {
             case let .dataTransType(.errorInfo(error)):
                 if let errorMSG = errorHandling(error) {
                     print(errorMSG)
-                    state.alertState = AlertState()
+                    return .send(.alertAction(.showAlert(.severError(nil))))
                 }
                 
                 //binding action setting
@@ -228,11 +229,23 @@ extension MoreCharacterFeature {
             case let .dialogBinding(isValid):
                 state.dialogPresent = isValid
                 
-            case let .alertBinding(item):
-                state.alertState = item
+            case let .alertBinding(alertMessage):
+                state.alertMessage = alertMessage
                 
             case .parent(.resetToHome):
                 state.scrollToTop.toggle()
+                
+            case let .alertAction(action):
+                switch action {
+                case let .showAlert(alert):
+                    state.alertMessage = alert
+                    
+                case .checkAlert:
+                    state.alertMessage = nil
+                    
+                case .cancelAlert:
+                    state.alertMessage = nil
+                }
                 
             default:
                 break

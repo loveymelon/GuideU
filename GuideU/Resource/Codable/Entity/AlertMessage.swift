@@ -11,6 +11,7 @@ enum AlertMessage: Equatable {
     
     case networkPathError(String? = nil)
     case networkError(String? = nil)
+    case severError(String? = nil)
     
     var title : String {
         switch self {
@@ -18,12 +19,14 @@ enum AlertMessage: Equatable {
             "네트워크 상태 확인"
         case .networkError:
             "네트워크 에러"
+        case .severError:
+            "서버 에러"
         }
     }
     
     var actionTitle: String {
         switch self {
-        case .networkPathError, .networkError:
+        case .networkPathError, .networkError, .severError:
             return "확인"
         }
     }
@@ -40,6 +43,11 @@ enum AlertMessage: Equatable {
                 return "네트워크 문제가 발생 하였습니다."
             }
             return message
+        case let .severError(message):
+            guard let message else {
+                return "왁타버스 서버에서 문제가 생겼습니다.\n잠시후에 다시 시도해주세요."
+            }
+            return message
         }
     }
     
@@ -48,6 +56,8 @@ enum AlertMessage: Equatable {
         case .networkError:
             return nil
         case .networkPathError:
+            return nil
+        case .severError:
             return nil
         }
     }

@@ -133,15 +133,11 @@ struct RootCoordinator: Reducer {
                 case let .showAlert(alert):
                     state.currentNetworkState = true
                     state.alertMessage = alert
+                    
                 case .checkAlert:
-//                    switch alert {
-//                    case .networkPathError(_):
-//
-//                    case .networkError(_):
-//
-//                    }
                     state.currentNetworkState = false
                     state.alertMessage = nil
+                    
                 case .cancelAlert:
                     state.currentNetworkState = false
                     state.alertMessage = nil

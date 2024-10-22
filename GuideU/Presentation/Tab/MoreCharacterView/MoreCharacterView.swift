@@ -39,17 +39,11 @@ struct MoreCharacterView: View {
                     .background(colorSystem.color(colorCase: .background))
             }
             .background(colorSystem.color(colorCase: .background))
-            .popup(item: $store.alertState.sending(\.alertBinding)) { item in
-                CustomAlertView(
-                    alertMode: .onlyCheck,
-                    title: item.title,
-                    message: item.message,
-                    ifMessageCenter: true,
-                    onCancel: { },
-                    onAction: { },
-                    actionTitle: item.alertActionTitle
-                )
-            }
+            .errorAlert(alertModel: $store.alertMessage.sending(\.alertBinding), confirm: { item in
+                store.send(.alertAction(.checkAlert(item)))
+            }, cancel: { item in
+                store.send(.alertAction(.cancelAlert(item)))
+            })
             .confirmationDialog(MoreCharacterDialog.title, isPresented: $store.dialogPresent.sending(\.dialogBinding), titleVisibility: .visible) {
                 Group {
                     ForEach(MoreCharacterDialog.allCases, id: \.self) { caseOf in
