@@ -12,8 +12,6 @@ import TCACoordinators
 struct MorePersonCoordinatorView: View {
     
     @Perception.Bindable var store: StoreOf<MorePersonCoordinator>
-    /// Swift UI 적인 방법
-    @Environment(\.scenePhase) var phase
     
     var body: some View {
         WithPerceptionTracking {

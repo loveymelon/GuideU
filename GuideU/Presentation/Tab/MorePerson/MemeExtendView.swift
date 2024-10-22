@@ -99,7 +99,7 @@ extension MemeExtendView {
     private func relative() -> some View {
         VStack {
             HStack {
-                Text("관련 컨텐츠")
+                Text(Const.related)
                     .font(Font(WantedFont.semiFont.font(size: 20)))
                 Spacer()
             }

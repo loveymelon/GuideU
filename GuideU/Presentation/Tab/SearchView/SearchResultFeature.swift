@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct SearchResultFeature: GuideUReducer, GuideUReducerOptional {
+struct SearchResultFeature: GuideUReducer {
     
     @ObservableState
     struct State: Equatable {
@@ -35,7 +35,6 @@ struct SearchResultFeature: GuideUReducer, GuideUReducerOptional {
         case viewCycleType(ViewCycleType)
         case viewEventType(ViewEventType)
         case dataTransType(DataTransType)
-        case networkType(NetworkType)
         case delegate(Delegate)
         
         enum Delegate {
@@ -57,14 +56,6 @@ struct SearchResultFeature: GuideUReducer, GuideUReducerOptional {
     enum DataTransType {
         case searchDatas(SearchResultEntity)
         case errorInfo(String)
-    }
-    
-    enum NetworkType {
-        
-    }
-    
-    enum CancelId: Hashable {
-        
     }
     
     @Dependency(\.urlDividerManager) var urlDividerManager
@@ -109,7 +100,7 @@ extension SearchResultFeature {
                 
             case let .dataTransType(.errorInfo(error)):
                 state.currentViewState = .failure
-                print(errorHandling(error ?? "nil"))
+                print(errorHandling(error) ?? "nil")
                 
             case .viewEventType(.backButtonTapped):
                 return .send(.delegate(.backButtonTapped))
