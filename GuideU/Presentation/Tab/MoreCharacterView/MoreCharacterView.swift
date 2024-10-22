@@ -70,7 +70,7 @@ struct MoreCharacterView: View {
             }
             .refreshable {
                 // 새로고침 await 키워드를 통해 이를 해결
-                
+                store.send(.viewEventType(.resetData))
                 
             }
         }
