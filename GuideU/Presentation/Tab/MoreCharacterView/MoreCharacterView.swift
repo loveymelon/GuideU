@@ -68,6 +68,11 @@ struct MoreCharacterView: View {
                    await openURLManager.openAppUrl(urlCase: openURL)
                 }
             }
+            .refreshable {
+                // 새로고침 await 키워드를 통해 이를 해결
+                
+                
+            }
         }
     }
 }
