@@ -138,9 +138,9 @@ extension MoreCharacterFeature {
                 return .send(.viewEventType(.sideCheckedIndex(index)))
                 
             case let .viewEventType(.sideCheckedIndex(index)):
-                
                 if state.skipIndex < index {
                     state.skipIndex = index
+                    
                     if (state.videoInfos.count - 1) - index <= 8 {
                         return fetchVideos(state: &state, isScroll: true)
                             .throttle(id: CancelId.scrollID, for: 2, scheduler: RunLoop.current.eraseToAnyScheduler(), latest: false)
@@ -178,6 +178,7 @@ extension MoreCharacterFeature {
                 
             case .viewEventType(.resetData):
                 state.currentStart = 0
+                state.skipIndex = 0
                 
                 return fetchVideos(state: &state, isScroll: false)
                 
@@ -210,7 +211,9 @@ extension MoreCharacterFeature {
                 
             case let .dataTransType(.errorInfo(error)):
                 if let errorMSG = errorHandling(error) {
-                    print(errorMSG)
+                    #if DEBUG
+                        print(errorMSG)
+                    #endif
                     return .send(.alertAction(.showAlert(.severError(nil))))
                 }
                 
