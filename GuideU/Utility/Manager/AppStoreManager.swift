@@ -63,7 +63,9 @@ struct AppStoreManager {
                 return true
                 // Patch의 버전이 다르거나 최신 버전이라면 아무 얼럿도 띄우지 않는다.
             } else {
+                #if DEBUG
                 print("앱 버전이 같습니다.")
+                #endif
                 return false
             }
             

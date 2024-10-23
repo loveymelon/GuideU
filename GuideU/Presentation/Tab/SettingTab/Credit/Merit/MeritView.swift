@@ -56,7 +56,9 @@ extension MeritView {
                         .font(Font(WantedFont.midFont.font(size:16)))
                         .foregroundStyle(colorSystem.color(colorCase: .pointColor))
                         .onAppear {
+                            #if DEBUG
                             print(caseOf)
+                            #endif
                         }
                     
                     Text(

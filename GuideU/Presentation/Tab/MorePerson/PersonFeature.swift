@@ -212,7 +212,9 @@ extension PersonFeature {
                 }
                 
             case let .dataTransType(.errorInfo(error, dataType)):
-                print(errorHandling(error ?? "nil"))
+                #if DEBUG
+                print(errorHandling(error) ?? "nil")
+                #endif
 
                 switch dataType {
                 case .header:
@@ -222,7 +224,9 @@ extension PersonFeature {
                 case .meme:
                     state.memeState = .severError
                 case .other:
+                    #if DEBUG
                     print(error)
+                    #endif
                 }
                 
             case let .dataTransType(.youtubeURL(urlString)):
@@ -248,7 +252,9 @@ extension PersonFeature {
                 }
                 
             case let .bindingURL(socialURL):
+                #if DEBUG
                 print("binding", socialURL ?? "nil")
+                #endif
                 state.selectedURL = socialURL
                 
             case .viewEventType(.backButtonTapped):

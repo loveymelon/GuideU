@@ -34,12 +34,16 @@ final class NetworkManager: Sendable {
                 case .simple(let simpleErrorDTO):
                     throw .viewError(.msg(simpleErrorDTO.detail))
                 case .detailed(let detailedErrorDTO):
+                    #if DEBUG
                     print("detail")
+                    #endif
                     dump(detailedErrorDTO)
                     throw .viewError(.msg(detailedErrorDTO.detail.first?.msg ?? "unknown"))
                 }
             } catch {
+                #if DEBUG
                 print("emergency")
+                #endif
                 throw .viewError(.msg("unknown"))
             }
     }
@@ -86,7 +90,9 @@ extension NetworkManager {
             
             return data
         case let .failure(guideError):
+            #if DEBUG
             print(guideError)
+            #endif
             do {
                 let retryResult = try await retryNetwork(dto: dto, router: router)
                 

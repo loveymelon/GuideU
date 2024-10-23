@@ -96,7 +96,9 @@ extension Router {
         do {
             return try CodableManager.shared.jsonEncoding(from: request)
         } catch {
+            #if DEBUG
             print("requestToBody Error")
+            #endif
             return nil
         }
     }

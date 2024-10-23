@@ -30,7 +30,9 @@ final class NWPathMonitorManager: Sendable {
     
     func start() {
         startMonitoring()
+        #if DEBUG
         print(#function)
+        #endif
     }
     
     func getToConnectionType() -> AnyPublisher<ConnectionType, Never> {
@@ -44,7 +46,9 @@ final class NWPathMonitorManager: Sendable {
             monitor.pathUpdateHandler = { path in
                 Task {
                     let trigger = self.networkConnectStatus(path: path)
+                    #if DEBUG
                     print(trigger)
+                    #endif
                     continuation.yield(trigger)
                 }
             }
@@ -53,7 +57,9 @@ final class NWPathMonitorManager: Sendable {
     
     func stop() {
         monitor.cancel()
+        #if DEBUG
         print(#function)
+        #endif
     }
     
 }

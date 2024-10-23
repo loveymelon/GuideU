@@ -45,7 +45,9 @@ struct DownImageView: View {
                     )
                 )
                 .onFailure { error in
+                    #if DEBUG
                     print(error)
+                    #endif
                     if case .imageSettingError(reason: .emptySource) = error {
                         currentURL = url
                     } else if let fallbackURL {

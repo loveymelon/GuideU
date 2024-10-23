@@ -116,7 +116,9 @@ final class ShareViewModel: ObservableObject {
            let encode = encoding(string: url.absoluteString) {
             
             userDefaults.setValue(encode, forKey: GuideUShareConst.userDefaultKey)
+            #if DEBUG
             print("공유받은 YouTube URL: \(url.absoluteString)")
+            #endif
             userDefaults.synchronize()
             
             return true
@@ -132,8 +134,9 @@ final class ShareViewModel: ObservableObject {
            let encode = encoding(string: string) {
             
             userDefaults.setValue(encode, forKey: GuideUShareConst.userDefaultKey)
+            #if DEBUG
             print("공유받은 YouTube URL: \(string)")
-            
+            #endif
             userDefaults.synchronize()
             return true
         } else {
