@@ -20,7 +20,7 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var currentStart = 0
         var skipIndex = 0
         
-        var limit = 30
+        var limit = 40
         var dialogPresent: Bool = false
         var selectedIndex: Int = 0
         
@@ -141,7 +141,7 @@ extension MoreCharacterFeature {
                 if state.skipIndex < index {
                     state.skipIndex = index
                     
-                    if (state.videoInfos.count - 1) - index <= 8 {
+                    if (state.videoInfos.count - 1) - index <= 20 {
                         return fetchVideos(state: &state, isScroll: true)
                             .throttle(id: CancelId.scrollID, for: 2, scheduler: RunLoop.current.eraseToAnyScheduler(), latest: false)
                     }
@@ -268,7 +268,13 @@ extension MoreCharacterFeature {
 extension MoreCharacterFeature {
     private func fetchVideos(state: inout State, isScroll: Bool) -> Effect<Action> {
         return .run { [state = state] send in
+            let start = DispatchTime.now()
             await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex], state.currentStart, state.limit, isScroll: isScroll)))
+            let end = DispatchTime.now()
+            
+            let result = Double(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
+            
+            print("sec", result)
         }
     }
 }
