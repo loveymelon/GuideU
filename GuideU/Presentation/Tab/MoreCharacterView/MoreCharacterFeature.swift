@@ -83,6 +83,7 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         case youtubeButtonTapped
         case detailButtonTapped
         case successOpenURL
+        case resetData
         
         // Side Effect
         case sideCheckedIndex(Int)
@@ -174,6 +175,11 @@ extension MoreCharacterFeature {
                 
             case .viewEventType(.successOpenURL):
                 state.openURLCase = nil
+                
+            case .viewEventType(.resetData):
+                state.currentStart = 0
+                
+                return fetchVideos(state: &state, isScroll: false)
                 
             case let .networkType(.fetchVideos(channel, skip, limit, isScroll)):
                 return .run { send in
