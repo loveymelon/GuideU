@@ -197,13 +197,14 @@ extension MoreCharacterFeature {
                 if isScroll {
                     state.videoInfos.append(contentsOf: videos)
                     state.listLoadTrigger = true
-                    state.currentStart += (state.limit + 1)
+                    state.currentStart += state.videoInfos.count + 1
                 } else {
                     state.videoInfos = videos
                     state.loadingTrigger = false
                     state.listLoadTrigger = true
-                    state.currentStart += (state.limit + 1)
+                    state.currentStart += state.videoInfos.count + 1
                 }
+                print(videos)
                 
             case let .dataTransType(.selectVideoURL(selectURL)):
                 guard let youtubeURL = selectURL else { return .none }
