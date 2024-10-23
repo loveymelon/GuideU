@@ -232,8 +232,9 @@ extension SearchFeature {
                 state.searchCaseList = suggestEntity
                 
             case let .dataTransType(.errorInfo(error)):
+                #if DEBUG
                 print(errorHandling(error) ?? "nil")
-                
+                #endif
             case .dataTransType(.realmFetch):
                 return .run { send in
                     let result = await dataSourceActor.fetch()

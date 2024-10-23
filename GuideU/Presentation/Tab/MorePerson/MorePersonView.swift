@@ -204,7 +204,9 @@ struct MorePersonView: View {
                     DispatchQueue.main.async {
                         offsetY = offset + 80
                         opacity = max(0, min(1, 1 - (offsetY / 100)))
+                        #if DEBUG
                         print("투명도 : ",opacity)
+                        #endif
                     }
                 } onDraggingEnd: { offset, veloc in
                     

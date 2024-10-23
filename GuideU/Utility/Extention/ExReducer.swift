@@ -12,14 +12,21 @@ extension Reducer {
         if let networkAPIError = error as? NetworkAPIError {
             switch networkAPIError {
             case let .routerError(error):
+                #if DEBUG
                 print("routerError", error)
+                #endif
+                return nil
             case let .viewError(error):
+                #if DEBUG
                 print(error)
+                #endif
                 if case let .msg(msg) = error {
                     return msg
                 }
             case let .realmError(error):
+                #if DEBUG
                 print(error)
+                #endif
                 return error.description
             }
         }

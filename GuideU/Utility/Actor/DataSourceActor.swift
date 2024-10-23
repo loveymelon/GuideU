@@ -59,8 +59,9 @@ final actor DataSourceActor {
             try await checkRealmCount()
             
             try await realm?.asyncWrite {
+                #if DEBUG
                 print("realm", realm?.configuration.fileURL ?? "")
-                
+                #endif
                 realm?.create(
                     VideoHistoryRequestDTO.self,
                     value: [

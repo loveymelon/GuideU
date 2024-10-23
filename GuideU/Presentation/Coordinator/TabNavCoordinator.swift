@@ -68,8 +68,9 @@ extension TabNavCoordinator {
                 state.routes.push(.detail(PersonFeature.State(identifierURL: Const.youtubeBaseString + identifier)))
                 
             case .viewLifeCycle(.active):
+                #if DEBUG
                 print("액티브")
-                
+                #endif
                 if let url = UserDefaultsManager.sharedURL {
                     state.routes.push(.detail(PersonFeature.State(identifierURL: url)))
                     

@@ -39,8 +39,9 @@ final class DateManager: @unchecked Sendable {
         if let fallbackResult = dateFormatter.date(from: dateString) {
             return fallbackResult
         }
-        
+        #if DEBUG
         print("fail")
+        #endif
         return nil
     }
     

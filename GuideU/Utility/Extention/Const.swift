@@ -109,7 +109,6 @@ enum Const {
             case .all:
                 if let wakURL = Const.Wakgood.allCases.first(where: { $0.id == channelId })?.imageURLString {
                     urlString = base + wakURL
-                    print(urlString)
                 } else if let ineURL = Const.INE.allCases.first(where: { $0.id == channelId })?.imageURLString {
                     urlString = base + ineURL
                 } else if let jingURL = Const.JINGBURGER.allCases.first(where: { $0.id == channelId })?.imageURLString {

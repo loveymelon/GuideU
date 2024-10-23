@@ -105,7 +105,9 @@ extension ShareViewController {
         if let url = URL(string: urlScheme) {
             // 앱 실행
             if self.openURL(url) {
+                #if DEBUG
                 print("RUN : APP")
+                #endif
             }
             close()
         }

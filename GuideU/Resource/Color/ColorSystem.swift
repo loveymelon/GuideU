@@ -53,7 +53,9 @@ final class ColorSystem: ObservableObject {
     }
     
     func changeColor(type: CurrentColorModeCase) {
+        #if DEBUG
         print("current : \(type)")
+        #endif
         currentColorSet = type
         UserDefaultsManager.colorCase = type.rawValue
     }
@@ -65,7 +67,9 @@ final class ColorSystem: ObservableObject {
         
         guard let window = window else { return }
         let currentStyle = window.traitCollection.userInterfaceStyle
+        #if DEBUG
         print( currentStyle == .light ? "라이트 모드" : "다크 모드")
+        #endif
         self.currentColorScheme = currentStyle
     }
 }
@@ -193,7 +197,9 @@ extension ColorSystem {
             case .dark:
                 return dark
             case .system:
+                #if DEBUG
                 print(currentColorSet == .light)
+                #endif
                 return currentColorScheme == .light ? light : dark
             }
         case .subGrayColor:

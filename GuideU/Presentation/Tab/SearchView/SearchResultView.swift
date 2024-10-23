@@ -27,8 +27,9 @@ struct SearchResultView: View {
             .background(colorSystem.color(colorCase: .background))
             .onChange(of: store.openURLCase) { newValue in
                 guard let openURL = newValue else { return }
+                #if DEBUG
                 print("change")
-                
+                #endif
                 store.send(.viewEventType(.successOpenURL))
                 Task {
                    await openURLManager.openAppUrl(urlCase: openURL)
