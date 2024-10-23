@@ -139,6 +139,7 @@
 		7BDB19682CC24192004F5F1B /* MeritFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB19672CC24192004F5F1B /* MeritFeature.swift */; };
 		7BDB196A2CC2434D004F5F1B /* TeamRoleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB19692CC2434D004F5F1B /* TeamRoleProtocol.swift */; };
 		7BDB19792CC62EAA004F5F1B /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB19782CC62EAA004F5F1B /* AlertMessage.swift */; };
+		7BDB197B2CC8EE7B004F5F1B /* MemoryTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB197A2CC8EE7B004F5F1B /* MemoryTypeManager.swift */; };
 		DF07CFF92CB92DDC005DB7EA /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF07CFF82CB92DDC005DB7EA /* ImageType.swift */; };
 		DF1DECD12C7D79370098F761 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD02C7D79370098F761 /* CharacterRepository.swift */; };
 		DF1DECD32C7D79820098F761 /* CharacterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD22C7D79820098F761 /* CharacterMapper.swift */; };
@@ -349,6 +350,7 @@
 		7BDB19672CC24192004F5F1B /* MeritFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeritFeature.swift; sourceTree = "<group>"; };
 		7BDB19692CC2434D004F5F1B /* TeamRoleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamRoleProtocol.swift; sourceTree = "<group>"; };
 		7BDB19782CC62EAA004F5F1B /* AlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
+		7BDB197A2CC8EE7B004F5F1B /* MemoryTypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTypeManager.swift; sourceTree = "<group>"; };
 		DF07CFF82CB92DDC005DB7EA /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
 		DF1DECD02C7D79370098F761 /* CharacterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepository.swift; sourceTree = "<group>"; };
 		DF1DECD22C7D79820098F761 /* CharacterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMapper.swift; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 				7B26657F2C92C210000A483A /* OpenURLManager.swift */,
 				DF57E15C2C931DB100E094D1 /* URLDividerManager.swift */,
 				7B69BF1B2CA551B500578021 /* HapticFeedbackManager.swift */,
+				7BDB197A2CC8EE7B004F5F1B /* MemoryTypeManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1378,6 +1381,7 @@
 				7BC2CB532C9838AF00309B9B /* SettingView.swift in Sources */,
 				7B0D63912CA13C1F00A9A071 /* ShimmerAnimation.swift in Sources */,
 				7BACA4362C8371C3008D4CFC /* SearchHistoryCellView.swift in Sources */,
+				7BDB197B2CC8EE7B004F5F1B /* MemoryTypeManager.swift in Sources */,
 				DFB2BE682C8589D200518C7E /* RealmError.swift in Sources */,
 				7B15825D2C74B1DF00599E7C /* CharacterDTO.swift in Sources */,
 				7B69BF1C2CA551B500578021 /* HapticFeedbackManager.swift in Sources */,

@@ -8,13 +8,24 @@
 import SwiftUI
 import ComposableArchitecture
 import TCACoordinators
-
+import Kingfisher
 
 struct RootCoordinatorView: View {
     
     @Perception.Bindable var store: StoreOf<RootCoordinator>
     
     @StateObject private var colorSystem = ColorSystem()
+    private let memoryTypeChanger = MemoryTypeManager()
+    
+    init(store: StoreOf<RootCoordinator>) {
+        self.store = store
+        let cache = ImageCache.default
+        
+        // 메모리 캐시 용량을 100MB로 설정
+        cache.memoryStorage.config.totalCostLimit = memoryTypeChanger.memoryTypeChange(memoryType: .mb(100))
+        // 디스크 캐시 용량을 200MB로 설정
+        cache.diskStorage.config.sizeLimit = UInt(memoryTypeChanger.memoryTypeChange(memoryType: .mb(200)))
+    }
     
     var body: some View {
         WithPerceptionTracking {
