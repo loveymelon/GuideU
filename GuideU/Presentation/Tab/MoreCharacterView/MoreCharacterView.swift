@@ -173,8 +173,8 @@ extension MoreCharacterView {
                         {
                             $0.menuTitle
                         }),
-                    selectedOptionIndex: $store.currentIndex.sending(
-                        \.currentIndex
+                    selectedOptionIndex: $store.dropDownIndex.sending(
+                        \.dropDownIndex
                     ),
                     showDropdown: $dropdown
                 )

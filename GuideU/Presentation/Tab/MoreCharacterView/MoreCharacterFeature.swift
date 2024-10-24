@@ -18,9 +18,9 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var dropDownOptions = Const.Channel.allCases
         var currentDropDownOption = Const.Channel.all
         var currentText = ""
-        var currentIndex = 0
-        var currentStart = 0
-        var skipIndex = 0
+        var dropDownIndex = 0
+        
+        var currentData = CurrentData()
         
         var dialogPresent: Bool = false
         var selectedIndex: Int = 0
@@ -36,6 +36,11 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         let constViewState = ConstViewState()
         let scrollViewTopID = UUID()
         var scrollToTop = false
+    }
+    
+    struct CurrentData: Equatable {
+        var currentStart = 0
+        var skipIndex = 0
     }
     
     struct ConstViewState: Equatable {
@@ -59,7 +64,7 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         }
         /// Binding
         case currentText(String)
-        case currentIndex(Int)
+        case dropDownIndex(Int)
         case selectedVideo(VideosEntity?)
         case dialogBinding(Bool)
         case alertBinding(AlertMessage?)
@@ -142,8 +147,8 @@ extension MoreCharacterFeature {
                 return .send(.viewEventType(.sideCheckedIndex(index)))
                 
             case let .viewEventType(.sideCheckedIndex(index)):
-                if state.skipIndex < index {
-                    state.skipIndex = index
+                if state.currentData.skipIndex < index {
+                    state.currentData.skipIndex = index
                     
                     if (state.videoInfos.count - 1) - index <= state.pageLimit {
                         return fetchVideos(state: &state, isScroll: true)
@@ -181,8 +186,7 @@ extension MoreCharacterFeature {
                 state.openURLCase = nil
                 
             case .viewEventType(.resetData):
-                state.currentStart = 0
-                state.skipIndex = 0
+                state.currentData = CurrentData()
                 
                 return fetchVideos(state: &state, isScroll: false)
                 
@@ -201,14 +205,13 @@ extension MoreCharacterFeature {
                 if isScroll {
                     state.videoInfos.append(contentsOf: videos)
                     state.listLoadTrigger = true
-                    state.currentStart += state.videoInfos.count + 1
+                    state.currentData.currentStart += state.videoInfos.count + 1
                 } else {
                     state.videoInfos = videos
                     state.loadingTrigger = false
                     state.listLoadTrigger = true
-                    state.currentStart += state.videoInfos.count + 1
+                    state.currentData.currentStart += state.videoInfos.count + 1
                 }
-                print(videos)
                 
             case let .dataTransType(.selectVideoURL(selectURL)):
                 guard let youtubeURL = selectURL else { return .none }
@@ -223,15 +226,14 @@ extension MoreCharacterFeature {
                 }
                 
                 //binding action setting
-            case let .currentIndex(index):
-                state.currentIndex = index
+            case let .dropDownIndex(index):
+                state.dropDownIndex = index
                 let selected = Const.Channel.allCases[index]
                 if state.currentDropDownOption == selected {
                     return .none
                 } else {
                     state.currentDropDownOption = selected
-                    state.currentStart = 0
-                    state.skipIndex = 0
+                    state.currentData = CurrentData()
                     state.loadingTrigger = true
                 }
                 return fetchVideos(state: &state, isScroll: false)
@@ -274,7 +276,7 @@ extension MoreCharacterFeature {
     private func fetchVideos(state: inout State, isScroll: Bool) -> Effect<Action> {
         return .run { [state = state] send in
             let start = DispatchTime.now()
-            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex], state.currentStart, limit, isScroll: isScroll)))
+            await send(.networkType(.fetchVideos(state.dropDownOptions[state.dropDownIndex], state.currentData.currentStart, limit, isScroll: isScroll)))
             let end = DispatchTime.now()
             
             let result = Double(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
