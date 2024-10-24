@@ -145,7 +145,7 @@ extension MoreCharacterView {
                     .task {
                         if index >= store.state.videoInfos.count - store.state.pageLimit {
                             if store.state.listLoadTrigger {
-                                store.send(.viewEventType(.videoOnAppear(index)))
+                                store.send(.viewEventType(.videoOnAppear(index))) 
                             }
                         }
                     }
