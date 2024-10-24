@@ -140,6 +140,7 @@
 		7BDB196A2CC2434D004F5F1B /* TeamRoleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB19692CC2434D004F5F1B /* TeamRoleProtocol.swift */; };
 		7BDB19792CC62EAA004F5F1B /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB19782CC62EAA004F5F1B /* AlertMessage.swift */; };
 		7BDB197B2CC8EE7B004F5F1B /* MemoryTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB197A2CC8EE7B004F5F1B /* MemoryTypeManager.swift */; };
+		7BE856BC2CCA159B002B0E67 /* ExDispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE856BB2CCA159B002B0E67 /* ExDispatchQueue.swift */; };
 		DF07CFF92CB92DDC005DB7EA /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF07CFF82CB92DDC005DB7EA /* ImageType.swift */; };
 		DF1DECD12C7D79370098F761 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD02C7D79370098F761 /* CharacterRepository.swift */; };
 		DF1DECD32C7D79820098F761 /* CharacterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DECD22C7D79820098F761 /* CharacterMapper.swift */; };
@@ -351,6 +352,7 @@
 		7BDB19692CC2434D004F5F1B /* TeamRoleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamRoleProtocol.swift; sourceTree = "<group>"; };
 		7BDB19782CC62EAA004F5F1B /* AlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
 		7BDB197A2CC8EE7B004F5F1B /* MemoryTypeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTypeManager.swift; sourceTree = "<group>"; };
+		7BE856BB2CCA159B002B0E67 /* ExDispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExDispatchQueue.swift; sourceTree = "<group>"; };
 		DF07CFF82CB92DDC005DB7EA /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
 		DF1DECD02C7D79370098F761 /* CharacterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepository.swift; sourceTree = "<group>"; };
 		DF1DECD22C7D79820098F761 /* CharacterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMapper.swift; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				7BACA41F2C7EECAD008D4CFC /* ExString.swift */,
 				7B69BF0A2CA3F56D00578021 /* ExUINavigationController.swift */,
 				DF44BA732CBD70B800987712 /* ExReducer.swift */,
+				7BE856BB2CCA159B002B0E67 /* ExDispatchQueue.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -1406,6 +1409,7 @@
 				7B2665952C940CA8000A483A /* HistoryView.swift in Sources */,
 				7B0D638D2CA1370000A9A071 /* MoreCharacterSkeletonView.swift in Sources */,
 				DF986E852C7CCACC00F2D52F /* CharacterRouter.swift in Sources */,
+				7BE856BC2CCA159B002B0E67 /* ExDispatchQueue.swift in Sources */,
 				7BA3F7C72CAF937F003EF15A /* CreditViewFeature.swift in Sources */,
 				DF44BA742CBD70B800987712 /* ExReducer.swift in Sources */,
 				7B0D639A2CA3060E00A9A071 /* AppColorSettingFeature.swift in Sources */,

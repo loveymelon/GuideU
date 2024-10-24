@@ -116,7 +116,7 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     @Dependency(\.videoRepository) var videoRepository
     @Dependency(\.characterRepository) var characterRepository
     @Dependency(\.urlDividerManager) var urlDividerManager
-    
+        
     var body: some ReducerOf<Self> {
         core()
     }
@@ -143,7 +143,7 @@ extension MoreCharacterFeature {
                     
                     if (state.videoInfos.count - 1) - index <= 20 {
                         return fetchVideos(state: &state, isScroll: true)
-                            .throttle(id: CancelId.scrollID, for: 2, scheduler: RunLoop.current.eraseToAnyScheduler(), latest: false)
+                            .throttle(id: CancelId.scrollID, for: 2, scheduler: DispatchQueue.global(qos: .userInteractive).eraseToAnyScheduler(), latest: false)
                     }
                 }
                 
@@ -231,7 +231,7 @@ extension MoreCharacterFeature {
                     state.loadingTrigger = true
                 }
                 return fetchVideos(state: &state, isScroll: false)
-                    .debounce(id: CancelId.categoryID, for: 1, scheduler: RunLoop.main, options: nil)
+                    .debounce(id: CancelId.categoryID, for: 1, scheduler: DispatchQueue.global(qos: .userInitiated), options: nil)
                 
             case let .currentText(text):
                 state.currentText = text
