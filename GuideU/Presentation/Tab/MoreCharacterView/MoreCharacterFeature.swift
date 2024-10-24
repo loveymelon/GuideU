@@ -13,6 +13,8 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     
     @ObservableState
     struct State: Equatable {
+        let pageLimit = 10
+        
         var dropDownOptions = Const.Channel.allCases
         var currentDropDownOption = Const.Channel.all
         var currentText = ""
@@ -20,7 +22,6 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var currentStart = 0
         var skipIndex = 0
         
-        var limit = 40
         var dialogPresent: Bool = false
         var selectedIndex: Int = 0
         
@@ -117,6 +118,9 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     @Dependency(\.characterRepository) var characterRepository
     @Dependency(\.urlDividerManager) var urlDividerManager
         
+    private let limit = 40
+    
+    
     var body: some ReducerOf<Self> {
         core()
     }
@@ -141,7 +145,7 @@ extension MoreCharacterFeature {
                 if state.skipIndex < index {
                     state.skipIndex = index
                     
-                    if (state.videoInfos.count - 1) - index <= 20 {
+                    if (state.videoInfos.count - 1) - index <= state.pageLimit {
                         return fetchVideos(state: &state, isScroll: true)
                             .throttle(id: CancelId.scrollID, for: 2, scheduler: DispatchQueue.global(qos: .userInteractive).eraseToAnyScheduler(), latest: false)
                     }
@@ -270,7 +274,7 @@ extension MoreCharacterFeature {
     private func fetchVideos(state: inout State, isScroll: Bool) -> Effect<Action> {
         return .run { [state = state] send in
             let start = DispatchTime.now()
-            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex], state.currentStart, state.limit, isScroll: isScroll)))
+            await send(.networkType(.fetchVideos(state.dropDownOptions[state.currentIndex], state.currentStart, limit, isScroll: isScroll)))
             let end = DispatchTime.now()
             
             let result = Double(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000

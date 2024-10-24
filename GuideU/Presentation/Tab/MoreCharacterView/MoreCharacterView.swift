@@ -143,7 +143,7 @@ extension MoreCharacterView {
                     .environmentObject(colorSystem)
                     .padding(.bottom, 10)
                     .task {
-                        if index >= store.state.videoInfos.count - 20 {
+                        if index >= store.state.videoInfos.count - store.state.pageLimit {
                             if store.state.listLoadTrigger {
                                 store.send(.viewEventType(.videoOnAppear(index)))
                             }
