@@ -43,22 +43,6 @@ final class VideoRepository: @unchecked Sendable {
     }
 }
 
-//extension VideoRepository {
-//    private func catchError(_ error: NetworkAPIError) -> APIErrorResponse? {
-//        switch error {
-//        case .simple(_), .detailed(_):
-//            return error
-//        case let .router(routerError):
-//            print(routerError)
-//            return nil
-////        case let .simple(simpleError):
-////            return errorMapper.dtoToEntity(simpleError)
-////        case let .detailed(detailError):
-////            return errorMapper.dtoToEntity(detailError)
-//        }
-//    }
-//}
-
 extension VideoRepository: DependencyKey {
     static let liveValue: VideoRepository = VideoRepository()
 }
