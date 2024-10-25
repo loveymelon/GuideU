@@ -14,6 +14,22 @@ struct VideoMapper: Sendable {
         return dtos.map { dtoToEntity($0, channel: channel, channelID: channelID) }
     }
     
+    func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") async -> [VideosEntity] {
+        return await withTaskGroup(of: VideosEntity.self) { group in
+            for dto in dtos {
+                group.addTask {
+                    dtoToEntity(dto, channel: channel, channelID: channelID)
+                }
+            }
+            
+            var result: [VideosEntity] = []
+            for await entity in group {
+                result.append(entity)
+            }
+            return result
+        }
+    }
+    
     func requestDTOToEntity(_ requestDTO: [VideoHistoryRequestDTO]) -> [VideosEntity] {
         return requestDTO.map { requestDTOToEntity($0) }
     }
