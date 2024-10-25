@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct VideoMapper: Sendable {
+final class VideoMapper: Sendable {
     /// [VideosDTO] -> [VideosEntity]
     func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [VideosEntity] {
         return dtos.map { dtoToEntity($0, channel: channel, channelID: channelID) }
@@ -17,8 +17,9 @@ struct VideoMapper: Sendable {
     func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") async -> [VideosEntity] {
         return await withTaskGroup(of: VideosEntity.self) { group in
             for dto in dtos {
-                group.addTask {
-                    dtoToEntity(dto, channel: channel, channelID: channelID)
+                group.addTask { [weak self] in
+                    guard let self else { return VideosEntity() }
+                    return dtoToEntity(dto, channel: channel, channelID: channelID)
                 }
             }
             

@@ -120,7 +120,6 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     private let dataSourceActor = DataSourceActor()
     
     @Dependency(\.videoRepository) var videoRepository
-    @Dependency(\.characterRepository) var characterRepository
     @Dependency(\.urlDividerManager) var urlDividerManager
         
     private let limit = 40
@@ -275,13 +274,7 @@ extension MoreCharacterFeature {
 extension MoreCharacterFeature {
     private func fetchVideos(state: inout State, isScroll: Bool) -> Effect<Action> {
         return .run { [state = state] send in
-            let start = DispatchTime.now()
             await send(.networkType(.fetchVideos(state.dropDownOptions[state.dropDownIndex], state.currentData.currentStart, limit, isScroll: isScroll)))
-            let end = DispatchTime.now()
-            
-            let result = Double(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
-            
-            print("sec", result)
         }
     }
 }
