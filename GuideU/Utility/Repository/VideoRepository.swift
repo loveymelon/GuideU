@@ -17,7 +17,7 @@ final class VideoRepository: @unchecked Sendable {
         let data = try await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos(identifier: identifier))
         
         guard let headerData = videoMapper.dtoToEntityToHeader(data.videos).first,
-              let videoData = videoMapper.dtoToEntity(data.videos).first else {
+              let videoData = await videoMapper.dtoToEntity(data.videos).first else {
             return nil
         }
         
@@ -29,35 +29,19 @@ final class VideoRepository: @unchecked Sendable {
         if channel.channelIDs.isEmpty {
             let data = try await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos(skip: skip, limit: limit))
             
-            return videoMapper.dtoToEntity(data.videos, channel: channel)
+            return await videoMapper.dtoToEntity(data.videos, channel: channel)
         } else {
             var tempData: [VideosEntity] = []
             
             for id in channel.channelIDs {
                 let data = try await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos(channelId: id, skip: skip, limit: limit))
                 
-                tempData.append(contentsOf: videoMapper.dtoToEntity(data.videos, channel: channel, channelID: id))
+                await tempData.append(contentsOf: videoMapper.dtoToEntity(data.videos, channel: channel, channelID: id))
             }
             return tempData.sorted { $0.updatedAt > $1.updatedAt }
         }
     }
 }
-
-//extension VideoRepository {
-//    private func catchError(_ error: NetworkAPIError) -> APIErrorResponse? {
-//        switch error {
-//        case .simple(_), .detailed(_):
-//            return error
-//        case let .router(routerError):
-//            print(routerError)
-//            return nil
-////        case let .simple(simpleError):
-////            return errorMapper.dtoToEntity(simpleError)
-////        case let .detailed(detailError):
-////            return errorMapper.dtoToEntity(detailError)
-//        }
-//    }
-//}
 
 extension VideoRepository: DependencyKey {
     static let liveValue: VideoRepository = VideoRepository()
