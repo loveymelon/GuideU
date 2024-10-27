@@ -38,6 +38,23 @@ final class VideoMapper: Sendable {
     func dtoToEntityToHeader(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [HeaderEntity] {
         return dtos.map { dtoToEntityToHeader($0, channel: channel, channelID: channelID) }
     }
+    /// [VideosDTO] -> [HeaderEntity] 비동기 변환
+    func dtoToEntityToHeader(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") async -> [HeaderEntity] {
+        return await withTaskGroup(of: HeaderEntity.self) { group in
+            for dto in dtos {
+                group.addTask { [weak self] in
+                    guard let self else { return HeaderEntity.initialSelf }
+                    return self.dtoToEntityToHeader(dto, channel: channel, channelID: channelID)
+                }
+            }
+            
+            var result: [HeaderEntity] = []
+            for await header in group {
+                result.append(header)
+            }
+            return result
+        }
+    }
     
     func requestDTOToEntity(_ requestDTO: VideoHistoryRequestDTO) -> VideosEntity {
         return VideosEntity(identifier: requestDTO.identifier, videoURL: URL(string: requestDTO.videoURL), channelName: requestDTO.channelName, videoImageURL: URL(string: requestDTO.thumbnail), updatedAt: requestDTO.updatedAt, channelImageURL: URL(string: requestDTO.channelImage), title: requestDTO.title)

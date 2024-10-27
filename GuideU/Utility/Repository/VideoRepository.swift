@@ -16,8 +16,9 @@ final class VideoRepository: @unchecked Sendable {
     func fetchVideoHeader(identifier: String) async throws -> (header: HeaderEntity, video: VideosEntity)? {
         let data = try await network.requestNetwork(dto: VideoDTO.self, router: VideoRouter.fetchVideos(identifier: identifier))
         
-        guard let headerData = videoMapper.dtoToEntityToHeader(data.videos).first,
-              let videoData = await videoMapper.dtoToEntity(data.videos).first else {
+        guard let headerFirst = data.videos.first,
+              let headerData = await videoMapper.dtoToEntityToHeader([headerFirst]).first,
+              let videoData = await videoMapper.dtoToEntity([headerFirst]).first else {
             return nil
         }
         
