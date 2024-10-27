@@ -18,8 +18,7 @@ struct AppInfoView: View {
     var body: some View {
         WithPerceptionTracking {
             contentView()
-                .padding(.top, 20)
-                .padding(.horizontal, 16)
+                .padding(.top, 2) // 네비게이션바 색변환 방지
                 .background(colorSystem.color(colorCase: .background))
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -49,11 +48,16 @@ struct AppInfoView: View {
 extension AppInfoView {
     private func contentView() -> some View {
         ScrollView {
-            appInfoSection()
-                .padding(.bottom, 20)
-            openSourceView()
+            Group {
+                appInfoSection()
+                    .padding(.top, 18)
+                    .padding(.bottom, 20)
+                openSourceView()
+            }
+            .padding(.horizontal, 16)
             Spacer()
         }
+        .frame(maxWidth: .infinity)
     }
     
     private func appInfoSection() -> some View {
@@ -110,7 +114,7 @@ extension AppInfoView {
                     HStack {
                         if item == .Apache || item == .MIT {
                             Text(item.subTitle)
-                                .font(Font(WantedFont.midFont.font(size: 14)))
+                                .font(Font(WantedFont.midFont.font(size: 12)))
                                 .foregroundStyle(colorSystem.color(colorCase: .subGrayColor))
                                 .multilineTextAlignment(.center)
                         } else {
