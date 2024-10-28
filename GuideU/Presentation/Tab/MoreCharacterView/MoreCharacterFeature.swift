@@ -236,7 +236,6 @@ extension MoreCharacterFeature {
                     state.loadingTrigger = true
                 }
                 return fetchVideos(state: &state, isScroll: false)
-                    .debounce(id: CancelId.categoryID, for: 1, scheduler: DispatchQueue.global(qos: .userInitiated), options: nil)
                 
             case let .currentText(text):
                 state.currentText = text
@@ -276,5 +275,6 @@ extension MoreCharacterFeature {
         return .run { [state = state] send in
             await send(.networkType(.fetchVideos(state.dropDownOptions[state.dropDownIndex], state.currentData.currentStart, limit, isScroll: isScroll)))
         }
+        .debounce(id: CancelId.categoryID, for: 1, scheduler: DispatchQueue.global(qos: .userInitiated), options: nil)
     }
 }
