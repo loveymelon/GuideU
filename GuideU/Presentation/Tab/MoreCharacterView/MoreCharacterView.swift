@@ -20,6 +20,8 @@ struct MoreCharacterView: View {
     
     @State var dropdown: Bool = false
     
+    private let scrollViewTopID = UUID()
+    
     var body: some View {
         WithPerceptionTracking {
             VStack {
@@ -82,7 +84,7 @@ extension MoreCharacterView {
         ScrollViewReader { proxy in
             ScrollView {
                 Color.clear.frame(height: 0)
-                    .id(store.scrollViewTopID)
+                    .id(scrollViewTopID)
                 ZStack(alignment: .top) {
                     ZStack {
                         Group {
@@ -107,7 +109,7 @@ extension MoreCharacterView {
             .background(colorSystem.color(colorCase: .background))
             .onChange(of: store.scrollToTop) { newValue in
                 withAnimation {
-                    proxy.scrollTo(store.scrollViewTopID)
+                    proxy.scrollTo(scrollViewTopID)
                 }
             }
         }
@@ -158,10 +160,10 @@ extension MoreCharacterView {
     private func wantMoreInfoView() -> some View {
         VStack(spacing: 0) {
             Text(
-                store.constViewState.main.styledText(
+                store.state.main.styledText(
                     fullFont: WantedFont.regularFont.font(size: 22),
                     fullColor: UIColor(colorSystem.color(colorCase: .textColor)),
-                    targetString: store.constViewState.targetString,
+                    targetString: store.state.targetString,
                     targetFont: WantedFont.boldFont.font(size: 24),
                     targetColor: GuideUColor.ViewBaseColor.light.primary
                 )
@@ -182,7 +184,7 @@ extension MoreCharacterView {
                 .environmentObject(colorSystem)
                 .zIndex(100)
                 
-                Text(store.constViewState.sub)
+                Text(store.state.sub)
                     .font(Font(WantedFont.regularFont.font(size: 22)))
                     .padding(.top, 10)
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
@@ -194,7 +196,7 @@ extension MoreCharacterView {
     private func fakeSearchBar() -> some View {
         VStack {
             HStack {
-                Text(store.constViewState.placeHolder)
+                Text(store.state.placeHolder)
                     .font(Font(WantedFont.regularFont.font(size: 15)))
                     .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 Spacer()

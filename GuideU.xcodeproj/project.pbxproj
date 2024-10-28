@@ -69,6 +69,7 @@
 		7B15825A2C74A70000599E7C /* PersonFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582592C74A70000599E7C /* PersonFeature.swift */; };
 		7B15825D2C74B1DF00599E7C /* CharacterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B15825C2C74B1DF00599E7C /* CharacterDTO.swift */; };
 		7B1582642C74B52A00599E7C /* DetailErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */; };
+		7B1E438E2CCF6EB800DD1A42 /* ThreadCheckable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1E438D2CCF6EB800DD1A42 /* ThreadCheckable.swift */; };
 		7B2665712C90D587000A483A /* IdentifiableURLEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665702C90D587000A483A /* IdentifiableURLEntity.swift */; };
 		7B2665742C91BC31000A483A /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665732C91BC31000A483A /* SearchCoordinator.swift */; };
 		7B2665762C91BC3E000A483A /* SearchCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665752C91BC3E000A483A /* SearchCoordinatorView.swift */; };
@@ -284,6 +285,7 @@
 		7B1582592C74A70000599E7C /* PersonFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFeature.swift; sourceTree = "<group>"; };
 		7B15825C2C74B1DF00599E7C /* CharacterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDTO.swift; sourceTree = "<group>"; };
 		7B1582632C74B52A00599E7C /* DetailErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailErrorDTO.swift; sourceTree = "<group>"; };
+		7B1E438D2CCF6EB800DD1A42 /* ThreadCheckable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadCheckable.swift; sourceTree = "<group>"; };
 		7B2665702C90D587000A483A /* IdentifiableURLEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableURLEntity.swift; sourceTree = "<group>"; };
 		7B2665732C91BC31000A483A /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		7B2665752C91BC3E000A483A /* SearchCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinatorView.swift; sourceTree = "<group>"; };
@@ -699,6 +701,7 @@
 				DF1DECDA2C7D7EF40098F761 /* ErrorEntity.swift */,
 				7BACA43C2C855E9E008D4CFC /* GuideUReducer.swift */,
 				7BDB19692CC2434D004F5F1B /* TeamRoleProtocol.swift */,
+				7B1E438D2CCF6EB800DD1A42 /* ThreadCheckable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1378,6 +1381,7 @@
 				7BB233482C8EC7CE00CE4D39 /* MorePersonCoordinatorView.swift in Sources */,
 				DF58795F2C7F0B41009F9171 /* APIErrorResponseDTO.swift in Sources */,
 				7BACA43B2C855CC2008D4CFC /* SearchFeature.swift in Sources */,
+				7B1E438E2CCF6EB800DD1A42 /* ThreadCheckable.swift in Sources */,
 				DF1DECD12C7D79370098F761 /* CharacterRepository.swift in Sources */,
 				7BDB19682CC24192004F5F1B /* MeritFeature.swift in Sources */,
 				7B0D63952CA271DE00A9A071 /* CurrentColorModeCase.swift in Sources */,

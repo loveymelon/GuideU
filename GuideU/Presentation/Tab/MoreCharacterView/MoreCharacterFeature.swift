@@ -14,6 +14,10 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     @ObservableState
     struct State: Equatable {
         let pageLimit = 10
+        let placeHolder =  "알고싶은 왁타버스 영상을 여기에"
+        let main = "나는 왁타버스에서"
+        let sub = "을 더 알아보고 싶어요."
+        let targetString = "왁타버스"
         
         var dropDownOptions = Const.Channel.allCases
         var currentDropDownOption = Const.Channel.all
@@ -21,7 +25,6 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var dropDownIndex = 0
         
         var currentData = CurrentData()
-        
         var dialogPresent: Bool = false
         var selectedIndex: Int = 0
         
@@ -32,22 +35,12 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         
         var loadingTrigger = true
         var listLoadTrigger = true
-        
-        let constViewState = ConstViewState()
-        let scrollViewTopID = UUID()
         var scrollToTop = false
     }
     
     struct CurrentData: Equatable {
         var currentStart = 0
         var skipIndex = 0
-    }
-    
-    struct ConstViewState: Equatable {
-        let placeHolder =  "알고싶은 왁타버스 영상을 여기에"
-        let main = "나는 왁타버스에서"
-        let sub = "을 더 알아보고 싶어요."
-        let targetString = "왁타버스"
     }
     
     enum Action {

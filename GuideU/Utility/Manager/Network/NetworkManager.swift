@@ -10,7 +10,7 @@ import ComposableArchitecture
 import Foundation
 @preconcurrency import Combine
 
-final class NetworkManager: Sendable {
+final class NetworkManager: Sendable, ThreadCheckable {
     
     private let networkError = PassthroughSubject<String, Never>()
     
@@ -18,6 +18,9 @@ final class NetworkManager: Sendable {
     private let retryActor = AnyValueActor(7)
    
     func requestNetwork<T: DTO, R: Router>(dto: T.Type, router: R) async throws(NetworkAPIError) -> T {
+        #if DEBUG
+        checkedMainThread() // 현재 쓰레드 확인
+        #endif
             do {
                 let request = try router.asURLRequest()
                 
