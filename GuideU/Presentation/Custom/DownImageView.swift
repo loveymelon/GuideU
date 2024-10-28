@@ -58,6 +58,7 @@ struct DownImageView: View {
                 .cancelOnDisappear(true) // 사라지면 취소
                 .diskCacheExpiration(.days(7))  // 7일 후 디스크 캐시에서 만료
                 .backgroundDecode(true) // 백그라운드에서 디코딩
+                .processingQueue(.dispatch(DispatchQueue.global(qos: .userInitiated)))
                 .retry(maxCount: 2, interval: .seconds(1))
                 .resizable()
         } else {
