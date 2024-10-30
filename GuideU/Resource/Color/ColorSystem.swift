@@ -25,6 +25,7 @@ final class ColorSystem: ObservableObject {
         NotificationCenter.default
             .publisher(for: UIScreen.brightnessDidChangeNotification, object: nil)
             .receive(on: RunLoop.main)
+            .removeDuplicates()
             .sink {[weak self] _ in
                 self?.updateColorScheme()
             }
@@ -33,6 +34,7 @@ final class ColorSystem: ObservableObject {
         NotificationCenter.default
             .publisher(for: UIApplication.didBecomeActiveNotification)
             .receive(on: RunLoop.main)
+            .removeDuplicates()
             .sink { [weak self] _ in
                 self?.updateColorScheme()
             }
@@ -198,7 +200,7 @@ extension ColorSystem {
                 return dark
             case .system:
                 #if DEBUG
-                print(currentColorSet == .light)
+                print(currentColorSet == .light, #function)
                 #endif
                 return currentColorScheme == .light ? light : dark
             }

@@ -32,8 +32,9 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var onAppearIsValid: Bool = true
         var openURLCase: OpenURLCase? = nil
         var alertMessage: AlertMessage? = nil
-        
+        @ReducerCaseIgnored
         var loadingTrigger = true
+        @ReducerCaseIgnored
         var listLoadTrigger = true
         var scrollToTop = false
     }
