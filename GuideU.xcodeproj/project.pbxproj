@@ -13,7 +13,6 @@
 		7B0D63482C9D1FF700A9A071 /* AppInfoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63472C9D1FF700A9A071 /* AppInfoFeature.swift */; };
 		7B0D634A2C9D1FFF00A9A071 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63492C9D1FFF00A9A071 /* AppInfoView.swift */; };
 		7B0D63862C9ED87E00A9A071 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63852C9ED87E00A9A071 /* CustomAlertView.swift */; };
-		7B0D63892C9F07BB00A9A071 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7B0D63882C9F07BB00A9A071 /* ComposableArchitecture */; };
 		7B0D638D2CA1370000A9A071 /* MoreCharacterSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D638C2CA1370000A9A071 /* MoreCharacterSkeletonView.swift */; };
 		7B0D63912CA13C1F00A9A071 /* ShimmerAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63902CA13C1F00A9A071 /* ShimmerAnimation.swift */; };
 		7B0D63932CA26BCC00A9A071 /* ColorSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D63922CA26BCC00A9A071 /* ColorSystem.swift */; };
@@ -75,6 +74,7 @@
 		7B1E441E2CD2063700DD1A42 /* ViewWrappingUIKitCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1E441D2CD2063700DD1A42 /* ViewWrappingUIKitCellView.swift */; };
 		7B1E44222CD2072000DD1A42 /* ReusableIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1E44212CD2072000DD1A42 /* ReusableIdentifier.swift */; };
 		7B1E44242CD20C3B00DD1A42 /* WantMoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1E44232CD20C3B00DD1A42 /* WantMoreInfoView.swift */; };
+		7B1E44272CD210C700DD1A42 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7B1E44262CD210C700DD1A42 /* ComposableArchitecture */; };
 		7B2665712C90D587000A483A /* IdentifiableURLEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665702C90D587000A483A /* IdentifiableURLEntity.swift */; };
 		7B2665742C91BC31000A483A /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665732C91BC31000A483A /* SearchCoordinator.swift */; };
 		7B2665762C91BC3E000A483A /* SearchCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2665752C91BC3E000A483A /* SearchCoordinatorView.swift */; };
@@ -433,8 +433,8 @@
 			files = (
 				7B6B3CD02C85D89D00F643FB /* RealmSwift in Frameworks */,
 				7B1581CB2C6BBD4F00599E7C /* Kingfisher in Frameworks */,
+				7B1E44272CD210C700DD1A42 /* ComposableArchitecture in Frameworks */,
 				7BA3F8412CB50464003EF15A /* Lottie in Frameworks */,
-				7B0D63892C9F07BB00A9A071 /* ComposableArchitecture in Frameworks */,
 				7B1581C82C6BBD3F00599E7C /* Alamofire in Frameworks */,
 				7B69BF152CA51A9700578021 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				7B69BF172CA51A9700578021 /* FirebaseCrashlytics in Frameworks */,
@@ -1161,10 +1161,10 @@
 				7B1581CA2C6BBD4F00599E7C /* Kingfisher */,
 				7B1581CD2C6BBD6800599E7C /* PopupView */,
 				7B6B3CCF2C85D89D00F643FB /* RealmSwift */,
-				7B0D63882C9F07BB00A9A071 /* ComposableArchitecture */,
 				7B69BF142CA51A9700578021 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				7B69BF162CA51A9700578021 /* FirebaseCrashlytics */,
 				7BA3F8402CB50464003EF15A /* Lottie */,
+				7B1E44262CD210C700DD1A42 /* ComposableArchitecture */,
 			);
 			productName = GuideU;
 			productReference = 7B1581832C6A476200599E7C /* GuideU.app */;
@@ -1225,9 +1225,9 @@
 				7B1581C92C6BBD4F00599E7C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				7B1581CC2C6BBD6800599E7C /* XCRemoteSwiftPackageReference "PopupView" */,
 				7B6B3CCE2C85D89D00F643FB /* XCRemoteSwiftPackageReference "realm-swift" */,
-				7B0D63872C9F07BB00A9A071 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				7B69BF132CA51A9700578021 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				7BA3F83F2CB50464003EF15A /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				7B1E44252CD210C700DD1A42 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 7B1581842C6A476200599E7C /* Products */;
 			projectDirPath = "";
@@ -1795,14 +1795,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7B0D63872C9F07BB00A9A071 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.15.0;
-			};
-		};
 		7B1581C32C6BBD1C00599E7C /* XCRemoteSwiftPackageReference "TCACoordinators" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/johnpatrickmorgan/TCACoordinators.git";
@@ -1835,6 +1827,14 @@
 				minimumVersion = 3.0.5;
 			};
 		};
+		7B1E44252CD210C700DD1A42 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.15.2;
+			};
+		};
 		7B69BF132CA51A9700578021 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1862,11 +1862,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7B0D63882C9F07BB00A9A071 /* ComposableArchitecture */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7B0D63872C9F07BB00A9A071 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
-			productName = ComposableArchitecture;
-		};
 		7B1581C42C6BBD1C00599E7C /* TCACoordinators */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7B1581C32C6BBD1C00599E7C /* XCRemoteSwiftPackageReference "TCACoordinators" */;
@@ -1886,6 +1881,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7B1581CC2C6BBD6800599E7C /* XCRemoteSwiftPackageReference "PopupView" */;
 			productName = PopupView;
+		};
+		7B1E44262CD210C700DD1A42 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7B1E44252CD210C700DD1A42 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 		7B69BF142CA51A9700578021 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;
