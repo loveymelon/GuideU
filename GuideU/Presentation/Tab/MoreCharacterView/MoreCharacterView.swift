@@ -18,7 +18,7 @@ struct MoreCharacterView: View {
     
     @EnvironmentObject var colorSystem: ColorSystem
     
-    @State var dropdown: Bool = false
+    @State private var dropdown: Bool = false
     
     private let scrollViewTopID = UUID()
     
@@ -98,11 +98,14 @@ extension MoreCharacterView {
                         .padding(.top, 120)
                     }
                     ZStack {
-                        wantMoreInfoView()
+                        WantMoreInfoView(currentDropDownIndex: $store.dropDownIndex.sending(
+                            \.dropDownIndex
+                        ), dropDownOptions: store.state.dropDownOptions)
+                        .environmentObject(colorSystem)
                             .padding(.top, 20)
                             .padding(.vertical, 4)
                     }
-                    .zIndex(100)
+                    .zIndex(10)
                 }
                 .background(colorSystem.color(colorCase: .background))
             }
@@ -155,42 +158,6 @@ extension MoreCharacterView {
         }
         .padding(.horizontal, 12)
         .background(colorSystem.color(colorCase: .background))
-    }
-    
-    private func wantMoreInfoView() -> some View {
-        VStack(spacing: 0) {
-            Text(
-                store.state.main.styledText(
-                    fullFont: WantedFont.regularFont.font(size: 22),
-                    fullColor: UIColor(colorSystem.color(colorCase: .textColor)),
-                    targetString: store.state.targetString,
-                    targetFont: WantedFont.boldFont.font(size: 24),
-                    targetColor: GuideUColor.ViewBaseColor.light.primary
-                )
-            )
-            
-            HStack(alignment: .top, spacing: 4) {
-                DropDownMenu(
-                    options: store.dropDownOptions.map(
-                        {
-                            $0.menuTitle
-                        }),
-                    selectedOptionIndex: $store.dropDownIndex.sending(
-                        \.dropDownIndex
-                    ),
-                    showDropdown: $dropdown
-                )
-                .frame(width: 110)
-                .environmentObject(colorSystem)
-                .zIndex(100)
-                
-                Text(store.state.sub)
-                    .font(Font(WantedFont.regularFont.font(size: 22)))
-                    .padding(.top, 10)
-                    .foregroundStyle(colorSystem.color(colorCase: .textColor))
-            }
-            
-        }
     }
     
     private func fakeSearchBar() -> some View {
