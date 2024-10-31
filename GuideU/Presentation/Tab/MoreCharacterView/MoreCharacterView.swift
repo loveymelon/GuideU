@@ -105,7 +105,7 @@ extension MoreCharacterView {
                             .padding(.top, 20)
                             .padding(.vertical, 4)
                     }
-                    .zIndex(10)
+                    .zIndex(5)
                 }
                 .background(colorSystem.color(colorCase: .background))
             }
