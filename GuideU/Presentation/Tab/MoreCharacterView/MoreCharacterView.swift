@@ -20,7 +20,7 @@ struct MoreCharacterView: View {
     
     @State private var dropdown: Bool = false
     
-    private let scrollViewTopID = UUID()
+    private let scrollViewTopID = "ScrollTop"
     
     var body: some View {
         WithPerceptionTracking {
