@@ -82,19 +82,19 @@ extension GuideUTabView {
         return Group {
             switch tabItem {
             case .home:
-                Image(ImageType.TabImage.NormalImage.home.rawValue)
+                Image(ImageType.TabImage.NormalImage.home)
                     .renderingMode(.template)
                     .resizable()
             case .searchTab:
-                Image(ImageType.TabImage.NormalImage.search.rawValue)
+                Image(ImageType.TabImage.NormalImage.search)
                     .renderingMode(.template)
                     .resizable()
             case .timeLine:
-                Image(ImageType.TabImage.NormalImage.history.rawValue)
+                Image(ImageType.TabImage.NormalImage.history)
                     .renderingMode(.template)
                     .resizable()
             case .setting:
-                Image(ImageType.TabImage.NormalImage.setting.rawValue)
+                Image(ImageType.TabImage.NormalImage.setting)
                     .renderingMode(.template)
                     .resizable()
             }

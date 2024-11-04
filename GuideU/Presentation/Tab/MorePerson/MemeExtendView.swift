@@ -134,12 +134,12 @@ extension MemeExtendView {
     private func crossImage() -> some View {
         Group {
             if !isExtend {
-                Image(ImageType.OtherImage.chevronDown.rawValue)
+                Image(ImageType.OtherImage.chevronDown)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                    
             } else {
-                Image(ImageType.OtherImage.chevronUp.rawValue)
+                Image(ImageType.OtherImage.chevronUp)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
             }

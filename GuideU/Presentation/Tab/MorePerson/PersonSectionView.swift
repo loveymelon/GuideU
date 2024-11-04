@@ -143,28 +143,28 @@ extension PersonSectionView {
             switch item.type {
             case .afreeca:
                 HStack {
-                    Image(ImageType.SocialImage.soop.rawValue)
+                    Image(ImageType.SocialImage.soop)
                     Text(item.channel)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .instagram:
                 HStack {
-                    Image(ImageType.SocialImage.instagram.rawValue)
+                    Image(ImageType.SocialImage.instagram)
                     Text(item.channel)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .twitter:
                 HStack {
-                    Image(ImageType.SocialImage.x.rawValue)
+                    Image(ImageType.SocialImage.x)
                     Text(item.channel)
                         .padding(.leading, 8)
                     Spacer()
                 }
             case .youtube:
                 HStack {
-                    Image(ImageType.SocialImage.youtube.rawValue)
+                    Image(ImageType.SocialImage.youtube)
                     Text(item.channel)
                         .padding(.leading, 8)
                     Spacer()
@@ -211,12 +211,12 @@ extension PersonSectionView {
     private func crossImage() -> some View {
         Group {
             if !isExtend {
-                Image(ImageType.OtherImage.chevronDown.rawValue)
+                Image(ImageType.OtherImage.chevronDown)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                    
             } else {
-                Image(ImageType.OtherImage.chevronUp.rawValue)
+                Image(ImageType.OtherImage.chevronUp)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
             }

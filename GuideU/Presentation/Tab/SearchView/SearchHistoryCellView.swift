@@ -19,7 +19,7 @@ struct SearchHistoryCellView: View {
     var body: some View {
         VStack {
             HStack(spacing: 0) {
-                Image(ImageType.TabImage.NormalImage.history.rawValue)
+                Image(ImageType.TabImage.NormalImage.history)
                     .resizable()
                     .renderingMode(.template)
                     .aspectRatio(1, contentMode: .fit)
@@ -31,7 +31,7 @@ struct SearchHistoryCellView: View {
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
                 
-                Image(ImageType.ButtonImage.closeButton.rawValue)
+                Image(ImageType.ButtonImage.closeButton)
                     .resizable()
                     .renderingMode(.template)
                     .aspectRatio(1, contentMode: .fit)

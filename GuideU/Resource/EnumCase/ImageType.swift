@@ -9,28 +9,28 @@ import Foundation
 
 enum ImageType {
     enum TabImage {
-        enum SelectImage: String {
-            case home = "HomeTabSelected"
-            case search = "SearchTab"
-            case history = "HistoryTabSelected"
-            case setting = "SettingTabSelected"
-            case meme = "MemeSeletedTab"
+        enum SelectImage {
+            static let home = "HomeTabSelected"
+            static let search = "SearchTab"
+            static let history = "HistoryTabSelected"
+            static let setting = "SettingTabSelected"
+            static let meme = "MemeSeletedTab"
         }
         
-        enum NormalImage: String {
-            case home = "HomeTab"
-            case search = "SearchTabDis"
-            case history = "HistoryTab"
-            case setting = "SettingTab"
-            case meme = "MemeTab"
+        enum NormalImage {
+            static let home = "HomeTab"
+            static let search = "SearchTabDis"
+            static let history = "HistoryTab"
+            static let setting = "SettingTab"
+            static let meme = "MemeTab"
         }
     }
     
-    enum SocialImage: String {
-        case instagram = "InstagramIcon"
-        case soop = "SoopIcon"
-        case youtube = "YoutubeIcon"
-        case x = "XIcon"
+    enum SocialImage {
+        static let instagram = "InstagramIcon"
+        static let soop = "SoopIcon"
+        static let youtube = "YoutubeIcon"
+        static let x = "XIcon"
     }
     
     enum ErrorImage: String {
@@ -41,24 +41,24 @@ enum ImageType {
         case lightNoData = "LightNoData"
     }
     
-    enum ButtonImage: String {
-        case backButton = "BackBlack"
-        case closeButton = "closeRounded"
+    enum ButtonImage {
+        static let backButton = "BackBlack"
+        static let closeButton = "closeRounded"
     }
     
-    enum SettingViewImage: String {
-        case guiduDark = "GuiduDark"
-        case guiduLight = "GuiduLight"
+    enum SettingViewImage {
+        static let guiduDark = "GuiduDark"
+        static let guiduLight = "GuiduLight"
     }
     
-    enum backImage: String {
-        case splash1 = "Splash1"
-        case defaultBack = "DefaultBack"
+    enum backImage {
+        static let splash1 = "Splash1"
+        static let defaultBack = "DefaultBack"
     }
     
-    enum LogoImage: String {
-        case stepLogo = "stepLogo"
-        case appLogo = "AppLogo"
+    enum LogoImage {
+        static let stepLogo = "stepLogo"
+        static let appLogo = "AppLogo"
     }
     
     enum OnBoardingImage: String, CaseIterable {
@@ -68,13 +68,13 @@ enum ImageType {
         case fore = "Page4"
     }
     
-    enum OtherImage: String {
-        case ask = "Ask"
-        case chevronDown = "Chevron_Down"
-        case chevronUp = "Chevron_Up"
-        case clock = "Clock"
-        case dropDownButton = "DropDownButton"
-        case palette = "Palette"
-        case users = "Users"
+    enum OtherImage {
+        static let ask = "Ask"
+        static let chevronDown = "Chevron_Down"
+        static let chevronUp = "Chevron_Up"
+        static let clock = "Clock"
+        static let dropDownButton = "DropDownButton"
+        static let palette = "Palette"
+        static let users = "Users"
     }
 }

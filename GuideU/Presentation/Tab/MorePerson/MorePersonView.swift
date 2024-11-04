@@ -246,7 +246,7 @@ struct MorePersonView: View {
     private func memeSectionView() -> some View {
         ForEach(store.bookElementsInfo, id: \.id) { model in
             HStack {
-                Image(ImageType.OtherImage.clock.rawValue)
+                Image(ImageType.OtherImage.clock)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .frame(width: 25)
@@ -282,7 +282,7 @@ struct MorePersonView: View {
     private func fakeNavigation(entity: HeaderEntity, opacity: CGFloat) -> some View {
         ZStack {
             HStack {
-                Image(ImageType.ButtonImage.backButton.rawValue)
+                Image(ImageType.ButtonImage.backButton)
                     .resizable()
                     .renderingMode(.template)
                     .aspectRatio(1, contentMode: .fit)
@@ -387,7 +387,7 @@ struct MorePersonView: View {
                 DownImageView(url: url, option: .mid)
                     .aspectRatio(contentMode: .fill)
             } else {
-                Image(ImageType.backImage.defaultBack.rawValue)
+                Image(ImageType.backImage.defaultBack)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             }
