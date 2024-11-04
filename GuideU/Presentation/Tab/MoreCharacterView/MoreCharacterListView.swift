@@ -10,7 +10,6 @@ import Alamofire
 
 struct MoreCharacterListView: View {
     
-//    @Environment(\.colorSystem) var colorSystem
     @EnvironmentObject var colorSystem: ColorSystem
     
     let setModel: VideosEntity
@@ -78,15 +77,3 @@ extension MoreCharacterListView {
     }
     
 }
-//#if DEBUG
-//#Preview  {
-//    MoreCharacterListView(setModel: .init(
-//        videoURL: URL(string: "https://www.youtube.com/watch?v=A77QDU3GC6Y"),
-//        channelName: "징버거가 ZZANG센 주제에 너무 신중하다",
-//        videoImageURL: URL(string: "https://i.ytimg.com/vi/A77QDU3GC6Y/sddefault.jpg"),
-//        updatedAt: Date(),
-//        channelImageURL: URL(string: "https://yt3.googleusercontent.com/ROy3xGFEsnCJtxG-dtb48RM51Z_GKwpIh2n76wr6XH0YQHAOJ-jYxVaWio-I43JyRCe6oOykdA=s160-c-k-c0x00ffffff-no-rj"),
-//        title: "상당히 갑작스럽게 진행된 다이진희쇼"
-//    ))
-//}
-//#endif

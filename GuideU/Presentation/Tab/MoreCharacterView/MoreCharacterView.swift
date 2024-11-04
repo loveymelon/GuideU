@@ -87,23 +87,22 @@ extension MoreCharacterView {
                     .id(scrollViewTopID)
                 ZStack(alignment: .top) {
                     ZStack {
-                        Group {
-                            if store.state.currentData.loadingTrigger {
-                                skeletonView()
-                            } else {
-                                listContentView()
-                            }
+                        if store.state.currentData.loadingTrigger {
+                            skeletonView()
+                        } else {
+                            listContentView()
                         }
-                        .background(colorSystem.color(colorCase: .background))
-                        .padding(.top, 120)
                     }
+                    .background(colorSystem.color(colorCase: .background))
+                    .padding(.top, 120)
+                    
                     ZStack {
                         WantMoreInfoView(currentDropDownIndex: $store.dropDownIndex.sending(
                             \.dropDownIndex
                         ), dropDownOptions: store.state.dropDownOptions)
                         .environmentObject(colorSystem)
-                            .padding(.top, 20)
-                            .padding(.vertical, 4)
+                        .padding(.top, 20)
+                        .padding(.vertical, 4)
                     }
                     .zIndex(5)
                 }
@@ -142,11 +141,6 @@ extension MoreCharacterView {
         LazyVStack {
             ForEach(Array(store.state.videoInfos.enumerated()), id: \.element.id) { index, data in
                 MoreCharacterListView(setModel: data)
-                    .asButton { // 선택되었을때
-                        store.send(.viewEventType(.selectedVideoIndex(index)))
-                    }
-                    .environmentObject(colorSystem)
-                    .padding(.bottom, 10)
                     .task {
                         if index >= store.state.videoInfos.count - store.state.pageLimit {
                             if store.state.currentData.listLoadTrigger {
@@ -154,6 +148,10 @@ extension MoreCharacterView {
                             }
                         }
                     }
+                    .asButton { // 선택되었을때
+                        store.send(.viewEventType(.selectedVideoIndex(index)))
+                    }
+                    .padding(.bottom, 10)
             }
         }
         .padding(.horizontal, 12)
