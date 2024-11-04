@@ -29,8 +29,6 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var openURLCase: OpenURLCase? = nil
         var alertMessage: AlertMessage? = nil
         
-        var loadingTrigger = true
-        var listLoadTrigger = true
         var scrollToTop = false
     }
     
@@ -38,6 +36,8 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         let id = UUID ()
         var currentStart = 0
         var skipIndex = 0
+        var loadingTrigger = true
+        var listLoadTrigger = true
         
         static func == (lhs: CurrentData, rhs: CurrentData) -> Bool {
             lhs.id == rhs.id
@@ -143,7 +143,7 @@ extension MoreCharacterFeature {
                 }
                 
             case let .viewEventType(.videoOnAppear(index)):
-                state.listLoadTrigger = false
+                state.currentData.listLoadTrigger = false
                 return .send(.viewEventType(.sideCheckedIndex(index)))
                 
             case let .viewEventType(.sideCheckedIndex(index)):
@@ -205,12 +205,12 @@ extension MoreCharacterFeature {
             case let .dataTransType(.videosInfo(videos, isScroll)):
                 if isScroll {
                     state.videoInfos.append(contentsOf: videos)
-                    state.listLoadTrigger = true
+                    state.currentData.listLoadTrigger = true
                     state.currentData.currentStart += state.videoInfos.count + 1
                 } else {
                     state.videoInfos = videos
-                    state.loadingTrigger = false
-                    state.listLoadTrigger = true
+                    state.currentData.loadingTrigger = false
+                    state.currentData.listLoadTrigger = true
                     state.currentData.currentStart += state.videoInfos.count + 1
                 }
                 
@@ -235,7 +235,7 @@ extension MoreCharacterFeature {
                 } else {
                     state.currentDropDownOption = selected
                     state.currentData.reset()
-                    state.loadingTrigger = true
+                    state.currentData.loadingTrigger = true
                 }
                 return fetchVideos(state: &state, isScroll: false)
                 

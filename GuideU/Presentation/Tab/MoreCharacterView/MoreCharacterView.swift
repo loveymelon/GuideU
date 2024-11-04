@@ -88,7 +88,7 @@ extension MoreCharacterView {
                 ZStack(alignment: .top) {
                     ZStack {
                         Group {
-                            if store.state.loadingTrigger {
+                            if store.state.currentData.loadingTrigger {
                                 skeletonView()
                             } else {
                                 listContentView()
@@ -149,8 +149,8 @@ extension MoreCharacterView {
                     .padding(.bottom, 10)
                     .task {
                         if index >= store.state.videoInfos.count - store.state.pageLimit {
-                            if store.state.listLoadTrigger {
-                                store.send(.viewEventType(.videoOnAppear(index))) 
+                            if store.state.currentData.listLoadTrigger {
+                                store.send(.viewEventType(.videoOnAppear(index)))
                             }
                         }
                     }
