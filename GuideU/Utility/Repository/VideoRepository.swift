@@ -42,6 +42,9 @@ final class VideoRepository: @unchecked Sendable {
             return tempData.sorted { $0.updatedAt > $1.updatedAt }
         }
     }
+    deinit {
+        print(" DIE TO VIdeoRepository  ")
+    }
 }
 
 extension VideoRepository: DependencyKey {

@@ -15,16 +15,13 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     struct State: Equatable {
         let pageLimit = 10
         let placeHolder =  "알고싶은 왁타버스 영상을 여기에"
-//        let main = "나는 왁타버스에서"
-//        let sub = "을 더 알아보고 싶어요."
-//        let targetString = "왁타버스"
         
         let dropDownOptions = Const.Channel.allCases
         var currentDropDownOption = Const.Channel.all
         var currentText = ""
         var dropDownIndex = 0
         
-        var currentData = CurrentData()
+        let currentData = CurrentData()
         var dialogPresent: Bool = false
         var selectedIndex: Int = 0
         
@@ -32,16 +29,28 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
         var onAppearIsValid: Bool = true
         var openURLCase: OpenURLCase? = nil
         var alertMessage: AlertMessage? = nil
-        @ReducerCaseIgnored
+        
         var loadingTrigger = true
-        @ReducerCaseIgnored
         var listLoadTrigger = true
         var scrollToTop = false
     }
     
-    struct CurrentData: Equatable {
+    final class CurrentData: @unchecked Sendable, Equatable {
+        let id = UUID ()
         var currentStart = 0
         var skipIndex = 0
+        
+        static func == (lhs: CurrentData, rhs: CurrentData) -> Bool {
+            lhs.id == rhs.id
+        }
+        
+        deinit {
+            print("asd")
+        }
+        func reset() {
+            currentStart = 0
+            skipIndex = 0
+        }
     }
     
     enum Action {
@@ -179,7 +188,7 @@ extension MoreCharacterFeature {
                 state.openURLCase = nil
                 
             case .viewEventType(.resetData):
-                state.currentData = CurrentData()
+                state.currentData.reset()
                 
                 return fetchVideos(state: &state, isScroll: false)
                 
@@ -226,7 +235,7 @@ extension MoreCharacterFeature {
                     return .none
                 } else {
                     state.currentDropDownOption = selected
-                    state.currentData = CurrentData()
+                    state.currentData.reset()
                     state.loadingTrigger = true
                 }
                 return fetchVideos(state: &state, isScroll: false)
