@@ -136,7 +136,7 @@ extension SearchResultView {
     private func meanSection(mean: String) -> some View {
         VStack(spacing: 10) {
             HStack {
-                Text(store.meanText)
+                Text(Const.mean)
                     .font(Font(WantedFont.semiFont.font(size: 22)))
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
@@ -155,7 +155,7 @@ extension SearchResultView {
     private func descriptionSection(description: String) -> some View {
         VStack(spacing: 10) {
             HStack {
-                Text(store.descriptionText)
+                Text(Const.explain)
                     .font(Font(WantedFont.semiFont.font(size: 22)))
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
                 Spacer()
@@ -308,11 +308,3 @@ extension SearchResultView {
         }
     }
 }
-
-#if DEBUG
-//#Preview {
-//    SearchResultView(store: Store(initialState: SearchResultFeature.State(currentSearchKeyword: "우왁굳"), reducer: {
-//        SearchResultFeature()
-//    }))
-//}
-#endif

@@ -48,7 +48,7 @@ extension MoreCharacterListView {
                 .aspectRatio(1, contentMode: .fill)
                 .clipShape(Circle())
             } else {
-                Text("준비중")
+                Text(Const.ready)
                     .font(Font(WantedFont.boldFont.font(size: 12)))
                     .foregroundStyle(Color(GuideUColor.ViewBaseColor.dark.textColor))
                     .frame(width: 40, height: 40)

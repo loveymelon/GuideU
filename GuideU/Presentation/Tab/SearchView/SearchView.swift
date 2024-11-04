@@ -120,13 +120,13 @@ extension SearchView {
     private func recentSectionView() -> some View {
         HStack(alignment: .center) {
             Group {
-                Text(store.recentSectionText)
+                Text(Const.recentSection)
                     .font(Font(WantedFont.midFont.font(size: 15)))
                     
                 Text("|")
                     .font(Font(WantedFont.midFont.font(size: 13)))
                     .offset(y: -1.5)
-                Text(store.allClearText)
+                Text(Const.allClear)
                     .font(Font(WantedFont.midFont.font(size: 15)))
                     .asButton {
                         store.send(.viewEventType(.deleteAll))
@@ -145,7 +145,7 @@ extension SearchView {
             HStack {
                 Spacer()
                 
-                Text(store.navigationTitle)
+                Text(Const.navTitle)
                     .font(Font(WantedFont.semiFont.font(size: 20)))
                     .frame(height: 52)
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
@@ -153,7 +153,7 @@ extension SearchView {
             }
             
             
-            GuidUSearchBarBottomLineView(currentText: $store.currentText.sending(\.currentText), placeHolder: store.placeHolderText, lineWidth: 1.4) {
+            GuidUSearchBarBottomLineView(currentText: $store.currentText.sending(\.currentText), placeHolder: Const.placeHolderText, lineWidth: 1.4) {
                 store.send(.viewEventType(.onSubmit(store.currentText)))
             }
             .foregroundStyle(colorSystem.color(colorCase: .textColor))

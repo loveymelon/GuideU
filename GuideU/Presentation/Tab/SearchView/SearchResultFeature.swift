@@ -14,9 +14,6 @@ struct SearchResultFeature: GuideUReducer {
     @ObservableState
     struct State: Equatable {
         var searchResultEntity: SearchResultEntity
-        let meanText = Const.mean
-        let descriptionText = Const.explain
-        let relatedText = Const.related
         var currentViewState: ViewState = .loading
         var openURLCase: OpenURLCase? = nil
         var meanIsvalid: Bool = false

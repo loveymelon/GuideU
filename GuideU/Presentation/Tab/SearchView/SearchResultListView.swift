@@ -59,11 +59,3 @@ extension SearchResultListView {
         }
     }
 }
-
-#if DEBUG
-//#Preview {
-//    SearchResultListView(setModel: .init(name: "우왁굳", type: .character, definition: "우왁굳은 대한민국의 트위치 파트너 스트리머, 유튜브 크리에이터, 작사가 임과 동시에 이세계아이돌의 총괄 프로듀서이자 왁 엔터테인먼트의 설립자이다."))
-//        .environmentObject(ColorSystem())
-//}
-
-#endif

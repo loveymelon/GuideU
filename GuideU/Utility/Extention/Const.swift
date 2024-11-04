@@ -392,6 +392,19 @@ enum Const {
     }
 }
 
+// MARK: MoreCharacterView
+extension Const {
+    static let moreText = "알고싶은 왁타버스 영상을 여기에"
+    static let ready = "준비중"
+}
+
+// MARK: WantMoreInfoView
+extension Const {
+    static let wantMain = "나는 왁타버스에서"
+    static let wantSub = "을 더 알아보고 싶어요."
+    static let wantTarget = "왁타버스"
+}
+
 // MARK: Search View Text
 extension Const {
     static let recentSection = "최근 검색한"

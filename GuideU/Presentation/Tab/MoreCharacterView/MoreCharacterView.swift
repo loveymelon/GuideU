@@ -163,7 +163,7 @@ extension MoreCharacterView {
     private func fakeSearchBar() -> some View {
         VStack {
             HStack {
-                Text(store.state.placeHolder)
+                Text(Const.moreText)
                     .font(Font(WantedFont.regularFont.font(size: 15)))
                     .foregroundStyle(colorSystem.color(colorCase: .subTextColor))
                 Spacer()

@@ -20,12 +20,6 @@ struct SearchFeature: GuideUReducer, GuideUReducerOptional {
         var viewCase: SearchViewType = SearchViewType.searchHistoryMode
         var backButtonHidden: Bool = true
         var popUpCase: popUpCase? = nil
-        
-        // Static Text
-        let placeHolderText = Const.placeHolderText
-        let navigationTitle = Const.navTitle
-        let allClearText = Const.allClear
-        let recentSectionText = Const.recentSection
     }
     
     enum SearchViewType {

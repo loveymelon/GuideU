@@ -54,7 +54,8 @@ extension SearchResultCaseView {
     }
 }
 
-
+#if DEBUG
 #Preview {
     SearchResultCaseView(currentText: "우", setModel: .init(type: .character, keyWord: "우왁굳"))
 }
+#endif
