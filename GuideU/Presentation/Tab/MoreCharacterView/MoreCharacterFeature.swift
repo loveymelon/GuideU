@@ -14,10 +14,6 @@ struct MoreCharacterFeature: GuideUReducer, GuideUReducerOptional, Sendable {
     @ObservableState
     struct State: Equatable {
         let pageLimit = 10
-        let placeHolder =  "알고싶은 왁타버스 영상을 여기에"
-//        let main = "나는 왁타버스에서"
-//        let sub = "을 더 알아보고 싶어요."
-//        let targetString = "왁타버스"
         
         let dropDownOptions = Const.Channel.allCases
         var currentDropDownOption = Const.Channel.all

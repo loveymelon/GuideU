@@ -8,11 +8,6 @@
 import SwiftUI
 
 struct WantMoreInfoView: View {
-    
-    private let placeHolder =  "알고싶은 왁타버스 영상을 여기에"
-    private let main = "나는 왁타버스에서"
-    private let sub = "을 더 알아보고 싶어요."
-    private let targetString = "왁타버스"
 
     @EnvironmentObject var colorSystem: ColorSystem
     
@@ -25,10 +20,10 @@ struct WantMoreInfoView: View {
     var body: some View {
         VStack(spacing: 0) {
             Text(
-                main.styledText(
+                Const.wantMain.styledText(
                     fullFont: WantedFont.regularFont.font(size: 22),
                     fullColor: UIColor(colorSystem.color(colorCase: .textColor)),
-                    targetString: targetString,
+                    targetString: Const.wantTarget,
                     targetFont: WantedFont.boldFont.font(size: 24),
                     targetColor: GuideUColor.ViewBaseColor.light.primary
                 )
@@ -47,7 +42,7 @@ struct WantMoreInfoView: View {
                 .environmentObject(colorSystem)
                 .zIndex(100)
                 
-                Text(sub)
+                Text(Const.wantSub)
                     .font(Font(WantedFont.regularFont.font(size: 22)))
                     .padding(.top, 10)
                     .foregroundStyle(colorSystem.color(colorCase: .textColor))
