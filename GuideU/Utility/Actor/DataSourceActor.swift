@@ -85,8 +85,8 @@ final actor DataSourceActor {
     
     func fetch() -> [String] {
         guard let realm else { return [] }
-        
-        let searchDatas = mapper.requestDTOToString(Array(realm.objects(SearchHistoryRequestDTO.self).sorted(by: \.date, ascending: false)))
+        let dtos = Array(realm.objects(SearchHistoryRequestDTO.self).sorted(by: \.date))
+        let searchDatas = mapper.requestDTOToString(dtos)
         
         if searchDatas.count > 5 {
             return Array(searchDatas.prefix(5))

@@ -16,19 +16,19 @@ final class SearchRepository: @unchecked Sendable {
     func fetchSuggest(_ searchText: String) async throws -> [SuggestEntity] {
         let data = try await network.requestNetwork(dto: DTOList<SuggestDTO>.self, router: SearchRouter.suggest(searchText: searchText))
         
-        return searchMapper.dtoToEntity(data.elements)
+        return await searchMapper.dtoToEntity(data.elements)
     }
     
     func fetchSearch(_ suggestEntity: SuggestEntity) async throws -> [SearchResultEntity] {
         let data = try await network.requestNetwork(dto: DTOList<SearchDTO>.self, router: SearchRouter.search(title: suggestEntity.keyWord, type: suggestEntity.type))
         
-        return searchMapper.dtoToEntity(data.elements)
+        return await searchMapper.dtoToEntity(data.elements)
     }
     
     func fetchSearchResults(_ text: String) async throws -> [SearchResultEntity] {
         let data = try await network.requestNetwork(dto: DTOList<SearchDTO>.self, router: SearchRouter.search(title: text, type: nil))
         
-        return searchMapper.dtoToEntity(data.elements)
+        return await searchMapper.dtoToEntity(data.elements)
     }
 }
 
