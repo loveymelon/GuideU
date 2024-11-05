@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class VideoHistoryRequestDTO: Object {
+final class VideoHistoryRequestDTO: Object, @unchecked Sendable {
     @Persisted(primaryKey: true) var identifier: String
     
     @Persisted var title: String

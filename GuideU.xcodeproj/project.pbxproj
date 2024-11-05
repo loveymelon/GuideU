@@ -98,6 +98,7 @@
 		7B6A07022CB93B9600D7BBAE /* SecretConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A07012CB93B9600D7BBAE /* SecretConst.swift */; };
 		7B6B3CD02C85D89D00F643FB /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; };
 		7B6B3CD12C85D8EB00F643FB /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		7B6EB8782CD9F6B100244AE6 /* ExSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EB8772CD9F6B100244AE6 /* ExSequence.swift */; };
 		7BA3F7C52CAF92FC003EF15A /* CreditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C42CAF92FC003EF15A /* CreditView.swift */; };
 		7BA3F7C72CAF937F003EF15A /* CreditViewFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */; };
 		7BA3F7CA2CAFA010003EF15A /* FirstMeritView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C92CAFA010003EF15A /* FirstMeritView.swift */; };
@@ -316,6 +317,7 @@
 		7B69BF1B2CA551B500578021 /* HapticFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackManager.swift; sourceTree = "<group>"; };
 		7B6A07012CB93B9600D7BBAE /* SecretConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretConst.swift; sourceTree = "<group>"; };
 		7B6B3CD62C85E16000F643FB /* GuideU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideU.entitlements; sourceTree = "<group>"; };
+		7B6EB8772CD9F6B100244AE6 /* ExSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExSequence.swift; sourceTree = "<group>"; };
 		7BA3F7C42CAF92FC003EF15A /* CreditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditView.swift; sourceTree = "<group>"; };
 		7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewFeature.swift; sourceTree = "<group>"; };
 		7BA3F7C92CAFA010003EF15A /* FirstMeritView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMeritView.swift; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 				7B69BF0A2CA3F56D00578021 /* ExUINavigationController.swift */,
 				DF44BA732CBD70B800987712 /* ExReducer.swift */,
 				7BE856BB2CCA159B002B0E67 /* ExDispatchQueue.swift */,
+				7B6EB8772CD9F6B100244AE6 /* ExSequence.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -1303,6 +1306,7 @@
 				DF92787B2C90774C00507207 /* VideoDTO.swift in Sources */,
 				DF92787A2C90774300507207 /* VideoMapper.swift in Sources */,
 				DF9278792C90772300507207 /* SearchRouter.swift in Sources */,
+				7B6EB8782CD9F6B100244AE6 /* ExSequence.swift in Sources */,
 				DF9278782C90770900507207 /* VideoRepository.swift in Sources */,
 				7B1E44242CD20C3B00DD1A42 /* WantMoreInfoView.swift in Sources */,
 				DF9278772C9076BD00507207 /* DateManager.swift in Sources */,

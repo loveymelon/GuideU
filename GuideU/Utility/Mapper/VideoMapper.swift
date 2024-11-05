@@ -10,50 +10,21 @@ import ComposableArchitecture
 
 final class VideoMapper: Sendable {
     /// [VideosDTO] -> [VideosEntity]
-    func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [VideosEntity] {
-        return dtos.map { dtoToEntity($0, channel: channel, channelID: channelID) }
-    }
+//    func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [VideosEntity] {
+//        return dtos.map { dtoToEntity($0, channel: channel, channelID: channelID) }
+//    }
     
     func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") async -> [VideosEntity] {
-        return await withTaskGroup(of: VideosEntity.self) { group in
-            for dto in dtos {
-                group.addTask { [weak self] in
-                    guard let self else { return VideosEntity() }
-                    return dtoToEntity(dto, channel: channel, channelID: channelID)
-                }
-            }
-            
-            var result: [VideosEntity] = []
-            for await entity in group {
-                result.append(entity)
-            }
-            return result
-        }
+        return await dtos.asyncMap { dtoToEntity($0, channel: channel, channelID: channelID) }
     }
     
-    func requestDTOToEntity(_ requestDTO: [VideoHistoryRequestDTO]) -> [VideosEntity] {
-        return requestDTO.map { requestDTOToEntity($0) }
-    }
-    
-    func dtoToEntityToHeader(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [HeaderEntity] {
-        return dtos.map { dtoToEntityToHeader($0, channel: channel, channelID: channelID) }
-    }
     /// [VideosDTO] -> [HeaderEntity] 비동기 변환
     func dtoToEntityToHeader(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") async -> [HeaderEntity] {
-        return await withTaskGroup(of: HeaderEntity.self) { group in
-            for dto in dtos {
-                group.addTask { [weak self] in
-                    guard let self else { return HeaderEntity.initialSelf }
-                    return self.dtoToEntityToHeader(dto, channel: channel, channelID: channelID)
-                }
-            }
-            
-            var result: [HeaderEntity] = []
-            for await header in group {
-                result.append(header)
-            }
-            return result
-        }
+        return await dtos.asyncMap { dtoToEntityToHeader($0, channel: channel, channelID: channelID) }
+    }
+    
+    func requestDTOToEntity(_ requestDTO: [VideoHistoryRequestDTO]) async -> [VideosEntity] {
+        return await requestDTO.asyncMap { requestDTOToEntity($0) }
     }
     
     func requestDTOToEntity(_ requestDTO: VideoHistoryRequestDTO) -> VideosEntity {
