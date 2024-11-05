@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class SearchHistoryRequestDTO: Object {
+final class SearchHistoryRequestDTO: Object, @unchecked Sendable {
     @Persisted(primaryKey: true) var history: String
     
     @Persisted var date: Date

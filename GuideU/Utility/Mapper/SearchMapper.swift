@@ -11,12 +11,12 @@ import ComposableArchitecture
 struct SearchMapper: Sendable {
     
     /// [SuggestDTO] -> [Entity]
-    func dtoToEntity(_ dtos: [SuggestDTO]) -> [SuggestEntity] {
-        return dtos.map { dtoToEntity($0) }
+    func dtoToEntity(_ dtos: [SuggestDTO]) async -> [SuggestEntity]  {
+        return await dtos.asyncMap { dtoToEntity($0) }
     }
     
-    func dtoToEntity(_ dtos: [SearchDTO]) -> [SearchResultEntity] {
-        return dtos.map { dtoToEntity($0) } 
+    func dtoToEntity(_ dtos: [SearchDTO]) async -> [SearchResultEntity] {
+        return await dtos.asyncMap { dtoToEntity($0) }
     }
     
     /// SuggestEntity -> SearchHistoryRequestDTO
