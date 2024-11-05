@@ -9,12 +9,12 @@ import Foundation
 import ComposableArchitecture
 
 struct CharacterMapper: Sendable {
-    func dtoToEntity(_ dto: [YoutubeCharacterDTO]) -> [YoutubeCharacterEntity] {
-        return dto.map { dtoToEntity($0) }
+    func dtoToEntity(_ dtos: [YoutubeCharacterDTO]) async -> [YoutubeCharacterEntity] {
+        return await dtos.asyncMap { dtoToEntity($0) }
     }
     
-    func dtoToEntity(_ dto: [BookElementDTO]) -> [BookElementsEntity] {
-        return dto.map { dtoToEntity($0) }
+    func dtoToEntity(_ dtos: [BookElementDTO]) async -> [BookElementsEntity] {
+        return await dtos.asyncMap { dtoToEntity($0) }
     }
     
     /// CharacterDTO -> Entity

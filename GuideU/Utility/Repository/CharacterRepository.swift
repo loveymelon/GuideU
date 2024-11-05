@@ -25,13 +25,13 @@ extension CharacterRepository {
     func fetchCharacters(id: String) async throws -> [YoutubeCharacterEntity] {
         let data = try await network.requestNetwork(dto: DTOList<YoutubeCharacterDTO>.self, router: VideoRouter.fetchCharacters(id))
         
-        return mapper.dtoToEntity(data.elements)
+        return await mapper.dtoToEntity(data.elements)
     }
     
     func fetchMemes(id: String) async throws -> [BookElementsEntity] {
         let data = try await network.requestNetwork(dto: DTOList<BookElementDTO>.self, router: VideoRouter.fetchMemes(id))
         
-        return mapper.dtoToEntity(data.elements)
+        return await mapper.dtoToEntity(data.elements)
     }
 }
 
