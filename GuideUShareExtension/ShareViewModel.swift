@@ -5,7 +5,7 @@
 //  Created by Jae hyung Kim on 10/6/24.
 //
 
-@preconcurrency import Foundation //  SE-0414 (지역 기반 격리) 이슈로 안한
+import Foundation //  SE-0414 (지역 기반 격리) 이슈로 안한
 import Combine
 import UniformTypeIdentifiers
 
