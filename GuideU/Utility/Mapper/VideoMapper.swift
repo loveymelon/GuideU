@@ -10,10 +10,7 @@ import ComposableArchitecture
 
 final class VideoMapper: Sendable {
     /// [VideosDTO] -> [VideosEntity]
-//    func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") -> [VideosEntity] {
-//        return dtos.map { dtoToEntity($0, channel: channel, channelID: channelID) }
-//    }
-    
+
     func dtoToEntity(_ dtos: [VideosDTO], channel: Const.Channel = .wakgood, channelID: String = "") async -> [VideosEntity] {
         return await dtos.asyncMap { dtoToEntity($0, channel: channel, channelID: channelID) }
     }
