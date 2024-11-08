@@ -146,8 +146,6 @@ extension MoreCharacterView {
                         let pageLimit = store.state.pageLimit
                         let trigger = store.state.currentData.listLoadTrigger
                         Task.detached {
-                            print("------_@-------")
-                            checkedMainThread()
                             if index >= count - pageLimit && trigger {
                                 await store.send(.viewEventType(.videoOnAppear(index)))
                             }
