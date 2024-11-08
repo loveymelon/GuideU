@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct MorePersonView: View {
     @Perception.Bindable var store: StoreOf<PersonFeature>
     
-    @State private var offsetY: CGFloat = 0
+    @State private var offsetY: CGFloat = .zero
     @State private var opacity: CGFloat = 1
     @State private var moreType: PersonFeature.MoreType = .characters
     @State private var titleOffset = UIScreen.main.bounds.width
@@ -140,6 +140,9 @@ struct MorePersonView: View {
         
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
+                
+                hiddenView
+                
                 headerView()
                     .frame(height: 164)
                     .background(Color.clear)
@@ -199,19 +202,16 @@ struct MorePersonView: View {
                 }
                 .background(colorSystem.color(colorCase: .background))
             }
-            .background {
-                ScrollDetector { offset in
-                    DispatchQueue.main.async {
-                        offsetY = offset + 80
-                        opacity = max(0, min(1, 1 - (offsetY / 100)))
-                        #if DEBUG
-                        print("투명도 : ",opacity)
-                        #endif
-                    }
-                } onDraggingEnd: { offset, veloc in
-                    
-                }
-            }
+        }
+        .onPreferenceChange(ScrollOffsetKey.self) { value in
+            print("ScrollOffsetKey", value)
+            offsetY = -value
+        }
+        .onChange(of: offsetY) { newValue in
+            opacity = max(0, min(1, 1 - (offsetY / 100)))
+            #if DEBUG
+            print("투명도 : ",opacity)
+            #endif
         }
     }
     
@@ -398,6 +398,18 @@ struct MorePersonView: View {
         .clipped()
         .opacity(0.22)
         
+    }
+    
+    private var hiddenView: some View {
+        GeometryReader { proxy in
+            let offsetY = proxy.frame(in: .global).origin.y
+            Color.clear
+                .preference(
+                    key: ScrollOffsetKey.self,
+                    value: offsetY
+                )
+        }
+        .frame(height: 0)
     }
 }
 

@@ -99,6 +99,7 @@
 		7B6B3CD02C85D89D00F643FB /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; };
 		7B6B3CD12C85D8EB00F643FB /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		7B6EB8782CD9F6B100244AE6 /* ExSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EB8772CD9F6B100244AE6 /* ExSequence.swift */; };
+		7B6EB8E32CDDD9EC00244AE6 /* ScrollOffsetKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EB8E22CDDD9EC00244AE6 /* ScrollOffsetKey.swift */; };
 		7BA3F7C52CAF92FC003EF15A /* CreditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C42CAF92FC003EF15A /* CreditView.swift */; };
 		7BA3F7C72CAF937F003EF15A /* CreditViewFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */; };
 		7BA3F7CA2CAFA010003EF15A /* FirstMeritView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C92CAFA010003EF15A /* FirstMeritView.swift */; };
@@ -318,6 +319,7 @@
 		7B6A07012CB93B9600D7BBAE /* SecretConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretConst.swift; sourceTree = "<group>"; };
 		7B6B3CD62C85E16000F643FB /* GuideU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideU.entitlements; sourceTree = "<group>"; };
 		7B6EB8772CD9F6B100244AE6 /* ExSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExSequence.swift; sourceTree = "<group>"; };
+		7B6EB8E22CDDD9EC00244AE6 /* ScrollOffsetKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollOffsetKey.swift; sourceTree = "<group>"; };
 		7BA3F7C42CAF92FC003EF15A /* CreditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditView.swift; sourceTree = "<group>"; };
 		7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewFeature.swift; sourceTree = "<group>"; };
 		7BA3F7C92CAFA010003EF15A /* FirstMeritView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMeritView.swift; sourceTree = "<group>"; };
@@ -947,6 +949,7 @@
 				DF8A2D6E2C8B117B0078F222 /* WKWebHosting.swift */,
 				7B26657A2C929F0F000A483A /* MarqueeTextView.swift */,
 				7B0D63902CA13C1F00A9A071 /* ShimmerAnimation.swift */,
+				7B6EB8E22CDDD9EC00244AE6 /* ScrollOffsetKey.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -1423,6 +1426,7 @@
 				7B1E438E2CCF6EB800DD1A42 /* ThreadCheckable.swift in Sources */,
 				DF1DECD12C7D79370098F761 /* CharacterRepository.swift in Sources */,
 				7BDB19682CC24192004F5F1B /* MeritFeature.swift in Sources */,
+				7B6EB8E32CDDD9EC00244AE6 /* ScrollOffsetKey.swift in Sources */,
 				7B0D63952CA271DE00A9A071 /* CurrentColorModeCase.swift in Sources */,
 				7BC2CB532C9838AF00309B9B /* SettingView.swift in Sources */,
 				7B0D63912CA13C1F00A9A071 /* ShimmerAnimation.swift in Sources */,
