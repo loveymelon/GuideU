@@ -141,7 +141,7 @@ struct MorePersonView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
                 
-                hiddenView
+                ScrollOffsetHiddenView()
                 
                 headerView()
                     .frame(height: 164)
@@ -204,7 +204,6 @@ struct MorePersonView: View {
             }
         }
         .onPreferenceChange(ScrollOffsetKey.self) { value in
-            print("ScrollOffsetKey", value)
             offsetY = -value
         }
         .onChange(of: offsetY) { newValue in
@@ -398,18 +397,6 @@ struct MorePersonView: View {
         .clipped()
         .opacity(0.22)
         
-    }
-    
-    private var hiddenView: some View {
-        GeometryReader { proxy in
-            let offsetY = proxy.frame(in: .global).origin.y
-            Color.clear
-                .preference(
-                    key: ScrollOffsetKey.self,
-                    value: offsetY
-                )
-        }
-        .frame(height: 0)
     }
 }
 

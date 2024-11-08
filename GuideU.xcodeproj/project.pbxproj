@@ -100,6 +100,7 @@
 		7B6B3CD12C85D8EB00F643FB /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 7B6B3CCF2C85D89D00F643FB /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		7B6EB8782CD9F6B100244AE6 /* ExSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EB8772CD9F6B100244AE6 /* ExSequence.swift */; };
 		7B6EB8E32CDDD9EC00244AE6 /* ScrollOffsetKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EB8E22CDDD9EC00244AE6 /* ScrollOffsetKey.swift */; };
+		7B6EB8E52CDDDD7700244AE6 /* ScrollOffsetHiddenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6EB8E42CDDDD7700244AE6 /* ScrollOffsetHiddenView.swift */; };
 		7BA3F7C52CAF92FC003EF15A /* CreditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C42CAF92FC003EF15A /* CreditView.swift */; };
 		7BA3F7C72CAF937F003EF15A /* CreditViewFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */; };
 		7BA3F7CA2CAFA010003EF15A /* FirstMeritView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA3F7C92CAFA010003EF15A /* FirstMeritView.swift */; };
@@ -320,6 +321,7 @@
 		7B6B3CD62C85E16000F643FB /* GuideU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideU.entitlements; sourceTree = "<group>"; };
 		7B6EB8772CD9F6B100244AE6 /* ExSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExSequence.swift; sourceTree = "<group>"; };
 		7B6EB8E22CDDD9EC00244AE6 /* ScrollOffsetKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollOffsetKey.swift; sourceTree = "<group>"; };
+		7B6EB8E42CDDDD7700244AE6 /* ScrollOffsetHiddenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollOffsetHiddenView.swift; sourceTree = "<group>"; };
 		7BA3F7C42CAF92FC003EF15A /* CreditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditView.swift; sourceTree = "<group>"; };
 		7BA3F7C62CAF937F003EF15A /* CreditViewFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewFeature.swift; sourceTree = "<group>"; };
 		7BA3F7C92CAFA010003EF15A /* FirstMeritView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMeritView.swift; sourceTree = "<group>"; };
@@ -950,6 +952,7 @@
 				7B26657A2C929F0F000A483A /* MarqueeTextView.swift */,
 				7B0D63902CA13C1F00A9A071 /* ShimmerAnimation.swift */,
 				7B6EB8E22CDDD9EC00244AE6 /* ScrollOffsetKey.swift */,
+				7B6EB8E42CDDDD7700244AE6 /* ScrollOffsetHiddenView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -1440,6 +1443,7 @@
 				7B1581872C6A476200599E7C /* GuideUApp.swift in Sources */,
 				7B1581FD2C6CF2AF00599E7C /* MemeDTO.swift in Sources */,
 				7B1E441E2CD2063700DD1A42 /* ViewWrappingUIKitCellView.swift in Sources */,
+				7B6EB8E52CDDDD7700244AE6 /* ScrollOffsetHiddenView.swift in Sources */,
 				DF07CFF92CB92DDC005DB7EA /* ImageType.swift in Sources */,
 				7B1582562C745C7C00599E7C /* HeaderEntity.swift in Sources */,
 				7BACA3E02C7DB9EB008D4CFC /* GuideUSearchBarView.swift in Sources */,

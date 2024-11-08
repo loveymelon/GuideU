@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 import PopupView
 
-struct MoreCharacterView: View {
+struct MoreCharacterView: View, ThreadCheckable {
     
     @Perception.Bindable var store: StoreOf<MoreCharacterFeature>
     
@@ -141,10 +141,15 @@ extension MoreCharacterView {
         LazyVStack {
             ForEach(Array(store.state.videoInfos.enumerated()), id: \.element.id) { index, data in
                 MoreCharacterListView(setModel: data)
-                    .task {
-                        if index >= store.state.videoInfos.count - store.state.pageLimit {
-                            if store.state.currentData.listLoadTrigger {
-                                store.send(.viewEventType(.videoOnAppear(index)))
+                    .onAppear {
+                        let count = store.state.videoInfos.count
+                        let pageLimit = store.state.pageLimit
+                        let trigger = store.state.currentData.listLoadTrigger
+                        Task.detached {
+                            print("------_@-------")
+                            checkedMainThread()
+                            if index >= count - pageLimit && trigger {
+                                await store.send(.viewEventType(.videoOnAppear(index)))
                             }
                         }
                     }
